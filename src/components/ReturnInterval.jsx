@@ -7,10 +7,13 @@ import "react-datepicker/dist/react-datepicker.css";
 const ReturnInterval = props => {
   const { intervalType } = props;
   const [months, setMonths] = useState({});
+  const [dueDate, setDueDate] = useState();
   const isMonthly = intervalType === "monthly";
   const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
     null
   ); /** 3 months per quarter */
+
+  const getDueDate = (date) =>
 
   const handleDateChange = (date, monthIndex) => {
     const newMonths = { ...months };
@@ -27,21 +30,30 @@ const ReturnInterval = props => {
 
   return (
     <div className="">
-      <label htmlFor="">Month{isMonthly ? "" : "s"} for Return</label>
-      {monthsToSelect.map((month, monthIndex) => {
-        return (
-          <DatePicker
-            key={monthIndex}
-            selected={months[monthIndex]}
-            onChange={date => handleDateChange(date, monthIndex)}
-            selectsStart
-            // startDate={startDate}
-            // endDate={endDate}
-            dateFormat="MM/yyyy"
-            showMonthYearPicker
-          />
-        );
-      })}
+      <div className="form-controls">
+        <label htmlFor="">Month{isMonthly ? "" : "s"} for Return</label>
+        {monthsToSelect.map((month, monthIndex) => {
+          return (
+            <DatePicker
+              key={monthIndex}
+              selected={months[monthIndex]}
+              onChange={date => handleDateChange(date, monthIndex)}
+              selectsStart
+              // startDate={startDate}
+              // endDate={endDate}
+              dateFormat="MM/yyyy"
+              showMonthYearPicker
+            />
+          );
+        })}
+      </div>
+      <div className="information">
+        {dueDate && (
+          <p>
+            <span className="emphasize">Due Date</span>: {dueDate}
+          </p>
+        )}
+      </div>
     </div>
   );
 };
