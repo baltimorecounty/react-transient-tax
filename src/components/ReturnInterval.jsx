@@ -13,8 +13,6 @@ const ReturnInterval = props => {
     null
   ); /** 3 months per quarter */
 
-  const getDueDate = (date) =>
-
   const handleDateChange = (date, monthIndex) => {
     const newMonths = { ...months };
     newMonths[monthIndex] = date;
