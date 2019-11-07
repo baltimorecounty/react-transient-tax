@@ -5,7 +5,7 @@ import ReturnInterval from "./components/ReturnInterval";
 function App() {
   return (
     <div className="App">
-      <ReturnInterval intervalType="monthly" />
+      <ReturnInterval intervalType="quarterly" />
     </div>
   );
 }
