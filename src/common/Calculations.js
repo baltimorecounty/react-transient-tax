@@ -12,4 +12,12 @@ const CalulateInterest = (
   return taxCollected * interest * numberOfMonthsLate;
 };
 
-export { CalulateInterest };
+/**
+ * Calulate the penalty fee based on tax collected.
+ * @param {number} taxCollected dollar amount to base the penalty off of
+ * @param {number} penaltyFee penalty fee percentage as a decimal
+ */
+const CalculatePenalty = (taxCollected, penaltyFee = 0.1) =>
+  taxCollected * penaltyFee;
+
+export { CalulateInterest, CalculatePenalty };
