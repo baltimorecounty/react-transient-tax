@@ -25,7 +25,18 @@ describe("Get Due Date Status", () => {
     );
     expect(actual).toEqual({
       label: "Past Due",
-      message: "3 months"
+      message: "4 months"
+    });
+  });
+
+  test("should past due status, when the date of filing is past than the due date by 1 day", () => {
+    const actual = GetDueDateStatus(
+      new Date("July 1, 2019"),
+      new Date("September 1, 2019")
+    );
+    expect(actual).toEqual({
+      label: "Past Due",
+      message: "1 month"
     });
   });
 
@@ -37,6 +48,17 @@ describe("Get Due Date Status", () => {
     expect(actual).toEqual({
       label: "Days remaining until due",
       message: "16 days"
+    });
+  });
+
+  test("should days remaining status, when the date of filing is before than the due date by 1 day", () => {
+    const actual = GetDueDateStatus(
+      new Date("July 1, 2019"),
+      new Date("August 30, 2019")
+    );
+    expect(actual).toEqual({
+      label: "Days remaining until due",
+      message: "1 day"
     });
   });
 });
