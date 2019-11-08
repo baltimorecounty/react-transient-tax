@@ -6,6 +6,7 @@ import {
   format,
   startOfDay
 } from "date-fns";
+import { Labels } from "./Constants";
 const dateFormat = "MMMM d, yyyy";
 
 /**
@@ -42,7 +43,7 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
 
   if (dateDifference > 0) {
     return {
-      label: "Days remaining until due",
+      label: Labels.DaysRemaining,
       message: `${dateDifference} day${dateDifference === 1 ? "" : "s"}`
     };
   }
@@ -55,7 +56,7 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
     differenceInMonths(startDateOfFilingDate, dueDate) + 1;
 
   return {
-    label: "Past Due",
+    label: Labels.PastDue,
     message: `${monthDifference} month${monthDifference === 1 ? "" : "s"}`
   };
 };
