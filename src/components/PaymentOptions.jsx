@@ -1,6 +1,7 @@
 import React from "react";
-import { Formik, Form } from "formik";
-import { PaymentToggle, PaymentDirections } from "../common/Constants.js";
+import { Formik, Form, Field } from "formik";
+import { PaymentToggle, PaymentDirections } from "../common/Constants";
+import { RadioButton } from "../common/RadioButton";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
 const {
@@ -10,23 +11,34 @@ const {
   PaymentSecondToggleText
 } = PaymentToggle;
 
-const PaymentOptions = () => {
-  return (
-    <Formik>
-      <Form>
-        <div> {PaymentLabel}</div>
-        <input type="radio" name="payoption" value={PaymentFirstToggleValue}>
-          {PaymentFirstToggleText}
-        </input>
-        <br></br>
-        <input type="radio" name="payoption" value={PaymentSecondToggleValue}>
-          {PaymentSecondToggleText}
-        </input>
-        <br></br>
-        <div>{PaymentNote}</div>
-      </Form>
-    </Formik>
-  );
-};
+const PaymentOptions = () => (
+  <div>
+    <p>{PaymentLabel}</p>
+    <Formik
+      initialValues={{
+        radioGroup: ""
+      }}
+      render={({ values }) => (
+        <Form>
+          <Field
+            component={RadioButton}
+            name="paymentoption"
+            id="radioOption1"
+            label={PaymentFirstToggleText}
+            value={PaymentFirstToggleValue}
+          />
+          <Field
+            component={RadioButton}
+            name="paymentoption"
+            id="radioOption2"
+            label={PaymentSecondToggleText}
+            value={PaymentSecondToggleValue}
+          />
+          <p>{PaymentNote}</p>
+        </Form>
+      )}
+    />
+  </div>
+);
 
 export default PaymentOptions;
