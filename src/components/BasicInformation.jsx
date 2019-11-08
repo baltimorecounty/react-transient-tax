@@ -2,12 +2,11 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const initialValues={
-
+const initialValues = {
   accountNumber: "",
   businessName: "",
   address: ""
-}
+};
 const validationSchema = () => {
   return Yup.object().shape({
     accountNumber: Yup.string()
