@@ -1,7 +1,7 @@
 import React from "react";
 
 const RadioButton = ({
-  field: { name, value, onChange, onClick },
+  field: { name, value, onChange },
   id,
   label,
   className,
@@ -15,10 +15,9 @@ const RadioButton = ({
         type="radio"
         value={value}
         onChange={onChange}
-        onClick={onClick}
         {...props}
       />
-      <label>{label}</label>
+      <label htmlFor={id}>{label}</label>
     </div>
   );
 };

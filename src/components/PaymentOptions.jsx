@@ -5,6 +5,11 @@ import { RadioButton } from "../common/RadioButton";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
 
+const handleChange = changeEvent => {
+  const { name, value } = changeEvent.target;
+  console.log("input changed", name, value);
+};
+
 const PaymentOptions = () => (
   <div>
     <p>{PaymentLabel}</p>
@@ -20,6 +25,7 @@ const PaymentOptions = () => (
                 id={`radioButton-${key}`}
                 label={key}
                 value={value}
+                onChange={handleChange}
               />
             );
           })}
