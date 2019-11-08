@@ -3,7 +3,8 @@ import {
   differenceInDays,
   differenceInMonths,
   endOfMonth,
-  format
+  format,
+  startOfDay
 } from "date-fns";
 const dateFormat = "MMMM d, yyyy";
 
@@ -31,26 +32,31 @@ const GetFormattedDueDate = fillingDate =>
  * Gets a friendly message to let us know if the return is late
  * or there is some time left before the due date.
  * @param {date} filingForDate target date for the return
- * @param {date} dateOfFiling the date of the return, typically this will be your system time
+ * @param {date} dateOfFilingDate the date of the return, typically this will be your system time
  * @returns {object} label and message to describe the status of the due date
  */
-const GetDueDateStatus = (filingForDate, dateOfFiling) => {
-  const dueDate = GetDueDate(filingForDate);
-  const dateDifference = differenceInDays(dueDate, dateOfFiling);
+const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
+  const dueDate = startOfDay(GetDueDate(filingForDate));
+  const startDateOfFilingDate = startOfDay(dateOfFilingDate);
+  const dateDifference = differenceInDays(dueDate, startDateOfFilingDate);
 
   if (dateDifference > 0) {
     return {
       label: "Days remaining until due",
-      message: `${dateDifference} days`
+      message: `${dateDifference} day${dateDifference === 1 ? "" : "s"}`
     };
   }
 
-  /** Reverse dateOfFiling and dueDate from above to give us a positive number */
-  const monthDifference = differenceInMonths(dateOfFiling, dueDate);
+  /**
+   * Reverse dateOfFilingDate and dueDate from above to give us a positive number
+   * Add 1 to ensure that if it's 1 day after the due date it is considered 1 month late
+   */
+  const monthDifference =
+    differenceInMonths(startDateOfFilingDate, dueDate) + 1;
 
   return {
     label: "Past Due",
-    message: `${monthDifference} months`
+    message: `${monthDifference} month${monthDifference === 1 ? "" : "s"}`
   };
 };
 
