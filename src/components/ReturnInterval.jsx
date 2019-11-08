@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import { addMonths } from "date-fns";
-import { GetDueDate } from "../common/DatesUtilities";
+import {
+  GetFormattedDueDate,
+  GetDueDateStatus
+} from "../common/DatesUtilities";
 import "react-datepicker/dist/react-datepicker.css";
 
 const ReturnInterval = props => {
@@ -14,6 +17,7 @@ const ReturnInterval = props => {
   const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
     null
   ); /** 3 months per quarter */
+  const startDate = new Date();
 
   /**
    * Handle any of the month / year selection changes
@@ -36,8 +40,10 @@ const ReturnInterval = props => {
       lastFilingMonth = finalMonthInQuarter;
     }
 
-    const dueDate = GetDueDate(lastFilingMonth);
+    const dueDate = GetFormattedDueDate(lastFilingMonth);
+    const status = GetDueDateStatus(lastFilingMonth, new Date());
 
+    setStatus(status);
     setDueDate(dueDate);
     setMonths(newMonths);
   };
@@ -46,20 +52,17 @@ const ReturnInterval = props => {
     <div className="">
       <div className="form-controls">
         <label htmlFor="">Month{isMonthly ? "" : "s"} for Return</label>
-        {monthsToSelect.map((month, monthIndex) => {
-          return (
-            <DatePicker
-              key={monthIndex}
-              selected={months[monthIndex]}
-              onChange={date => handleDateChange(date, monthIndex)}
-              selectsStart
-              // startDate={startDate}
-              // endDate={endDate}
-              dateFormat="MM/yyyy"
-              showMonthYearPicker
-            />
-          );
-        })}
+        {monthsToSelect.map((month, monthIndex) => (
+          <DatePicker
+            key={monthIndex}
+            selected={months[monthIndex]}
+            onChange={date => handleDateChange(date, monthIndex)}
+            selectsStart
+            startDate={startDate}
+            dateFormat="MM/yyyy"
+            showMonthYearPicker
+          />
+        ))}
       </div>
       <div className="information">
         {dueDate && (
