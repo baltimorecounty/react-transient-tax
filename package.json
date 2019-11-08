@@ -2,6 +2,7 @@
   "name": "react-transient-tax",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://baltimorecounty.github.io/react-transient-tax",
   "dependencies": {
     "date-fns": "^2.7.0",
     "formik": "^2.0.3",
@@ -10,6 +11,7 @@
     "react": "^16.11.0",
     "react-datepicker": "^2.9.6",
     "react-dom": "^16.11.0",
+    "react-lodash": "^0.1.2",
     "react-scripts": "^3.2.0",
     "yup": "^0.27.0"
   },
@@ -17,7 +19,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
   }
 }
