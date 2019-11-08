@@ -1,6 +1,6 @@
 import React from "react";
 
-export const RadioButton = ({
+const RadioButton = ({
   field: { name, value, onChange, onClick },
   id,
   label,
@@ -23,4 +23,4 @@ export const RadioButton = ({
   );
 };
 
-export default RadioButton;
+export { RadioButton };

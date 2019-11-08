@@ -1,15 +1,23 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import { PaymentToggle, PaymentDirections } from "../common/Constants";
+import { PaymentDirections, PaymentInterval } from "../common/Constants";
 import { RadioButton } from "../common/RadioButton";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
-const {
-  PaymentFirstToggleValue,
-  PaymentSecondToggleValue,
-  PaymentFirstToggleText,
-  PaymentSecondToggleText
-} = PaymentToggle;
+
+const getToggleName = () => {
+  Object.entries(PaymentInterval).forEach(([key, value]) => {
+    return (
+      <Field
+        component={RadioButton}
+        name="radioGroup"
+        id={`radioButton-${key}`}
+        label={key}
+        value={value}
+      />
+    );
+  });
+};
 
 const PaymentOptions = () => (
   <div>
@@ -17,20 +25,7 @@ const PaymentOptions = () => (
     <Formik
       render={() => (
         <Form>
-          <Field
-            component={RadioButton}
-            name="paymentoption"
-            id="radioOption1"
-            label={PaymentFirstToggleText}
-            value={PaymentFirstToggleValue}
-          />
-          <Field
-            component={RadioButton}
-            name="paymentoption"
-            id="radioOption2"
-            label={PaymentSecondToggleText}
-            value={PaymentSecondToggleValue}
-          />
+          {getToggleName()}
           <p>{PaymentNote}</p>
         </Form>
       )}

@@ -1,11 +1,9 @@
-export const PaymentToggle = {
-  PaymentFirstToggleValue: 1,
-  PaymentSecondToggleValue: 2,
-  PaymentFirstToggleText: "Monthly",
-  PaymentSecondToggleText: "Quarterly"
+const PaymentInterval = {
+  Monthly: 2,
+  Quarterly: 1
 };
 
-export const PaymentDirections = {
+const PaymentDirections = {
   PaymentLabel: "Do you file your return....",
   PaymentNote:
     "Note: Must select the interval in which you have selected previously unless it's a new year."
@@ -16,4 +14,4 @@ const RatesAndFees = {
   InterestRate: 0.01 // 1%
 };
 
-export { RatesAndFees };
+export { RatesAndFees, PaymentDirections, PaymentInterval };
