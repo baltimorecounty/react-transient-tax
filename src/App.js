@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.scss";
+import PaymentOptions from "./components/PaymentOptions";
 import BasicInformation from "./components/BasicInformation";
 
 function App() {
@@ -7,8 +8,9 @@ function App() {
     <div className="App">
       <header className="App-header"></header>
       <BasicInformation />
+      <PaymentOptions />
     </div>
   );
 }
 
-export default (App);
+export default App;
