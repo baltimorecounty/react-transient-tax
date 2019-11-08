@@ -1,20 +1,18 @@
-export const PaymentToggle = [
-  { key: "FirstToggleOption", value: "1" },
-  { key: "SecondToggleOption", value: "2" },
-  { key: "FirstToggleOptionText", value: "Monthly" },
-  { key: "SecondToggleOptionText", value: "Quarterly" }
-];
+const PaymentToggle = {
+  PaymentFirstToggleValue: 1,
+  PaymentSecondToggleValue: 2,
+  PaymentFirstToggleText: "Monthly",
+  PaymentSecondToggleText: "Quarterly"
+};
 
-export const PaymentDirections = [
-  { key: "Label", value: "Do you file your return...." },
-  {
-    key: "Note",
-    value:
-      "Note: Must select the interval in which you have selected previously unless it's a new year."
-  }
-];
+const PaymentDirections = {
+  PaymentLabel: "Do you file your return....",
 
-export default PaymentToggle;
+  PaymentNote:
+    "Note: Must select the interval in which you have selected previously unless it's a new year."
+};
+
+export { PaymentToggle, PaymentDirections };
 
 const RatesAndFees = {
   PenaltyRate: 0.1, // 10%

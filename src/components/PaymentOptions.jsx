@@ -1,25 +1,14 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { returnConstantItems } from "../common/ReturnConstantValues.js";
+import { PaymentToggle, PaymentDirections } from "../common/Constants.js";
 
-const PaymentLabel = returnConstantItems("PaymentDirections", "Label");
-const PaymentNote = returnConstantItems("PaymentDirections", "Note");
-const PaymentFirstToggleValue = returnConstantItems(
-  "PaymentToggle",
-  "FirstToggleOption"
-);
-const PaymentSecondToggleValue = returnConstantItems(
-  "PaymentToggle",
-  "SecondToggleOption"
-);
-const PaymentFirstToggleText = returnConstantItems(
-  "PaymentToggle",
-  "FirstToggleOptionText"
-);
-const PaymentSecondToggleText = returnConstantItems(
-  "PaymentToggle",
-  "SecondToggleOptionText"
-);
+const { PaymentLabel, PaymentNote } = PaymentDirections;
+const {
+  PaymentFirstToggleValue,
+  PaymentSecondToggleValue,
+  PaymentFirstToggleText,
+  PaymentSecondToggleText
+} = PaymentToggle;
 
 const PaymentOptions = () => {
   return (

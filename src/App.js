@@ -20,9 +20,6 @@ function App() {
           Learn React
         </a>
       </header>
-      <div>
-        <PaymentOptions />
-      </div>
     </div>
   );
 }
