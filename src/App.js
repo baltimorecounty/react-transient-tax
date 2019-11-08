@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.scss";
-import BasicInformation from "./BasicInformation";
+import BasicInformation from "./components/BasicInformation";
 
 function App() {
   return (
@@ -11,4 +11,4 @@ function App() {
   );
 }
 
-export default App;
+export default (App);
