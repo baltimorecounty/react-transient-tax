@@ -7,6 +7,7 @@ import {
   GetDueDateStatus
 } from "../common/DatesUtilities";
 import "react-datepicker/dist/react-datepicker.css";
+import { Labels } from "../common/Constants";
 
 const ReturnInterval = props => {
   const { intervalType } = props;
@@ -48,36 +49,75 @@ const ReturnInterval = props => {
     setMonths(newMonths);
   };
 
+  /**
+   * Gets a friendly label for each month
+   * @param {number} monthIndex zero based representation of which month in the sequence it is
+   */
+  const getMonthLabel = monthIndex => {
+    if (isMonthly) {
+      return "Month";
+    }
+    switch (monthIndex) {
+      case 0: {
+        return "1st Month";
+      }
+      case 1: {
+        return "2nd Month";
+      }
+      case 2: {
+        return "3rd Month";
+      }
+      default: {
+        return;
+      }
+    }
+  };
+
   return (
-    <div className="">
-      <div className="form-controls">
-        <label htmlFor="">Month{isMonthly ? "" : "s"} for Return</label>
-        {monthsToSelect.map((month, monthIndex) => (
-          <DatePicker
-            key={monthIndex}
-            selected={months[monthIndex]}
-            onChange={date => handleDateChange(date, monthIndex)}
-            selectsStart
-            startDate={startDate}
-            dateFormat="MM/yyyy"
-            showMonthYearPicker
-          />
-        ))}
+    <div className="tt_form-section">
+      <div className="tt_form-group flex-end">
+        <label htmlFor="month-date-picker-0">
+          Month{isMonthly ? "" : "s"} for Return
+        </label>
+        <div className="tt_month-pickers">
+          {monthsToSelect.map((month, monthIndex) => {
+            const id = `month-date-picker-${monthIndex}`;
+            return (
+              <div className="tt_month-picker">
+                <label htmlFor={id}>{getMonthLabel(monthIndex)}</label>
+                <DatePicker
+                  key={monthIndex}
+                  id={id}
+                  selected={months[monthIndex]}
+                  onChange={date => handleDateChange(date, monthIndex)}
+                  selectsStart
+                  startDate={startDate}
+                  dateFormat="MM/yyyy"
+                  showMonthYearPicker
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <div className="information">
-        {dueDate && (
+      {dueDate && status.label && (
+        <div className="tt_form-group">
           <p>
-            <span className="emphasize">Due Date</span>: {dueDate}
+            <span className="emphasize-text">{Labels.DueDate}</span>: {dueDate}
           </p>
-        )}
-        {status.label && status.message && (
           <p>
             <p>
-              <span class="emphasize">{status.label}</span>: {status.message}
+              {status.label === Labels.PastDue && (
+                <i
+                  class="fas fa-exclamation-circle tt_past-due-icon"
+                  aria-hidden="true"
+                ></i>
+              )}
+              <span>{status.label}</span>: {status.message}
             </p>
           </p>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
