@@ -27,6 +27,13 @@ const GetDueDate = fillingDate => {
   return endOfMonth(nextMonth);
 };
 
+/**
+ * Gets a friendly message to let us know if the return is late
+ * or there is some time left before the due date.
+ * @param {date} filingForDate target date for the return
+ * @param {date} dateOfFiling the date of the return, typically this will be your system time
+ * @returns {object} label and message to describe the status of the due date
+ */
 const GetDueDateStatus = (filingForDate, dateOfFiling) => {
   const dueDate = GetDueDate(filingForDate);
   const dateDifference = differenceInDays(dueDate, dateOfFiling);
