@@ -1,4 +1,10 @@
-import { addMonths, endOfMonth, format } from "date-fns";
+import {
+  addMonths,
+  differenceInDays,
+  differenceInMonths,
+  endOfMonth,
+  format
+} from "date-fns";
 const dateFormat = "MMMM d, yyyy";
 
 /**
@@ -7,9 +13,31 @@ const dateFormat = "MMMM d, yyyy";
  * @param {date} date date to base the due date calculation string
  * @returns {string} friendly version of the due date
  */
+const GetFormattedDueDate = date => format(GetDueDate(date), dateFormat);
+
 const GetDueDate = date => {
   const nextMonth = addMonths(date, 1);
-  return format(endOfMonth(nextMonth), dateFormat);
+  return endOfMonth(nextMonth);
 };
 
-export { GetDueDate };
+const GetDueDateStatus = (filingForDate, dateOfFiling) => {
+  const dueDate = GetDueDate(filingForDate);
+  const dateDifference = differenceInDays(dueDate, dateOfFiling);
+
+  if (dateDifference > 0) {
+    return {
+      label: "Days remaining until due",
+      message: `${dateDifference} days`
+    };
+  }
+
+  /** Reverse dateOfFiling and dueDate from above to give us a positive number */
+  const monthDifference = differenceInMonths(dateOfFiling, dueDate);
+
+  return {
+    label: "Past Due",
+    message: `${monthDifference} months`
+  };
+};
+
+export { GetDueDate, GetFormattedDueDate, GetDueDateStatus };
