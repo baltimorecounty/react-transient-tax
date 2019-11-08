@@ -11,21 +11,21 @@ const dateFormat = "MMMM d, yyyy";
  * Get the due date based on a given date.
  * The due date is the end of the next month.
  * @param {date} fillingDate date to base the due date calculation string
- * @returns {string} friendly version of the due date
- */
-const GetFormattedDueDate = fillingDate =>
-  format(GetDueDate(fillingDate), dateFormat);
-
-/**
- * Get the due date based on a given date.
- * The due date is the end of the next month.
- * @param {date} fillingDate date to base the due date calculation string
  * @returns {date} date version of the due date
  */
 const GetDueDate = fillingDate => {
   const nextMonth = addMonths(fillingDate, 1);
   return endOfMonth(nextMonth);
 };
+
+/**
+ * Get the due date based on a given date.
+ * The due date is the end of the next month.
+ * @param {date} fillingDate date to base the due date calculation string
+ * @returns {string} friendly version of the due date
+ */
+const GetFormattedDueDate = fillingDate =>
+  format(GetDueDate(fillingDate), dateFormat);
 
 /**
  * Gets a friendly message to let us know if the return is late
