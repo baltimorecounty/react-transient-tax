@@ -83,10 +83,9 @@ const ReturnInterval = props => {
           {monthsToSelect.map((month, monthIndex) => {
             const id = `month-date-picker-${monthIndex}`;
             return (
-              <div className="tt_month-picker">
+              <div className="tt_month-picker" key={monthIndex}>
                 <label htmlFor={id}>{getMonthLabel(monthIndex)}</label>
                 <DatePicker
-                  key={monthIndex}
                   id={id}
                   selected={months[monthIndex]}
                   onChange={date => handleDateChange(date, monthIndex)}
@@ -106,15 +105,13 @@ const ReturnInterval = props => {
             <span className="emphasize-text">{Labels.DueDate}</span>: {dueDate}
           </p>
           <p>
-            <p>
-              {status.label === Labels.PastDue && (
-                <i
-                  class="fas fa-exclamation-circle tt_past-due-icon"
-                  aria-hidden="true"
-                ></i>
-              )}
-              <span>{status.label}</span>: {status.message}
-            </p>
+            {status.label === Labels.PastDue && (
+              <i
+                className="fas fa-exclamation-circle tt_past-due-icon"
+                aria-hidden="true"
+              ></i>
+            )}
+            <span>{status.label}</span>: {status.message}
           </p>
         </div>
       )}
