@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "formik": "^2.0.3",
     "node-sass": "^4.13.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-scripts": "^3.2.0"
+    "react-lodash": "^0.1.2",
+    "react-scripts": "^3.2.0",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
