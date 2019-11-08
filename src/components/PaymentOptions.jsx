@@ -5,27 +5,24 @@ import { RadioButton } from "../common/RadioButton";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
 
-const getToggleName = () => {
-  Object.entries(PaymentInterval).forEach(([key, value]) => {
-    return (
-      <Field
-        component={RadioButton}
-        name="radioGroup"
-        id={`radioButton-${key}`}
-        label={key}
-        value={value}
-      />
-    );
-  });
-};
-
 const PaymentOptions = () => (
   <div>
     <p>{PaymentLabel}</p>
     <Formik
       render={() => (
         <Form>
-          {getToggleName()}
+          {Object.entries(PaymentInterval).map(([key, value]) => {
+            return (
+              <Field
+                key={key}
+                component={RadioButton}
+                name="paymentoption"
+                id={`radioButton-${key}`}
+                label={key}
+                value={value}
+              />
+            );
+          })}
           <p>{PaymentNote}</p>
         </Form>
       )}
