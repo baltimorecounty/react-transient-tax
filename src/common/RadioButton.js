@@ -18,7 +18,7 @@ export const RadioButton = ({
         onClick={onClick}
         {...props}
       />
-      <label htmlFor={id}>{label}</label>
+      <label>{label}</label>
     </div>
   );
 };

@@ -15,10 +15,7 @@ const PaymentOptions = () => (
   <div>
     <p>{PaymentLabel}</p>
     <Formik
-      initialValues={{
-        radioGroup: ""
-      }}
-      render={({ values }) => (
+      render={() => (
         <Form>
           <Field
             component={RadioButton}
