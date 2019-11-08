@@ -4,7 +4,7 @@ import ReturnInterval from "./components/ReturnInterval";
 
 function App() {
   return (
-    <div className="App">
+    <div className="tt_app">
       <ReturnInterval intervalType="quarterly" />
     </div>
   );
