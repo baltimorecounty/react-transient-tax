@@ -7,7 +7,6 @@ export const PaymentToggle = {
 
 export const PaymentDirections = {
   PaymentLabel: "Do you file your return....",
-
   PaymentNote:
     "Note: Must select the interval in which you have selected previously unless it's a new year."
 };
