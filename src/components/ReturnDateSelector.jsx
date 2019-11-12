@@ -126,7 +126,7 @@ const ReturnInterval = props => {
 
 ReturnInterval.propTypes = {
   /** 'monthly' or 'quarterly' which allows us to control the ui accordingly  */
-  intervalType: PropTypes.string
+  paymentInterval: PropTypes.string
 };
 
 export default ReturnInterval;
