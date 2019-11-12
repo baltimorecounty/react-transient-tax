@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Labels } from "../common/Constants";
+import { ParseCurrency } from "../common/ParseCurrency";
 import CurrencyInput from "react-currency-input";
 
 const {
@@ -17,7 +18,7 @@ const Exemptions = props => {
   const handleExemptionChange = onChange => {
     const { target } = onChange;
     const { value } = target;
-    const currentValue = parseFloat(value.replace(/[,$]/g, ""));
+    const currentValue = ParseCurrency(value);
 
     if (target.id === "ExemptionTransient") {
       setExemptionTransient(currentValue);
