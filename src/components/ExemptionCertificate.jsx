@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ExemptionSelector from "./ExemptionSelector";
 import ExemptionsList from "./ExemptionList";
 import { SaveExemption } from "../services/ApiService";
+import { connect } from "formik";
 
 const ExemptionCertificate = props => {
   const [exemption, setExemption] = useState({});
@@ -44,4 +45,4 @@ const ExemptionCertificate = props => {
   );
 };
 
-export default ExemptionCertificate;
+export default connect(ExemptionCertificate);
