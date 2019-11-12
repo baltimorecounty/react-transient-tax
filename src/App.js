@@ -1,16 +1,14 @@
 import React from "react";
+import { HashRouter as Router, Route } from "react-router-dom";
 import "./App.scss";
-import PaymentOptions from "./components/PaymentOptions";
-import BasicInformation from "./components/BasicInformation";
-import ReturnDateSelector from "./components/ReturnDateSelector";
+import TransientTaxForm from "./components/TransientTaxForm";
 
 function App() {
   return (
     <div className="tt_app">
-      <header className="App-header"></header>
-      <BasicInformation />
-      <ReturnDateSelector intervalType="quarterly" />
-      <PaymentOptions />
+      <Router>
+        <Route exact path="/" component={TransientTaxForm} />
+      </Router>
     </div>
   );
 }
