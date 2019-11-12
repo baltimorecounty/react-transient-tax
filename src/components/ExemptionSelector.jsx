@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Field } from "formik";
 import { RadioButton } from "../common/RadioButton";
 import { ExemptionTypes } from "../common/Constants";
-import DateToFromSelector from "./DateToFromSelector";
+import DateRangeSelector from "./DateRangeSelector";
 import ExemptionsList from "./ExemptionList";
 
 const ExemptionSelector = props => {
@@ -17,8 +17,6 @@ const ExemptionSelector = props => {
     const { id, name, value } = changeEvent.target;
     const label = document.querySelectorAll(`label[for=${id}]`);
     const labelText = label[0] ? label[0].textContent : "";
-
-    console.log(id, label[0]);
 
     setExemption({
       ...exemption,
@@ -53,7 +51,7 @@ const ExemptionSelector = props => {
           />
         );
       })}
-      <DateToFromSelector handleChange={handleExemptionDateChange} />
+      <DateRangeSelector handleChange={handleExemptionDateChange} />
       <button onClick={addExemption} type="button">
         Add Exemption
       </button>

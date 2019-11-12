@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import DateToFromSelector from "./DateToFromSelector";
+import DateRangeSelector from "./DateRangeSelector";
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<DateToFromSelector />, div);
+  ReactDOM.render(<DateRangeSelector />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

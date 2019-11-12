@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 
-const DateToFromSelector = props => {
+const DateRangeSelector = props => {
   const { name, handleChange = () => {} } = props;
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
@@ -41,4 +41,4 @@ const DateToFromSelector = props => {
   );
 };
 
-export default DateToFromSelector;
+export default DateRangeSelector;
