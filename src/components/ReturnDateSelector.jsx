@@ -6,7 +6,6 @@ import {
   GetFormattedDueDate,
   GetDueDateStatus
 } from "../common/DatesUtilities";
-import "react-datepicker/dist/react-datepicker.css";
 import { Labels, PaymentInterval } from "../common/Constants";
 
 const ReturnInterval = props => {
