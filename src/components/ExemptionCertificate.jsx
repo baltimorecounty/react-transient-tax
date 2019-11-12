@@ -3,6 +3,7 @@ import ExemptionSelector from "./ExemptionSelector";
 import ExemptionsList from "./ExemptionList";
 
 const ExemptionCertificate = props => {
+  const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
 
   const addExemption = exemption => {
@@ -11,6 +12,10 @@ const ExemptionCertificate = props => {
       ...{ id: exemptions.length }
     };
     setExemptions([...exemptions, indexedExemption]);
+  };
+
+  const editExemption = exemptionToEdit => {
+    setExemption({ ...exemptionToEdit });
   };
 
   const removeExemption = exemptionId => {
@@ -24,10 +29,11 @@ const ExemptionCertificate = props => {
         be) furnished for the exclusive use of and will be paid by or from the
         funds of:
       </p>
-      <ExemptionSelector onExemptionAdd={addExemption} />
+      <ExemptionSelector exemption={exemption} onExemptionAdd={addExemption} />
       {exemptions.length > 0 && (
         <ExemptionsList
           exemptions={exemptions}
+          handleEditClick={editExemption}
           handleRemoveClick={removeExemption}
         />
       )}
