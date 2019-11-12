@@ -5,12 +5,23 @@ import { DefaultDateFormat } from "../common/DatesUtilities";
 const ExemptionListItem = props => {
   const {
     exemptionId,
+    exemptionType,
     label,
     fromDate,
     toDate,
     handleEditClick,
     handleRemoveClick
   } = props;
+
+  const editItem = () => {
+    handleEditClick({
+      id: exemptionId,
+      exemptionType,
+      label,
+      fromDate,
+      toDate
+    });
+  };
 
   const removeItem = () => {
     handleRemoveClick(exemptionId);
@@ -21,7 +32,7 @@ const ExemptionListItem = props => {
       {label} - From: {format(fromDate, DefaultDateFormat)} To:{" "}
       {format(toDate, DefaultDateFormat)}
       {handleEditClick && (
-        <button type="button" onClick={handleEditClick}>
+        <button type="button" onClick={editItem}>
           Edit
         </button>
       )}
