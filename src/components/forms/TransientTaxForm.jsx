@@ -57,7 +57,8 @@ const TransientTaxForm = props => (
           {/* End of Basic Information Section */}
           <PaymentOptions />
           <ReturnDateSelector paymentInterval={paymentInterval} />
-          <TaxExemptions />><button type="submit">Submit</button>
+          <TaxExemptions />
+          <button type="submit">Submit</button>
         </Form>
       );
     }}
