@@ -3,7 +3,6 @@ import { HashRouter as Router, Route } from "react-router-dom";
 import "./App.scss";
 import TransientTaxForm from "./components/TransientTaxForm";
 
-//import GrossOccupancy from "./components/GrossOccupancy";
 
 function App() {
   return (
