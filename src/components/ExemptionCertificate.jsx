@@ -14,15 +14,7 @@ const ExemptionCertificate = props => {
   };
 
   const removeExemption = exemptionId => {
-    const filteredExemptions = exemptions.filter(
-      exemption =>
-        console.log(exemption.id, exemptionId, exemption.id !== exemptionId) ||
-        exemption.id !== exemptionId
-    );
-
-    //console.log(filteredExemptions);
-
-    setExemptions(filteredExemptions);
+    setExemptions(exemptions.filter(exemption => exemption.id !== exemptionId));
   };
 
   return (
