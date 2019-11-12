@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ExemptionSelector from "./ExemptionSelector";
 import ExemptionsList from "./ExemptionList";
 import { SaveExemption } from "../services/ApiService";
 import { connect } from "formik";
 
 const ExemptionCertificate = props => {
+  const { formik } = props;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
+
+  useEffect(() => {
+    formik.setValues({ exemptions });
+  }, [exemptions, formik]);
 
   const addExemption = exemption => {
     const savedExemption = SaveExemption(exemption);
