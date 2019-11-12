@@ -10,30 +10,24 @@ const handleChange = changeEvent => {
   console.log("input changed", name, value);
 };
 
-const PaymentOptions = () => (
-  <div>
+const PaymentOptions = props => (
+  <React.Fragment>
     <p>{PaymentLabel}</p>
-    <Formik
-      render={() => (
-        <Form>
-          {Object.entries(PaymentInterval).map(([key, value]) => {
-            return (
-              <Field
-                key={key}
-                component={RadioButton}
-                name="paymentoption"
-                id={`radioButton-${key}`}
-                label={key}
-                value={value}
-                onChange={handleChange}
-              />
-            );
-          })}
-          <p>{PaymentNote}</p>
-        </Form>
-      )}
-    />
-  </div>
+    {Object.entries(PaymentInterval).map(([key, value]) => {
+      return (
+        <Field
+          key={key}
+          component={RadioButton}
+          name="paymentOption"
+          id={`radioButton-${key}`}
+          label={key}
+          value={value}
+          onChange={handleChange}
+        />
+      );
+    })}
+    <p>{PaymentNote}</p>
+  </React.Fragment>
 );
 
 export default PaymentOptions;
