@@ -22,22 +22,28 @@ const Labels = {
 
 const ExemptionTypes = [
   {
+    id: 1,
     label: "Non-Transient",
     hint: "Sleeping accommodations from 90 consecutive days"
   },
   {
+    id: 2,
     label: "U.S. Government"
   },
   {
+    id: 3,
     label: "State of Maryland"
   },
   {
+    id: 4,
     label: "Baltimore County, MD"
   },
   {
+    id: 5,
     label: "Other Jurisdictions"
   },
   {
+    id: 6,
     label: "Foreign Government"
   }
 ];
