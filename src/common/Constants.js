@@ -17,7 +17,13 @@ const RatesAndFees = {
 const Labels = {
   DueDate: "Due Date",
   PastDue: "Past Due",
-  DaysRemaining: "Days remaining until due"
+  DaysRemaining: "Days remaining until due",
+  ExemptionTitle: "Exemptions",
+  ExemptionOption1:
+    "Room Rental Collection from Not Transients (Accommodations from more than 90 days)",
+  ExemptionOption2:
+    "Federal, State or County official or employee when on official business",
+  ExemptionTotal: "Total Exemptions"
 };
 
 export { Labels, RatesAndFees, PaymentDirections, PaymentInterval };
