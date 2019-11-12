@@ -1,31 +1,23 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Field } from "formik";
 import { PaymentDirections, PaymentInterval } from "../common/Constants";
 import { RadioButton } from "../common/RadioButton";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
 
-const handleChange = changeEvent => {
-  const { name, value } = changeEvent.target;
-  console.log("input changed", name, value);
-};
-
 const PaymentOptions = props => (
   <React.Fragment>
     <p>{PaymentLabel}</p>
-    {Object.entries(PaymentInterval).map(([key, value]) => {
-      return (
-        <Field
-          key={key}
-          component={RadioButton}
-          name="paymentOption"
-          id={`radioButton-${key}`}
-          label={key}
-          value={value}
-          onChange={handleChange}
-        />
-      );
-    })}
+    {Object.entries(PaymentInterval).map(([key, value]) => (
+      <Field
+        key={key}
+        component={RadioButton}
+        name="paymentOption"
+        id={`radioButton-${key}`}
+        label={key}
+        value={value}
+      />
+    ))}
     <p>{PaymentNote}</p>
   </React.Fragment>
 );
