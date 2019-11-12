@@ -20,4 +20,32 @@ const Labels = {
   DaysRemaining: "Days remaining until due"
 };
 
-export { Labels, RatesAndFees, PaymentDirections, PaymentInterval };
+const ExemptionTypes = [
+  {
+    label: "Non-Transient",
+    hint: "Sleeping accommodations from 90 consecutive days"
+  },
+  {
+    label: "U.S. Government"
+  },
+  {
+    label: "State of Maryland"
+  },
+  {
+    label: "Baltimore County, MD"
+  },
+  {
+    label: "Other Jurisdictions"
+  },
+  {
+    label: "Foreign Government"
+  }
+];
+
+export {
+  ExemptionTypes,
+  Labels,
+  RatesAndFees,
+  PaymentDirections,
+  PaymentInterval
+};
