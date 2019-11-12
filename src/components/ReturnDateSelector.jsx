@@ -7,14 +7,15 @@ import {
   GetDueDateStatus
 } from "../common/DatesUtilities";
 import "react-datepicker/dist/react-datepicker.css";
-import { Labels } from "../common/Constants";
+import { Labels, PaymentInterval } from "../common/Constants";
 
 const ReturnInterval = props => {
-  const { intervalType } = props;
+  const { paymentInterval } = props;
   const [months, setMonths] = useState({});
   const [dueDate, setDueDate] = useState();
   const [status, setStatus] = useState({});
-  const isMonthly = intervalType === "monthly";
+  const isMonthly =
+    paymentInterval && parseInt(paymentInterval) === PaymentInterval.Monthly;
   const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
     null
   ); /** 3 months per quarter */
@@ -73,6 +74,10 @@ const ReturnInterval = props => {
     }
   };
 
+  if (!paymentInterval) {
+    return <p>Please select your payment interval before proceeding.</p>;
+  }
+
   return (
     <div className="tt_form-section">
       <div className="tt_form-group flex-end">
@@ -121,7 +126,7 @@ const ReturnInterval = props => {
 
 ReturnInterval.propTypes = {
   /** 'monthly' or 'quarterly' which allows us to control the ui accordingly  */
-  intervalType: PropTypes.string.isRequired
+  intervalType: PropTypes.string
 };
 
 export default ReturnInterval;
