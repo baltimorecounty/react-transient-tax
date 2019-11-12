@@ -6,7 +6,23 @@ const ExemptionCertificate = props => {
   const [exemptions, setExemptions] = useState([]);
 
   const addExemption = exemption => {
-    setExemptions([...exemptions, exemption]);
+    const indexedExemption = {
+      ...exemption,
+      ...{ id: exemptions.length }
+    };
+    setExemptions([...exemptions, indexedExemption]);
+  };
+
+  const removeExemption = exemptionId => {
+    const filteredExemptions = exemptions.filter(
+      exemption =>
+        console.log(exemption.id, exemptionId, exemption.id !== exemptionId) ||
+        exemption.id !== exemptionId
+    );
+
+    //console.log(filteredExemptions);
+
+    setExemptions(filteredExemptions);
   };
 
   return (
@@ -17,7 +33,12 @@ const ExemptionCertificate = props => {
         funds of:
       </p>
       <ExemptionSelector onExemptionAdd={addExemption} />
-      {exemptions.length > 0 && <ExemptionsList exemptions={exemptions} />}
+      {exemptions.length > 0 && (
+        <ExemptionsList
+          exemptions={exemptions}
+          handleRemoveClick={removeExemption}
+        />
+      )}
       <p>
         That all of the qualifications explained on this form have been met so
         as to exempt this occupancy from the tax imposed by County Code
