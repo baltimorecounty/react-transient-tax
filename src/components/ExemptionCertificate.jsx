@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import ExemptionSelector from "./ExemptionSelector";
 import ExemptionsList from "./ExemptionList";
+import { SaveExemption } from "../services/ApiService";
 
 const ExemptionCertificate = props => {
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
 
   const addExemption = exemption => {
-    const indexedExemption = {
-      ...exemption,
-      ...{ id: exemptions.length }
-    };
-    setExemptions([...exemptions, indexedExemption]);
+    const savedExemption = SaveExemption(exemption);
+    setExemptions([...exemptions, savedExemption]);
   };
 
   const editExemption = exemptionToEdit => {

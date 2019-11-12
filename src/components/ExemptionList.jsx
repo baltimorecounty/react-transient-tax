@@ -1,49 +1,5 @@
 import React from "react";
-import { format } from "date-fns";
-import { DefaultDateFormat } from "../common/DatesUtilities";
-
-const ExemptionListItem = props => {
-  const {
-    exemptionId,
-    exemptionType,
-    label,
-    fromDate,
-    toDate,
-    handleEditClick,
-    handleRemoveClick
-  } = props;
-
-  const editItem = () => {
-    handleEditClick({
-      id: exemptionId,
-      exemptionType,
-      label,
-      fromDate,
-      toDate
-    });
-  };
-
-  const removeItem = () => {
-    handleRemoveClick(exemptionId);
-  };
-
-  return (
-    <li className="tt-exemption">
-      {label} - From: {format(fromDate, DefaultDateFormat)} To:{" "}
-      {format(toDate, DefaultDateFormat)}
-      {handleEditClick && (
-        <button type="button" onClick={editItem}>
-          Edit
-        </button>
-      )}
-      {handleRemoveClick && (
-        <button type="button" onClick={removeItem}>
-          Remove
-        </button>
-      )}
-    </li>
-  );
-};
+import ExemptionListItem from "./ExemptionListItem";
 
 const ExemptionsList = props => {
   const { exemptions = [], ...rest } = props;
@@ -51,14 +7,16 @@ const ExemptionsList = props => {
   return (
     <ul className="tt_exemptions">
       <h3>Exemptions</h3>
-      {exemptions.map((exemption, exemptionIndex) => (
-        <ExemptionListItem
-          key={exemptionIndex}
-          exemptionId={exemptionIndex}
-          {...exemption}
-          {...rest}
-        />
-      ))}
+      {exemptions.map(
+        exemption =>
+          console.log(exemption) || (
+            <ExemptionListItem
+              key={exemption.id}
+              exemption={exemption}
+              {...rest}
+            />
+          )
+      )}
     </ul>
   );
 };
