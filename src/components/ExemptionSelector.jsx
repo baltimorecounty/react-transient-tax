@@ -3,14 +3,13 @@ import { Field } from "formik";
 import { RadioButton } from "../common/RadioButton";
 import { ExemptionTypes } from "../common/Constants";
 import DateRangeSelector from "./DateRangeSelector";
-import ExemptionsList from "./ExemptionList";
 
 const ExemptionSelector = props => {
+  const { onExemptionAdd = () => {} } = props;
   const [exemption, setExemption] = useState({});
-  const [exemptions, setExemptions] = useState([]);
 
   const addExemption = () => {
-    setExemptions([...exemptions, exemption]);
+    onExemptionAdd(exemption);
   };
 
   const handleExemptionTypeChange = changeEvent => {
@@ -35,7 +34,6 @@ const ExemptionSelector = props => {
 
   return (
     <div className="tt_exemption-selector">
-      {exemptions.length > 0 && <ExemptionsList exemptions={exemptions} />}
       {ExemptionTypes.map(exemptionType => {
         const { id, hint, label } = exemptionType;
         const formLabel = hint ? `${label} ( ${hint} )` : label;
