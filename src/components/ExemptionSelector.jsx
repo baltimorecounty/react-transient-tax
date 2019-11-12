@@ -13,11 +13,6 @@ const ExemptionSelector = props => {
   const { fromDate, toDate } = exemption;
   const [selectedExemptionType, setSelectedExemptionType] = useState(0);
 
-  const resetSelector = () => {
-    setExemption({});
-    setSelectedExemptionType(0);
-  };
-
   useEffect(() => {
     setExemption(exemptionFromProps);
     setSelectedExemptionType(parseInt(exemptionFromProps.exemptionType));
@@ -48,6 +43,11 @@ const ExemptionSelector = props => {
       ...exemption,
       ...{ fromDate, toDate }
     });
+  };
+
+  const resetSelector = () => {
+    setExemption({});
+    setSelectedExemptionType(0);
   };
 
   return (
