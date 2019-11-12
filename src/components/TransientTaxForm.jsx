@@ -33,28 +33,33 @@ const TransientTaxForm = props => (
     validationSchema={validationSchema}
     onSubmit={onSubmit}
   >
-    <Form>
-      {/* Basic Information Section */}
-      <label htmlFor="accountNumber">Account Number</label>
-      <div>
-        <Field id="accountNumber" name="accountNumber" type="text" />
-        <ErrorMessage name="accountNumber" />
-      </div>
-      <label htmlFor="businessName">Business Name</label>
-      <div>
-        <Field id="businessName" name="businessName" type="text" />
-        <ErrorMessage name="businessName" />
-      </div>
-      <label htmlFor="address">Address</label>
-      <div>
-        <Field id="address" name="address" type="text" />
-        <ErrorMessage name="address" />
-      </div>
-      {/* End of Basic Information Section */}
-      <PaymentOptions />
-      <ReturnDateSelector intervalType="quarterly" />
-      <button type="submit">Submit</button>
-    </Form>
+    {props => {
+      const { paymentInterval } = props.values;
+      return (
+        <Form>
+          {/* Basic Information Section */}
+          <label htmlFor="accountNumber">Account Number</label>
+          <div>
+            <Field id="accountNumber" name="accountNumber" type="text" />
+            <ErrorMessage name="accountNumber" />
+          </div>
+          <label htmlFor="businessName">Business Name</label>
+          <div>
+            <Field id="businessName" name="businessName" type="text" />
+            <ErrorMessage name="businessName" />
+          </div>
+          <label htmlFor="address">Address</label>
+          <div>
+            <Field id="address" name="address" type="text" />
+            <ErrorMessage name="address" />
+          </div>
+          {/* End of Basic Information Section */}
+          <PaymentOptions />
+          <ReturnDateSelector paymentInterval={paymentInterval} />
+          <button type="submit">Submit</button>
+        </Form>
+      );
+    }}
   </Formik>
 );
 

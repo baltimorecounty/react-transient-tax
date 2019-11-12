@@ -12,7 +12,7 @@ const PaymentOptions = props => (
       <Field
         key={key}
         component={RadioButton}
-        name="paymentOption"
+        name="paymentInterval"
         id={`radioButton-${key}`}
         label={key}
         value={value}
