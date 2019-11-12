@@ -1,5 +1,4 @@
 const PaymentInterval = {
-//import { CurrencyInput } from 'react-currency-input';
   Monthly: 2,
   Quarterly: 1
 };
