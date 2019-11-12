@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
 const DateRangeSelector = props => {
@@ -8,15 +8,23 @@ const DateRangeSelector = props => {
   const fromDateId = `date-from-selector-${name}`;
   const toDateId = `date-to-selector-${name}`;
 
-  /**
-   * Pass values to handler when either date changes
-   */
-  useEffect(() => {
+  const handleFromDateChange = date => {
+    setFromDate(date);
+
     handleChange({
-      fromDate,
+      fromDate: date,
       toDate
     });
-  }, [fromDate, toDate]);
+  };
+
+  const handleToDateChange = date => {
+    setToDate(date);
+
+    handleChange({
+      fromDate,
+      toDate: date
+    });
+  };
 
   return (
     <div className="tt_date-rage-selector">
@@ -25,7 +33,7 @@ const DateRangeSelector = props => {
         id={fromDateId}
         name={fromDateId}
         selected={fromDate}
-        onChange={setFromDate}
+        onChange={handleFromDateChange}
         selectsStart
       />
       <label htmlFor={toDateId}>To: </label>
@@ -33,7 +41,7 @@ const DateRangeSelector = props => {
         id={toDateId}
         name={toDateId}
         selected={toDate}
-        onChange={setToDate}
+        onChange={handleToDateChange}
         selectsEnd
         startDate={fromDate}
       />
