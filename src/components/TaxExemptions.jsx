@@ -11,7 +11,6 @@ const {
 } = Labels;
 
 const Exemptions = props => {
-  const [total, setTotal] = useState(0);
   const [exemptionTransient, setExemptionTransient] = useState(0);
   const [exemptionOfficial, setExemptionOfficial] = useState(0);
 
@@ -27,9 +26,7 @@ const Exemptions = props => {
     }
   };
 
-  useEffect(() => {
-    setTotal(exemptionTransient + exemptionOfficial);
-  }, [exemptionTransient, exemptionOfficial]);
+  const total = exemptionTransient + exemptionOfficial;
 
   return (
     <React.Fragment>
