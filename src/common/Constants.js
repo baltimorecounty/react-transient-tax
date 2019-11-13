@@ -15,16 +15,16 @@ const RatesAndFees = {
 };
 
 const Labels = {
+  CurrencyInput: "Gross Occupancy Tax Collected",
+  DaysRemaining: "Days remaining until due",
   DueDate: "Due Date",
   PastDue: "Past Due",
-  DaysRemaining: "Days remaining until due",
   ExemptionTitle: "Exemptions",
   ExemptionOption1:
     "Room Rental Collection from Not Transients (Accommodations from more than 90 days)",
   ExemptionOption2:
     "Federal, State or County official or employee when on official business",
-  ExemptionTotal: "Total Exemptions",
-  CurrencyInput: "Gross Occupancy Tax Collected"
+  ExemptionTotal: "Total Exemptions"
 };
 
-export { Labels, RatesAndFees, PaymentDirections, PaymentInterval };
+export { Labels, PaymentDirections, PaymentInterval, RatesAndFees };
