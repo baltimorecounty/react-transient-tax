@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
-import GrossOccupancy from "./GrossOccupancy";
+import GrossOccupancy from "../GrossOccupancy";
 import PaymentOptions from "../PaymentOptions";
 import React from "react";
 import ReturnDateSelector from "../ReturnDateSelector";
