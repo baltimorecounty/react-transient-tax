@@ -1,10 +1,11 @@
 import React from "react";
-import CurrencyInput from "react-currency-input";
+import CurrencyControl from "./CurrencyControl";
+
 import { Labels } from "../common/Constants";
 const GrossOccupancy = props => (
   <React.Fragment>
     <label htmlFor="">{Labels.CurrencyInput} </label>
-    $<CurrencyInput decimalSeparator="." thousandSeparator="," />
+    <CurrencyControl />
   </React.Fragment>
 );
 
