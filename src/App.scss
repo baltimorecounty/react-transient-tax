@@ -34,6 +34,22 @@ $default-border: 1px solid #e0e0e0;
   }
 }
 
+.tt_exemption-inputs {
+  display: flex;
+  flex-direction: column;
+  margin-left: $default-spacing;
+}
+
+.tt_exemption-options {
+  display: flex;
+  margin-bottom: $default-spacing;
+  justify-content: space-between;
+}
+
+.tt_exemption-totals {
+  border-top: $default-border;
+}
+
 .tt_past-due-icon {
   color: $red;
   margin-right: $default-spacing / 2;

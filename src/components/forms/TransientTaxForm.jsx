@@ -1,11 +1,10 @@
-import * as Yup from "yup";
-
-import { ErrorMessage, Field, Form, Formik } from "formik";
-
-import GrossOccupancy from "./GrossOccupancy";
-import PaymentOptions from "./PaymentOptions";
 import React from "react";
-import ReturnDateSelector from "./ReturnDateSelector";
+import * as Yup from "yup";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import GrossOccupancy from "../GrossOccupancy";
+import PaymentOptions from "../PaymentOptions";
+import ReturnDateSelector from "../ReturnDateSelector";
+import TaxExemptions from "../TaxExemptions";
 
 const initialValues = {
   accountNumber: "",
@@ -66,6 +65,7 @@ const TransientTaxForm = props => (
           <div className="tt_form-section">
             <GrossOccupancy />
           </div>
+          <TaxExemptions />
           <button type="submit">Submit</button>
         </Form>
       );
