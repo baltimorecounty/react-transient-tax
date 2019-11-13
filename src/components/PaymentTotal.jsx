@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { PaymentInterval } from "../common/Constants";
 
 const getTotalByMonth = (data, monthIndex) => {
@@ -35,6 +36,20 @@ const PaymentTotal = props => {
       </div>
     </div>
   );
+};
+
+PaymentTotal.propTypes = {
+  /**
+   * Each item in the array stores sum by index so that each column can be added properly.
+   * Example: { 0: 25.00, 1: 50.00 }, {0: 50.00, 1: 75.00 }
+   */
+  data: PropTypes.array,
+  /** Label to describe the total */
+  label: PropTypes.string.isRequired,
+  /**  Gives a unique key to the totals */
+  name: PropTypes.string.isRequired,
+  /** 'monthly' or 'quarterly' constant which controls the number of total columns visible  */
+  paymentInterval: PropTypes.number
 };
 
 export default PaymentTotal;
