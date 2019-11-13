@@ -28,8 +28,8 @@ const Exemptions = props => {
   return (
     <React.Fragment>
       <h1>{ExemptionTitle}</h1>
-      <div className="tt_exemption-inputs">
-        <div className="tt_exemption-options">
+      <div className="tt_flex-inputs">
+        <div className="tt_flex-options">
           <p>{ExemptionOption1}</p>
           <CurrencyInput
             value={exemptionTransient}
@@ -37,7 +37,7 @@ const Exemptions = props => {
             id="ExemptionTransient"
           />
         </div>
-        <div className="tt_exemption-options">
+        <div className="tt_flex-options">
           <p>{ExemptionOption2}</p>
           <CurrencyInput
             value={exemptionOfficial}
@@ -45,7 +45,7 @@ const Exemptions = props => {
             id="ExemptionOfficial"
           />
         </div>
-        <div className="tt_exemption-options tt_exemption-totals">
+        <div className="tt_flex-options tt_top-border">
           <p>{ExemptionTotal}</p>
           <p>${total}</p>
         </div>
