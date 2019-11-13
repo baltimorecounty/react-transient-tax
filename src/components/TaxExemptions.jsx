@@ -14,15 +14,13 @@ const Exemptions = props => {
   const [exemptionTransient, setExemptionTransient] = useState(0);
   const [exemptionOfficial, setExemptionOfficial] = useState(0);
 
-  const handleExemptionChange = onChange => {
+  const handleExemptionChange = (onChange, currencyAsNumber) => {
     const { target } = onChange;
-    const { value } = target;
-    const currentValue = ParseCurrency(value);
 
     if (target.id === "ExemptionTransient") {
-      setExemptionTransient(currentValue);
+      setExemptionTransient(currencyAsNumber);
     } else {
-      setExemptionOfficial(currentValue);
+      setExemptionOfficial(currencyAsNumber);
     }
   };
 
