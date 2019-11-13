@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
-import { addMonths, format } from "date-fns";
+import { addMonths } from "date-fns";
 import {
   GetFormattedDueDate,
   GetDueDateStatus
