@@ -1,5 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
+import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
 import TaxExemptions from "../TaxExemptions";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -26,10 +27,6 @@ const validationSchema = () => {
   });
 };
 
-const buildMonthLabel = monthIndex => {
-  return "Test";
-};
-
 const onSubmit = (values, { setSubmitting }) => {
   console.log(values);
   setSubmitting(false);
@@ -42,7 +39,16 @@ const TransientTaxForm = props => (
     onSubmit={onSubmit}
   >
     {props => {
-      const { paymentInterval } = props.values;
+      const { values } = props;
+      const { monthsToReport = [], paymentInterval } = values;
+
+      const buildMonthLabel = monthIndex => {
+        const friendlyMonthLabels = Object.keys(monthsToReport).map(key =>
+          format(monthsToReport[key], "M/yy")
+        );
+        return friendlyMonthLabels[monthIndex];
+      };
+
       return (
         <Form>
           <div className="tt_form-section">
