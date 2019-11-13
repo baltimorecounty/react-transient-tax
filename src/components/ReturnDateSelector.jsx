@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
-import { addMonths } from "date-fns";
+import { addMonths, format } from "date-fns";
 import {
   GetFormattedDueDate,
   GetDueDateStatus
 } from "../common/DatesUtilities";
 import "react-datepicker/dist/react-datepicker.css";
 import { Labels, PaymentInterval } from "../common/Constants";
+import { connect } from "formik";
 
 const ReturnInterval = props => {
-  const { paymentInterval } = props;
+  const { paymentInterval, formik } = props;
+  const { setFieldValue } = formik;
   const [months, setMonths] = useState({});
   const [dueDate, setDueDate] = useState();
   const [status, setStatus] = useState({});
@@ -74,6 +76,14 @@ const ReturnInterval = props => {
     }
   };
 
+  /** Ensure dates make it to form */
+  useEffect(() => {
+    const formattedMonths = Object.keys(months).map(key =>
+      format(months[key], "MMM, yy")
+    );
+    setFieldValue("monthsToReport", formattedMonths);
+  }, [months, setFieldValue]);
+
   if (!paymentInterval) {
     return <p>Please select your payment interval before proceeding.</p>;
   }
@@ -129,4 +139,4 @@ ReturnInterval.propTypes = {
   paymentInterval: PropTypes.string
 };
 
-export default ReturnInterval;
+export default connect(ReturnInterval);
