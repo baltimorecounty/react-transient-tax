@@ -1,9 +1,10 @@
+import React from "react";
 import * as Yup from "yup";
-import TaxExemptions from "../TaxExemptions";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import GrossOccupancy from "../GrossOccupancy";
 import PaymentOptions from "../PaymentOptions";
-import React from "react";
+import TaxExemptions from "../TaxExemptions";
+import NetRoomRental from "../NetRoomRental";
 import ReturnDateSelector from "../ReturnDateSelector";
 
 const initialValues = {
@@ -60,6 +61,7 @@ const TransientTaxForm = props => (
           <ReturnDateSelector paymentInterval={paymentInterval} />
           <GrossOccupancy />
           <TaxExemptions />
+          <NetRoomRental />
           <button type="submit">Submit</button>
         </Form>
       );

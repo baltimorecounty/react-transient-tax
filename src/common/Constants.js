@@ -24,7 +24,8 @@ const Labels = {
     "Room Rental Collection from Not Transients (Accommodations from more than 90 days)",
   ExemptionOption2:
     "Federal, State or County official or employee when on official business",
-  ExemptionTotal: "Total Exemptions"
+  ExemptionTotal: "Total Exemptions",
+  NetRoomRentalLabel: "Net Room Rental Collections"
 };
 
 export { Labels, PaymentDirections, PaymentInterval, RatesAndFees };
