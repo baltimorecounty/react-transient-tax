@@ -27,26 +27,23 @@ $default-border: 1px solid #e0e0e0;
 }
 
 .tt_month-picker {
+  position: relative;
   margin-left: $default-spacing;
+
+  .tt_calendar-icon {
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: $default-spacing * 2;
+    cursor: pointer;
+  }
 
   label {
     display: block;
   }
 }
 
-.tt_exemption-inputs {
-  display: flex;
-  flex-direction: column;
-  margin-left: $default-spacing;
-}
-
-.tt_exemption-options {
-  display: flex;
-  margin-bottom: $default-spacing;
-  justify-content: space-between;
-}
-
-.tt_exemption-totals {
+.total {
   border-top: $default-border;
 }
 

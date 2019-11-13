@@ -105,6 +105,9 @@ const ReturnInterval = props => {
                   dateFormat="MM/yyyy"
                   showMonthYearPicker
                 />
+                <div className="tt_calendar-icon">
+                  <i className="fas fa-calendar-alt" aria-hidden="true"></i>
+                </div>
               </div>
             );
           })}

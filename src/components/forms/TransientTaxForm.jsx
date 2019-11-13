@@ -106,6 +106,16 @@ const TransientTaxForm = props => (
                     values.roomRentalCollectionFromNonTransients
                   ]}
                 />
+                <PaymentTotal
+                  name="netRoomRentalTotal"
+                  paymentInterval={paymentInterval}
+                  label={Labels.NetRoomRentalLabel}
+                  data={[
+                    values.governmentOnBusiness,
+                    values.roomRentalCollectionFromNonTransients,
+                    values.grossOccupancy
+                  ]}
+                />
               </div>
               <button type="submit">Submit</button>
             </React.Fragment>
