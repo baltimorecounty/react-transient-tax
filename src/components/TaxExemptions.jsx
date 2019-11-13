@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Labels } from "../common/Constants";
-import { ParseCurrency } from "../common/ParseCurrency";
 import CurrencyInput from "react-currency-input";
 
 const {
@@ -14,7 +13,7 @@ const Exemptions = props => {
   const [exemptionTransient, setExemptionTransient] = useState(0);
   const [exemptionOfficial, setExemptionOfficial] = useState(0);
 
-  const handleExemptionChange = (onChange, currencyAsNumber) => {
+  const handleExemptionChange = (onChange, currencyValue, currencyAsNumber) => {
     const { target } = onChange;
 
     if (target.id === "ExemptionTransient") {
