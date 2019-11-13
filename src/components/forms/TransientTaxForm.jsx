@@ -98,6 +98,7 @@ const TransientTaxForm = props => (
                   buildMonthLabel={buildMonthLabel}
                 />
                 <PaymentTotal
+                  name="exemptionTotal"
                   paymentInterval={paymentInterval}
                   label={Labels.ExemptionTotal}
                   data={[

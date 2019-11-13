@@ -10,7 +10,7 @@ const getTotalByMonth = (data, monthIndex) => {
 };
 
 const PaymentTotal = props => {
-  const { label, paymentInterval, data } = props;
+  const { label, paymentInterval, data, name } = props;
   const isMonthly =
     paymentInterval && parseInt(paymentInterval) === PaymentInterval.Monthly;
   const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
@@ -24,7 +24,10 @@ const PaymentTotal = props => {
         {monthsToSelect.map((month, monthIndex) => {
           const total = getTotalByMonth(data, monthIndex);
           return (
-            <div className="tt_month-picker">
+            <div
+              key={`payment-total-${name}-${monthIndex}`}
+              className="tt_month-picker"
+            >
               <span className="tt_total">${total.toFixed(2)}</span>
             </div>
           );
