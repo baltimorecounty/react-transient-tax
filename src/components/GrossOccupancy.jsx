@@ -1,11 +1,11 @@
 import React from "react";
-import CurrencyControl from "./CurrencyControl";
+import CurrencyInput from "./CurrencyInput";
 
 import { Labels } from "../common/Constants";
 const GrossOccupancy = props => (
   <React.Fragment>
     <label htmlFor="">{Labels.CurrencyInput} </label>
-    <CurrencyControl />
+    <CurrencyInput id="GrossOccupancy" />
   </React.Fragment>
 );
 

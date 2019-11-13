@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Labels } from "../common/Constants";
-import CurrencyControl from "./CurrencyControl";
+import CurrencyInput from "./CurrencyInput";
 
 const {
   ExemptionTitle,
@@ -31,7 +31,7 @@ const Exemptions = props => {
       <div className="tt_exemption-inputs">
         <div className="tt_exemption-options">
           <p>{ExemptionOption1}</p>
-          <CurrencyControl
+          <CurrencyInput
             value={exemptionTransient}
             onChangeEvent={handleExemptionChange}
             id="ExemptionTransient"
@@ -39,7 +39,7 @@ const Exemptions = props => {
         </div>
         <div className="tt_exemption-options">
           <p>{ExemptionOption2}</p>
-          <CurrencyControl
+          <CurrencyInput
             value={exemptionOfficial}
             onChangeEvent={handleExemptionChange}
             id="ExemptionOfficial"
