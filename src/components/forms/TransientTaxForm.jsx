@@ -21,8 +21,13 @@ const validationSchema = () => {
     businessName: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
-    address: Yup.string().required("Required")
+    address: Yup.string().required("Required"),
+    grossOccupancy: Yup.string().required("Required")
   });
+};
+
+const buildMonthLabel = monthIndex => {
+  return "Test";
 };
 
 const onSubmit = (values, { setSubmitting }) => {
@@ -59,11 +64,14 @@ const TransientTaxForm = props => (
           {/* End of Basic Information Section */}
           <PaymentOptions />
           <ReturnDateSelector paymentInterval={paymentInterval} />
-          <PaymentField
-            name="gross-occupancy"
-            label={Labels.GrossOccupancy}
-            paymentInterval={paymentInterval}
-          />
+          <div className="tt_form-section">
+            <PaymentField
+              name="grossOccupancy"
+              label={Labels.GrossOccupancy}
+              paymentInterval={paymentInterval}
+              buildMonthLabel={buildMonthLabel}
+            />
+          </div>
           <TaxExemptions />
           <button type="submit">Submit</button>
         </Form>

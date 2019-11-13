@@ -9,8 +9,8 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const { name } = field;
-  const { paymentInterval, label } = props;
-  const { setFieldValue } = form;
+  const { paymentInterval, label, buildMonthLabel = () => {} } = props;
+  const { setFieldValue, touched, errors } = form;
   const [values, setValues] = useState({});
   const isMonthly =
     paymentInterval && parseInt(paymentInterval) === PaymentInterval.Monthly;
@@ -31,26 +31,31 @@ const CustomInputComponent = ({
   }
 
   return (
-    <div className="tt_form-group">
+    <div className="tt_form-group flex-end">
       <label htmlFor="">{label}</label>
-      {monthsToSelect.map((month, monthIndex) => {
-        return (
-          <CurrencyInput
-            key={monthIndex}
-            prefix="$"
-            decimalSeparator="."
-            thousandSeparator=","
-            name={name}
-            onChange={(maskedValue, valueAsNumber) =>
-              handleChange(valueAsNumber, monthIndex)
-            }
-            value={values[monthIndex]}
-          />
-        );
-      })}
-      {form.touched[field.name] && form.errors[field.name] && (
-        <div className="error">{form.errors[field.name]}</div>
-      )}
+      <div className="tt_month-pickers">
+        {monthsToSelect.map((month, monthIndex) => {
+          const inputName = `${name}-${monthIndex}`;
+          return (
+            <div className="tt_month-picker" key={inputName}>
+              <label>{buildMonthLabel(monthIndex)}</label>
+              <CurrencyInput
+                prefix="$"
+                decimalSeparator="."
+                thousandSeparator=","
+                name={inputName}
+                onChange={(maskedValue, valueAsNumber) =>
+                  handleChange(valueAsNumber, monthIndex)
+                }
+                value={values[monthIndex]}
+              />
+              {touched[field.name] && errors[field.name] && (
+                <div className="error">{errors[field.name]}</div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
