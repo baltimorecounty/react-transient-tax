@@ -22,8 +22,7 @@ const validationSchema = () => {
     businessName: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
-    address: Yup.string().required("Required"),
-    grossOccupancy: Yup.string().required("Required")
+    address: Yup.string().required("Required")
   });
 };
 
