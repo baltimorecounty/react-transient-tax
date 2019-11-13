@@ -10,6 +10,7 @@ const ExemptionCertificate = props => {
   } = props;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
+  const [isExistingRecord, setIsExistingRecord] = useState(false);
 
   useEffect(() => {
     setValues({ exemptions });
@@ -21,6 +22,7 @@ const ExemptionCertificate = props => {
   };
 
   const editExemption = exemptionToEdit => {
+    setIsExistingRecord(true);
     setExemption({ ...exemptionToEdit });
   };
 
@@ -35,7 +37,11 @@ const ExemptionCertificate = props => {
         be) furnished for the exclusive use of and will be paid by or from the
         funds of:
       </p>
-      <ExemptionSelector exemption={exemption} onExemptionAdd={addExemption} />
+      <ExemptionSelector
+        exemption={exemption}
+        onExemptionAdd={addExemption}
+        isExistingRecord={isExistingRecord}
+      />
       {exemptions.length > 0 && (
         <ExemptionsList
           exemptions={exemptions}
