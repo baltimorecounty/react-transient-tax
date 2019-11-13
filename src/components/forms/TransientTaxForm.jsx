@@ -107,6 +107,21 @@ const TransientTaxForm = props => (
                   ]}
                 />
               </div>
+              <div className="tt_form-section">
+                <h2>
+                  {Labels.TransientOccupancyTaxRemittedTitle} (if applicable)
+                </h2>
+                <PaymentTotal
+                  name="exemptionTotal"
+                  paymentInterval={paymentInterval}
+                  label={Labels.TaxCollected}
+                  data={[
+                    values.governmentOnBusiness,
+                    values.roomRentalCollectionFromNonTransients,
+                    values.grossOccupancy
+                  ]}
+                />
+              </div>
               <button type="submit">Submit</button>
             </React.Fragment>
           )}
