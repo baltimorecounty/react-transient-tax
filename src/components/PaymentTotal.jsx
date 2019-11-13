@@ -2,13 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { PaymentInterval } from "../common/Constants";
 
-const getTotalByMonth = (data, monthIndex) => {
-  return data.reduce(
-    (sum, totals) =>
-      (sum += totals && totals[monthIndex] ? totals[monthIndex] : 0),
-    0
+const getTotalByMonth = (data, monthIndex, totalFn = total => total) =>
+  totalFn(
+    data.reduce(
+      (sum, totals) =>
+        (sum += totals && totals[monthIndex] ? totals[monthIndex] : 0),
+      0
+    )
   );
-};
 
 const PaymentTotal = props => {
   const { label, paymentInterval, data, name, totalFn } = props;
@@ -23,11 +24,7 @@ const PaymentTotal = props => {
       <label className="tt_total-label">{label}</label>
       <div className="tt_month-pickers">
         {monthsToSelect.map((month, monthIndex) => {
-          let total = getTotalByMonth(data, monthIndex);
-          if (totalFn && typeof totalFn === "function") {
-            total = totalFn(total);
-          }
-
+          let total = getTotalByMonth(data, monthIndex, totalFn);
           return (
             <div
               key={`payment-total-${name}-${monthIndex}`}
