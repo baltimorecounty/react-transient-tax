@@ -113,7 +113,7 @@ const TransientTaxForm = props => (
                   {Labels.TransientOccupancyTaxRemittedTitle} (if applicable)
                 </h2>
                 <PaymentTotal
-                  name="exemptionTotal"
+                  name="transientTaxCollected"
                   paymentInterval={paymentInterval}
                   label={Labels.TaxCollected}
                   data={[
