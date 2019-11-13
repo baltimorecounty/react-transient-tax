@@ -26,10 +26,6 @@ const CustomInputComponent = ({
     setFieldValue(name, values);
   }, [name, values, setFieldValue]);
 
-  if (!paymentInterval) {
-    return <p>Please select a payment interval before entering {label}.</p>;
-  }
-
   return (
     <div className="tt_form-group flex-end">
       <label>{label}</label>
