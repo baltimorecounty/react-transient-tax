@@ -7,6 +7,7 @@ import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
+import { CalculateTaxCollected } from "../../common/Calculations";
 
 const initialValues = {
   accountNumber: "",
@@ -120,6 +121,7 @@ const TransientTaxForm = props => (
                     values.roomRentalCollectionFromNonTransients,
                     values.grossOccupancy
                   ]}
+                  totalFn={CalculateTaxCollected}
                 />
               </div>
               <button type="submit">Submit</button>
