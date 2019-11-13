@@ -107,6 +107,16 @@ const TransientTaxForm = props => (
                     values.roomRentalCollectionFromNonTransients
                   ]}
                 />
+                <PaymentTotal
+                  name="netRoomRentalTotal"
+                  paymentInterval={paymentInterval}
+                  label={Labels.NetRoomRentalLabel}
+                  data={[
+                    values.governmentOnBusiness,
+                    values.roomRentalCollectionFromNonTransients,
+                    values.grossOccupancy
+                  ]}
+                />
               </div>
               <div className="tt_form-section">
                 <h2>

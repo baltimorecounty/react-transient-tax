@@ -39,6 +39,7 @@ const CustomInputComponent = ({
                 prefix="$"
                 decimalSeparator="."
                 thousandSeparator=","
+                allowNegative={true}
                 id={inputName}
                 name={inputName}
                 onChange={(maskedValue, valueAsNumber) =>

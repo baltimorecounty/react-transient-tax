@@ -28,7 +28,8 @@ const Labels = {
   ExemptionTotal: "Total Exemptions",
   TransientOccupancyTaxRemittedTitle: "Transient Occupancy TaxRemitted",
   TaxCollected: `Tax Collected (Net Room Rental * Transient Occupancy Tax - ${RatesAndFees.TransientTaxRate *
-    100}%)`
+    100}%)`,
+  NetRoomRentalLabel: "Net Room Rental Collections"
 };
 
 export { Labels, PaymentDirections, PaymentInterval, RatesAndFees };
