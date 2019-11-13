@@ -15,7 +15,7 @@ const RatesAndFees = {
 };
 
 const Labels = {
-  CurrencyInput: "Gross Occupancy Tax Collected",
+  GrossOccupancy: "Gross Occupancy Tax Collected",
   DaysRemaining: "Days remaining until due",
   DueDate: "Due Date",
   PastDue: "Past Due",
