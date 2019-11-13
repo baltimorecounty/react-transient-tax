@@ -25,7 +25,7 @@ const PaymentTotal = props => {
           const total = getTotalByMonth(data, monthIndex);
           return (
             <div className="tt_month-picker">
-              <span class="tt_total">${total.toFixed(2)}</span>
+              <span className="tt_total">${total.toFixed(2)}</span>
             </div>
           );
         })}
