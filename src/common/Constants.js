@@ -17,7 +17,8 @@ const RatesAndFees = {
 const Labels = {
   DueDate: "Due Date",
   PastDue: "Past Due",
-  DaysRemaining: "Days remaining until due"
+  DaysRemaining: "Days remaining until due",
+  CurrencyInput:"Gross Occupancy Tax Collected"
 };
 
 export { Labels, RatesAndFees, PaymentDirections, PaymentInterval };
