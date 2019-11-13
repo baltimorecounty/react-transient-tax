@@ -5,7 +5,7 @@ import { PaymentInterval } from "../common/Constants";
 const getTotalByMonth = (data, monthIndex) => {
   return data.reduce(
     (sum, totals) =>
-      totals && totals[monthIndex] ? (sum += totals[monthIndex]) : 0,
+      (sum += totals && totals[monthIndex] ? totals[monthIndex] : 0),
     0
   );
 };
