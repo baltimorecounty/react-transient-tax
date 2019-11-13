@@ -3,6 +3,8 @@ $default-spacing: 15px;
 $default-border: 1px solid #e0e0e0;
 
 .tt_app {
+  margin: $default-spacing;
+
   p {
     margin: 0;
   }
@@ -17,7 +19,7 @@ $default-border: 1px solid #e0e0e0;
 .tt_form-group {
   display: flex;
   justify-content: space-between;
-  padding: $default-spacing;
+  padding: $default-spacing 0;
 }
 
 .tt_month-pickers {

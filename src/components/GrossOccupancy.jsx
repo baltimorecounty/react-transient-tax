@@ -1,11 +1,12 @@
-import React from "react";
 import CurrencyInput from "react-currency-input";
 import { Labels } from "../common/Constants";
+import React from "react";
+
 const GrossOccupancy = props => (
-  <React.Fragment>
+  <div className="tt_form-group">
     <label htmlFor="">{Labels.CurrencyInput} </label>
     $<CurrencyInput decimalSeparator="." thousandSeparator="," />
-  </React.Fragment>
+  </div>
 );
 
 export default GrossOccupancy;

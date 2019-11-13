@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import DatePicker from "react-datepicker";
-import { addMonths } from "date-fns";
-import {
-  GetFormattedDueDate,
-  GetDueDateStatus
-} from "../common/DatesUtilities";
 import "react-datepicker/dist/react-datepicker.css";
+
+import {
+  GetDueDateStatus,
+  GetFormattedDueDate
+} from "../common/DatesUtilities";
 import { Labels, PaymentInterval } from "../common/Constants";
+import React, { useState } from "react";
+
+import DatePicker from "react-datepicker";
+import PropTypes from "prop-types";
+import { addMonths } from "date-fns";
 
 const ReturnInterval = props => {
   const { paymentInterval } = props;
@@ -79,7 +81,7 @@ const ReturnInterval = props => {
   }
 
   return (
-    <div className="tt_form-section">
+    <React.Fragment>
       <div className="tt_form-group flex-end">
         <label htmlFor="month-date-picker-0">
           Month{isMonthly ? "" : "s"} for Return
@@ -120,7 +122,7 @@ const ReturnInterval = props => {
           </p>
         </div>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 
