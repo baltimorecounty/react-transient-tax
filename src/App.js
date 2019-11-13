@@ -1,8 +1,8 @@
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
+import "react-datepicker/dist/react-datepicker.css";
 import "./App.scss";
 import TransientTaxForm from "./components/forms/TransientTaxForm";
-
 
 function App() {
   return (

@@ -1,11 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import GrossOccupancy from "../GrossOccupancy";
-import PaymentOptions from "../PaymentOptions";
+import { format } from "date-fns";
+import { Labels } from "../../common/Constants";
 import TaxExemptions from "../TaxExemptions";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import PaymentOptions from "../PaymentOptions";
 import NetRoomRental from "../NetRoomRental";
 import ReturnDateSelector from "../ReturnDateSelector";
+import PaymentField from "../PaymentField";
 
 const initialValues = {
   accountNumber: "",
@@ -37,7 +39,16 @@ const TransientTaxForm = props => (
     onSubmit={onSubmit}
   >
     {props => {
-      const { paymentInterval } = props.values;
+      const { values } = props;
+      const { monthsToReport = [], paymentInterval } = values;
+
+      const buildMonthLabel = monthIndex => {
+        const friendlyMonthLabels = Object.keys(monthsToReport).map(key =>
+          format(monthsToReport[key], "M/yy")
+        );
+        return friendlyMonthLabels[monthIndex];
+      };
+
       return (
         <Form>
           <div className="tt_form-section">
@@ -64,7 +75,12 @@ const TransientTaxForm = props => (
             <ReturnDateSelector paymentInterval={paymentInterval} />
           </div>
           <div className="tt_form-section">
-            <GrossOccupancy />
+            <PaymentField
+              name="grossOccupancy"
+              label={Labels.GrossOccupancy}
+              paymentInterval={paymentInterval}
+              buildMonthLabel={buildMonthLabel}
+            />
           </div>
           <TaxExemptions />
           <NetRoomRental />
