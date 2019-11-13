@@ -11,7 +11,8 @@ const PaymentDirections = {
 
 const RatesAndFees = {
   PenaltyRate: 0.1, // 10%
-  InterestRate: 0.01 // 1%
+  InterestRate: 0.01, // 1%
+  TransientTaxRate: 0.095 // 9.5%
 };
 
 const Labels = {
@@ -25,6 +26,9 @@ const Labels = {
   ExemptionOption2:
     "Federal, State or County official or employee when on official business",
   ExemptionTotal: "Total Exemptions",
+  TransientOccupancyTaxRemittedTitle: "Transient Occupancy TaxRemitted",
+  TaxCollected: `Tax Collected (Net Room Rental * Transient Occupancy Tax - ${RatesAndFees.TransientTaxRate *
+    100}%)`,
   NetRoomRentalLabel: "Net Room Rental Collections"
 };
 

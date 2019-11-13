@@ -2,16 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import { PaymentInterval } from "../common/Constants";
 
-const getTotalByMonth = (data, monthIndex) => {
-  return data.reduce(
-    (sum, totals) =>
-      totals && totals[monthIndex] ? (sum += totals[monthIndex]) : 0,
-    0
+const getTotalByMonth = (data, monthIndex, totalFn = total => total) =>
+  totalFn(
+    data.reduce(
+      (sum, totals) =>
+        (sum += totals && totals[monthIndex] ? totals[monthIndex] : 0),
+      0
+    )
   );
-};
 
 const PaymentTotal = props => {
-  const { label, paymentInterval, data, name } = props;
+  const { label, paymentInterval, data, name, totalFn } = props;
   const isMonthly =
     paymentInterval && parseInt(paymentInterval) === PaymentInterval.Monthly;
   const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
@@ -23,7 +24,7 @@ const PaymentTotal = props => {
       <label className="tt_total-label">{label}</label>
       <div className="tt_month-pickers">
         {monthsToSelect.map((month, monthIndex) => {
-          const total = getTotalByMonth(data, monthIndex);
+          let total = getTotalByMonth(data, monthIndex, totalFn);
           return (
             <div
               key={`payment-total-${name}-${monthIndex}`}
@@ -44,12 +45,14 @@ PaymentTotal.propTypes = {
    * Example: { 0: 25.00, 1: 50.00 }, {0: 50.00, 1: 75.00 }
    */
   data: PropTypes.array,
+  /** Function to apply once the total has been calculated */
+  totalFn: PropTypes.func,
   /** Label to describe the total */
   label: PropTypes.string.isRequired,
   /**  Gives a unique key to the totals */
   name: PropTypes.string.isRequired,
   /** 'monthly' or 'quarterly' constant which controls the number of total columns visible  */
-  paymentInterval: PropTypes.number
+  paymentInterval: PropTypes.string
 };
 
 export default PaymentTotal;

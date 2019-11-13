@@ -7,6 +7,7 @@ import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
+import { CalculateTaxCollected } from "../../common/Calculations";
 
 const initialValues = {
   accountNumber: "",
@@ -115,6 +116,22 @@ const TransientTaxForm = props => (
                     values.roomRentalCollectionFromNonTransients,
                     values.grossOccupancy
                   ]}
+                />
+              </div>
+              <div className="tt_form-section">
+                <h2>
+                  {Labels.TransientOccupancyTaxRemittedTitle} (if applicable)
+                </h2>
+                <PaymentTotal
+                  name="transientTaxCollected"
+                  paymentInterval={paymentInterval}
+                  label={Labels.TaxCollected}
+                  data={[
+                    values.governmentOnBusiness,
+                    values.roomRentalCollectionFromNonTransients,
+                    values.grossOccupancy
+                  ]}
+                  totalFn={CalculateTaxCollected}
                 />
               </div>
               <button type="submit">Submit</button>
