@@ -78,10 +78,7 @@ const ReturnInterval = props => {
 
   /** Ensure dates make it to form */
   useEffect(() => {
-    const formattedMonths = Object.keys(months).map(key =>
-      format(months[key], "MMM, yy")
-    );
-    setFieldValue("monthsToReport", formattedMonths);
+    setFieldValue("monthsToReport", months);
   }, [months, setFieldValue]);
 
   if (!paymentInterval) {
