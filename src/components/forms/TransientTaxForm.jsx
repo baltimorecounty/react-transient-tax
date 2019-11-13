@@ -58,9 +58,9 @@ const TransientTaxForm = props => (
             <ErrorMessage name="address" />
           </div>
           {/* End of Basic Information Section */}
-          <GrossOccupancy />
           <PaymentOptions />
           <ReturnDateSelector paymentInterval={paymentInterval} />
+          <GrossOccupancy />
           <TaxExemptions />
           <button type="submit">Submit</button>
         </Form>
