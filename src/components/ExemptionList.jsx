@@ -7,16 +7,9 @@ const ExemptionsList = props => {
   return (
     <ul className="tt_exemptions">
       <h3>Exemptions</h3>
-      {exemptions.map(
-        exemption =>
-          console.log(exemption) || (
-            <ExemptionListItem
-              key={exemption.id}
-              exemption={exemption}
-              {...rest}
-            />
-          )
-      )}
+      {exemptions.map(exemption => (
+        <ExemptionListItem key={exemption.id} exemption={exemption} {...rest} />
+      ))}
     </ul>
   );
 };
