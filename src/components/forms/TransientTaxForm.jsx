@@ -4,7 +4,6 @@ import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import PaymentOptions from "../PaymentOptions";
-import NetRoomRental from "../NetRoomRental";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
@@ -105,6 +104,16 @@ const TransientTaxForm = props => (
                   data={[
                     values.governmentOnBusiness,
                     values.roomRentalCollectionFromNonTransients
+                  ]}
+                />
+                <PaymentTotal
+                  name="netRoomRentalTotal"
+                  paymentInterval={paymentInterval}
+                  label={Labels.NetRoomRentalLabel}
+                  data={[
+                    values.governmentOnBusiness,
+                    values.roomRentalCollectionFromNonTransients,
+                    values.grossOccupancy
                   ]}
                 />
               </div>

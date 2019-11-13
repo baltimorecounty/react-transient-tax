@@ -43,19 +43,7 @@ $default-border: 1px solid #e0e0e0;
   }
 }
 
-.tt_flex-inputs {
-  display: flex;
-  flex-direction: column;
-  margin-left: $default-spacing;
-}
-
-.tt_flex-options {
-  display: flex;
-  margin-bottom: $default-spacing;
-  justify-content: space-between;
-}
-
-.tt_top-border {
+.total {
   border-top: $default-border;
 }
 
