@@ -2,11 +2,11 @@ import React from "react";
 import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
-import TaxExemptions from "../TaxExemptions";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
+import PaymentTotal from "../PaymentTotal";
 
 const initialValues = {
   accountNumber: "",
@@ -73,16 +73,43 @@ const TransientTaxForm = props => (
             <PaymentOptions />
             <ReturnDateSelector paymentInterval={paymentInterval} />
           </div>
-          <div className="tt_form-section">
-            <PaymentField
-              name="grossOccupancy"
-              label={Labels.GrossOccupancy}
-              paymentInterval={paymentInterval}
-              buildMonthLabel={buildMonthLabel}
-            />
-          </div>
-          <TaxExemptions />
-          <button type="submit">Submit</button>
+          {paymentInterval && Object.keys(monthsToReport).length > 0 && (
+            <React.Fragment>
+              <div className="tt_form-section">
+                <PaymentField
+                  name="grossOccupancy"
+                  label={Labels.GrossOccupancy}
+                  paymentInterval={paymentInterval}
+                  buildMonthLabel={buildMonthLabel}
+                />
+              </div>
+              <div className="tt_form-section">
+                <h2>{Labels.ExemptionTitle} (if applicable)</h2>
+                <PaymentField
+                  name="roomRentalCollectionFromNonTransients"
+                  label={Labels.ExemptionOption1}
+                  paymentInterval={paymentInterval}
+                  buildMonthLabel={buildMonthLabel}
+                />
+                <PaymentField
+                  name="governmentOnBusiness"
+                  label={Labels.ExemptionOption2}
+                  paymentInterval={paymentInterval}
+                  buildMonthLabel={buildMonthLabel}
+                />
+                <PaymentTotal
+                  name="exemptionTotal"
+                  paymentInterval={paymentInterval}
+                  label={Labels.ExemptionTotal}
+                  data={[
+                    values.governmentOnBusiness,
+                    values.roomRentalCollectionFromNonTransients
+                  ]}
+                />
+              </div>
+              <button type="submit">Submit</button>
+            </React.Fragment>
+          )}
         </Form>
       );
     }}
