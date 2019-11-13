@@ -5,12 +5,15 @@ import { SaveExemption } from "../services/ApiService";
 import { connect } from "formik";
 
 const ExemptionCertificate = props => {
+  const {
+    formik: { setValues }
+  } = props;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
 
   useEffect(() => {
-    props.formik.setValues({ exemptions });
-  }, [exemptions]);
+    setValues({ exemptions });
+  }, [exemptions, setValues]);
 
   const addExemption = exemption => {
     const savedExemption = SaveExemption(exemption);
