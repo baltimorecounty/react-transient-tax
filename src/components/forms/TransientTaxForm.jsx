@@ -7,13 +7,7 @@ import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
-import {
-  CalculateTaxCollected,
-  CalculateInterest,
-  CalculatePenalty,
-  CalculateTotalsPerMonths
-} from "../../common/Calculations";
-import { FormatCurrency } from "../../common/FormatUtilities";
+import { GetCalculatedTotals } from "../../common/Calculations";
 
 const initialValues = {
   accountNumber: "",
@@ -47,17 +41,29 @@ const TransientTaxForm = props => (
     {props => {
       const { values } = props;
       const {
+        grossOccupancy,
         roomRentalCollectionFromNonTransients,
         governmentOnBusiness,
-        isReturnLate,
         monthsToReport = [],
         paymentInterval,
         monthsLate = 0
       } = values;
 
-      const exemptionTotals = CalculateTotalsPerMonths(
-        [roomRentalCollectionFromNonTransients, governmentOnBusiness],
-        monthsToReport
+      const {
+        totalExemptions,
+        netRoomRentalCollections,
+        transientTaxCollected,
+        transientInterest,
+        transientPenalty,
+        totalInterestAndPenalties
+      } = GetCalculatedTotals(
+        {
+          grossOccupancy,
+          roomRentalCollectionFromNonTransients,
+          governmentOnBusiness
+        },
+        monthsToReport,
+        monthsLate
       );
 
       const buildMonthLabel = monthIndex => {
@@ -66,22 +72,6 @@ const TransientTaxForm = props => (
         );
         return friendlyMonthLabels[monthIndex];
       };
-
-      /**
-       * Calculate Interest based on the months late
-       * @param {number} taxCollected
-       */
-      const calculateInterestTotal = taxCollected =>
-        CalculateInterest(taxCollected, monthsLate);
-
-      const netRoomRentalTotalData = [
-        values.governmentOnBusiness,
-        values.roomRentalCollectionFromNonTransients,
-        values.grossOccupancy
-      ];
-
-      /** Only apply penalty if the return is late */
-      const penaltyTotalData = isReturnLate ? netRoomRentalTotalData : [];
 
       return (
         <Form>
@@ -134,23 +124,15 @@ const TransientTaxForm = props => (
                   monthsToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
-                {exemptionTotals.map(total => {
-                  return <p>{FormatCurrency(total.total)}</p>;
-                })}
-                {/* <PaymentTotal
+                <PaymentTotal
                   name="exemptionTotal"
-                  monthsToReport={monthsToReport}
+                  totals={totalExemptions}
                   label={Labels.ExemptionTotal}
-                  data={[
-                    values.governmentOnBusiness,
-                    values.roomRentalCollectionFromNonTransients
-                  ]}
-                /> */}
+                />
                 <PaymentTotal
                   name="netRoomRentalTotal"
-                  monthsToReport={monthsToReport}
+                  totals={netRoomRentalCollections}
                   label={Labels.NetRoomRentalLabel}
-                  data={netRoomRentalTotalData}
                 />
               </div>
               <div className="tt_form-section">
@@ -159,33 +141,23 @@ const TransientTaxForm = props => (
                 </h2>
                 <PaymentTotal
                   name="transientTaxCollected"
-                  monthsToReport={monthsToReport}
+                  totals={transientTaxCollected}
                   label={Labels.TaxCollected}
-                  data={penaltyTotalData}
-                  totalFn={CalculateTaxCollected}
                 />
                 <PaymentTotal
                   name="transientTaxInterest"
-                  monthsToReport={monthsToReport}
+                  totals={transientInterest}
                   label={Labels.TaxInterest}
-                  data={penaltyTotalData}
-                  totalFn={calculateInterestTotal}
                 />
                 <PaymentTotal
                   name="transientTaxPenalty"
-                  monthsToReport={monthsToReport}
+                  totals={transientPenalty}
                   label={Labels.TaxPenalty}
-                  data={penaltyTotalData}
-                  totalFn={CalculatePenalty}
                 />
                 <PaymentTotal
                   name="totalInterestAndPenalties"
-                  monthsToReport={monthsToReport}
+                  totals={totalInterestAndPenalties}
                   label={Labels.PenaltyInterestTotal}
-                  data={[
-                    values.transientTaxInterest,
-                    values.transientTaxPenalty
-                  ]}
                 />
               </div>
               <button type="submit">Submit</button>
