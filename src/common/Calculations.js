@@ -35,7 +35,7 @@ const CalculateTaxCollected = netRoomRentalCollections =>
  * @param {*} monthIndex
  * @param {*} callback
  */
-const CalculateTotalByMonth = (data, monthIndex, callback = total => total) =>
+const calculateTotalByMonth = (data, monthIndex, callback = total => total) =>
   callback(
     data.reduce(
       (sum, totals) =>
@@ -62,7 +62,7 @@ const CalculateTotalsPerMonths = (
     if (!total[i]) {
       total[i] = 0;
     }
-    const sum = CalculateTotalByMonth(data, i);
+    const sum = calculateTotalByMonth(data, i);
     total[i] += sum;
   }
   return Object.keys(total).reduce((newObj, key) => {
@@ -138,7 +138,6 @@ export {
   CalculateInterest,
   CalculatePenalty,
   CalculateTaxCollected,
-  CalculateTotalByMonth,
   CalculateTotalsPerMonths,
   GetCalculatedTotals
 };
