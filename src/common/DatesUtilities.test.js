@@ -24,6 +24,9 @@ describe("Get Due Date Status", () => {
       new Date("December 15, 2019")
     );
     expect(actual).toEqual({
+      isLate: true,
+      value: 4,
+      dateType: "month",
       label: "Past Due",
       message: "4 months"
     });
@@ -35,6 +38,9 @@ describe("Get Due Date Status", () => {
       new Date("September 1, 2019")
     );
     expect(actual).toEqual({
+      isLate: true,
+      value: 1,
+      dateType: "month",
       label: "Past Due",
       message: "1 month"
     });
@@ -46,6 +52,9 @@ describe("Get Due Date Status", () => {
       new Date("August 15, 2019")
     );
     expect(actual).toEqual({
+      isLate: false,
+      value: 16,
+      dateType: "day",
       label: "Days remaining until due",
       message: "16 days"
     });
@@ -57,6 +66,9 @@ describe("Get Due Date Status", () => {
       new Date("August 30, 2019")
     );
     expect(actual).toEqual({
+      isLate: false,
+      value: 1,
+      dateType: "day",
       label: "Days remaining until due",
       message: "1 day"
     });
