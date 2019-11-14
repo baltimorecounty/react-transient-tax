@@ -110,14 +110,10 @@ const ReturnInterval = props => {
                   id={id}
                   selected={months[monthIndex]}
                   onChange={date => handleDateChange(date, monthIndex)}
-                  selectsStart
                   startDate={startDate}
                   dateFormat="MM/yyyy"
                   showMonthYearPicker
                 />
-                <div className="tt_calendar-icon">
-                  <i className="fas fa-calendar-alt" aria-hidden="true"></i>
-                </div>
               </div>
             );
           })}
