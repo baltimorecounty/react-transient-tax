@@ -30,10 +30,10 @@ const CalculateTaxCollected = netRoomRentalCollections =>
   netRoomRentalCollections * RatesAndFees.TransientTaxRate;
 
 /**
- *
- * @param {*} data
- * @param {*} monthIndex
- * @param {*} callback
+ * Gets sum for a given month based on a list of field data
+ * @param {array} data list of totals for different fields in the report. Each item is an object that will keys
+ * @param {number} monthIndex index of the month that you wish to return
+ * @param {function} callback allows you to manipulate the total once the total is calculated
  */
 const calculateTotalByMonth = (data, monthIndex, callback = total => total) =>
   callback(
