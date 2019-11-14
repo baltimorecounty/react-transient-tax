@@ -9,7 +9,12 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const { name } = field;
-  const { paymentInterval, label, buildMonthLabel = () => {} } = props;
+  const {
+    isNegativeValue,
+    paymentInterval,
+    label,
+    buildMonthLabel = () => {}
+  } = props;
   const { setFieldValue, touched, errors } = form;
   const [values, setValues] = useState({});
   const isMonthly =
@@ -32,11 +37,15 @@ const CustomInputComponent = ({
       <div className="tt_month-pickers">
         {monthsToSelect.map((month, monthIndex) => {
           const inputName = `${name}-${monthIndex}`;
+          const inputValue = values[monthIndex]
+            ? Math.abs(values[monthIndex])
+            : 0;
+
           return (
             <div className="tt_month-picker" key={inputName}>
               <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label>
               <CurrencyInput
-                prefix="$"
+                prefix={`${isNegativeValue ? "-" : ""}$`}
                 decimalSeparator="."
                 thousandSeparator=","
                 allowNegative={true}
@@ -45,7 +54,7 @@ const CustomInputComponent = ({
                 onChange={(maskedValue, valueAsNumber) =>
                   handleChange(valueAsNumber, monthIndex)
                 }
-                value={values[monthIndex]}
+                value={inputValue}
               />
               {touched[field.name] && errors[field.name] && (
                 <div className="error">{errors[field.name]}</div>
