@@ -7,7 +7,11 @@ import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
-import { CalculateTaxCollected } from "../../common/Calculations";
+import {
+  CalculateTaxCollected,
+  CalculateInterest,
+  CalculatePenalty
+} from "../../common/Calculations";
 
 const initialValues = {
   accountNumber: "",
@@ -40,7 +44,12 @@ const TransientTaxForm = props => (
   >
     {props => {
       const { values } = props;
-      const { monthsToReport = [], paymentInterval } = values;
+      const {
+        isReturnLate,
+        monthsToReport = [],
+        paymentInterval,
+        monthsLate = 0
+      } = values;
 
       const buildMonthLabel = monthIndex => {
         const friendlyMonthLabels = Object.keys(monthsToReport).map(key =>
@@ -48,6 +57,22 @@ const TransientTaxForm = props => (
         );
         return friendlyMonthLabels[monthIndex];
       };
+
+      /**
+       * Calculate Interest based on the months late
+       * @param {number} taxCollected
+       */
+      const calculateInterestTotal = taxCollected =>
+        CalculateInterest(taxCollected, monthsLate);
+
+      const netRoomRentalTotalData = [
+        values.governmentOnBusiness,
+        values.roomRentalCollectionFromNonTransients,
+        values.grossOccupancy
+      ];
+
+      /** Only apply penalty if the return is late */
+      const penaltyTotalData = isReturnLate ? netRoomRentalTotalData : [];
 
       return (
         <Form>
@@ -74,13 +99,13 @@ const TransientTaxForm = props => (
             <PaymentOptions />
             <ReturnDateSelector paymentInterval={paymentInterval} />
           </div>
-          {paymentInterval && Object.keys(monthsToReport).length > 0 && (
+          {Object.keys(monthsToReport).length > 0 && (
             <React.Fragment>
               <div className="tt_form-section">
                 <PaymentField
                   name="grossOccupancy"
                   label={Labels.GrossOccupancy}
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
               </div>
@@ -90,19 +115,19 @@ const TransientTaxForm = props => (
                   isNegativeValue={true}
                   name="roomRentalCollectionFromNonTransients"
                   label={Labels.ExemptionOption1}
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
                 <PaymentField
                   isNegativeValue={true}
                   name="governmentOnBusiness"
                   label={Labels.ExemptionOption2}
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
                 <PaymentTotal
                   name="exemptionTotal"
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   label={Labels.ExemptionTotal}
                   data={[
                     values.governmentOnBusiness,
@@ -111,13 +136,9 @@ const TransientTaxForm = props => (
                 />
                 <PaymentTotal
                   name="netRoomRentalTotal"
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   label={Labels.NetRoomRentalLabel}
-                  data={[
-                    values.governmentOnBusiness,
-                    values.roomRentalCollectionFromNonTransients,
-                    values.grossOccupancy
-                  ]}
+                  data={netRoomRentalTotalData}
                 />
               </div>
               <div className="tt_form-section">
@@ -126,14 +147,33 @@ const TransientTaxForm = props => (
                 </h2>
                 <PaymentTotal
                   name="transientTaxCollected"
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   label={Labels.TaxCollected}
-                  data={[
-                    values.governmentOnBusiness,
-                    values.roomRentalCollectionFromNonTransients,
-                    values.grossOccupancy
-                  ]}
+                  data={penaltyTotalData}
                   totalFn={CalculateTaxCollected}
+                />
+                <PaymentTotal
+                  name="transientTaxInterest"
+                  monthsToReport={monthsToReport}
+                  label={Labels.TaxInterest}
+                  data={penaltyTotalData}
+                  totalFn={calculateInterestTotal}
+                />
+                <PaymentTotal
+                  name="transientTaxPenalty"
+                  monthsToReport={monthsToReport}
+                  label={Labels.TaxPenalty}
+                  data={penaltyTotalData}
+                  totalFn={CalculatePenalty}
+                />
+                <PaymentTotal
+                  name="totalInterestAndPenalties"
+                  monthsToReport={monthsToReport}
+                  label={Labels.PenaltyInterestTotal}
+                  data={[
+                    values.transientTaxInterest,
+                    values.transientTaxPenalty
+                  ]}
                 />
               </div>
               <button type="submit">Submit</button>

@@ -1,4 +1,4 @@
-import { FormatCurrency } from "./FormatUtilties";
+import { FormatCurrency } from "./FormatUtilities";
 
 describe("Format Currency", () => {
   test("should return the proper format for a large currency value", () => {
