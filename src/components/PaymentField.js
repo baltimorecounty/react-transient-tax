@@ -30,33 +30,34 @@ const CustomInputComponent = ({
     <div className="tt_form-group flex-end">
       <label>{label}</label>
       <div className="tt_month-pickers">
-        {Object.keys(monthsToReport).map((month, monthIndex) => {
-          const inputName = `${name}-${monthIndex}`;
-          const inputValue = values[monthIndex]
-            ? Math.abs(values[monthIndex])
-            : 0;
+        {monthsToReport &&
+          Object.keys(monthsToReport).map((month, monthIndex) => {
+            const inputName = `${name}-${monthIndex}`;
+            const inputValue = values[monthIndex]
+              ? Math.abs(values[monthIndex])
+              : 0;
 
-          return (
-            <div className="tt_month-picker" key={inputName}>
-              <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label>
-              <CurrencyInput
-                prefix={`${isNegativeValue ? "-" : ""}$`}
-                decimalSeparator="."
-                thousandSeparator=","
-                allowNegative={true}
-                id={inputName}
-                name={inputName}
-                onChange={(maskedValue, valueAsNumber) =>
-                  handleChange(valueAsNumber, monthIndex)
-                }
-                value={inputValue}
-              />
-              {touched[field.name] && errors[field.name] && (
-                <div className="error">{errors[field.name]}</div>
-              )}
-            </div>
-          );
-        })}
+            return (
+              <div className="tt_month-picker" key={inputName}>
+                <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label>
+                <CurrencyInput
+                  prefix={`${isNegativeValue ? "-" : ""}$`}
+                  decimalSeparator="."
+                  thousandSeparator=","
+                  allowNegative={true}
+                  id={inputName}
+                  name={inputName}
+                  onChange={(maskedValue, valueAsNumber) =>
+                    handleChange(valueAsNumber, monthIndex)
+                  }
+                  value={inputValue}
+                />
+                {touched[field.name] && errors[field.name] && (
+                  <div className="error">{errors[field.name]}</div>
+                )}
+              </div>
+            );
+          })}
       </div>
     </div>
   );

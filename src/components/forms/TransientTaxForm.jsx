@@ -99,13 +99,13 @@ const TransientTaxForm = props => (
             <PaymentOptions />
             <ReturnDateSelector paymentInterval={paymentInterval} />
           </div>
-          {paymentInterval && Object.keys(monthsToReport).length > 0 && (
+          {Object.keys(monthsToReport).length > 0 && (
             <React.Fragment>
               <div className="tt_form-section">
                 <PaymentField
                   name="grossOccupancy"
                   label={Labels.GrossOccupancy}
-                  monthToReport={monthsToReport}
+                  monthsToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
               </div>
@@ -115,14 +115,14 @@ const TransientTaxForm = props => (
                   isNegativeValue={true}
                   name="roomRentalCollectionFromNonTransients"
                   label={Labels.ExemptionOption1}
-                  monthToReport={monthsToReport}
+                  monthsToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
                 <PaymentField
                   isNegativeValue={true}
                   name="governmentOnBusiness"
                   label={Labels.ExemptionOption2}
-                  monthToReport={monthsToReport}
+                  monthsToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
                 <PaymentTotal
