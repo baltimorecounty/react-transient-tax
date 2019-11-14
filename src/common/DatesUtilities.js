@@ -43,6 +43,7 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
 
   if (dateDifference > 0) {
     return {
+      isLate: false,
       value: dateDifference,
       dateType: DateTypes.Day,
       label: Labels.DaysRemaining,
@@ -58,6 +59,7 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
     differenceInMonths(startDateOfFilingDate, dueDate) + 1;
 
   return {
+    isLate: true,
     value: monthDifference,
     dateType: DateTypes.Month,
     label: Labels.PastDue,
