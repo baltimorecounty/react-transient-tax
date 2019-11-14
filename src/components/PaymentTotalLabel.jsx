@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "formik";
 import { FormatCurrency } from "../common/FormatUtilities";
 
 const getTotalByMonth = (data, monthIndex, totalFn = total => total) =>
@@ -12,7 +11,7 @@ const getTotalByMonth = (data, monthIndex, totalFn = total => total) =>
   );
 
 const PaymentTotalLabel = props => {
-  const { name, monthIndex, data, totalFn, formik } = props;
+  const { name, monthIndex, data, totalFn } = props;
   let total = getTotalByMonth(data, monthIndex, totalFn);
   return (
     <div
@@ -24,4 +23,4 @@ const PaymentTotalLabel = props => {
   );
 };
 
-export default connect(PaymentTotalLabel);
+export default PaymentTotalLabel;
