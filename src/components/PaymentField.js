@@ -12,17 +12,12 @@ const CustomInputComponent = ({
   const { name } = field;
   const {
     isNegativeValue,
-    paymentInterval,
+    monthsToReport = {},
     label,
     buildMonthLabel = () => {}
   } = props;
   const { setFieldValue, touched, errors } = form;
   const [values, setValues] = useState({});
-  const isMonthly =
-    paymentInterval && parseInt(paymentInterval) === PaymentInterval.Monthly;
-  const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
-    null
-  ); /** 3 months per quarter */
 
   const handleChange = (valueAsNumber, monthIndex) => {
     setValues({ ...values, ...{ [monthIndex]: valueAsNumber } });
@@ -36,7 +31,7 @@ const CustomInputComponent = ({
     <div className="tt_form-group flex-end">
       <label>{label}</label>
       <div className="tt_month-pickers">
-        {monthsToSelect.map((month, monthIndex) => {
+        {Object.keys(monthsToReport).map((month, monthIndex) => {
           const inputName = `${name}-${monthIndex}`;
           const inputValue = values[monthIndex]
             ? Math.abs(values[monthIndex])
@@ -85,7 +80,7 @@ PaymentField.propTypes = {
   /** Unique name to describe the field, in order to ensure the form works properly. */
   name: PropTypes.string.isRequired,
   /** 'monthly' or 'quarterly' constant which controls the number of total columns visible  */
-  paymentInterval: PropTypes.string
+  monthToReport: PropTypes.object
 };
 
 export default PaymentField;
