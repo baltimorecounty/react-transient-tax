@@ -1,10 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
 import { format } from "date-fns";
-import { Labels } from "../../common/Constants";
+import { Labels } from "../common/Constants";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
-import reactDateTime from "./react-datetime";
+import DateTime from "react-datetime";
 
 const initialValues = {
   submittedBy: "",
