@@ -44,20 +44,94 @@ const CalculateTotalByMonth = (data, monthIndex, callback = total => total) =>
     )
   );
 
-const CalculateTotalsPerMonths = (data = [], months) => {
+/**
+ * Gets totals for a number of fields grouped by month
+ * @param {array} data list of totals for different fields in the report. Each item is an object that will keys
+ * that match up with teh number of items to report. Example: an item would contain 3 items for a quarter
+ * @param {*} monthsToReport the number of inputs for a corresponding field. Example this value will be 3 for a quarterly form
+ * @param {function} totalFn applied once the total has been calculated. Allows us to apply interest and penalties.
+ */
+const CalculateTotalsPerMonths = (
+  data = [],
+  monthsToReport,
+  totalFn = total => total
+) => {
   const total = {};
   /** For Each Month */
-  for (var i = 0, len = Object.keys(months).length; i < len; i++) {
+  for (var i = 0, len = Object.keys(monthsToReport).length; i < len; i++) {
     if (!total[i]) {
       total[i] = 0;
     }
     const sum = CalculateTotalByMonth(data, i);
     total[i] += sum;
   }
-  return Object.keys(total).map(key => ({
-    total: total[key],
-    label: key
-  }));
+  return Object.keys(total).reduce((newObj, key) => {
+    newObj[key] = totalFn(total[key]);
+    return newObj;
+  }, {});
+};
+
+/**
+ * Get a list of calculations based on given Transient Tax Data
+ * @param {object} fields the required input fields to calculate totals for transient tax. Fields are grouped by their form name.
+ * @param {number} monthsToReport the number of inputs for a corresponding field. Example this value will be 3 for a quarterly form
+ * @param {number} monthsLate number of months tardy on payment, this will determine if penalty and interest is charged
+ * @returns {object} an object containing all the desired totals
+ */
+const GetCalculatedTotals = (fields = {}, monthsToReport, monthsLate = 0) => {
+  const {
+    grossOccupancy,
+    roomRentalCollectionFromNonTransients,
+    governmentOnBusiness
+  } = fields;
+
+  const totalExemptions = CalculateTotalsPerMonths(
+    [roomRentalCollectionFromNonTransients, governmentOnBusiness],
+    monthsToReport
+  );
+
+  const netRoomRentalCollections = CalculateTotalsPerMonths(
+    [totalExemptions, grossOccupancy],
+    monthsToReport
+  );
+
+  const transientTaxCollected = CalculateTotalsPerMonths(
+    [netRoomRentalCollections],
+    monthsToReport,
+    CalculateTaxCollected
+  );
+
+  let transientInterest = {};
+  let transientPenalty = {};
+  let totalInterestAndPenalties = {};
+
+  if (monthsLate) {
+    transientInterest = CalculateTotalsPerMonths(
+      [netRoomRentalCollections],
+      monthsToReport,
+      total => CalculateInterest(total, monthsLate)
+    );
+
+    transientPenalty = CalculateTotalsPerMonths(
+      [netRoomRentalCollections],
+      monthsToReport,
+      CalculatePenalty
+    );
+
+    totalInterestAndPenalties = CalculateTotalsPerMonths(
+      [transientInterest, transientPenalty],
+      monthsToReport
+    );
+  }
+
+  return {
+    totalExemptions,
+    netRoomRentalCollections,
+    transientTaxCollected,
+    transientInterest,
+    transientPenalty,
+    totalInterestAndPenalties
+  };
 };
 
 export {
@@ -65,5 +139,6 @@ export {
   CalculatePenalty,
   CalculateTaxCollected,
   CalculateTotalByMonth,
-  CalculateTotalsPerMonths
+  CalculateTotalsPerMonths,
+  GetCalculatedTotals
 };
