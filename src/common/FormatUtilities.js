@@ -12,4 +12,10 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
  */
 const FormatCurrency = dollarAmount => currencyFormatter.format(dollarAmount);
 
-export { FormatCurrency };
+/**
+ * Format as decimal as a percentage
+ * @param {number} percentageAsDecimal
+ */
+const FormatPercentage = percentageAsDecimal => `${percentageAsDecimal * 100}%`;
+
+export { FormatCurrency, FormatPercentage };

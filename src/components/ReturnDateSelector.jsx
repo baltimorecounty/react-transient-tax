@@ -80,6 +80,16 @@ const ReturnInterval = props => {
     setFieldValue("monthsToReport", months);
   }, [months, setFieldValue]);
 
+  useEffect(() => {
+    setMonths({});
+  }, [paymentInterval]);
+
+  useEffect(() => {
+    const { isLate, value } = status;
+    setFieldValue("monthsLate", isLate ? value : 0);
+    setFieldValue("isReturnLate", isLate);
+  }, [status, setFieldValue]);
+
   if (!paymentInterval) {
     return <p>Please select your payment interval before proceeding.</p>;
   }
@@ -100,7 +110,6 @@ const ReturnInterval = props => {
                   id={id}
                   selected={months[monthIndex]}
                   onChange={date => handleDateChange(date, monthIndex)}
-                  selectsStart
                   startDate={startDate}
                   dateFormat="MM/yyyy"
                   showMonthYearPicker
