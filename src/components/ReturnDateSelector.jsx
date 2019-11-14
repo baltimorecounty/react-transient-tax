@@ -82,6 +82,8 @@ const ReturnInterval = props => {
 
   useEffect(() => {
     setMonths({});
+    setDueDate();
+    setStatus({});
   }, [paymentInterval]);
 
   useEffect(() => {
