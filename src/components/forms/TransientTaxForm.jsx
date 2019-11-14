@@ -105,7 +105,7 @@ const TransientTaxForm = props => (
                 <PaymentField
                   name="grossOccupancy"
                   label={Labels.GrossOccupancy}
-                  paymentInterval={paymentInterval}
+                  monthToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
               </div>
@@ -115,14 +115,14 @@ const TransientTaxForm = props => (
                   isNegativeValue={true}
                   name="roomRentalCollectionFromNonTransients"
                   label={Labels.ExemptionOption1}
-                  paymentInterval={paymentInterval}
+                  monthToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
                 <PaymentField
                   isNegativeValue={true}
                   name="governmentOnBusiness"
                   label={Labels.ExemptionOption2}
-                  paymentInterval={paymentInterval}
+                  monthToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
                 <PaymentTotal
@@ -152,14 +152,14 @@ const TransientTaxForm = props => (
                   data={penaltyTotalData}
                   totalFn={CalculateTaxCollected}
                 />
-                <PaymentTotal
+                {/* <PaymentTotal
                   name="transientTaxInterest"
                   paymentInterval={paymentInterval}
                   label={Labels.TaxInterest}
                   data={penaltyTotalData}
                   totalFn={calculateInterestTotal}
-                />
-                <PaymentTotal
+                /> */}
+                {/* <PaymentTotal
                   name="transientTaxPenalty"
                   paymentInterval={paymentInterval}
                   label={Labels.TaxPenalty}
@@ -174,7 +174,7 @@ const TransientTaxForm = props => (
                     values.transientTaxInterest,
                     values.transientTaxPenalty
                   ]}
-                />
+                /> */}
               </div>
               <button type="submit">Submit</button>
             </React.Fragment>

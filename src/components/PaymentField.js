@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Field } from "formik";
 import CurrencyInput from "react-currency-input";
-import { PaymentInterval } from "../common/Constants";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }

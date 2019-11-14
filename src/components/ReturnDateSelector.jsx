@@ -81,6 +81,10 @@ const ReturnInterval = props => {
   }, [months, setFieldValue]);
 
   useEffect(() => {
+    setMonths({});
+  }, [paymentInterval]);
+
+  useEffect(() => {
     const { isLate, value } = status;
     setFieldValue("monthsLate", isLate ? value : 0);
     setFieldValue("isReturnLate", isLate);
