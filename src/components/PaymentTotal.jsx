@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { PaymentInterval } from "../common/Constants";
+import { FormatCurrency } from "../common/FormatUtilties";
 
 const getTotalByMonth = (data, monthIndex, totalFn = total => total) =>
   totalFn(
@@ -30,7 +31,7 @@ const PaymentTotal = props => {
               key={`payment-total-${name}-${monthIndex}`}
               className="tt_month-picker"
             >
-              <span className="tt_total">${total.toFixed(2)}</span>
+              <span className="tt_total">{FormatCurrency(total)}</span>
             </div>
           );
         })}
