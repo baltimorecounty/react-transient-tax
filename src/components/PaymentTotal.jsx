@@ -1,16 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { PaymentInterval } from "../common/Constants";
-import { FormatCurrency } from "../common/FormatUtilities";
-
-const getTotalByMonth = (data, monthIndex, totalFn = total => total) =>
-  totalFn(
-    data.reduce(
-      (sum, totals) =>
-        (sum += totals && totals[monthIndex] ? totals[monthIndex] : 0),
-      0
-    )
-  );
+import PaymentTotalLabel from "./PaymentTotalLabel";
 
 const PaymentTotal = props => {
   const { label, paymentInterval, data, name, totalFn } = props;
@@ -24,17 +15,15 @@ const PaymentTotal = props => {
     <div className="tt_form-group total">
       <label className="tt_total-label">{label}</label>
       <div className="tt_month-pickers">
-        {monthsToSelect.map((month, monthIndex) => {
-          let total = getTotalByMonth(data, monthIndex, totalFn);
-          return (
-            <div
-              key={`payment-total-${name}-${monthIndex}`}
-              className="tt_month-picker"
-            >
-              <span className="tt_total">{FormatCurrency(total)}</span>
-            </div>
-          );
-        })}
+        {monthsToSelect.map((month, monthIndex) => (
+          <PaymentTotalLabel
+            key={`payment-total-label-${name}-${monthIndex}`}
+            name={name}
+            monthIndex={monthIndex}
+            data={data}
+            totalFn={totalFn}
+          />
+        ))}
       </div>
     </div>
   );
