@@ -57,14 +57,13 @@ const CalculateTotalsPerMonths = (
   totalFn = total => total
 ) => {
   const total = {};
-  /** For Each Month */
-  for (var i = 0, len = Object.keys(monthsToReport).length; i < len; i++) {
-    if (!total[i]) {
-      total[i] = 0;
+  Object.keys(monthsToReport).forEach((monthKey, monthIndex) => {
+    if (!total[monthIndex]) {
+      total[monthIndex] = 0;
     }
-    const sum = calculateTotalByMonth(data, i);
-    total[i] += sum;
-  }
+    const sum = calculateTotalByMonth(data, monthIndex);
+    total[monthIndex] += sum;
+  });
   return Object.keys(total).reduce((newObj, key) => {
     newObj[key] = totalFn(total[key]);
     return newObj;
