@@ -7,7 +7,10 @@ import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
-import { CalculateTaxCollected } from "../../common/Calculations";
+import {
+  CalculateTaxCollected,
+  CalculateInterest
+} from "../../common/Calculations";
 
 const initialValues = {
   accountNumber: "",
@@ -40,7 +43,12 @@ const TransientTaxForm = props => (
   >
     {props => {
       const { values } = props;
-      const { monthsToReport = [], paymentInterval } = values;
+      const {
+        isReturnLate,
+        monthsToReport = [],
+        paymentInterval,
+        monthsLate = 0
+      } = values;
 
       const buildMonthLabel = monthIndex => {
         const friendlyMonthLabels = Object.keys(monthsToReport).map(key =>
@@ -48,6 +56,22 @@ const TransientTaxForm = props => (
         );
         return friendlyMonthLabels[monthIndex];
       };
+
+      /**
+       * Calculate Interest based on the months late
+       * @param {number} taxCollected
+       */
+      const calculateInterestTotal = taxCollected =>
+        CalculateInterest(taxCollected, monthsLate);
+
+      const netRoomRentalTotalData = [
+        values.governmentOnBusiness,
+        values.roomRentalCollectionFromNonTransients,
+        values.grossOccupancy
+      ];
+
+      /** Only apply penalty if the return is late */
+      const penaltyTotalData = isReturnLate ? netRoomRentalTotalData : [];
 
       return (
         <Form>
@@ -113,11 +137,7 @@ const TransientTaxForm = props => (
                   name="netRoomRentalTotal"
                   paymentInterval={paymentInterval}
                   label={Labels.NetRoomRentalLabel}
-                  data={[
-                    values.governmentOnBusiness,
-                    values.roomRentalCollectionFromNonTransients,
-                    values.grossOccupancy
-                  ]}
+                  data={netRoomRentalTotalData}
                 />
               </div>
               <div className="tt_form-section">
@@ -128,12 +148,15 @@ const TransientTaxForm = props => (
                   name="transientTaxCollected"
                   paymentInterval={paymentInterval}
                   label={Labels.TaxCollected}
-                  data={[
-                    values.governmentOnBusiness,
-                    values.roomRentalCollectionFromNonTransients,
-                    values.grossOccupancy
-                  ]}
+                  data={penaltyTotalData}
                   totalFn={CalculateTaxCollected}
+                />
+                <PaymentTotal
+                  name="transientTaxInterest"
+                  paymentInterval={paymentInterval}
+                  label={Labels.TaxInterest}
+                  data={penaltyTotalData}
+                  totalFn={calculateInterestTotal}
                 />
               </div>
               <button type="submit">Submit</button>
