@@ -10,8 +10,10 @@ import PaymentTotal from "../PaymentTotal";
 import {
   CalculateTaxCollected,
   CalculateInterest,
-  CalculatePenalty
+  CalculatePenalty,
+  CalculateTotalsPerMonths
 } from "../../common/Calculations";
+import { FormatCurrency } from "../../common/FormatUtilities";
 
 const initialValues = {
   accountNumber: "",
@@ -45,11 +47,18 @@ const TransientTaxForm = props => (
     {props => {
       const { values } = props;
       const {
+        roomRentalCollectionFromNonTransients,
+        governmentOnBusiness,
         isReturnLate,
         monthsToReport = [],
         paymentInterval,
         monthsLate = 0
       } = values;
+
+      const exemptionTotals = CalculateTotalsPerMonths(
+        [roomRentalCollectionFromNonTransients, governmentOnBusiness],
+        monthsToReport
+      );
 
       const buildMonthLabel = monthIndex => {
         const friendlyMonthLabels = Object.keys(monthsToReport).map(key =>
@@ -125,7 +134,10 @@ const TransientTaxForm = props => (
                   monthsToReport={monthsToReport}
                   buildMonthLabel={buildMonthLabel}
                 />
-                <PaymentTotal
+                {exemptionTotals.map(total => {
+                  return <p>{FormatCurrency(total.total)}</p>;
+                })}
+                {/* <PaymentTotal
                   name="exemptionTotal"
                   monthsToReport={monthsToReport}
                   label={Labels.ExemptionTotal}
@@ -133,7 +145,7 @@ const TransientTaxForm = props => (
                     values.governmentOnBusiness,
                     values.roomRentalCollectionFromNonTransients
                   ]}
-                />
+                /> */}
                 <PaymentTotal
                   name="netRoomRentalTotal"
                   monthsToReport={monthsToReport}

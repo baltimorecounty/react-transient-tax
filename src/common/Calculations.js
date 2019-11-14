@@ -29,4 +29,41 @@ const CalculatePenalty = (
 const CalculateTaxCollected = netRoomRentalCollections =>
   netRoomRentalCollections * RatesAndFees.TransientTaxRate;
 
-export { CalculateInterest, CalculatePenalty, CalculateTaxCollected };
+/**
+ *
+ * @param {*} data
+ * @param {*} monthIndex
+ * @param {*} callback
+ */
+const CalculateTotalByMonth = (data, monthIndex, callback = total => total) =>
+  callback(
+    data.reduce(
+      (sum, totals) =>
+        (sum += totals && totals[monthIndex] ? totals[monthIndex] : 0),
+      0
+    )
+  );
+
+const CalculateTotalsPerMonths = (data = [], months) => {
+  const total = {};
+  /** For Each Month */
+  for (var i = 0, len = Object.keys(months).length; i < len; i++) {
+    if (!total[i]) {
+      total[i] = 0;
+    }
+    const sum = CalculateTotalByMonth(data, i);
+    total[i] += sum;
+  }
+  return Object.keys(total).map(key => ({
+    total: total[key],
+    label: key
+  }));
+};
+
+export {
+  CalculateInterest,
+  CalculatePenalty,
+  CalculateTaxCollected,
+  CalculateTotalByMonth,
+  CalculateTotalsPerMonths
+};
