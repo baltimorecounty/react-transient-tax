@@ -88,12 +88,14 @@ const TransientTaxForm = props => (
               <div className="tt_form-section">
                 <h2>{Labels.ExemptionTitle} (if applicable)</h2>
                 <PaymentField
+                  isNegativeValue={true}
                   name="roomRentalCollectionFromNonTransients"
                   label={Labels.ExemptionOption1}
                   paymentInterval={paymentInterval}
                   buildMonthLabel={buildMonthLabel}
                 />
                 <PaymentField
+                  isNegativeValue={true}
                   name="governmentOnBusiness"
                   label={Labels.ExemptionOption2}
                   paymentInterval={paymentInterval}

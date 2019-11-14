@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Field } from "formik";
 import CurrencyInput from "react-currency-input";
 import { PaymentInterval } from "../common/Constants";
@@ -9,7 +10,12 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const { name } = field;
-  const { paymentInterval, label, buildMonthLabel = () => {} } = props;
+  const {
+    isNegativeValue,
+    paymentInterval,
+    label,
+    buildMonthLabel = () => {}
+  } = props;
   const { setFieldValue, touched, errors } = form;
   const [values, setValues] = useState({});
   const isMonthly =
@@ -32,11 +38,15 @@ const CustomInputComponent = ({
       <div className="tt_month-pickers">
         {monthsToSelect.map((month, monthIndex) => {
           const inputName = `${name}-${monthIndex}`;
+          const inputValue = values[monthIndex]
+            ? Math.abs(values[monthIndex])
+            : 0;
+
           return (
             <div className="tt_month-picker" key={inputName}>
               <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label>
               <CurrencyInput
-                prefix="$"
+                prefix={`${isNegativeValue ? "-" : ""}$`}
                 decimalSeparator="."
                 thousandSeparator=","
                 allowNegative={true}
@@ -45,7 +55,7 @@ const CustomInputComponent = ({
                 onChange={(maskedValue, valueAsNumber) =>
                   handleChange(valueAsNumber, monthIndex)
                 }
-                value={values[monthIndex]}
+                value={inputValue}
               />
               {touched[field.name] && errors[field.name] && (
                 <div className="error">{errors[field.name]}</div>
@@ -61,5 +71,21 @@ const CustomInputComponent = ({
 const PaymentField = props => (
   <Field component={CustomInputComponent} {...props} />
 );
+
+PaymentField.propTypes = {
+  /**
+   * Function to handle building the label for the actual input(s) based on dynamic data.
+   * Passes "monthIndex" as a param.
+   */
+  buildMonthLabel: PropTypes.func,
+  /** Determines if the input should be treated as a negative or positive currency. */
+  isNegativeValue: PropTypes.bool,
+  /** General label to describe the input(s). */
+  label: PropTypes.string.isRequired,
+  /** Unique name to describe the field, in order to ensure the form works properly. */
+  name: PropTypes.string.isRequired,
+  /** 'monthly' or 'quarterly' constant which controls the number of total columns visible  */
+  paymentInterval: PropTypes.string
+};
 
 export default PaymentField;
