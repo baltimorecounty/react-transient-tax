@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { PaymentInterval } from "../common/Constants";
-import { FormatCurrency } from "../common/FormatUtilties";
+import { FormatCurrency } from "../common/FormatUtilities";
 
 const getTotalByMonth = (data, monthIndex, totalFn = total => total) =>
   totalFn(

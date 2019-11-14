@@ -1,4 +1,4 @@
-import { FormatPercentage } from "./FormatUtilties";
+import { FormatPercentage } from "./FormatUtilities";
 
 const DateTypes = {
   Day: "day",
