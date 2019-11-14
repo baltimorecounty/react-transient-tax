@@ -43,7 +43,8 @@ const Labels = {
   TaxCollected: `Tax Collected (Net Room Rental * Transient Occupancy Tax - ${FormatPercentage(
     RatesAndFees.TransientTaxRate
   )})`,
-  NetRoomRentalLabel: "Net Room Rental Collections"
+  NetRoomRentalLabel: "Net Room Rental Collections",
+  PenaltyInterestTotal: "Total Interest and Penalties"
 };
 
 export { DateTypes, Labels, PaymentDirections, PaymentInterval, RatesAndFees };
