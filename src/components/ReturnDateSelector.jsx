@@ -80,6 +80,10 @@ const ReturnInterval = props => {
     setFieldValue("monthsToReport", months);
   }, [months, setFieldValue]);
 
+  useEffect(() => {
+    setFieldValue("monthsLate", status.isLate ? status.value : 0);
+  }, [status, setFieldValue]);
+
   if (!paymentInterval) {
     return <p>Please select your payment interval before proceeding.</p>;
   }
