@@ -166,6 +166,15 @@ const TransientTaxForm = props => (
                   data={penaltyTotalData}
                   totalFn={CalculatePenalty}
                 />
+                <PaymentTotal
+                  name="totalInterestAndPenalties"
+                  paymentInterval={paymentInterval}
+                  label={Labels.PenaltyInterestTotal}
+                  data={[
+                    values.transientTaxInterest,
+                    values.transientTaxPenalty
+                  ]}
+                />
               </div>
               <button type="submit">Submit</button>
             </React.Fragment>
