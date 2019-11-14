@@ -1,21 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { PaymentInterval } from "../common/Constants";
 import PaymentTotalLabel from "./PaymentTotalLabel";
 
 const PaymentTotal = props => {
-  const { label, paymentInterval, data, name, totalFn } = props;
-  const isMonthly =
-    paymentInterval && parseInt(paymentInterval) === PaymentInterval.Monthly;
-  const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
-    null
-  ); /** 3 months per quarter */
+  const { label, monthsToReport = {}, data, name, totalFn } = props;
 
   return (
     <div className="tt_form-group total">
       <label className="tt_total-label">{label}</label>
       <div className="tt_month-pickers">
-        {monthsToSelect.map((month, monthIndex) => (
+        {Object.keys(monthsToReport).map((month, monthIndex) => (
           <PaymentTotalLabel
             key={`payment-total-label-${name}-${monthIndex}`}
             name={name}
@@ -42,7 +36,7 @@ PaymentTotal.propTypes = {
   /**  Gives a unique key to the totals */
   name: PropTypes.string.isRequired,
   /** 'monthly' or 'quarterly' constant which controls the number of total columns visible  */
-  paymentInterval: PropTypes.string
+  monthsToReport: PropTypes.object
 };
 
 export default PaymentTotal;

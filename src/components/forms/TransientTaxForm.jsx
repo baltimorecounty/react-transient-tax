@@ -127,7 +127,7 @@ const TransientTaxForm = props => (
                 />
                 <PaymentTotal
                   name="exemptionTotal"
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   label={Labels.ExemptionTotal}
                   data={[
                     values.governmentOnBusiness,
@@ -136,7 +136,7 @@ const TransientTaxForm = props => (
                 />
                 <PaymentTotal
                   name="netRoomRentalTotal"
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   label={Labels.NetRoomRentalLabel}
                   data={netRoomRentalTotalData}
                 />
@@ -147,34 +147,34 @@ const TransientTaxForm = props => (
                 </h2>
                 <PaymentTotal
                   name="transientTaxCollected"
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   label={Labels.TaxCollected}
                   data={penaltyTotalData}
                   totalFn={CalculateTaxCollected}
                 />
-                {/* <PaymentTotal
+                <PaymentTotal
                   name="transientTaxInterest"
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   label={Labels.TaxInterest}
                   data={penaltyTotalData}
                   totalFn={calculateInterestTotal}
-                /> */}
-                {/* <PaymentTotal
+                />
+                <PaymentTotal
                   name="transientTaxPenalty"
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   label={Labels.TaxPenalty}
                   data={penaltyTotalData}
                   totalFn={CalculatePenalty}
                 />
                 <PaymentTotal
                   name="totalInterestAndPenalties"
-                  paymentInterval={paymentInterval}
+                  monthsToReport={monthsToReport}
                   label={Labels.PenaltyInterestTotal}
                   data={[
                     values.transientTaxInterest,
                     values.transientTaxPenalty
                   ]}
-                /> */}
+                />
               </div>
               <button type="submit">Submit</button>
             </React.Fragment>
