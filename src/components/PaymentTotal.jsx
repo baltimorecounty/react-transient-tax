@@ -8,7 +8,7 @@ const PaymentTotal = props => {
   return (
     <div className="tt_form-group total">
       <label className="tt_total-label">{label}</label>
-      <div className="tt_month-pickers">
+      <div className="tt_currency-pickers">
         {Object.keys(totals).map((totalKey, monthIndex) => (
           <PaymentTotalLabel
             key={`payment-total-label-${name}-${totalKey}`}

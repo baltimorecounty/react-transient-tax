@@ -7,7 +7,7 @@ const PaymentTotalLabel = props => {
   return (
     <div
       key={`payment-total-${name}-${monthIndex}`}
-      className="tt_month-picker"
+      className="tt_currency-picker"
     >
       <span className="tt_total">{FormatCurrency(total)}</span>
     </div>

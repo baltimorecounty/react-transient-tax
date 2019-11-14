@@ -29,7 +29,7 @@ const CustomInputComponent = ({
   return (
     <div className="tt_form-group flex-end">
       <label>{label}</label>
-      <div className="tt_month-pickers">
+      <div className="tt_currency-pickers">
         {monthsToReport &&
           Object.keys(monthsToReport).map((month, monthIndex) => {
             const inputName = `${name}-${monthIndex}`;
@@ -38,7 +38,7 @@ const CustomInputComponent = ({
               : 0;
 
             return (
-              <div className="tt_month-picker" key={inputName}>
+              <div className="tt_currency-picker" key={inputName}>
                 <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label>
                 <CurrencyInput
                   prefix={`${isNegativeValue ? "-" : ""}$`}
