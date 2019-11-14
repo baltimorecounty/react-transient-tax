@@ -1,10 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FormatCurrency } from "../common/FormatUtilities";
-import { CalculateTotalByMonth } from "../common/Calculations";
 
 const PaymentTotalLabel = props => {
-  const { name, monthIndex, data, totalFn } = props;
-  let total = CalculateTotalByMonth(data, monthIndex, totalFn);
+  const { name, monthIndex, total = 0 } = props;
   return (
     <div
       key={`payment-total-${name}-${monthIndex}`}
@@ -13,6 +12,15 @@ const PaymentTotalLabel = props => {
       <span className="tt_total">{FormatCurrency(total)}</span>
     </div>
   );
+};
+
+PaymentTotalLabel.propTypes = {
+  /** Helps uniquely identify this component along with name*/
+  monthIndex: PropTypes.number,
+  /** Helps uniquely identify this component along with monthIndex */
+  name: PropTypes.string.isRequired,
+  /** Total as a number to display */
+  total: PropTypes.number
 };
 
 export default PaymentTotalLabel;
