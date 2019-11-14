@@ -1,3 +1,5 @@
+import { FormatPercentage } from "./FormatUtilties";
+
 const DateTypes = {
   Day: "day",
   Month: "month"
@@ -31,11 +33,16 @@ const Labels = {
   ExemptionOption2:
     "Federal, State or County official or employee when on official business",
   ExemptionTotal: "Total Exemptions",
-  TaxInterest:
-    "Interest: Add 1% of the Tax Collected each month this return is late",
+  TaxInterest: `Interest: Add ${FormatPercentage(
+    RatesAndFees.InterestRate
+  )} of the Tax Collected each month this return is late`,
+  TaxPenalty: `Penalty: Add ${FormatPercentage(
+    RatesAndFees.PenaltyRate
+  )} of Tax Collected to be added after one month from Due Date`,
   TransientOccupancyTaxRemittedTitle: "Transient Occupancy TaxRemitted",
-  TaxCollected: `Tax Collected (Net Room Rental * Transient Occupancy Tax - ${RatesAndFees.TransientTaxRate *
-    100}%)`,
+  TaxCollected: `Tax Collected (Net Room Rental * Transient Occupancy Tax - ${FormatPercentage(
+    RatesAndFees.TransientTaxRate
+  )})`,
   NetRoomRentalLabel: "Net Room Rental Collections"
 };
 
