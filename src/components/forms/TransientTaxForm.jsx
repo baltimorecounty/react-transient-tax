@@ -9,7 +9,8 @@ import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import {
   CalculateTaxCollected,
-  CalculateInterest
+  CalculateInterest,
+  CalculatePenalty
 } from "../../common/Calculations";
 
 const initialValues = {
@@ -157,6 +158,13 @@ const TransientTaxForm = props => (
                   label={Labels.TaxInterest}
                   data={penaltyTotalData}
                   totalFn={calculateInterestTotal}
+                />
+                <PaymentTotal
+                  name="transientTaxPenalty"
+                  paymentInterval={paymentInterval}
+                  label={Labels.TaxPenalty}
+                  data={penaltyTotalData}
+                  totalFn={CalculatePenalty}
                 />
               </div>
               <button type="submit">Submit</button>
