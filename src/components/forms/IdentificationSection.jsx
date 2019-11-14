@@ -1,10 +1,8 @@
 import React from "react";
 import * as Yup from "yup";
-import { format } from "date-fns";
-import { Labels } from "../common/Constants";
+import { Labels } from "../../common/Constants";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
-import DateTime from "react-datetime";
 
 const initialValues = {
   submittedBy: "",
@@ -20,7 +18,7 @@ const validationSchema = () => {
     title: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
-    email: Yup.string().required("Required")
+    email:Yup.string().email('Please enter a valid email address.').required('Please enter your email address.')
   });
 };
 
@@ -28,42 +26,45 @@ const onSubmit = (values, { setSubmitting }) => {
   console.log(values);
   setSubmitting(false);
 };
+const getDate = ()=>{
+  let today = new Date();
+  return  (today.getMonth() + 1) +'/' + today.getDate() +'/' + today.getFullYear();
+}
 
-const TransientTaxForm = props => (
+const IdentificationSection = props => (
   <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
     onSubmit={onSubmit}
   >
     {props => {
-      const { values } = props;
-
+    
       return (
         <Form>
           <div className="tt_form-section">
             <label htmlFor="submittedBy">Return Submitted By</label>
-            <label htmlFor="submittedBy">{Labels.Question}</label>
-            <label htmlFor="Date">Date:{<reactDateTime/>}</label>
+            <label htmlFor="labelQuestion">{Labels.Question}</label>
+            <label htmlFor="Date">Date:{getDate()}</label>
             <div>
               <Field id="submittedBy" name="submittedBy" type="text" />
 
               <ErrorMessage name="submittedBy" />
             </div>
             <label htmlFor="title">Title</label>
-            <label htmlFor="submittedBy">{Labels.Question}</label>
+            <label htmlFor="labelQuestion">{Labels.Question}</label>
             <div>
               <Field id="title" name="title" type="text" />
               <ErrorMessage name="title" />
             </div>
             <label htmlFor="address">Address</label>
-            <label htmlFor="submittedBy">{Labels.Question}</label>
+            <label htmlFor="labelQuestion">{Labels.Question}</label>
             <div>
               <Field id="email" name="email" type="text" />
               <ErrorMessage name="email" />
             </div>
           </div>
           <div>
-            <label htmlFor="submittedBy">{Labels.LegalNote}</label>
+            <label htmlFor="labelLegalNote">{Labels.LegalNote}</label>
           </div>
           <button type="submit">Submit</button>
         </Form>
@@ -72,4 +73,4 @@ const TransientTaxForm = props => (
   </Formik>
 );
 
-export default TransientTaxForm;
+export default IdentificationSection;
