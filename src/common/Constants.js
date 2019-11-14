@@ -1,3 +1,8 @@
+const DateTypes = {
+  Day: "day",
+  Month: "month"
+};
+
 const PaymentInterval = {
   Monthly: 2,
   Quarterly: 1
@@ -26,10 +31,12 @@ const Labels = {
   ExemptionOption2:
     "Federal, State or County official or employee when on official business",
   ExemptionTotal: "Total Exemptions",
+  TaxInterest:
+    "Interest: Add 1% of the Tax Collected each month this return is late",
   TransientOccupancyTaxRemittedTitle: "Transient Occupancy TaxRemitted",
   TaxCollected: `Tax Collected (Net Room Rental * Transient Occupancy Tax - ${RatesAndFees.TransientTaxRate *
     100}%)`,
   NetRoomRentalLabel: "Net Room Rental Collections"
 };
 
-export { Labels, PaymentDirections, PaymentInterval, RatesAndFees };
+export { DateTypes, Labels, PaymentDirections, PaymentInterval, RatesAndFees };
