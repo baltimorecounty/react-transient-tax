@@ -27,15 +27,13 @@ $default-border: 1px solid #e0e0e0;
 }
 
 .tt_month-picker {
-  position: relative;
   margin-left: $default-spacing;
-
-  .tt_calendar-icon {
-    display: block;
+  .react-datepicker__input-container::after {
+    font-family: "Font Awesome 5 Pro";
     position: absolute;
     right: 5px;
-    top: $default-spacing * 2;
-    cursor: pointer;
+    top: 5px;
+    content: "\f073";
   }
 
   label {
