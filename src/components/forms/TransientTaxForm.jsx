@@ -7,6 +7,7 @@ import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
+import ExemptionCertificate from "../ExemptionCertificate";
 import { GetCalculatedTotals } from "../../common/Calculations";
 
 const initialValues = {
@@ -48,7 +49,6 @@ const TransientTaxForm = props => (
         paymentInterval,
         monthsLate = 0
       } = values;
-
       const {
         totalExemptions,
         netRoomRentalCollections,
@@ -65,7 +65,7 @@ const TransientTaxForm = props => (
         monthsToReport,
         monthsLate
       );
-
+      const isPaymentIntervalSelected = Object.keys(monthsToReport).length > 0;
       const buildMonthLabel = monthIndex => {
         const friendlyMonthLabels = Object.keys(monthsToReport).map(key =>
           format(monthsToReport[key], "M/yy")
@@ -98,7 +98,7 @@ const TransientTaxForm = props => (
             <PaymentOptions />
             <ReturnDateSelector paymentInterval={paymentInterval} />
           </div>
-          {Object.keys(monthsToReport).length > 0 && (
+          {isPaymentIntervalSelected && (
             <React.Fragment>
               <div className="tt_form-section">
                 <PaymentField
@@ -160,9 +160,10 @@ const TransientTaxForm = props => (
                   label={Labels.PenaltyInterestTotal}
                 />
               </div>
-              <button type="submit">Submit</button>
             </React.Fragment>
           )}
+          <ExemptionCertificate />
+          {isPaymentIntervalSelected && <button type="submit">Submit</button>}
         </Form>
       );
     }}
