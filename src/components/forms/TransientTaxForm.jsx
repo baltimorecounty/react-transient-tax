@@ -9,10 +9,15 @@ import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import { GetCalculatedTotals } from "../../common/Calculations";
 
+import IdentificationSection from "./IdentificationSection";
+
 const initialValues = {
   accountNumber: "",
   businessName: "",
-  address: ""
+  address: "",
+  submittedBy: "",
+  title: "",
+  email: ""
 };
 
 const validationSchema = () => {
@@ -23,7 +28,16 @@ const validationSchema = () => {
     businessName: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
-    address: Yup.string().required("Required")
+    address: Yup.string().required("Required"),
+    submittedBy: Yup.string()
+      .transform(value => (!value ? null : value))
+      .required("Required"),
+    title: Yup.string()
+      .transform(value => (!value ? null : value))
+      .required("Required"),
+    email: Yup.string()
+      .email("Please enter a valid email address.")
+      .required("Please enter your email address.")
   });
 };
 
@@ -160,6 +174,7 @@ const TransientTaxForm = props => (
                   label={Labels.PenaltyInterestTotal}
                 />
               </div>
+              <IdentificationSection />
               <button type="submit">Submit</button>
             </React.Fragment>
           )}

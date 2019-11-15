@@ -9,6 +9,10 @@ $default-border: 1px solid #e0e0e0;
     margin: 0;
   }
 }
+.tt_date-group {
+  display: flex;
+  justify-content: space-between;
+}
 
 .tt_form-section {
   border-bottom: $default-border;

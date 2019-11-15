@@ -4,11 +4,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./App.scss";
 import TransientTaxForm from "./components/forms/TransientTaxForm";
 
+
 function App() {
   return (
     <div className="tt_app">
-      <Router>
-        <Route exact path="/" component={TransientTaxForm} />
+       <Router>
+        <Route exact path="/" component={TransientTaxForm} /> 
       </Router>
     </div>
   );
