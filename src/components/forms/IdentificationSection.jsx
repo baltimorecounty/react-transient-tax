@@ -2,6 +2,7 @@ import React from "react";
 import { Labels } from "../../common/Constants";
 import { ErrorMessage, Field } from "formik";
 import { GetFormattedDueDate } from "../../common/DatesUtilities";
+import Modal from "../forms/Modal";
 
 const IdentificationSection = props => {
   return (
@@ -10,6 +11,7 @@ const IdentificationSection = props => {
         <label htmlFor="submittedBy">Return Submitted By</label>
         <div className="tt_month-pickers">
           <div className="tt_month-picker">
+            <Modal />
             <label>Date: {GetFormattedDueDate(new Date())}</label>
           </div>
         </div>
