@@ -8,7 +8,7 @@ const ExemptionSelector = props => {
   const {
     exemption: exemptionFromProps = {},
     isExistingRecord,
-    onExemptionAdd = () => {}
+    onExemptionSave = () => {}
   } = props;
   const [exemption, setExemption] = useState(exemptionFromProps);
   const { fromDate, toDate } = exemption;
@@ -19,8 +19,8 @@ const ExemptionSelector = props => {
     setSelectedExemptionType(parseInt(exemptionFromProps.exemptionType));
   }, [exemptionFromProps]);
 
-  const addExemption = () => {
-    onExemptionAdd(exemption);
+  const saveExemption = () => {
+    onExemptionSave(exemption);
     resetSelector();
   };
 
@@ -76,7 +76,7 @@ const ExemptionSelector = props => {
         toDate={toDate}
         handleChange={handleExemptionDateChange}
       />
-      <button onClick={addExemption} type="button">
+      <button onClick={saveExemption} type="button">
         {isExistingRecord ? "Save Changes" : "Add Exemption"}
       </button>
     </div>
