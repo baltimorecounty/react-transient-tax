@@ -195,7 +195,6 @@ const TransientTaxForm = componentProps => (
             </React.Fragment>
           )}
           {hasExemptions && <ExemptionCertificate />}
-
           {isPaymentIntervalSelected && (
             <React.Fragment>
               <IdentificationSection />
