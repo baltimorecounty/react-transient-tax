@@ -8,10 +8,12 @@ const IdentificationSection = props => {
   return (
     <div className="tt_form-section">
       <div className="tt_date-group">
-        <label htmlFor="submittedBy">Return Submitted By</label>
+        <label htmlFor="submittedBy">
+          Return Submitted By
+          <Modal />
+        </label>
         <div className="tt_month-pickers">
           <div className="tt_month-picker">
-            <Modal />
             <label>Date: {GetFormattedDueDate(new Date())}</label>
           </div>
         </div>
@@ -20,12 +22,18 @@ const IdentificationSection = props => {
         <Field id="submittedBy" name="submittedBy" type="text" />
         <ErrorMessage name="submittedBy" />
       </div>
-      <label htmlFor="title">Title</label>
+      <label htmlFor="title">
+        Title
+        <Modal />
+      </label>
       <div>
         <Field id="title" name="title" type="text" />
         <ErrorMessage name="title" />
       </div>
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email">
+        Email
+        <Modal />
+      </label>
       <div>
         <Field id="email" name="email" type="text" />
         <ErrorMessage name="email" />
