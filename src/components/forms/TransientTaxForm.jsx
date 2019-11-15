@@ -69,7 +69,8 @@ const TransientTaxForm = props => (
         transientTaxCollected,
         transientInterest,
         transientPenalty,
-        totalInterestAndPenalties
+        totalInterestAndPenalties,
+        monthlyTaxRemitted
       } = GetCalculatedTotals(
         {
           grossOccupancy,
@@ -172,6 +173,11 @@ const TransientTaxForm = props => (
                   name="totalInterestAndPenalties"
                   totals={totalInterestAndPenalties}
                   label={Labels.PenaltyInterestTotal}
+                />
+                <PaymentTotal
+                  name="monthlyTaxRemitted"
+                  totals={monthlyTaxRemitted}
+                  label={Labels.MonthlyTaxRemitted}
                 />
               </div>
               <IdentificationSection />
