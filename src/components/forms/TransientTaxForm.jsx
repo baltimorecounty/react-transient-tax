@@ -78,7 +78,6 @@ const TransientTaxForm = componentProps => (
           totalExemptions[exemptionIndex] <
           0 /** exemption totals are negative values */
       );
-      console.log(hasExemptions, totalExemptions);
       const buildMonthLabel = monthIndex => {
         const friendlyMonthLabels = Object.keys(monthsToReport).map(key =>
           format(monthsToReport[key], "M/yy")
