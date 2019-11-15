@@ -22,18 +22,12 @@ const IdentificationSection = props => {
         <Field id="submittedBy" name="submittedBy" type="text" />
         <ErrorMessage name="submittedBy" />
       </div>
-      <label htmlFor="title">
-        Title
-        <Modal />
-      </label>
+      <label htmlFor="title">Title</label>
       <div>
         <Field id="title" name="title" type="text" />
         <ErrorMessage name="title" />
       </div>
-      <label htmlFor="email">
-        Email
-        <Modal />
-      </label>
+      <label htmlFor="email">Email</label>
       <div>
         <Field id="email" name="email" type="text" />
         <ErrorMessage name="email" />
