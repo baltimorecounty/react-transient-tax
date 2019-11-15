@@ -35,6 +35,7 @@ const Labels = {
   ExemptionOption2:
     "Federal, State or County official or employee when on official business",
   ExemptionTotal: "Total Exemptions",
+  MonthlyTaxRemitted: "Monthly Tax Amount Remitted",
   TaxInterest: `Interest: Add ${FormatPercentage(
     RatesAndFees.InterestRate
   )} of the Tax Collected each month this return is late`,
