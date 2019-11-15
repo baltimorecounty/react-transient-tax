@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { addDays } from "date-fns";
 import DatePicker from "react-datepicker";
 
 const DateRangeSelector = props => {
@@ -53,6 +54,7 @@ const DateRangeSelector = props => {
         name={toDateId}
         selected={toDate}
         onChange={handleToDateChange}
+        minDate={addDays(fromDate, 1)}
         selectsEnd
         startDate={fromDate}
       />
