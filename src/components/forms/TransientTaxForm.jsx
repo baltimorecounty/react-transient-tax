@@ -35,7 +35,9 @@ const validationSchema = () => {
     title: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
-    email:Yup.string().email('Please enter a valid email address.').required('Please enter your email address.')
+    email: Yup.string()
+      .email("Please enter a valid email address.")
+      .required("Please enter your email address.")
   });
 };
 
