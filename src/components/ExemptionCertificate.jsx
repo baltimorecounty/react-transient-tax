@@ -3,18 +3,20 @@ import ExemptionSelector from "./ExemptionSelector";
 import ExemptionsList from "./ExemptionList";
 import { AddOrUpdate } from "../common/ArrayUtilities";
 import { SaveExemption } from "../services/ApiService";
-import { connect } from "formik";
+import { Field } from "formik";
 
-const ExemptionCertificate = props => {
-  const {
-    formik: { setValues }
-  } = props;
+const ExemptionCertificate = ({
+  field, // { name, value, onChange, onBlur }
+  form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  ...props
+}) => {
+  const { setFieldValue } = form;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
 
   useEffect(() => {
-    setValues({ exemptions });
-  }, [exemptions, setValues]);
+    setFieldValue("exemptions", exemptions);
+  }, [exemptions, setFieldValue]);
 
   const saveExemption = exemption => {
     const savedExemption = SaveExemption(exemption);
@@ -58,4 +60,8 @@ const ExemptionCertificate = props => {
   );
 };
 
-export default connect(ExemptionCertificate);
+const ExemptionCertificateField = props => (
+  <Field component={ExemptionCertificate} {...props} />
+);
+
+export default ExemptionCertificateField;
