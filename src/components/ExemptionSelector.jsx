@@ -12,11 +12,9 @@ const ExemptionSelector = props => {
   } = props;
   const [exemption, setExemption] = useState(exemptionFromProps);
   const { fromDate, toDate } = exemption;
-  const [selectedExemptionType, setSelectedExemptionType] = useState(0);
 
   useEffect(() => {
     setExemption(exemptionFromProps);
-    setSelectedExemptionType(parseInt(exemptionFromProps.exemptionType));
   }, [exemptionFromProps]);
 
   const saveExemption = () => {
@@ -24,22 +22,14 @@ const ExemptionSelector = props => {
     resetSelector();
   };
 
-  const handleExemptionTypeChange = changeEvent => {
-    const { id, name, value } = changeEvent.target;
-    const label = document.querySelectorAll(`label[for=${id}]`);
-    const labelText = label[0] ? label[0].textContent : "";
-
-    setSelectedExemptionType(parseInt(value));
-
+  const handleExemptionTypeChange = ({ type, label }) => {
     setExemption({
       ...exemption,
-      ...{ [name]: value, label: labelText }
+      ...{ type, label }
     });
   };
 
-  const handleExemptionDateChange = dates => {
-    const { fromDate, toDate } = dates;
-
+  const handleExemptionDateChange = ({ fromDate, toDate }) => {
     setExemption({
       ...exemption,
       ...{ fromDate, toDate }
@@ -48,26 +38,28 @@ const ExemptionSelector = props => {
 
   const resetSelector = () => {
     setExemption({});
-    setSelectedExemptionType(0);
   };
 
   return (
     <div className="tt_exemption-selector">
       {ExemptionTypes.map(exemptionType => {
-        const { id, hint, label } = exemptionType;
+        const { id: type, hint, label } = exemptionType;
         const formLabel = hint ? `${label} ( ${hint} )` : label;
-        const isChecked = selectedExemptionType === id;
+
+        const handleChange = () => {
+          handleExemptionTypeChange({ type, label });
+        };
 
         return (
           <Field
-            key={id}
+            key={type}
             component={RadioButton}
             name="exemptionType"
-            id={`exemptionType-${id}`}
+            id={`exemptionType-${type}`}
             label={formLabel}
-            value={id}
-            onChange={handleExemptionTypeChange}
-            checked={isChecked}
+            value={type}
+            onChange={handleChange}
+            checked={exemption.type === type}
           />
         );
       })}
