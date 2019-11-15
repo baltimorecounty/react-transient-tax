@@ -4,12 +4,12 @@ import { DefaultDateFormat } from "../common/DatesUtilities";
 
 const ExemptionListItem = props => {
   const { exemption, handleEditClick, handleRemoveClick } = props;
-  const { id, exemptionType, label, fromDate, toDate } = exemption;
+  const { id, type, label, fromDate, toDate } = exemption;
 
   const editItem = () => {
     handleEditClick({
       id,
-      exemptionType,
+      type,
       label,
       fromDate,
       toDate
