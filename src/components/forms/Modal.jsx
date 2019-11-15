@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import { Button } from 'reactstrap';
-class Modal extends Component {
+class ModalDisplay extends Component {
 	constructor(props, context) {
 		super(props, context);
 
@@ -50,4 +50,4 @@ class Modal extends Component {
 		);
 	}
 }
-export default Modal
+export default ModalDisplay
