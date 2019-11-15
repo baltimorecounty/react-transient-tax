@@ -10,6 +10,8 @@ import PaymentTotal from "../PaymentTotal";
 import ExemptionCertificate from "../ExemptionCertificate";
 import { GetCalculatedTotals } from "../../common/Calculations";
 
+import IdentificationSection from "./IdentificationSection";
+
 const initialValues = {
   accountNumber: "",
   businessName: "",
@@ -20,7 +22,10 @@ const initialValues = {
   governmentOnBusiness: 0,
   exemptions: [],
   monthsLate: 0,
-  monthsToReport: {}
+  monthsToReport: {},
+  submittedBy: "",
+  title: "",
+  email: ""
 };
 
 const validationSchema = () => {
@@ -31,7 +36,16 @@ const validationSchema = () => {
     businessName: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
-    address: Yup.string().required("Required")
+    address: Yup.string().required("Required"),
+    submittedBy: Yup.string()
+      .transform(value => (!value ? null : value))
+      .required("Required"),
+    title: Yup.string()
+      .transform(value => (!value ? null : value))
+      .required("Required"),
+    email: Yup.string()
+      .email("Please enter a valid email address.")
+      .required("Please enter your email address.")
   });
 };
 
@@ -62,7 +76,8 @@ const TransientTaxForm = componentProps => (
         transientTaxCollected,
         transientInterest,
         transientPenalty,
-        totalInterestAndPenalties
+        totalInterestAndPenalties,
+        monthlyTaxRemitted
       } = GetCalculatedTotals(
         {
           grossOccupancy,
@@ -171,11 +186,22 @@ const TransientTaxForm = componentProps => (
                   totals={totalInterestAndPenalties}
                   label={Labels.PenaltyInterestTotal}
                 />
+                <PaymentTotal
+                  name="monthlyTaxRemitted"
+                  totals={monthlyTaxRemitted}
+                  label={Labels.MonthlyTaxRemitted}
+                />
               </div>
             </React.Fragment>
           )}
           {hasExemptions && <ExemptionCertificate />}
-          {isPaymentIntervalSelected && <button type="submit">Submit</button>}
+
+          {isPaymentIntervalSelected && (
+            <React.Fragment>
+              <IdentificationSection />
+              <button type="submit">Submit</button>
+            </React.Fragment>
+          )}
         </Form>
       );
     }}

@@ -123,13 +123,19 @@ const GetCalculatedTotals = (fields = {}, monthsToReport, monthsLate = 0) => {
     );
   }
 
+  const monthlyTaxRemitted = CalculateTotalsPerMonths(
+    [transientTaxCollected, totalInterestAndPenalties],
+    monthsToReport
+  );
+
   return {
     totalExemptions,
     netRoomRentalCollections,
     transientTaxCollected,
     transientInterest,
     transientPenalty,
-    totalInterestAndPenalties
+    totalInterestAndPenalties,
+    monthlyTaxRemitted
   };
 };
 
