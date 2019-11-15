@@ -73,6 +73,12 @@ const TransientTaxForm = componentProps => (
         monthsLate
       );
       const isPaymentIntervalSelected = Object.keys(monthsToReport).length > 0;
+      const hasExemptions = Object.keys(totalExemptions).some(
+        exemptionIndex =>
+          totalExemptions[exemptionIndex] <
+          0 /** exemption totals are negative values */
+      );
+      console.log(hasExemptions, totalExemptions);
       const buildMonthLabel = monthIndex => {
         const friendlyMonthLabels = Object.keys(monthsToReport).map(key =>
           format(monthsToReport[key], "M/yy")
@@ -169,7 +175,7 @@ const TransientTaxForm = componentProps => (
               </div>
             </React.Fragment>
           )}
-          <ExemptionCertificate />
+          {hasExemptions && <ExemptionCertificate />}
           {isPaymentIntervalSelected && <button type="submit">Submit</button>}
         </Form>
       );
