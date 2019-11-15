@@ -3,6 +3,8 @@ $default-spacing: 15px;
 $default-border: 1px solid #e0e0e0;
 
 .tt_app {
+  margin: $default-spacing;
+
   p {
     margin: 0;
   }
@@ -17,19 +19,46 @@ $default-border: 1px solid #e0e0e0;
 .tt_form-group {
   display: flex;
   justify-content: space-between;
-  padding: $default-spacing;
+  padding: $default-spacing 0;
 }
 
+.tt_currency-pickers,
 .tt_month-pickers {
   display: flex;
 }
 
+.tt_currency-picker,
 .tt_month-picker {
   margin-left: $default-spacing;
+  .react-datepicker__input-container::after {
+    font-family: "Font Awesome 5 Pro";
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    content: "\f073";
+  }
 
   label {
     display: block;
   }
+}
+
+.tt_currency-picker {
+  input,
+  .tt_total {
+    display: block;
+    min-width: 175px;
+    text-align: right;
+  }
+
+  .tt_total {
+    font-weight: bold;
+    padding-right: 7.5px;
+  }
+}
+
+.total {
+  border-top: $default-border;
 }
 
 .tt_past-due-icon {
