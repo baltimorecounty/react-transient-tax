@@ -12,7 +12,7 @@ const AddOrUpdate = (items, savedItem, idKey = "id") => {
   // Replace Existing Item
   if (existingIndex > -1) {
     items.splice(existingIndex, 1, savedItem);
-    return items;
+    return [...items];
   }
 
   // Add New Item
