@@ -8,8 +8,8 @@ const IdentificationSection = props => {
     <div className="tt_form-section">
       <div className="tt_date-group">
         <label htmlFor="submittedBy">Return Submitted By</label>
-        <div class="tt_month-pickers">
-          <div class="tt_month-picker">
+        <div className="tt_month-pickers">
+          <div className="tt_month-picker">
             <label>Date: {GetFormattedDueDate(new Date())}</label>
           </div>
         </div>
