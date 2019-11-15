@@ -63,8 +63,8 @@ const ConfirmationForm = props => {
         <span>{ConfirmationHeader}</span>
       </h1>
       <i>
-        <span class="">{dateToday} </span>
-        <span class="">{timeToday}</span>
+        <span className="">{dateToday} </span>
+        <span className="">{timeToday}</span>
       </i>
       <h2>{ConfirmationSubHeader}</h2>
       <p dangerouslySetInnerHTML={{ __html: confirmBody }}></p>
@@ -72,75 +72,75 @@ const ConfirmationForm = props => {
         <em>{nextPayment}</em>
       </p>
       <h3>{taxDetailsHeader}</h3>
-      <table align="left" cellpadding="1" cellspacing="1" id="BACO_table">
+      <table align="left" cellPadding="1" cellSpacing="1" id="BACO_table">
         <tbody>
           <tr>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>
                 <strong>{ConfirmationGridPaymentPlan}</strong>
               </p>
             </td>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>{paymentInterval}</p>
             </td>
           </tr>
           <tr>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>
                 <strong>{ConfirmationGridInterval}</strong>
               </p>
             </td>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>{dateToday}</p>
             </td>
           </tr>
           <tr>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>
                 <strong>{ConfirmationGridDueDate}</strong>
               </p>
             </td>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>{newDueDate}</p>
             </td>
           </tr>
           <tr>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>
                 <strong>{ConfirmationGridOccupancyTaxCollected}</strong>
               </p>
             </td>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>{occupancyTaxCollected}</p>
             </td>
           </tr>
           <tr>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>
                 <strong>{ConfirmationGridExemptions}</strong>
               </p>
             </td>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>{exemptionTotal}</p>
             </td>
           </tr>
           <tr>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>
                 <strong>{ConfirmationGridPenalties}</strong>
               </p>
             </td>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>{penaltyTotal}</p>
             </td>
           </tr>
           <tr>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>
                 <strong>{gridTaxRemitted}</strong>
               </p>
             </td>
-            <td colspan="1" rowspan="1">
+            <td colSpan="1" rowSpan="1">
               <p>
                 <strong>{taxRemitted}</strong>
               </p>
