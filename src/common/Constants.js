@@ -23,6 +23,8 @@ const RatesAndFees = {
 };
 
 const Labels = {
+  WhyDoWeNeedThis:"Why do we need this?",
+  LegalNote:"I Declare under penalty of perjury that this return has been examined by me and to the best of my knowledge and belief is a true, correct and complete return.",
   GrossOccupancy: "Gross Occupancy Tax Collected",
   DaysRemaining: "Days remaining until due",
   DueDate: "Due Date",
@@ -33,6 +35,7 @@ const Labels = {
   ExemptionOption2:
     "Federal, State or County official or employee when on official business",
   ExemptionTotal: "Total Exemptions",
+  MonthlyTaxRemitted: "Monthly Tax Amount Remitted",
   TaxInterest: `Interest: Add ${FormatPercentage(
     RatesAndFees.InterestRate
   )} of the Tax Collected each month this return is late`,
