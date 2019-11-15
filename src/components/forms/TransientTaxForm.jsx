@@ -13,7 +13,14 @@ import { GetCalculatedTotals } from "../../common/Calculations";
 const initialValues = {
   accountNumber: "",
   businessName: "",
-  address: ""
+  address: "",
+  paymentInterval: "",
+  grossOccupancy: 0,
+  roomRentalCollectionFromNonTransients: 0,
+  governmentOnBusiness: 0,
+  exemptions: [],
+  monthsLate: 0,
+  monthsToReport: {}
 };
 
 const validationSchema = () => {
@@ -33,7 +40,7 @@ const onSubmit = (values, { setSubmitting }) => {
   setSubmitting(false);
 };
 
-const TransientTaxForm = props => (
+const TransientTaxForm = componentProps => (
   <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
@@ -79,7 +86,7 @@ const TransientTaxForm = props => (
             {/* Basic Information Section */}
             <label htmlFor="accountNumber">Account Number</label>
             <div>
-              <Field id="accountNumber" name="accountNumber" type="text" />
+              <Field id="accountNumber" name="accountNumber" type="number" />
               <ErrorMessage name="accountNumber" />
             </div>
             <label htmlFor="businessName">Business Name</label>
