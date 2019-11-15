@@ -11,7 +11,6 @@ const ExemptionCertificate = props => {
   } = props;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
-  const [isExistingRecord, setIsExistingRecord] = useState(false);
 
   useEffect(() => {
     setValues({ exemptions });
@@ -25,7 +24,6 @@ const ExemptionCertificate = props => {
   };
 
   const editExemption = exemptionToEdit => {
-    setIsExistingRecord(true);
     setExemption({ ...exemptionToEdit });
   };
 
@@ -43,7 +41,6 @@ const ExemptionCertificate = props => {
       <ExemptionSelector
         exemption={exemption}
         onExemptionSave={saveExemption}
-        isExistingRecord={isExistingRecord}
       />
       {exemptions.length > 0 && (
         <ExemptionsList

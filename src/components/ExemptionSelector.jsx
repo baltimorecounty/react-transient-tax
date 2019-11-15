@@ -7,11 +7,9 @@ import DateRangeSelector from "./DateRangeSelector";
 const ExemptionSelector = props => {
   const {
     exemption: exemptionFromProps = {},
-    isExistingRecord,
     onExemptionSave = () => {}
   } = props;
   const [exemption, setExemption] = useState(exemptionFromProps);
-  const { fromDate, toDate } = exemption;
 
   useEffect(() => {
     setExemption(exemptionFromProps);
@@ -64,12 +62,12 @@ const ExemptionSelector = props => {
         );
       })}
       <DateRangeSelector
-        fromDate={fromDate}
-        toDate={toDate}
+        fromDate={exemption.fromDate}
+        toDate={exemption.toDate}
         handleChange={handleExemptionDateChange}
       />
       <button onClick={saveExemption} type="button">
-        {isExistingRecord ? "Save Changes" : "Add Exemption"}
+        {exemption.id ? "Update" : "Add"}
       </button>
     </div>
   );
