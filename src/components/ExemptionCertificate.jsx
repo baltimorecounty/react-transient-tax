@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ExemptionSelector from "./ExemptionSelector";
 import ExemptionsList from "./ExemptionList";
+import { AddOrUpdate } from "../common/ArrayUtilities";
 import { SaveExemption } from "../services/ApiService";
 import { connect } from "formik";
 
@@ -16,9 +17,11 @@ const ExemptionCertificate = props => {
     setValues({ exemptions });
   }, [exemptions, setValues]);
 
-  const addExemption = exemption => {
+  const saveExemption = exemption => {
     const savedExemption = SaveExemption(exemption);
-    setExemptions([...exemptions, savedExemption]);
+    const updatedExemptions = AddOrUpdate(exemptions, savedExemption);
+
+    setExemptions(updatedExemptions);
   };
 
   const editExemption = exemptionToEdit => {
@@ -39,7 +42,7 @@ const ExemptionCertificate = props => {
       </p>
       <ExemptionSelector
         exemption={exemption}
-        onExemptionAdd={addExemption}
+        onExemptionSave={saveExemption}
         isExistingRecord={isExistingRecord}
       />
       {exemptions.length > 0 && (
