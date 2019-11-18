@@ -4,6 +4,7 @@ import { GetExemptionTypes } from "../services/ApiService";
 import { RadioButton } from "../common/RadioButton";
 import DateRangeSelector from "./DateRangeSelector";
 import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
+import { FormHints } from "../common/Constants";
 
 const ExemptionSelector = props => {
   const {
@@ -76,7 +77,9 @@ const ExemptionSelector = props => {
         </ul>
       )}
       {exemptionTypes.map(exemptionType => {
-        const { Id: type, hint, Description: label } = exemptionType;
+        const { Id: type, Description: label } = exemptionType;
+        const hint =
+          label.toLowerCase() === "non-transient" ? FormHints.NonTransient : "";
         const formLabel = hint ? `${label} ( ${hint} )` : label;
 
         const handleChange = () => {

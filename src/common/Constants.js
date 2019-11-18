@@ -5,6 +5,10 @@ const DateTypes = {
   Month: "month"
 };
 
+const FormHints = {
+  NonTransient: "Sleeping accommodations from 90 consecutive days"
+};
+
 const PaymentInterval = {
   Monthly: 2,
   Quarterly: 1
@@ -62,6 +66,7 @@ const Messages = {
 
 export {
   DateTypes,
+  FormHints,
   Labels,
   Messages,
   PaymentDirections,
