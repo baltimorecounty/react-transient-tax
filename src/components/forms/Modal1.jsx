@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import { Button } from 'reactstrap';
-const ModalDisplay =props=> {
-	// constructor(props, context) {
-	// 	super(props, context);
+class ModalDisplay extends Component {
+	constructor(props, context) {
+		super(props, context);
 
 		this.handleShow = this.handleShow.bind(this);
 		this.handleClose = this.handleClose.bind(this);
@@ -11,17 +11,17 @@ const ModalDisplay =props=> {
 		this.state = {
 			show: false,
 		};
-	// }
+	}
 
-	const handleClose =()=> {
+	handleClose() {
 		this.setState({ show: false });
 	}
 
-	const handleShow=()=> {
+	handleShow() {
 		this.setState({ show: true });
 	}
 
-
+	render() {
 		return (
 			<>
 				<Button type="button" color="link" onClick={this.handleShow}>
@@ -49,4 +49,5 @@ const ModalDisplay =props=> {
 			</>
 		);
 	}
+}
 export default ModalDisplay
