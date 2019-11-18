@@ -7,7 +7,8 @@ import ConfirmationTable from "../ConfirmationTable";
 import { connect } from "formik";
 
 const ConfirmationForm = props => {
-  const response = props.history.location.state;
+  //This is a placeholder for now
+  //const response = props.history.location.state;
 
   /**************values coming from API currently hard coded for display********/
   const confirmationId = "0924276246"; //response.data.ConfirmationID;
@@ -27,7 +28,9 @@ const ConfirmationForm = props => {
   const labels = {
     ConfirmationHeader: "Your Baltimore County Transient Occupancy Tax Return",
     ConfirmationSubHeader: "Transient Tax Return Submitted",
-    ConfirmationBody: `You have successfully completed the Baltimore County Transient Occupancy Tax Return. Your confirmation number for this return is ${confirmationId}. <br><br> Please present this number to the appropriate Budget and Finance Official when making inquiries in regards to your Transient Occupancy Tax Return.`,
+    ConfirmationBody: `You have successfully completed the Baltimore County Transient Occupancy Tax Return. Your confirmation number for this return is ${confirmationId}.`,
+    ConfirmationSubBody:
+      "Please present this number to the appropriate Budget and Finance Official when making inquiries in regards to your Transient Occupancy Tax Return.",
     ConfirmationNextPayment: `You have signed up for ${paymentInterval} payments; the due date for your next payment is ${newDueDate}`,
     ConfirmationTaxDetailsHeader: `${confirmationId} Transient Occupancy Tax Return Details:`
   };
@@ -55,7 +58,8 @@ const ConfirmationForm = props => {
         <span className="">{timeToday}</span>
       </i>
       <h2>{labels.ConfirmationSubHeader}</h2>
-      <p dangerouslySetInnerHTML={{ __html: labels.ConfirmationBody }}></p>
+      <p> {labels.ConfirmationBody}</p>
+      <p>{labels.ConfirmationSubBody}</p>
       <p>
         <em>{labels.ConfirmationNextPayment}</em>
       </p>
