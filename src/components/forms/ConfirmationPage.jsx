@@ -33,13 +33,13 @@ const ConfirmationForm = props => {
   };
 
   const ConfirmationGridValues = [
-    { key: "Your Payment Plan", value: paymentInterval },
-    { key: "Month of Return", value: dateToday },
-    { key: "Due Date", value: newDueDate },
-    { key: "Occupancy Tax Collected", value: occupancyTaxCollected },
-    { key: "Exemptions", value: exemptionTotal },
-    { key: "Penalties", value: penaltyTotal },
-    { key: `${paymentInterval} Tax Remitted`, value: taxRemitted }
+    { id: 1, key: "Your Payment Plan", value: paymentInterval },
+    { id: 2, key: "Month of Return", value: dateToday },
+    { id: 3, key: "Due Date", value: newDueDate },
+    { id: 4, key: "Occupancy Tax Collected", value: occupancyTaxCollected },
+    { id: 5, key: "Exemptions", value: exemptionTotal },
+    { id: 6, key: "Penalties", value: penaltyTotal },
+    { id: 7, key: `${paymentInterval} Tax Remitted`, value: taxRemitted }
   ];
 
   return (

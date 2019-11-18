@@ -9,7 +9,7 @@ const ConfirmationTable = props => {
       <table align="left" cellPadding="1" cellSpacing="1" id="BACO_table">
         <tbody>
           {ConfirmationGridValues.map(item => (
-            <tr>
+            <tr key={item.id}>
               <td colSpan="1" rowSpan="1">
                 <p>
                   <strong>{item.key}</strong>
