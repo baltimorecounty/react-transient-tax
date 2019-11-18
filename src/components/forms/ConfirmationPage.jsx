@@ -32,7 +32,7 @@ const ConfirmationForm = props => {
     ConfirmationTaxDetailsHeader: `${confirmationId} Transient Occupancy Tax Return Details:`
   };
 
-  const ConfirmationGridValues = [
+  const ConfirmationTableValues = [
     { id: 1, key: "Your Payment Plan", value: paymentInterval },
     { id: 2, key: "Month of Return", value: dateToday },
     { id: 3, key: "Due Date", value: newDueDate },
@@ -61,7 +61,7 @@ const ConfirmationForm = props => {
       </p>
       <ConfirmationTable
         TaxDetailsHeader={labels.ConfirmationTaxDetailsHeader}
-        ConfirmationGridValues={ConfirmationGridValues}
+        ConfirmationTableValues={ConfirmationTableValues}
       />
     </div>
   );
