@@ -7,6 +7,7 @@ import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
+import ExemptionCertificate from "../ExemptionCertificate";
 import { GetCalculatedTotals } from "../../common/Calculations";
 
 import IdentificationSection from "./IdentificationSection";
@@ -15,6 +16,13 @@ const initialValues = {
   accountNumber: "",
   businessName: "",
   address: "",
+  paymentInterval: "",
+  grossOccupancy: 0,
+  roomRentalCollectionFromNonTransients: 0,
+  governmentOnBusiness: 0,
+  exemptions: [],
+  monthsLate: 0,
+  monthsToReport: {},
   submittedBy: "",
   title: "",
   email: ""
@@ -46,7 +54,7 @@ const onSubmit = (values, { setSubmitting }) => {
   setSubmitting(false);
 };
 
-const TransientTaxForm = props => (
+const TransientTaxForm = componentProps => (
   <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
@@ -62,7 +70,6 @@ const TransientTaxForm = props => (
         paymentInterval,
         monthsLate = 0
       } = values;
-
       const {
         totalExemptions,
         netRoomRentalCollections,
@@ -80,7 +87,12 @@ const TransientTaxForm = props => (
         monthsToReport,
         monthsLate
       );
-
+      const isPaymentIntervalSelected = Object.keys(monthsToReport).length > 0;
+      const hasExemptions = Object.keys(totalExemptions).some(
+        exemptionIndex =>
+          totalExemptions[exemptionIndex] <
+          0 /** exemption totals are negative values */
+      );
       const buildMonthLabel = monthIndex => {
         const friendlyMonthLabels = Object.keys(monthsToReport).map(key =>
           format(monthsToReport[key], "M/yy")
@@ -94,7 +106,7 @@ const TransientTaxForm = props => (
             {/* Basic Information Section */}
             <label htmlFor="accountNumber">Account Number</label>
             <div>
-              <Field id="accountNumber" name="accountNumber" type="text" />
+              <Field id="accountNumber" name="accountNumber" type="number" />
               <ErrorMessage name="accountNumber" />
             </div>
             <label htmlFor="businessName">Business Name</label>
@@ -113,7 +125,7 @@ const TransientTaxForm = props => (
             <PaymentOptions />
             <ReturnDateSelector paymentInterval={paymentInterval} />
           </div>
-          {Object.keys(monthsToReport).length > 0 && (
+          {isPaymentIntervalSelected && (
             <React.Fragment>
               <div className="tt_form-section">
                 <PaymentField
@@ -180,6 +192,11 @@ const TransientTaxForm = props => (
                   label={Labels.MonthlyTaxRemitted}
                 />
               </div>
+            </React.Fragment>
+          )}
+          {hasExemptions && <ExemptionCertificate />}
+          {isPaymentIntervalSelected && (
+            <React.Fragment>
               <IdentificationSection />
               <button type="submit">Submit</button>
             </React.Fragment>

@@ -5,6 +5,10 @@ const DateTypes = {
   Month: "month"
 };
 
+const FormHints = {
+  NonTransient: "Sleeping accommodations from 90 consecutive days"
+};
+
 const PaymentInterval = {
   Monthly: 2,
   Quarterly: 1
@@ -51,4 +55,21 @@ const Labels = {
   PenaltyInterestTotal: "Total Interest and Penalties"
 };
 
-export { DateTypes, Labels, PaymentDirections, PaymentInterval, RatesAndFees };
+const Messages = {
+  ExemptionCertificate: {
+    Certification:
+      "I certify that the occupancy of the facilities above have been (or will be) furnished for the exclusive use of and will be paid by or from the funds of:",
+    Qualification:
+      "That all of the qualifications explained on this form have been met so as to exempt this occupancy from the tax imposed by County Code 11-4-401."
+  }
+};
+
+export {
+  DateTypes,
+  FormHints,
+  Labels,
+  Messages,
+  PaymentDirections,
+  PaymentInterval,
+  RatesAndFees
+};
