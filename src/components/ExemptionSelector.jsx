@@ -59,7 +59,7 @@ const ExemptionSelector = props => {
   return (
     <div className="tt_exemption-selector">
       {formErrors.length > 0 && (
-        <ul>
+        <ul className="tt_error-list">
           {formErrors.map(({ key, error }) => (
             <li key={key}>{error}</li>
           ))}
