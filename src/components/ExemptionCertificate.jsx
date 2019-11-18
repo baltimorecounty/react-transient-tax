@@ -4,6 +4,7 @@ import ExemptionsList from "./ExemptionList";
 import { AddOrUpdate } from "../common/ArrayUtilities";
 import { SaveExemption } from "../services/ApiService";
 import { Field } from "formik";
+import { Messages } from "../common/Constants";
 
 const ExemptionCertificate = ({
   field, // { name, value, onChange, onBlur }
@@ -35,11 +36,7 @@ const ExemptionCertificate = ({
 
   return (
     <div className="tt_form-section">
-      <p>
-        I certify that the occupancy of the facilities above have been (or will
-        be) furnished for the exclusive use of and will be paid by or from the
-        funds of:
-      </p>
+      <p>{Messages.ExemptionCertificate.Certification}</p>
       <ExemptionSelector
         exemption={exemption}
         onExemptionSave={saveExemption}
@@ -51,11 +48,7 @@ const ExemptionCertificate = ({
           handleRemoveClick={removeExemption}
         />
       )}
-      <p>
-        That all of the qualifications explained on this form have been met so
-        as to exempt this occupancy from the tax imposed by County Code
-        11-4-401.
-      </p>
+      <p>{Messages.ExemptionCertificate.Qualification}</p>
     </div>
   );
 };
