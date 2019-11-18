@@ -7,7 +7,7 @@ import {
   startOfDay
 } from "date-fns";
 import { Labels, DateTypes } from "./Constants";
-const dateFormat = "MMMM d, yyyy";
+const DefaultDateFormat = "MMMM d, yyyy";
 
 /**
  * Get the due date based on a given date.
@@ -27,7 +27,7 @@ const GetDueDate = fillingDate => {
  * @returns {string} friendly version of the due date
  */
 const GetFormattedDueDate = fillingDate =>
-  format(GetDueDate(fillingDate), dateFormat);
+  format(GetDueDate(fillingDate), DefaultDateFormat);
 
 /**
  * Gets a friendly message to let us know if the return is late
@@ -67,4 +67,4 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
   };
 };
 
-export { GetDueDate, GetFormattedDueDate, GetDueDateStatus };
+export { DefaultDateFormat, GetDueDate, GetFormattedDueDate, GetDueDateStatus };
