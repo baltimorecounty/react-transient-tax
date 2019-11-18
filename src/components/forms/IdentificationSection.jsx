@@ -2,7 +2,7 @@ import React from "react";
 import { Labels } from "../../common/Constants";
 import { ErrorMessage, Field } from "formik";
 import { GetFormattedDueDate } from "../../common/DatesUtilities";
-import Modal from "./Modal1";
+import InformationModal from "./InformationModal";
 
 const IdentificationSection = props => {
   return (
@@ -10,7 +10,7 @@ const IdentificationSection = props => {
       <div className="tt_date-group">
         <label htmlFor="submittedBy">
           Return Submitted By
-          <Modal />
+          <InformationModal title="my tittle 1" content="my content 1" />
         </label>
         <div className="tt_month-pickers">
           <div className="tt_month-picker">
@@ -23,6 +23,8 @@ const IdentificationSection = props => {
         <ErrorMessage name="submittedBy" />
       </div>
       <label htmlFor="title">Title</label>
+
+      <InformationModal title="my title 2" content="my content 2" />
       <div>
         <Field id="title" name="title" type="text" />
         <ErrorMessage name="title" />
