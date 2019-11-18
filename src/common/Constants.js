@@ -23,8 +23,9 @@ const RatesAndFees = {
 };
 
 const Labels = {
-  WhyDoWeNeedThis:"Why do we need this?",
-  LegalNote:"I Declare under penalty of perjury that this return has been examined by me and to the best of my knowledge and belief is a true, correct and complete return.",
+  WhyDoWeNeedThis: "Why do we need this?",
+  LegalNote:
+    "I Declare under penalty of perjury that this return has been examined by me and to the best of my knowledge and belief is a true, correct and complete return.",
   GrossOccupancy: "Gross Occupancy Tax Collected",
   DaysRemaining: "Days remaining until due",
   DueDate: "Due Date",
@@ -50,4 +51,49 @@ const Labels = {
   PenaltyInterestTotal: "Total Interest and Penalties"
 };
 
-export { DateTypes, Labels, PaymentDirections, PaymentInterval, RatesAndFees };
+const ExemptionTypes = [
+  {
+    id: 1,
+    label: "Non-Transient",
+    hint: "Sleeping accommodations from 90 consecutive days"
+  },
+  {
+    id: 2,
+    label: "U.S. Government"
+  },
+  {
+    id: 3,
+    label: "State of Maryland"
+  },
+  {
+    id: 4,
+    label: "Baltimore County, MD"
+  },
+  {
+    id: 5,
+    label: "Other Jurisdictions"
+  },
+  {
+    id: 6,
+    label: "Foreign Government"
+  }
+];
+
+const Messages = {
+  ExemptionCertificate: {
+    Certification:
+      "I certify that the occupancy of the facilities above have been (or will be) furnished for the exclusive use of and will be paid by or from the funds of:",
+    Qualification:
+      "That all of the qualifications explained on this form have been met so as to exempt this occupancy from the tax imposed by County Code 11-4-401."
+  }
+};
+
+export {
+  DateTypes,
+  ExemptionTypes,
+  Labels,
+  Messages,
+  PaymentDirections,
+  PaymentInterval,
+  RatesAndFees
+};
