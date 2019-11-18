@@ -3,14 +3,14 @@ import { HashRouter as Router, Route } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.scss";
 import TransientTaxForm from "./components/forms/TransientTaxForm";
-import ConfirmationForm from "./components/forms/ConfirmationForm";
+import ConfirmationPage from "./components/forms/ConfirmationPage";
 
 function App() {
   return (
     <div className="tt_app">
       <Router>
         <Route exact path="/" component={TransientTaxForm} />
-        <Route exact path="/ConfirmationForm" component={ConfirmationForm} />
+        <Route exact path="/ConfirmationPage" component={ConfirmationPage} />
       </Router>
     </div>
   );

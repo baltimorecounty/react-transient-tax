@@ -23,8 +23,9 @@ const RatesAndFees = {
 };
 
 const Labels = {
-  WhyDoWeNeedThis:"Why do we need this?",
-  LegalNote:"I Declare under penalty of perjury that this return has been examined by me and to the best of my knowledge and belief is a true, correct and complete return.",
+  WhyDoWeNeedThis: "Why do we need this?",
+  LegalNote:
+    "I Declare under penalty of perjury that this return has been examined by me and to the best of my knowledge and belief is a true, correct and complete return.",
   GrossOccupancy: "Gross Occupancy Tax Collected",
   DaysRemaining: "Days remaining until due",
   DueDate: "Due Date",
@@ -47,21 +48,7 @@ const Labels = {
     RatesAndFees.TransientTaxRate
   )})`,
   NetRoomRentalLabel: "Net Room Rental Collections",
-  PenaltyInterestTotal: "Total Interest and Penalties",
-  ConfirmationHeader: "Your Baltimore County Transient Occupancy Tax Return",
-  ConfirmationSubHeader: "Transient Tax Return Submitted",
-  ConfirmationBody:
-    "You have successfully completed the Baltimore County Transient Occupancy Tax Return. Your confirmation number for this return is {ID}. <br><br> Please present this number to the appropriate Budget and Finance Official when making inquiries in regards to your Transient Occupancy Tax Return.", //{ID} will be replaced with the confirmation number fromt he API
-  ConfirmationNextPayment:
-    "You have signed up for {PaymentInterval} payments; the due date for your next payment is {DueDate}", //{PaymentInterval} will be replaced with the interval chosen on the form i.e. Monthly or Quarterly, {DueDate} will be replaced with the next due date
-  ConfirmationTaxDetailsHeader: "{ID} Transient Occupancy Tax Return Details:", //{ID} will be replaced with the confirmation number from the API
-  ConfirmationGridPaymentPlan: "Your Payment Plan",
-  ConfirmationGridInterval: "Month of Return",
-  ConfirmationGridDueDate: "Due Date",
-  ConfirmationGridOccupancyTaxCollected: "Occupancy Tax Collected",
-  ConfirmationGridExemptions: "Exemptions",
-  ConfirmationGridPenalties: "Penalties",
-  ConfirmationGridTaxRemitted: "{PaymentInterval} Tax Remitted" //{PaymentInterval} will be replaced with the interval chosen on the form i.e. Monthly or Quarterly
+  PenaltyInterestTotal: "Total Interest and Penalties"
 };
 
 export { DateTypes, Labels, PaymentDirections, PaymentInterval, RatesAndFees };
