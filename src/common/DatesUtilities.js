@@ -30,6 +30,16 @@ const GetFormattedDueDate = fillingDate =>
   format(GetDueDate(fillingDate), DefaultDateFormat);
 
 /**
+ * Format the date/time based on a given format pattern.
+ * @param {date} dateToFormat date to be formatted
+ * @param {date} dateFormat date or time format to be returned
+ * @returns {string} friendly version of a date
+ */
+const GetFormatedDateTime = (dateToFormat, dateFormat) => {
+  return format(dateToFormat, dateFormat);
+};
+
+/**
  * Gets a friendly message to let us know if the return is late
  * or there is some time left before the due date.
  * @param {date} filingForDate target date for the return
@@ -67,4 +77,10 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
   };
 };
 
-export { DefaultDateFormat, GetDueDate, GetFormattedDueDate, GetDueDateStatus };
+export {
+  DefaultDateFormat,
+  GetDueDate,
+  GetFormattedDueDate,
+  GetDueDateStatus,
+  GetFormatedDateTime
+};
