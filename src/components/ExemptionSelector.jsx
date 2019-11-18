@@ -9,15 +9,37 @@ const ExemptionSelector = props => {
     exemption: exemptionFromProps = {},
     onExemptionSave = () => {}
   } = props;
+  const [formErrors, setFormErrors] = useState([]);
   const [exemption, setExemption] = useState(exemptionFromProps);
 
   useEffect(() => {
     setExemption(exemptionFromProps);
   }, [exemptionFromProps]);
 
+  const getFormErrors = () => {
+    const activeFormErrors = [];
+    const { fromDate, toDate } = exemption;
+
+    if (!fromDate) {
+      activeFormErrors.push({ key: "fromDate", error: "From Date Required" });
+    }
+
+    if (!toDate) {
+      activeFormErrors.push({ key: "toDate", error: "To Date Required" });
+    }
+
+    return activeFormErrors;
+  };
+
   const saveExemption = () => {
-    onExemptionSave(exemption);
-    resetSelector();
+    const errors = getFormErrors();
+
+    if (errors.length === 0) {
+      onExemptionSave(exemption);
+      resetSelector();
+    } else {
+      setFormErrors(errors);
+    }
   };
 
   const handleExemptionTypeChange = ({ type, label }) => {
@@ -40,6 +62,13 @@ const ExemptionSelector = props => {
 
   return (
     <div className="tt_exemption-selector">
+      {formErrors.length > 0 && (
+        <ul>
+          {formErrors.map(({ key, error }) => (
+            <li key={key}>{error}</li>
+          ))}
+        </ul>
+      )}
       {ExemptionTypes.map(exemptionType => {
         const { id: type, hint, label } = exemptionType;
         const formLabel = hint ? `${label} ( ${hint} )` : label;
