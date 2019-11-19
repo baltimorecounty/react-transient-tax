@@ -2,14 +2,14 @@ import React from "react";
 import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import ExemptionCertificate from "../ExemptionCertificate";
 import { GetCalculatedTotals } from "../../common/Calculations";
-
+import BasicInformationSection from "./BasicInformationSection";
 import IdentificationSection from "./IdentificationSection";
 
 const initialValues = {
@@ -102,25 +102,7 @@ const TransientTaxForm = componentProps => (
 
       return (
         <Form>
-          <div className="tt_form-section">
-            {/* Basic Information Section */}
-            <label htmlFor="accountNumber">Account Number</label>
-            <div>
-              <Field id="accountNumber" name="accountNumber" type="number" />
-              <ErrorMessage name="accountNumber" />
-            </div>
-            <label htmlFor="businessName">Business Name</label>
-            <div>
-              <Field id="businessName" name="businessName" type="text" />
-              <ErrorMessage name="businessName" />
-            </div>
-            <label htmlFor="address">Address</label>
-            <div>
-              <Field id="address" name="address" type="text" />
-              <ErrorMessage name="address" />
-            </div>
-          </div>
-          {/* End of Basic Information Section */}
+          <BasicInformationSection />
           <div className="tt_form-section">
             <PaymentOptions />
             <ReturnDateSelector paymentInterval={paymentInterval} />
