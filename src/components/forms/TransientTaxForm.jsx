@@ -11,6 +11,7 @@ import IdentificationSection from "./IdentificationSection";
 import GrossOccupancySection from "./GrossOccupancySection";
 import ExemptionsSection from "./ExemptionsSection";
 import TransientTaxSection from "./TransientTaxSection";
+import { SaveReturn } from "../../services/ApiService";
 
 const initialValues = {
   accountNumber: "",
@@ -29,35 +30,35 @@ const initialValues = {
 };
 
 const validationSchema = () => {
-  return Yup.object().shape({
-    accountNumber: Yup.string()
-      .matches(/^[0-9]*$/, "it must be number only")
-      .required("Required"),
-    businessName: Yup.string()
-      .transform(value => (!value ? null : value))
-      .required("Required"),
-    address: Yup.string().required("Required"),
-    submittedBy: Yup.string()
-      .transform(value => (!value ? null : value))
-      .required("Required"),
-    title: Yup.string()
-      .transform(value => (!value ? null : value))
-      .required("Required"),
-    email: Yup.string()
-      .email("Please enter a valid email address.")
-      .required("Please enter your email address.")
-  });
+  return {};
+  //   return Yup.object().shape({
+  //     accountNumber: Yup.string().required("Required"),
+  //     businessName: Yup.string()
+  //       .transform(value => (!value ? null : value))
+  //       .required("Required"),
+  //     address: Yup.string().required("Required"),
+  //     submittedBy: Yup.string()
+  //       .transform(value => (!value ? null : value))
+  //       .required("Required"),
+  //     title: Yup.string()
+  //       .transform(value => (!value ? null : value))
+  //       .required("Required"),
+  //     email: Yup.string()
+  //       .email("Please enter a valid email address.")
+  //       .required("Please enter your email address.")
+  //   });
 };
 
 const onSubmit = (values, { setSubmitting }) => {
   console.log(values);
+  SaveReturn(values);
   setSubmitting(false);
 };
 
 const TransientTaxForm = componentProps => (
   <Formik
     initialValues={initialValues}
-    validationSchema={validationSchema}
+    // validationSchema={validationSchema}
     onSubmit={onSubmit}
   >
     {props => {
