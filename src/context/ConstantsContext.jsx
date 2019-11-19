@@ -3,6 +3,9 @@ import { GetExemptionTypes, GetFilingTypes } from "../services/ApiService";
 
 const ConstantsContext = React.createContext([{}, () => {}]);
 
+/**
+ * Context provider is a readonly only context, the context state cannot be updated
+ */
 const ConstantsProvider = props => {
   const [exemptionTypes, setExemptionTypes] = useState([]);
   const [filingTypes, setFilingTypes] = useState([]);
