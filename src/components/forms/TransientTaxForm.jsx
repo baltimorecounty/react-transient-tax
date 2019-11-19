@@ -3,7 +3,6 @@ import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
 import { Form, Formik } from "formik";
-import PaymentTotal from "../PaymentTotal";
 import ExemptionCertificate from "../ExemptionCertificate";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import BasicInformationSection from "./BasicInformationSection";
@@ -11,6 +10,7 @@ import PaymentSelectionSection from "./PaymentSelectionSection";
 import IdentificationSection from "./IdentificationSection";
 import GrossOccupancySection from "./GrossOccupancySection";
 import ExemptionsSection from "./ExemptionsSection";
+import TransientTaxSection from "./TransientTaxSection";
 
 const initialValues = {
   accountNumber: "",
@@ -118,37 +118,14 @@ const TransientTaxForm = componentProps => (
                 totalExemptions={totalExemptions}
                 netRoomRentalCollections={netRoomRentalCollections}
               />
-
-              <div className="tt_form-section">
-                <h2>
-                  {Labels.TransientOccupancyTaxRemittedTitle} (if applicable)
-                </h2>
-                <PaymentTotal
-                  name="transientTaxCollected"
-                  totals={transientTaxCollected}
-                  label={Labels.TaxCollected}
-                />
-                <PaymentTotal
-                  name="transientTaxInterest"
-                  totals={transientInterest}
-                  label={Labels.TaxInterest}
-                />
-                <PaymentTotal
-                  name="transientTaxPenalty"
-                  totals={transientPenalty}
-                  label={Labels.TaxPenalty}
-                />
-                <PaymentTotal
-                  name="totalInterestAndPenalties"
-                  totals={totalInterestAndPenalties}
-                  label={Labels.PenaltyInterestTotal}
-                />
-                <PaymentTotal
-                  name="monthlyTaxRemitted"
-                  totals={monthlyTaxRemitted}
-                  label={Labels.MonthlyTaxRemitted}
-                />
-              </div>
+              <TransientTaxSection
+                labels={Labels}
+                transientTaxCollected={transientTaxCollected}
+                transientInterest={transientInterest}
+                transientPenalty={transientPenalty}
+                totalInterestAndPenalties={totalInterestAndPenalties}
+                monthlyTaxRemitted={monthlyTaxRemitted}
+              />
             </React.Fragment>
           )}
           {hasExemptions && <ExemptionCertificate />}
