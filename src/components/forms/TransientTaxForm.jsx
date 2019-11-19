@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
 import { Form, Formik } from "formik";
-import ExemptionCertificate from "../ExemptionCertificate";
+import ExemptionCertificate from "./ExemptionCertificate";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import BasicInformationSection from "./BasicInformationSection";
 import PaymentSelectionSection from "./PaymentSelectionSection";
