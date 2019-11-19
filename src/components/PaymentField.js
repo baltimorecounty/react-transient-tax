@@ -14,8 +14,8 @@ const CustomInputComponent = ({
     className,
     isNegativeValue,
     monthsToReport = {},
-    label,
-    buildMonthLabel = () => {}
+    label
+    // buildMonthLabel = () => {}
   } = props;
   const { setFieldValue, touched, errors } = form;
   const [values, setValues] = useState({});
@@ -42,7 +42,8 @@ const CustomInputComponent = ({
 
             return (
               <div className="tt_currency-picker" key={inputName}>
-                <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label>
+                {/* Disabled for now until we confirm the final design */}
+                {/* <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label> */}
                 <CurrencyInput
                   prefix={`${isNegativeValue ? "-" : ""}$`}
                   decimalSeparator="."
