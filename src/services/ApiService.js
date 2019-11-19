@@ -12,6 +12,14 @@ const GetExemptionTypes = () =>
     .get(`${apiBaseUrl}/exemptionTypes`)
     .then(({ status, data }) => (status === 200 ? data : []));
 
+/**
+ * Get Transient Tax Return
+ */
+const GetTransientTaxReturn = () =>
+  axios
+    .get(`${apiBaseUrl}/return`)
+    .then(({ status, data }) => (status === 200 ? data : []));
+
 const SaveExemption = exemption => {
   const { id } = exemption;
   exemptionId =
@@ -22,4 +30,4 @@ const SaveExemption = exemption => {
   return { ...exemption, id: exemptionId };
 };
 
-export { GetExemptionTypes, SaveExemption };
+export { GetExemptionTypes, GetTransientTaxReturn, SaveExemption };

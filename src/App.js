@@ -10,7 +10,11 @@ function App() {
     <div className="tt_app">
       <Router>
         <Route exact path="/" component={TransientTaxForm} />
-        <Route exact path="/ConfirmationPage" component={ConfirmationPage} />
+        <Route
+          exact
+          path="/ConfirmationPage/:id"
+          component={ConfirmationPage}
+        />
       </Router>
     </div>
   );
