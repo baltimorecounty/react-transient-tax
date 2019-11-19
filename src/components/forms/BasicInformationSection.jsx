@@ -6,7 +6,7 @@ const BasicInformationSection = props => (
     {/* Basic Information Section */}
     <label htmlFor="accountNumber">Account Number</label>
     <div>
-      <Field id="accountNumber" name="accountNumber" type="string" />
+      <Field id="accountNumber" name="accountNumber" type="text" />
       <ErrorMessage name="accountNumber" />
     </div>
     <label htmlFor="businessName">Business Name</label>
