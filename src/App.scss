@@ -156,3 +156,9 @@ input[type="text"] {
 .tt_error-list {
   color: red;
 }
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
