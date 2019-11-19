@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ExemptionSelector from "./ExemptionSelector";
-import ExemptionsList from "./ExemptionList";
-import { AddOrUpdate } from "../common/ArrayUtilities";
-import { SaveExemption } from "../services/ApiService";
+import ExemptionSelector from "../ExemptionSelector";
+import ExemptionsList from "../ExemptionList";
+import { AddOrUpdate } from "../../common/ArrayUtilities";
+import { SaveExemption } from "../../services/ApiService";
 import { Field } from "formik";
-import { Messages } from "../common/Constants";
+import { Messages } from "../../common/Constants";
 
 const ExemptionCertificate = ({
   field, // { name, value, onChange, onBlur }

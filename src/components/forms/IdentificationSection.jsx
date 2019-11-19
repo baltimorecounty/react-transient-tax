@@ -2,7 +2,7 @@ import React from "react";
 import { Labels } from "../../common/Constants";
 import { ErrorMessage, Field } from "formik";
 import { GetFormattedDueDate } from "../../common/DatesUtilities";
-import InformationModal from "./InformationModal";
+import InformationModal from "../InformationModal";
 
 const IdentificationSection = props => {
   return (
