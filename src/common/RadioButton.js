@@ -8,7 +8,7 @@ const RadioButton = ({
   ...props
 }) => {
   return (
-    <div>
+    <div className="tt_field--radio">
       <input
         name={name}
         id={id}

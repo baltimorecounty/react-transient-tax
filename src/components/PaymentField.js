@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 import { Field } from "formik";
 import CurrencyInput from "react-currency-input";
 
@@ -10,13 +11,15 @@ const CustomInputComponent = ({
 }) => {
   const { name } = field;
   const {
+    className,
     isNegativeValue,
     monthsToReport = {},
-    label,
-    buildMonthLabel = () => {}
+    label
+    // buildMonthLabel = () => {}
   } = props;
   const { setFieldValue, touched, errors } = form;
   const [values, setValues] = useState({});
+  const cssClasses = classnames("tt_form-group flex-end total", className);
 
   const handleChange = (valueAsNumber, monthIndex) => {
     setValues({ ...values, ...{ [monthIndex]: valueAsNumber } });
@@ -27,7 +30,7 @@ const CustomInputComponent = ({
   }, [name, values, setFieldValue]);
 
   return (
-    <div className="tt_form-group flex-end">
+    <div className={cssClasses}>
       <label>{label}</label>
       <div className="tt_currency-pickers">
         {monthsToReport &&
@@ -39,7 +42,8 @@ const CustomInputComponent = ({
 
             return (
               <div className="tt_currency-picker" key={inputName}>
-                <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label>
+                {/* Disabled for now until we confirm the final design */}
+                {/* <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label> */}
                 <CurrencyInput
                   prefix={`${isNegativeValue ? "-" : ""}$`}
                   decimalSeparator="."

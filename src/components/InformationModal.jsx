@@ -6,11 +6,11 @@ const InformationModal = props => {
   const [modalShow, setModalShow] = useState(false);
   const { title, content } = props;
 
-  const showModal =() =>{
-    setModalShow(true)
+  const showModal = () => {
+    setModalShow(true);
   };
-  const hideModal =() =>{
-    setModalShow(false)
+  const hideModal = () => {
+    setModalShow(false);
   };
 
   return (
