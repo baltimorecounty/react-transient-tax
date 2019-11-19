@@ -3,7 +3,6 @@ import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
 import { Form, Formik } from "formik";
-import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import ExemptionCertificate from "../ExemptionCertificate";
 import { GetCalculatedTotals } from "../../common/Calculations";
@@ -11,6 +10,7 @@ import BasicInformationSection from "./BasicInformationSection";
 import PaymentSelectionSection from "./PaymentSelectionSection";
 import IdentificationSection from "./IdentificationSection";
 import GrossOccupancySection from "./GrossOccupancySection";
+import ExemptionsSection from "./ExemptionsSection";
 
 const initialValues = {
   accountNumber: "",
@@ -111,33 +111,14 @@ const TransientTaxForm = componentProps => (
                 monthsToReport={monthsToReport}
                 buildMonthLabel={buildMonthLabel}
               />
-              <div className="tt_form-section">
-                <h2>{Labels.ExemptionTitle} (if applicable)</h2>
-                <PaymentField
-                  isNegativeValue={true}
-                  name="roomRentalCollectionFromNonTransients"
-                  label={Labels.ExemptionOption1}
-                  monthsToReport={monthsToReport}
-                  buildMonthLabel={buildMonthLabel}
-                />
-                <PaymentField
-                  isNegativeValue={true}
-                  name="governmentOnBusiness"
-                  label={Labels.ExemptionOption2}
-                  monthsToReport={monthsToReport}
-                  buildMonthLabel={buildMonthLabel}
-                />
-                <PaymentTotal
-                  name="exemptionTotal"
-                  totals={totalExemptions}
-                  label={Labels.ExemptionTotal}
-                />
-                <PaymentTotal
-                  name="netRoomRentalTotal"
-                  totals={netRoomRentalCollections}
-                  label={Labels.NetRoomRentalLabel}
-                />
-              </div>
+              <ExemptionsSection
+                labels={Labels}
+                monthsToReport={monthsToReport}
+                buildMonthLabel={buildMonthLabel}
+                totalExemptions={totalExemptions}
+                netRoomRentalCollections={netRoomRentalCollections}
+              />
+
               <div className="tt_form-section">
                 <h2>
                   {Labels.TransientOccupancyTaxRemittedTitle} (if applicable)
