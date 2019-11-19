@@ -7,7 +7,7 @@ const { PaymentLabel, PaymentNote } = PaymentDirections;
 
 const PaymentOptions = props => (
   <React.Fragment>
-    <p class="tt_label">{PaymentLabel}</p>
+    <p className="tt_label">{PaymentLabel}</p>
     {Object.entries(PaymentInterval).map(([key, value]) => (
       <Field
         key={key}
