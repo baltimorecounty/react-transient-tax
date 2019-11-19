@@ -31,9 +31,9 @@ const GetFilingTypes = () => GetLookupItem("filingTypes");
 /**
  * Get Transient Tax Return
  */
-const GetTransientTaxReturn = () =>
+const GetTransientTaxReturn = confirmationumber =>
   axios
-    .get(`${apiBaseUrl}/return`)
+    .get(`${apiBaseUrl}/return?confirmationnumber=${confirmationumber}`)
     .then(({ status, data }) => (status === 200 ? data : []));
 
 const SaveExemption = exemption => {

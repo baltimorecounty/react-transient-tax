@@ -8,21 +8,17 @@ import { GetTransientTaxReturn } from "../../services/ApiService";
 import { connect } from "formik";
 
 const ConfirmationForm = props => {
-  const [confirmationId, setConfirmationId] = useState([]);
+  const [confirmationNumber] = useState(props.match.params.confirmationnumber);
   const [response, setResponse] = useState([]);
 
   useEffect(() => {
-    setConfirmationId(props.match.params.id);
-  }, [props.match.params.id]);
-
-  useEffect(() => {
-    const response = GetTransientTaxReturn().then(confirmationId);
+    const response = GetTransientTaxReturn(confirmationNumber);
     setResponse(response);
-  }, [confirmationId, response]);
+  }, [confirmationNumber, response]);
 
-  const { DateSubmitted, ReturnType } = response.data;
+  const DateSubmitted = new Date();
+  const ReturnType = "Monthly";
 
-  const paymentInterval = "Monthly"; //response.data.Interval;
   const occupancyTaxCollected = "$30.00"; //response.data.TaxCollected;
   const taxRemitted = "$36.15"; //response.data.TaxRemitted;
   const exemptionTotal = "$0.00"; //response.data.ExemptionTotal;
@@ -37,11 +33,11 @@ const ConfirmationForm = props => {
   const labels = {
     ConfirmationHeader: "Your Baltimore County Transient Occupancy Tax Return",
     ConfirmationSubHeader: "Transient Tax Return Submitted",
-    ConfirmationBody: `You have successfully completed the Baltimore County Transient Occupancy Tax Return. Your confirmation number for this return is ${confirmationId}.`,
+    ConfirmationBody: `You have successfully completed the Baltimore County Transient Occupancy Tax Return. Your confirmation number for this return is ${confirmationNumber}.`,
     ConfirmationSubBody:
       "Please present this number to the appropriate Budget and Finance Official when making inquiries in regards to your Transient Occupancy Tax Return.",
     ConfirmationNextPayment: `You have signed up for ${ReturnType} payments; the due date for your next payment is ${newDueDate}`,
-    ConfirmationTaxDetailsHeader: `${confirmationId} Transient Occupancy Tax Return Details:`
+    ConfirmationTaxDetailsHeader: `${confirmationNumber} Transient Occupancy Tax Return Details:`
   };
 
   const ConfirmationTableValues = [
