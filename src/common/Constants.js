@@ -47,7 +47,7 @@ const Labels = {
   TaxPenalty: `Penalty: Add ${FormatPercentage(
     RatesAndFees.PenaltyRate
   )} of Tax Collected to be added after one month from Due Date`,
-  TransientOccupancyTaxRemittedTitle: "Transient Occupancy TaxRemitted",
+  TransientOccupancyTaxRemittedTitle: "Transient Occupancy Tax Remitted",
   TaxCollected: `Tax Collected (Net Room Rental * Transient Occupancy Tax - ${FormatPercentage(
     RatesAndFees.TransientTaxRate
   )})`,

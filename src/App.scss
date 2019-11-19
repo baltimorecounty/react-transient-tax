@@ -17,14 +17,19 @@ $default-border: 1px solid #e0e0e0;
 
 .tt_form-section {
   border-bottom: $default-border;
-  padding: $default-spacing;
-  margin-bottom: $default-spacing;
+  padding: $default-spacing / 2;
+  margin-bottom: $default-spacing / 2;
 }
 
 .tt_form-group {
   display: flex;
   justify-content: space-between;
   padding: $default-spacing 0;
+  border-bottom: $default-border;
+
+  &:last-child {
+    border: none;
+  }
 }
 
 .tt_currency-pickers,
@@ -61,15 +66,6 @@ $default-border: 1px solid #e0e0e0;
   }
 }
 
-.total {
-  border-top: $default-border;
-}
-
-.tt_subtotal,
-.tt_subtotal-item {
-  margin-left: $default-spacing;
-}
-
 .tt_subtotal {
   label,
   input,
@@ -79,6 +75,7 @@ $default-border: 1px solid #e0e0e0;
 }
 
 .tt_subtotal-item {
+  margin-left: $default-spacing;
   label,
   input,
   span {

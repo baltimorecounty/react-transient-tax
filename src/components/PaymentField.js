@@ -42,7 +42,7 @@ const CustomInputComponent = ({
 
             return (
               <div className="tt_currency-picker" key={inputName}>
-                <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label>
+                {/* <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label> */}
                 <CurrencyInput
                   prefix={`${isNegativeValue ? "-" : ""}$`}
                   decimalSeparator="."

@@ -10,7 +10,7 @@ const ExemptionsSection = ({
   netRoomRentalCollections
 }) => (
   <div className="tt_form-section">
-    <h2>{Labels.ExemptionTitle} (if applicable)</h2>
+    <h3>{Labels.ExemptionTitle} (if applicable)</h3>
     <PaymentField
       isNegativeValue={true}
       name="roomRentalCollectionFromNonTransients"
