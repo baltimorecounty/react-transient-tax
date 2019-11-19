@@ -3,13 +3,12 @@ import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
 import { Form, Formik } from "formik";
-import PaymentOptions from "../PaymentOptions";
-import ReturnDateSelector from "../ReturnDateSelector";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import ExemptionCertificate from "../ExemptionCertificate";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import BasicInformationSection from "./BasicInformationSection";
+import PaymentSelectionSection from "./PaymentSelectionSection";
 import IdentificationSection from "./IdentificationSection";
 
 const initialValues = {
@@ -103,10 +102,7 @@ const TransientTaxForm = componentProps => (
       return (
         <Form>
           <BasicInformationSection />
-          <div className="tt_form-section">
-            <PaymentOptions />
-            <ReturnDateSelector paymentInterval={paymentInterval} />
-          </div>
+          <PaymentSelectionSection paymentInterval={paymentInterval} />
           {isPaymentIntervalSelected && (
             <React.Fragment>
               <div className="tt_form-section">
