@@ -38,4 +38,14 @@ const SaveExemption = exemption => {
   return { ...exemption, id: exemptionId };
 };
 
-export { GetExemptionTypes, GetFilingTypes, SaveExemption };
+const SaveReturn = taxReturn =>
+  axios
+    .post(`${apiBaseUrl}/return`, taxReturn)
+    .then(({ status, data }) => (status === 200 ? data : []))
+    .catch(
+      error =>
+        console.error(`Something went wrong looking up values: ${error}`) ||
+        error
+    );
+
+export { GetExemptionTypes, GetFilingTypes, SaveExemption, SaveReturn };
