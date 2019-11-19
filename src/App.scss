@@ -10,8 +10,6 @@ $default-border: 1px solid #e0e0e0;
   }
 }
 
-
-
 .tt_date-group {
   display: flex;
   justify-content: space-between;
@@ -59,13 +57,42 @@ $default-border: 1px solid #e0e0e0;
   }
 
   .tt_total {
-    font-weight: bold;
     padding-right: 7.5px;
   }
 }
 
 .total {
   border-top: $default-border;
+}
+
+.tt_subtotal,
+.tt_subtotal-item {
+  margin-left: $default-spacing;
+}
+
+.tt_subtotal {
+  label,
+  input,
+  span {
+    font-weight: 600;
+  }
+}
+
+.tt_subtotal-item {
+  label,
+  input,
+  span {
+    font-weight: 400;
+  }
+}
+
+.tt_section-total {
+  font-size: 18px;
+  label,
+  input,
+  span {
+    font-weight: 700;
+  }
 }
 
 .tt_past-due-icon {
