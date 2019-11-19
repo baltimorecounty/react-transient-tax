@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
 import { Form, Formik } from "formik";
-import ExemptionCertificate from "./ExemptionCertificate";
+import ExemptionCertificateField from "./ExemptionCertificateField";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import BasicInformationSection from "./BasicInformationSection";
 import PaymentSelectionSection from "./PaymentSelectionSection";
@@ -128,7 +128,7 @@ const TransientTaxForm = componentProps => (
               />
             </React.Fragment>
           )}
-          {hasExemptions && <ExemptionCertificate />}
+          {hasExemptions && <ExemptionCertificateField />}
           {isPaymentIntervalSelected && (
             <React.Fragment>
               <IdentificationSection />
