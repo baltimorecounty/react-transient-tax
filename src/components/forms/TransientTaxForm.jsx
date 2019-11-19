@@ -10,6 +10,7 @@ import { GetCalculatedTotals } from "../../common/Calculations";
 import BasicInformationSection from "./BasicInformationSection";
 import PaymentSelectionSection from "./PaymentSelectionSection";
 import IdentificationSection from "./IdentificationSection";
+import GrossOccupancySection from "./GrossOccupancySection";
 
 const initialValues = {
   accountNumber: "",
@@ -105,14 +106,11 @@ const TransientTaxForm = componentProps => (
           <PaymentSelectionSection paymentInterval={paymentInterval} />
           {isPaymentIntervalSelected && (
             <React.Fragment>
-              <div className="tt_form-section">
-                <PaymentField
-                  name="grossOccupancy"
-                  label={Labels.GrossOccupancy}
-                  monthsToReport={monthsToReport}
-                  buildMonthLabel={buildMonthLabel}
-                />
-              </div>
+              <GrossOccupancySection
+                label={Labels.GrossOccupancy}
+                monthsToReport={monthsToReport}
+                buildMonthLabel={buildMonthLabel}
+              />
               <div className="tt_form-section">
                 <h2>{Labels.ExemptionTitle} (if applicable)</h2>
                 <PaymentField
