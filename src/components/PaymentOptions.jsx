@@ -11,7 +11,7 @@ const PaymentOptions = props => {
 
   return (
     <React.Fragment>
-      <p>{PaymentLabel}</p>
+      <p className="tt_label">{PaymentLabel}</p>
       {filingTypes.map(({ Id: key, Description: value }) => (
         <Field
           key={key}

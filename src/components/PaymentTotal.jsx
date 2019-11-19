@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 import PaymentTotalLabel from "./PaymentTotalLabel";
 
 const PaymentTotal = props => {
-  const { label, totals = [], name } = props;
+  const { label, totals = [], name, className } = props;
+  const cssClasses = classnames("tt_form-group total", className);
 
   return (
-    <div className="tt_form-group total">
+    <div className={cssClasses}>
       <label className="tt_total-label">{label}</label>
       <div className="tt_currency-pickers">
         {Object.keys(totals).map((totalKey, monthIndex) => (

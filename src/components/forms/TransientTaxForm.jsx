@@ -2,15 +2,15 @@ import React from "react";
 import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import PaymentOptions from "../PaymentOptions";
-import ReturnDateSelector from "../ReturnDateSelector";
-import PaymentField from "../PaymentField";
-import PaymentTotal from "../PaymentTotal";
-import ExemptionCertificate from "../ExemptionCertificate";
+import { Form, Formik } from "formik";
+import ExemptionCertificateField from "./ExemptionCertificateField";
 import { GetCalculatedTotals } from "../../common/Calculations";
-
+import BasicInformationSection from "./BasicInformationSection";
+import PaymentSelectionSection from "./PaymentSelectionSection";
 import IdentificationSection from "./IdentificationSection";
+import GrossOccupancySection from "./GrossOccupancySection";
+import ExemptionsSection from "./ExemptionsSection";
+import TransientTaxSection from "./TransientTaxSection";
 
 const initialValues = {
   accountNumber: "",
@@ -102,99 +102,33 @@ const TransientTaxForm = componentProps => (
 
       return (
         <Form>
-          <div className="tt_form-section">
-            {/* Basic Information Section */}
-            <label htmlFor="accountNumber">Account Number</label>
-            <div>
-              <Field id="accountNumber" name="accountNumber" type="number" />
-              <ErrorMessage name="accountNumber" />
-            </div>
-            <label htmlFor="businessName">Business Name</label>
-            <div>
-              <Field id="businessName" name="businessName" type="text" />
-              <ErrorMessage name="businessName" />
-            </div>
-            <label htmlFor="address">Address</label>
-            <div>
-              <Field id="address" name="address" type="text" />
-              <ErrorMessage name="address" />
-            </div>
-          </div>
-          {/* End of Basic Information Section */}
-          <div className="tt_form-section">
-            <PaymentOptions />
-            <ReturnDateSelector paymentInterval={paymentInterval} />
-          </div>
+          <BasicInformationSection />
+          <PaymentSelectionSection paymentInterval={paymentInterval} />
           {isPaymentIntervalSelected && (
             <React.Fragment>
-              <div className="tt_form-section">
-                <PaymentField
-                  name="grossOccupancy"
-                  label={Labels.GrossOccupancy}
-                  monthsToReport={monthsToReport}
-                  buildMonthLabel={buildMonthLabel}
-                />
-              </div>
-              <div className="tt_form-section">
-                <h2>{Labels.ExemptionTitle} (if applicable)</h2>
-                <PaymentField
-                  isNegativeValue={true}
-                  name="roomRentalCollectionFromNonTransients"
-                  label={Labels.ExemptionOption1}
-                  monthsToReport={monthsToReport}
-                  buildMonthLabel={buildMonthLabel}
-                />
-                <PaymentField
-                  isNegativeValue={true}
-                  name="governmentOnBusiness"
-                  label={Labels.ExemptionOption2}
-                  monthsToReport={monthsToReport}
-                  buildMonthLabel={buildMonthLabel}
-                />
-                <PaymentTotal
-                  name="exemptionTotal"
-                  totals={totalExemptions}
-                  label={Labels.ExemptionTotal}
-                />
-                <PaymentTotal
-                  name="netRoomRentalTotal"
-                  totals={netRoomRentalCollections}
-                  label={Labels.NetRoomRentalLabel}
-                />
-              </div>
-              <div className="tt_form-section">
-                <h2>
-                  {Labels.TransientOccupancyTaxRemittedTitle} (if applicable)
-                </h2>
-                <PaymentTotal
-                  name="transientTaxCollected"
-                  totals={transientTaxCollected}
-                  label={Labels.TaxCollected}
-                />
-                <PaymentTotal
-                  name="transientTaxInterest"
-                  totals={transientInterest}
-                  label={Labels.TaxInterest}
-                />
-                <PaymentTotal
-                  name="transientTaxPenalty"
-                  totals={transientPenalty}
-                  label={Labels.TaxPenalty}
-                />
-                <PaymentTotal
-                  name="totalInterestAndPenalties"
-                  totals={totalInterestAndPenalties}
-                  label={Labels.PenaltyInterestTotal}
-                />
-                <PaymentTotal
-                  name="monthlyTaxRemitted"
-                  totals={monthlyTaxRemitted}
-                  label={Labels.MonthlyTaxRemitted}
-                />
-              </div>
+              <GrossOccupancySection
+                label={Labels.GrossOccupancy}
+                monthsToReport={monthsToReport}
+                buildMonthLabel={buildMonthLabel}
+              />
+              <ExemptionsSection
+                labels={Labels}
+                monthsToReport={monthsToReport}
+                buildMonthLabel={buildMonthLabel}
+                totalExemptions={totalExemptions}
+                netRoomRentalCollections={netRoomRentalCollections}
+              />
+              <TransientTaxSection
+                labels={Labels}
+                transientTaxCollected={transientTaxCollected}
+                transientInterest={transientInterest}
+                transientPenalty={transientPenalty}
+                totalInterestAndPenalties={totalInterestAndPenalties}
+                monthlyTaxRemitted={monthlyTaxRemitted}
+              />
             </React.Fragment>
           )}
-          {hasExemptions && <ExemptionCertificate />}
+          {hasExemptions && <ExemptionCertificateField />}
           {isPaymentIntervalSelected && (
             <React.Fragment>
               <IdentificationSection />
