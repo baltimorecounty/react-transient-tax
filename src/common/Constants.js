@@ -9,11 +9,6 @@ const FormHints = {
   NonTransient: "Sleeping accommodations from 90 consecutive days"
 };
 
-const PaymentInterval = {
-  Monthly: 2,
-  Quarterly: 1
-};
-
 const PaymentDirections = {
   PaymentLabel: "Do you file your return....",
   PaymentNote:
@@ -70,6 +65,5 @@ export {
   Labels,
   Messages,
   PaymentDirections,
-  PaymentInterval,
   RatesAndFees
 };

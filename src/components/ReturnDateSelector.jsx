@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import { addMonths } from "date-fns";
@@ -6,17 +6,20 @@ import {
   GetDueDateStatus,
   GetFormattedDueDate
 } from "../common/DatesUtilities";
-import { Labels, PaymentInterval } from "../common/Constants";
+import { Labels } from "../common/Constants";
+import { GetIdByDescription } from "../common/LookupUtilities";
 import { connect } from "formik";
+import { ConstantsContext } from "../context/ConstantsContext";
 
 const ReturnInterval = props => {
+  const [{ filingTypes = [] }] = useContext(ConstantsContext);
   const { paymentInterval, formik } = props;
   const { setFieldValue } = formik;
   const [months, setMonths] = useState({});
   const [dueDate, setDueDate] = useState();
   const [status, setStatus] = useState({});
-  const isMonthly =
-    paymentInterval && parseInt(paymentInterval) === PaymentInterval.Monthly;
+  const monthlyId = GetIdByDescription(filingTypes, "monthly");
+  const isMonthly = parseInt(paymentInterval) === monthlyId;
   const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
     null
   ); /** 3 months per quarter */

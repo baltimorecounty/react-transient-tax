@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Field } from "formik";
-import { GetExemptionTypes } from "../services/ApiService";
 import { RadioButton } from "../common/RadioButton";
 import DateRangeSelector from "./DateRangeSelector";
 import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
 import { FormHints } from "../common/Constants";
+import { ConstantsContext } from "../context/ConstantsContext";
 
 const ExemptionSelector = props => {
   const {
     exemption: exemptionFromProps = {},
     onExemptionSave = () => {}
   } = props;
-  const [exemptionTypes, setExemptionTypes] = useState([]);
+  const [{ exemptionTypes }] = useContext(ConstantsContext);
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
   const [exemption, setExemption] = useState(exemptionFromProps);
@@ -25,15 +25,6 @@ const ExemptionSelector = props => {
       setFormErrors(GetExemptionFormErrors(exemption));
     }
   }, [isFormDirty, exemption]);
-
-  /** Get Exemption Types from Server */
-  useEffect(() => {
-    const shouldFetchExemptionTypes = exemptionTypes.length === 0;
-
-    if (shouldFetchExemptionTypes) {
-      GetExemptionTypes().then(setExemptionTypes);
-    }
-  }, [exemptionTypes, setExemptionTypes]);
 
   const saveExemption = () => {
     const errors = GetExemptionFormErrors(exemption);
