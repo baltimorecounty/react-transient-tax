@@ -4,13 +4,13 @@ $default-border: 1px solid #e0e0e0;
 
 .tt_app {
   margin: $default-spacing;
-
-  p {
-    margin: 0;
-  }
 }
 
-
+.tt_field--radio {
+  input {
+    margin-right: $default-spacing / 2;
+  }
+}
 
 .tt_date-group {
   display: flex;
@@ -19,14 +19,23 @@ $default-border: 1px solid #e0e0e0;
 
 .tt_form-section {
   border-bottom: $default-border;
-  padding: $default-spacing;
-  margin-bottom: $default-spacing;
+  padding: $default-spacing / 2;
+  margin-bottom: $default-spacing / 2;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .tt_form-group {
   display: flex;
   justify-content: space-between;
   padding: $default-spacing 0;
+  border-bottom: $default-border;
+
+  &:last-child {
+    border: none;
+  }
 }
 
 .tt_currency-pickers,
@@ -50,22 +59,85 @@ $default-border: 1px solid #e0e0e0;
   }
 }
 
+input[type="text"] {
+  padding: $default-spacing / 4;
+}
+
+.tt_month-picker input {
+  width: 150px;
+}
+
 .tt_currency-picker {
   input,
   .tt_total {
     display: block;
-    min-width: 175px;
+    min-width: 150px;
     text-align: right;
   }
 
   .tt_total {
-    font-weight: bold;
     padding-right: 7.5px;
   }
 }
 
-.total {
-  border-top: $default-border;
+.tt_subtotal {
+  label,
+  input,
+  span {
+    font-weight: 600;
+  }
+}
+
+.tt_subtotal-item {
+  margin-left: $default-spacing;
+  label,
+  input,
+  span {
+    font-weight: 400;
+  }
+}
+
+.tt_section-total {
+  font-size: 18px;
+  label,
+  input,
+  span {
+    font-weight: 700;
+  }
+}
+
+.tt_identification-section {
+  border-bottom: none;
+
+  .tt_form-field {
+    margin-bottom: 15px;
+    max-width: 400px;
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+.tt_label {
+  margin-bottom: $default-spacing / 2;
+  font-weight: 700;
+}
+
+.tt_form-field__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  button {
+    padding-right: 0 !important;
+  }
+}
+
+.tt_label-with-help {
+  display: flex;
+  justify-content: space-between;
 }
 
 .tt_past-due-icon {
@@ -83,4 +155,10 @@ $default-border: 1px solid #e0e0e0;
 
 .tt_error-list {
   color: red;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }

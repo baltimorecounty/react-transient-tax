@@ -10,13 +10,14 @@ const ExemptionsSection = ({
   netRoomRentalCollections
 }) => (
   <div className="tt_form-section">
-    <h2>{Labels.ExemptionTitle} (if applicable)</h2>
+    <h3>{Labels.ExemptionTitle} (if applicable)</h3>
     <PaymentField
       isNegativeValue={true}
       name="roomRentalCollectionFromNonTransients"
       label={Labels.ExemptionOption1}
       monthsToReport={monthsToReport}
       buildMonthLabel={buildMonthLabel}
+      className="tt_subtotal-item"
     />
     <PaymentField
       isNegativeValue={true}
@@ -24,16 +25,19 @@ const ExemptionsSection = ({
       label={Labels.ExemptionOption2}
       monthsToReport={monthsToReport}
       buildMonthLabel={buildMonthLabel}
+      className="tt_subtotal-item"
     />
     <PaymentTotal
       name="exemptionTotal"
       totals={totalExemptions}
       label={Labels.ExemptionTotal}
+      className="tt_subtotal"
     />
     <PaymentTotal
       name="netRoomRentalTotal"
       totals={netRoomRentalCollections}
       label={Labels.NetRoomRentalLabel}
+      className="tt_section-total"
     />
   </div>
 );

@@ -9,11 +9,6 @@ const FormHints = {
   NonTransient: "Sleeping accommodations from 90 consecutive days"
 };
 
-const PaymentInterval = {
-  Monthly: 2,
-  Quarterly: 1
-};
-
 const PaymentDirections = {
   PaymentLabel: "Do you file your return....",
   PaymentNote:
@@ -47,7 +42,7 @@ const Labels = {
   TaxPenalty: `Penalty: Add ${FormatPercentage(
     RatesAndFees.PenaltyRate
   )} of Tax Collected to be added after one month from Due Date`,
-  TransientOccupancyTaxRemittedTitle: "Transient Occupancy TaxRemitted",
+  TransientOccupancyTaxRemittedTitle: "Transient Occupancy Tax Remitted",
   TaxCollected: `Tax Collected (Net Room Rental * Transient Occupancy Tax - ${FormatPercentage(
     RatesAndFees.TransientTaxRate
   )})`,
@@ -70,6 +65,5 @@ export {
   Labels,
   Messages,
   PaymentDirections,
-  PaymentInterval,
   RatesAndFees
 };
