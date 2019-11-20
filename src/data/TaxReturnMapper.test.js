@@ -33,7 +33,7 @@ const quarterlyFormData = {
     2: new Date(2019, 2, 1)
   },
   nameOfSubmitter: "test",
-  paymentInterval: "2",
+  paymentInterval: "1",
   roomRentalCollectionFromNonTransients: { 0: -75, 1: -150, 2: -300 },
   titleOfSubmitter: "test"
 };
@@ -84,7 +84,7 @@ describe("MapTaxReturnToServerModel", () => {
         exemptions: [],
         nameOfSubmitter: "test",
         titleOfSubmitter: "test",
-        monthData: [
+        monthlyData: [
           {
             month: 1,
             year: 2019,
@@ -115,7 +115,7 @@ describe("MapTaxReturnToServerModel", () => {
         ],
         nameOfSubmitter: "test",
         titleOfSubmitter: "test",
-        monthData: [
+        monthlyData: [
           {
             month: 1,
             year: 2019,
@@ -149,7 +149,7 @@ describe("MapTaxReturnToServerModel", () => {
         ],
         nameOfSubmitter: "test",
         titleOfSubmitter: "test",
-        monthData: [
+        monthlyData: [
           {
             month: 1,
             year: 2019,
