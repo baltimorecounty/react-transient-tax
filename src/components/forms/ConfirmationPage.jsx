@@ -47,9 +47,6 @@ const ConfirmationForm = props => {
 
   return (
     <div className="tt_form-section">
-      <div>
-        <a name="Skip"></a>
-      </div>
       <h1>
         <span>{labels.ConfirmationHeader}</span>
       </h1>
