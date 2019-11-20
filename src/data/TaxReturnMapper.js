@@ -20,10 +20,6 @@ const GetDataForMonth = (taxReturn, monthIndex) => {
     nonTransientRentalCollected:
       roomRentalCollectionFromNonTransients[monthIndex] || 0,
     governmentExemptRentalCollected: governmentOnBusiness[monthIndex] || 0
-    /** TODO: These are all calculated, so I'm assuming we don't send these over? */
-    // taxRemitted: 0.0,
-    // interestRemitted: 0.0,
-    // penaltyRemitted: 0.0,
   };
 };
 
@@ -43,12 +39,17 @@ const MapExemptionsToServerModel = exemptions =>
  * @param {object} taxReturn transient tax form data
  */
 const MapTaxReturnToServerModel = taxReturn => {
-  const { monthsToReport, exemptions } = taxReturn;
-  const monthData = Object.keys(monthsToReport).map(monthKey =>
+  const { monthsToReport, exemptions, paymentInterval = 0 } = taxReturn;
+  const monthlyData = Object.keys(monthsToReport).map(monthKey =>
     GetDataForMonth(taxReturn, monthKey)
   );
   const mappedExemptions = MapExemptionsToServerModel(exemptions);
-  return { ...taxReturn, monthData, ...{ exemptions: mappedExemptions } };
+  return {
+    ...taxReturn,
+    monthlyData,
+    ...{ exemptions: mappedExemptions },
+    ...{ returnType: parseInt(paymentInterval) }
+  };
 };
 
 export { GetDataForMonth, MapTaxReturnToServerModel };
