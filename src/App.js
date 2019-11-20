@@ -14,7 +14,7 @@ function App() {
           <Route exact path="/" component={TransientTaxForm} />
           <Route
             exact
-            path="/ConfirmationPage/:confirmationnumber"
+            path="/ConfirmationPage/:confirmationNumber"
             component={ConfirmationPage}
           />
         </Router>

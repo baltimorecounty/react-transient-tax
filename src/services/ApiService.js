@@ -34,7 +34,13 @@ const GetFilingTypes = () => GetLookupItem("filingTypes");
 const GetTransientTaxReturn = confirmationumber =>
   axios
     .get(`${apiBaseUrl}/return?confirmationnumber=${confirmationumber}`)
-    .then(({ status, data }) => (status === 200 ? data : []));
+    .then(({ status, data }) => (status === 200 ? data : []))
+    .catch(
+      error =>
+        console.error(
+          `Something went wrong looking up values: ${confirmationumber}`
+        ) || error
+    );
 
 const SaveExemption = exemption => {
   const { id } = exemption;
