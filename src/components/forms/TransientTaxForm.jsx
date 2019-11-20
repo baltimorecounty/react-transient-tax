@@ -29,6 +29,17 @@ const initialValues = {
   email: ""
 };
 
+const hasAtLeast1Exemption = totals => {
+  const sum = (prev, next) => prev + next;
+  return (
+    totals &&
+    Object.keys(totals).length > 0 &&
+    Object.keys(totals)
+      .map(key => totals[key])
+      .reduce(sum)
+  ); // Sum
+};
+
 const validationSchema = () => {
   return Yup.object().shape({
     accountNumber: Yup.string().required("Required"),
@@ -48,17 +59,9 @@ const validationSchema = () => {
     exemptions: Yup.array().when(
       ["governmentOnBusiness", "roomRentalCollectionFromNonTransients"],
       {
-        is: (governmentOnBusiness, roomRentalCollectionFromNonTransients) => {
-          const hasAtLeast1GovernmentExemption =
-            governmentOnBusiness &&
-            Object.keys(governmentOnBusiness).length > 0;
-          const hasAtLeast1RoomRentalExemption =
-            roomRentalCollectionFromNonTransients &&
-            Object.keys(roomRentalCollectionFromNonTransients).length > 0;
-          return (
-            hasAtLeast1GovernmentExemption || hasAtLeast1RoomRentalExemption
-          );
-        },
+        is: (governmentOnBusiness, roomRentalCollectionFromNonTransients) =>
+          hasAtLeast1Exemption(governmentOnBusiness) ||
+          hasAtLeast1Exemption(roomRentalCollectionFromNonTransients),
         then: Yup.array().min(
           1,
           "At least 1 exemption must be specified when claiming an exemption dollar amount."
