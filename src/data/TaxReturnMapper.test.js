@@ -38,6 +38,14 @@ const quarterlyFormData = {
   titleOfSubmitter: "test"
 };
 
+const exemption = {
+  fromDate: new Date(2019, 0, 1),
+  id: 1,
+  label: "U.S. Government",
+  toDate: new Date(2019, 0, 10),
+  type: 2
+};
+
 describe("GetDataForMonth", () => {
   test("should return proper data for the first item monthly return", () => {
     const actual = GetDataForMonth(monthFormData, 0);
@@ -64,32 +72,107 @@ describe("GetDataForMonth", () => {
   });
 });
 
-test("should map form data for a month to the server model without exemptions", () => {
-  const actual = MapTaxReturnToServerModel(monthFormData);
-  expect(actual).toEqual(
-    expect.objectContaining({
-      accountNumber: "123ABC",
-      address: "test",
-      businessName: "test",
-      email: "test@aol.com",
-      exemptions: [],
-      nameOfSubmitter: "test",
-      titleOfSubmitter: "test",
-      monthData: [
-        {
-          month: 1,
-          year: 2019,
-          grossRentalCollected: 100,
-          nonTransientRentalCollected: -75,
-          governmentExemptRentalCollected: -50
-        }
-      ]
-    })
-  );
+describe("MapTaxReturnToServerModel", () => {
+  test("should map form data for a month to the server model without exemptions", () => {
+    const actual = MapTaxReturnToServerModel(monthFormData);
+    expect(actual).toEqual(
+      expect.objectContaining({
+        accountNumber: "123ABC",
+        address: "test",
+        businessName: "test",
+        email: "test@aol.com",
+        exemptions: [],
+        nameOfSubmitter: "test",
+        titleOfSubmitter: "test",
+        monthData: [
+          {
+            month: 1,
+            year: 2019,
+            grossRentalCollected: 100,
+            nonTransientRentalCollected: -75,
+            governmentExemptRentalCollected: -50
+          }
+        ]
+      })
+    );
+  });
+
+  test("should map form data for a month to the server model with exemptions", () => {
+    const monthData = { ...monthFormData, ...{ exemptions: [exemption] } };
+    const actual = MapTaxReturnToServerModel(monthData);
+    expect(actual).toEqual(
+      expect.objectContaining({
+        accountNumber: "123ABC",
+        address: "test",
+        businessName: "test",
+        email: "test@aol.com",
+        exemptions: [
+          {
+            startDate: new Date(2019, 0, 1),
+            endDate: new Date(2019, 0, 10),
+            typeId: 2
+          }
+        ],
+        nameOfSubmitter: "test",
+        titleOfSubmitter: "test",
+        monthData: [
+          {
+            month: 1,
+            year: 2019,
+            grossRentalCollected: 100,
+            nonTransientRentalCollected: -75,
+            governmentExemptRentalCollected: -50
+          }
+        ]
+      })
+    );
+  });
+
+  test("should map form data for a quarter to the server model with exemptions", () => {
+    const quarterlyData = {
+      ...quarterlyFormData,
+      ...{ exemptions: [exemption] }
+    };
+    const actual = MapTaxReturnToServerModel(quarterlyData);
+    expect(actual).toEqual(
+      expect.objectContaining({
+        accountNumber: "123ABC",
+        address: "test",
+        businessName: "test",
+        email: "test@aol.com",
+        exemptions: [
+          {
+            startDate: new Date(2019, 0, 1),
+            endDate: new Date(2019, 0, 10),
+            typeId: 2
+          }
+        ],
+        nameOfSubmitter: "test",
+        titleOfSubmitter: "test",
+        monthData: [
+          {
+            month: 1,
+            year: 2019,
+            grossRentalCollected: 100,
+            nonTransientRentalCollected: -75,
+            governmentExemptRentalCollected: -50
+          },
+          {
+            month: 2,
+            year: 2019,
+            grossRentalCollected: 200,
+            nonTransientRentalCollected: -150,
+            governmentExemptRentalCollected: -100
+          },
+          {
+            month: 3,
+            year: 2019,
+            grossRentalCollected: 400,
+            nonTransientRentalCollected: -300,
+            governmentExemptRentalCollected: -200
+          }
+        ]
+      })
+    );
+  });
 });
-
-test("should map form data for a month to the server model with exemptions", () => {});
-
-// test("should map form data for a quarter to the server model without exemptions", () => {});
-
-// test("should map form data for a quarter to the server model with exemptions", () => {});
