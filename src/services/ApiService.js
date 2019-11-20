@@ -41,7 +41,11 @@ const SaveExemption = exemption => {
 
 const SaveReturn = taxReturn =>
   axios
-    .post(`${apiBaseUrl}/return`, MapTaxReturnToServerModel(taxReturn))
+    .post(
+      `${apiBaseUrl}/return`,
+      console.log(MapTaxReturnToServerModel(taxReturn)) ||
+        MapTaxReturnToServerModel(taxReturn)
+    )
     .then(({ status, data }) => (status === 200 ? data : []))
     .catch(
       error =>
