@@ -39,13 +39,16 @@ const ConfirmationForm = props => {
 
       for (var i = 0; i < MonthlyData.length; i++) {
         monthlyOccupancy = monthlyOccupancy.concat(
-          MonthlyData[i].GrossRentalCollected
+          "$" + MonthlyData[i].GrossRentalCollected
         );
         monthlyExemption = monthlyExemption.concat(
-          parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
+          "$" +
+            parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
             parseFloat(MonthlyData[i].NonTransientRentalCollected)
         );
-        monthlyPenalty = monthlyPenalty.concat(MonthlyData[i].PenaltyRemitted);
+        monthlyPenalty = monthlyPenalty.concat(
+          "$" + MonthlyData[i].PenaltyRemitted
+        );
         totalRemittedTax += parseFloat(MonthlyData[i].TaxRemitted);
         monthSubmitted = monthSubmitted.concat(
           GetFormatedDateTime(
@@ -58,7 +61,7 @@ const ConfirmationForm = props => {
       formattedResponse.monthlyOccupancy = monthlyOccupancy;
       formattedResponse.monthlyExemption = monthlyExemption;
       formattedResponse.monthlyPenalty = monthlyPenalty;
-      formattedResponse.totalRemittedTax = totalRemittedTax;
+      formattedResponse.totalRemittedTax = "$" + totalRemittedTax;
       formattedResponse.monthSubmitted = monthSubmitted;
 
       return formattedResponse;
