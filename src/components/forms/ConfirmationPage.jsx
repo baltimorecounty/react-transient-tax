@@ -5,7 +5,6 @@ import {
 } from "../../common/DatesUtilities";
 import ConfirmationTable from "../ConfirmationTable";
 import { GetTransientTaxReturn } from "../../services/ApiService";
-import { connect } from "formik";
 
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
@@ -60,7 +59,7 @@ const ConfirmationForm = props => {
     GetTransientTaxReturn(confirmationNumber)
       .then(mapResponse)
       .then(setResponse);
-  }, [confirmationNumber, props, setResponse]);
+  }, [confirmationNumber]);
 
   const ReturnTypeDescription = response.ReturnTypeDescription;
   const date = new Date();
@@ -115,4 +114,4 @@ const ConfirmationForm = props => {
   );
 };
 
-export default connect(ConfirmationForm);
+export default ConfirmationForm;
