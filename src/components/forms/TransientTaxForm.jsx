@@ -25,7 +25,7 @@ const initialValues = {
   monthsLate: 0,
   monthsToReport: {},
   nameOfSubmitter: "",
-  title: "",
+  titleOfSubmitter: "",
   email: ""
 };
 
