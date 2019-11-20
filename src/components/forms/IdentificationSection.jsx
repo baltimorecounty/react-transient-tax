@@ -27,12 +27,12 @@ const IdentificationSection = props => {
         </div>
         <div className="tt_form-field">
           <div className="tt_form-field__label">
-            <label htmlFor="title">Title</label>
+            <label htmlFor="titleOfSubmitter">Title</label>
             <InformationModal title="my title 2" content="my content 2" />
           </div>
           <div>
-            <Field id="title" name="title" type="text" />
-            <ErrorMessage name="title" />
+            <Field id="titleOfSubmitter" name="titleOfSubmitter" type="text" />
+            <ErrorMessage name="titleOfSubmitter" />
           </div>
         </div>
         <div className="tt_form-field">

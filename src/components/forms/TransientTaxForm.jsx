@@ -39,7 +39,7 @@ const validationSchema = () => {
     nameOfSubmitter: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
-    title: Yup.string()
+    titleOfSubmitter: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
     email: Yup.string()
