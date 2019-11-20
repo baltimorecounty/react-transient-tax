@@ -1,3 +1,8 @@
+/**
+ * Maps Transient Tax Form Data to the Server Model
+ * @param {object} taxReturn tax return form data model
+ * @param {number} monthIndex index of month of the data to return
+ */
 const GetDataForMonth = (taxReturn, monthIndex) => {
   const {
     monthsToReport,
@@ -22,6 +27,10 @@ const GetDataForMonth = (taxReturn, monthIndex) => {
   };
 };
 
+/**
+ * Map exemptions to the Server Model
+ * @param {Array} exemptions
+ */
 const MapExemptionsToServerModel = exemptions =>
   exemptions.map(({ fromDate: startDate, toDate: endDate, type: typeId }) => ({
     startDate,
@@ -29,6 +38,10 @@ const MapExemptionsToServerModel = exemptions =>
     typeId
   }));
 
+/**
+ * Map Transient Tax Form Data to Transient Tax Return Server Model for POSTing the data.
+ * @param {object} taxReturn transient tax form data
+ */
 const MapTaxReturnToServerModel = taxReturn => {
   const { monthsToReport, exemptions } = taxReturn;
   const monthData = Object.keys(monthsToReport).map(monthKey =>
