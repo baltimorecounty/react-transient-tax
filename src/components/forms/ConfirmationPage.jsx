@@ -43,8 +43,8 @@ const ConfirmationForm = props => {
         );
         monthlyExemption = monthlyExemption.concat(
           "$" +
-            parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
-            parseFloat(MonthlyData[i].NonTransientRentalCollected)
+            (parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
+              parseFloat(MonthlyData[i].NonTransientRentalCollected))
         );
         monthlyPenalty = monthlyPenalty.concat(
           "$" + MonthlyData[i].PenaltyRemitted
