@@ -32,12 +32,12 @@ const initialValues = {
 /**
  * Check to verify if a given exemption field has an value less than 0.
  * Note: Exemption values are negative
- * @param {array} totals Array of exemption field total objects
+ * @param {array} exemptionTotals Array of exemption field total objects
  */
-const hasAtLeast1Exemption = (totals = []) => {
+const hasAtLeast1Exemption = (exemptionTotals = []) => {
   const sum = (prev, next) => prev + next;
 
-  return totals.some(
+  return exemptionTotals.some(
     total =>
       total &&
       Object.keys(total).length > 0 &&
