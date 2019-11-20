@@ -29,6 +29,11 @@ const initialValues = {
   email: ""
 };
 
+/**
+ * Check to verify if a given exemption field has an value less than 0.
+ * Note: Exemption values are negative
+ * @param {object} totals Totals Object
+ */
 const hasAtLeast1Exemption = totals => {
   const sum = (prev, next) => prev + next;
   return (
