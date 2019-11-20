@@ -112,11 +112,11 @@ const ConfirmationForm = props => {
   ];
 
   return (
-    <div className="tt_form-section">
+    <div>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div className="tt_form-section">
           <h1>
             <span>{labels.ConfirmationHeader}</span>
           </h1>
