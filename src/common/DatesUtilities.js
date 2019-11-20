@@ -32,7 +32,7 @@ const GetFormattedDueDate = fillingDate =>
 /**
  * Format the date/time based on a given format pattern.
  * @param {date} dateToFormat date to be formatted
- * @param {date} dateFormat date or time format to be returned
+ * @param {string} dateFormat date or time format to be returned
  * @returns {string} friendly version of a date
  */
 const GetFormatedDateTime = (dateToFormat, dateFormat) => {
