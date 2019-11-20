@@ -24,6 +24,7 @@ const ExemptionCertificate = ({
     const updatedExemptions = AddOrUpdate(exemptions, savedExemption);
 
     setExemptions(updatedExemptions);
+
   };
 
   const editExemption = exemptionToEdit => {
@@ -32,6 +33,7 @@ const ExemptionCertificate = ({
 
   const removeExemption = exemptionId => {
     setExemptions(exemptions.filter(exemption => exemption.id !== exemptionId));
+
   };
 
   return (

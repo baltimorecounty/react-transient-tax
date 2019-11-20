@@ -25,7 +25,8 @@ const initialValues = {
   monthsToReport: {},
   submittedBy: "",
   title: "",
-  email: ""
+  email: "",
+  exemptionMessage: ""
 };
 
 const validationSchema = () => {
@@ -49,8 +50,34 @@ const validationSchema = () => {
   });
 };
 
-const onSubmit = (values, { setSubmitting }) => {
-  console.log(values);
+const onSubmit = (
+  values,
+  { setFieldValue, setSubmitting }
+) => {
+  const {
+    grossOccupancy,
+    roomRentalCollectionFromNonTransients,
+    governmentOnBusiness,
+    monthsToReport,
+    monthsLate,
+    exemptions
+  } = values;
+  
+  const { totalExemptions } = GetCalculatedTotals(
+    {
+      grossOccupancy,
+      roomRentalCollectionFromNonTransients,
+      governmentOnBusiness
+    },
+    monthsToReport,
+    monthsLate
+  );
+  const errorsReturned = "At least 1 exemption record is required.";
+  if (totalExemptions[0] !== 0 && exemptions.length === 0) {
+    setFieldValue("exemptionMessage", errorsReturned);
+  } else {
+    setFieldValue("exemptionMessage", null);
+  }
   setSubmitting(false);
 };
 
@@ -99,6 +126,8 @@ const TransientTaxForm = componentProps => (
         );
         return friendlyMonthLabels[monthIndex];
       };
+      const labelMessage = values.exemptionMessage;
+      const exemptionLength = values.exemptions.length;
 
       return (
         <Form>
@@ -129,6 +158,7 @@ const TransientTaxForm = componentProps => (
             </React.Fragment>
           )}
           {hasExemptions && <ExemptionCertificateField />}
+          {hasExemptions && exemptionLength === 0 ? labelMessage : null}
           {isPaymentIntervalSelected && (
             <React.Fragment>
               <IdentificationSection />
