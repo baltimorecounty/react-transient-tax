@@ -16,10 +16,10 @@ const GetDataForMonth = (taxReturn, monthIndex) => {
     /** month is 0 based so 11 = December but server is not 0 based */
     month: returnDate.getMonth() + 1,
     year: returnDate.getFullYear(),
-    grossRentalCollected: grossOccupancy[monthIndex],
+    grossRentalCollected: grossOccupancy[monthIndex] || 0,
     nonTransientRentalCollected:
-      roomRentalCollectionFromNonTransients[monthIndex],
-    governmentExemptRentalCollected: governmentOnBusiness[monthIndex]
+      roomRentalCollectionFromNonTransients[monthIndex] || 0,
+    governmentExemptRentalCollected: governmentOnBusiness[monthIndex] || 0
     /** TODO: These are all calculated, so I'm assuming we don't send these over? */
     // taxRemitted: 0.0,
     // interestRemitted: 0.0,
