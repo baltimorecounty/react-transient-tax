@@ -32,17 +32,19 @@ const initialValues = {
 /**
  * Check to verify if a given exemption field has an value less than 0.
  * Note: Exemption values are negative
- * @param {object} totals Totals Object
+ * @param {array} totals Array of exemption field total objects
  */
-const hasAtLeast1Exemption = totals => {
+const hasAtLeast1Exemption = (totals = []) => {
   const sum = (prev, next) => prev + next;
-  return (
-    totals &&
-    Object.keys(totals).length > 0 &&
-    Object.keys(totals)
-      .map(key => totals[key])
-      .reduce(sum) < 0
-  ); // Sum
+
+  return totals.some(
+    total =>
+      total &&
+      Object.keys(total).length > 0 &&
+      Object.keys(total)
+        .map(key => total[key])
+        .reduce(sum) < 0
+  );
 };
 
 const validationSchema = () => {
@@ -65,8 +67,10 @@ const validationSchema = () => {
       ["governmentOnBusiness", "roomRentalCollectionFromNonTransients"],
       {
         is: (governmentOnBusiness, roomRentalCollectionFromNonTransients) =>
-          hasAtLeast1Exemption(governmentOnBusiness) ||
-          hasAtLeast1Exemption(roomRentalCollectionFromNonTransients),
+          hasAtLeast1Exemption([
+            governmentOnBusiness,
+            roomRentalCollectionFromNonTransients
+          ]),
         then: Yup.array().min(
           1,
           "At least 1 exemption must be specified when claiming an exemption dollar amount."
