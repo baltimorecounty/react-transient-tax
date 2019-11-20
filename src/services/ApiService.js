@@ -29,6 +29,20 @@ const GetExemptionTypes = () => GetLookupItem("exemptionTypes");
  */
 const GetFilingTypes = () => GetLookupItem("filingTypes");
 
+/**
+ * Get Transient Tax Return
+ */
+const GetTransientTaxReturn = confirmationNumber =>
+  axios
+    .get(`${apiBaseUrl}/return?confirmationnumber=${confirmationNumber}`)
+    .then(({ status, data }) => (status === 200 ? data : []))
+    .catch(
+      error =>
+        console.error(
+          `Something went wrong looking up values: ${confirmationNumber}`
+        ) || error
+    );
+
 const SaveExemption = exemption => {
   const { id } = exemption;
   exemptionId =
@@ -49,4 +63,10 @@ const SaveReturn = taxReturn =>
         error
     );
 
-export { GetExemptionTypes, GetFilingTypes, SaveExemption, SaveReturn };
+export {
+  GetExemptionTypes,
+  GetTransientTaxReturn,
+  GetFilingTypes,
+  SaveExemption,
+  SaveReturn
+};
