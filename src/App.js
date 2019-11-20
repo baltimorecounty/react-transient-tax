@@ -12,7 +12,11 @@ function App() {
       <ConstantsProvider>
         <Router>
           <Route exact path="/" component={TransientTaxForm} />
-          <Route exact path="/ConfirmationPage" component={ConfirmationPage} />
+          <Route
+            exact
+            path="/ConfirmationPage/:confirmationNumber"
+            component={ConfirmationPage}
+          />
         </Router>
       </ConstantsProvider>
     </div>
