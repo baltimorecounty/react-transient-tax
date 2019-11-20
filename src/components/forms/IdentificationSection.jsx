@@ -17,12 +17,12 @@ const IdentificationSection = props => {
       <div className="float-left">
         <div className="tt_form-field">
           <div className="tt_form-field__label">
-            <label htmlFor="submittedBy">Return Submitted By</label>
+            <label htmlFor="nameOfSubmitter">Return Submitted By</label>
             <InformationModal title="my tittle 1" content="my content 1" />
           </div>
           <div>
-            <Field id="submittedBy" name="submittedBy" type="text" />
-            <ErrorMessage name="submittedBy" />
+            <Field id="nameOfSubmitter" name="nameOfSubmitter" type="text" />
+            <ErrorMessage name="nameOfSubmitter" />
           </div>
         </div>
         <div className="tt_form-field">

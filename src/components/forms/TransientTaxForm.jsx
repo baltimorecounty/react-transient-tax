@@ -24,7 +24,7 @@ const initialValues = {
   exemptions: [],
   monthsLate: 0,
   monthsToReport: {},
-  submittedBy: "",
+  nameOfSubmitter: "",
   title: "",
   email: ""
 };
@@ -36,7 +36,7 @@ const validationSchema = () => {
       .transform(value => (!value ? null : value))
       .required("Required"),
     address: Yup.string().required("Required"),
-    submittedBy: Yup.string()
+    nameOfSubmitter: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
     title: Yup.string()
