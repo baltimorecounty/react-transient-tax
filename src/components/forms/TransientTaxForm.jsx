@@ -30,23 +30,22 @@ const initialValues = {
 };
 
 const validationSchema = () => {
-  return {};
-  //   return Yup.object().shape({
-  //     accountNumber: Yup.string().required("Required"),
-  //     businessName: Yup.string()
-  //       .transform(value => (!value ? null : value))
-  //       .required("Required"),
-  //     address: Yup.string().required("Required"),
-  //     submittedBy: Yup.string()
-  //       .transform(value => (!value ? null : value))
-  //       .required("Required"),
-  //     title: Yup.string()
-  //       .transform(value => (!value ? null : value))
-  //       .required("Required"),
-  //     email: Yup.string()
-  //       .email("Please enter a valid email address.")
-  //       .required("Please enter your email address.")
-  //   });
+  return Yup.object().shape({
+    accountNumber: Yup.string().required("Required"),
+    businessName: Yup.string()
+      .transform(value => (!value ? null : value))
+      .required("Required"),
+    address: Yup.string().required("Required"),
+    submittedBy: Yup.string()
+      .transform(value => (!value ? null : value))
+      .required("Required"),
+    title: Yup.string()
+      .transform(value => (!value ? null : value))
+      .required("Required"),
+    email: Yup.string()
+      .email("Please enter a valid email address.")
+      .required("Please enter your email address.")
+  });
 };
 
 const onSubmit = (values, { setSubmitting }) => {
@@ -58,7 +57,7 @@ const onSubmit = (values, { setSubmitting }) => {
 const TransientTaxForm = componentProps => (
   <Formik
     initialValues={initialValues}
-    // validationSchema={validationSchema}
+    validationSchema={validationSchema}
     onSubmit={onSubmit}
   >
     {props => {
