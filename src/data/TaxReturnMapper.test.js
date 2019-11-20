@@ -64,21 +64,31 @@ describe("GetDataForMonth", () => {
   });
 });
 
-// test("should map form data for a month to the server model without exemptions", () => {
-//   const actual = MapTaxReturnToServerModel(monthFormData);
-//   expect(actual).toEqual({
-//     accountNumber: "123ABC",
-//     address: "test",
-//     businessName: "test",
-//     email: "test@aol.com",
-//     exemptions: [],
-//     nameOfSubmitter: "test",
-//     titleOfSubmitter: "test",
-//     monthFormData: [{}]
-//   });
-// });
+test("should map form data for a month to the server model without exemptions", () => {
+  const actual = MapTaxReturnToServerModel(monthFormData);
+  expect(actual).toEqual(
+    expect.objectContaining({
+      accountNumber: "123ABC",
+      address: "test",
+      businessName: "test",
+      email: "test@aol.com",
+      exemptions: [],
+      nameOfSubmitter: "test",
+      titleOfSubmitter: "test",
+      monthData: [
+        {
+          month: 1,
+          year: 2019,
+          grossRentalCollected: 100,
+          nonTransientRentalCollected: -75,
+          governmentExemptRentalCollected: -50
+        }
+      ]
+    })
+  );
+});
 
-// test("should map form data for a month to the server model with exemptions", () => {});
+test("should map form data for a month to the server model with exemptions", () => {});
 
 // test("should map form data for a quarter to the server model without exemptions", () => {});
 
