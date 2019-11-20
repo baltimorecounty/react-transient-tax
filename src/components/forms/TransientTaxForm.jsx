@@ -48,17 +48,17 @@ const validationSchema = () => {
   });
 };
 
-const onSubmit = (values, { setSubmitting }) => {
-  console.log(values);
-  SaveReturn(values);
-  setSubmitting(false);
+const onSubmit = (values, history) => {
+  SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
+    history.push(`/confirmationPage/${ConfirmationNumber}`);
+  });
 };
 
 const TransientTaxForm = componentProps => (
   <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
-    onSubmit={onSubmit}
+    onSubmit={values => onSubmit(values, componentProps.history)}
   >
     {props => {
       const { values } = props;
