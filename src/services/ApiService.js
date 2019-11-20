@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MapTaxReturnToServerModel } from "../data/TaxReturnMapper";
 
 let exemptionId = 0;
 
@@ -31,14 +32,14 @@ const GetFilingTypes = () => GetLookupItem("filingTypes");
 /**
  * Get Transient Tax Return
  */
-const GetTransientTaxReturn = confirmationumber =>
+const GetTransientTaxReturn = confirmationNumber =>
   axios
-    .get(`${apiBaseUrl}/return?confirmationnumber=${confirmationumber}`)
+    .get(`${apiBaseUrl}/return?confirmationnumber=${confirmationNumber}`)
     .then(({ status, data }) => (status === 200 ? data : []))
     .catch(
       error =>
         console.error(
-          `Something went wrong looking up values: ${confirmationumber}`
+          `Something went wrong looking up values: ${confirmationNumber}`
         ) || error
     );
 
@@ -52,9 +53,20 @@ const SaveExemption = exemption => {
   return { ...exemption, id: exemptionId };
 };
 
+const SaveReturn = taxReturn =>
+  axios
+    .post(`${apiBaseUrl}/return`, MapTaxReturnToServerModel(taxReturn))
+    .then(({ status, data }) => (status === 200 ? data : []))
+    .catch(
+      error =>
+        console.error(`Something went wrong looking up values: ${error}`) ||
+        error
+    );
+
 export {
   GetExemptionTypes,
   GetTransientTaxReturn,
   GetFilingTypes,
-  SaveExemption
+  SaveExemption,
+  SaveReturn
 };

@@ -11,6 +11,7 @@ import IdentificationSection from "./IdentificationSection";
 import GrossOccupancySection from "./GrossOccupancySection";
 import ExemptionsSection from "./ExemptionsSection";
 import TransientTaxSection from "./TransientTaxSection";
+import { SaveReturn } from "../../services/ApiService";
 
 const initialValues = {
   accountNumber: "",
@@ -23,24 +24,22 @@ const initialValues = {
   exemptions: [],
   monthsLate: 0,
   monthsToReport: {},
-  submittedBy: "",
-  title: "",
+  nameOfSubmitter: "",
+  titleOfSubmitter: "",
   email: ""
 };
 
 const validationSchema = () => {
   return Yup.object().shape({
-    accountNumber: Yup.string()
-      .matches(/^[0-9]*$/, "it must be number only")
-      .required("Required"),
+    accountNumber: Yup.string().required("Required"),
     businessName: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
     address: Yup.string().required("Required"),
-    submittedBy: Yup.string()
+    nameOfSubmitter: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
-    title: Yup.string()
+    titleOfSubmitter: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
     email: Yup.string()
@@ -49,16 +48,17 @@ const validationSchema = () => {
   });
 };
 
-const onSubmit = (values, { setSubmitting }) => {
-  console.log(values);
-  setSubmitting(false);
+const onSubmit = (values, history) => {
+  SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
+    history.push(`/confirmationPage/${ConfirmationNumber}`);
+  });
 };
 
 const TransientTaxForm = componentProps => (
   <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
-    onSubmit={onSubmit}
+    onSubmit={values => onSubmit(values, componentProps.history)}
   >
     {props => {
       const { values } = props;
