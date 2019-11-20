@@ -44,7 +44,7 @@ const ConfirmationForm = props => {
         totalTax += parseFloat(MonthlyData[i].TaxRemitted);
         monthSubmitted +=
           GetFormatedDateTime(
-            new Date(MonthlyData[i].Month + "/01/ " + MonthlyData[i].Year),
+            new Date(MonthlyData[i].Month + "/01/" + MonthlyData[i].Year),
             dateFormat
           ) + " ";
       }
