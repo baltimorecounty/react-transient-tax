@@ -2,6 +2,7 @@ import React from "react";
 import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
+import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import { Form, Formik, ErrorMessage } from "formik";
 import ExemptionCertificateField from "./ExemptionCertificateField";
 import { GetCalculatedTotals } from "../../common/Calculations";
@@ -29,24 +30,6 @@ const initialValues = {
   email: ""
 };
 
-/**
- * Check to verify if a given exemption field has an value less than 0.
- * Note: Exemption values are negative
- * @param {array} exemptionTotals Array of exemption field total objects
- */
-const hasAtLeast1Exemption = (exemptionTotals = []) => {
-  const sum = (prev, next) => prev + next;
-
-  return exemptionTotals.some(
-    total =>
-      total &&
-      Object.keys(total).length > 0 &&
-      Object.keys(total)
-        .map(key => total[key])
-        .reduce(sum) < 0
-  );
-};
-
 const validationSchema = () => {
   return Yup.object().shape({
     accountNumber: Yup.string().required("Required"),
@@ -67,7 +50,7 @@ const validationSchema = () => {
       ["governmentOnBusiness", "roomRentalCollectionFromNonTransients"],
       {
         is: (governmentOnBusiness, roomRentalCollectionFromNonTransients) =>
-          hasAtLeast1Exemption([
+          HasAtLeast1Exemption([
             governmentOnBusiness,
             roomRentalCollectionFromNonTransients
           ]),
