@@ -12,16 +12,17 @@ const buildReturn = (monthlyData = [], exemptions = []) => ({
   exemptions,
   nameOfSubmitter: "Test Submitter",
   titleOfSubmitter: "Owner",
-  tradeAlias: ""
+  tradeAlias: "",
+  monthsToReport: { 0: new Date(2019, 0, 1) },
+  grossOccupancy: { 0: 10.0 },
+  roomRentalCollectionFromNonTransients: { 0: 20 },
+  governmentOnBusiness: { 0: 40 }
 });
 
 const buildMonthlyData = isMonthly => {
   const record = {
     month: 11,
     year: 2019,
-    grossRentalCollected: 10.0,
-    nonTransientRentalCollected: 10.0,
-    governmentExemptRentalCollected: 10.0,
     taxRemitted: 10.0,
     interestRemitted: 10.0,
     penaltyRemitted: 10.0,
@@ -32,9 +33,9 @@ const buildMonthlyData = isMonthly => {
 
 const buildExemptions = isMonthly => {
   const exemption = {
-    StartDate: new Date(2019, 11, 12),
-    EndDate: new Date(2019, 11, 12),
-    TypeId: 1
+    fromDate: new Date(2019, 11, 12),
+    toDate: new Date(2019, 11, 12),
+    type: 1
   };
   return isMonthly ? [exemption] : [exemption, exemption, exemption];
 };
