@@ -40,7 +40,7 @@ const hasAtLeast1Exemption = totals => {
     totals &&
     Object.keys(totals).length > 0 &&
     Object.keys(totals)
-      .map(key => console.log(totals[key]) || totals[key])
+      .map(key => totals[key])
       .reduce(sum) < 0
   ); // Sum
 };
