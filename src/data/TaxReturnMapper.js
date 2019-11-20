@@ -19,16 +19,23 @@ const GetDataForMonth = (taxReturn, monthIndex) => {
     // taxRemitted: 0.0,
     // interestRemitted: 0.0,
     // penaltyRemitted: 0.0,
-    // submissionDate: "0001-01-01T00:00:00"
   };
 };
 
+const MapExemptionsToServerModel = exemptions =>
+  exemptions.map(({ fromDate: startDate, toDate: endDate, type: typeId }) => ({
+    startDate,
+    endDate,
+    typeId
+  }));
+
 const MapTaxReturnToServerModel = taxReturn => {
-  const { monthsToReport } = taxReturn;
+  const { monthsToReport, exemptions } = taxReturn;
   const monthData = Object.keys(monthsToReport).map(monthKey =>
     GetDataForMonth(taxReturn, monthKey)
   );
-  return { ...taxReturn, monthData };
+  const mappedExemptions = MapExemptionsToServerModel(exemptions);
+  return { ...taxReturn, monthData, ...{ exemptions: mappedExemptions } };
 };
 
 export { GetDataForMonth, MapTaxReturnToServerModel };
