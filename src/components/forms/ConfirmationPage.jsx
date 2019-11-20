@@ -10,17 +10,51 @@ import { connect } from "formik";
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
   const [response, setResponse] = useState([]);
+  const [totalOccupancy, setTotalOccupancy] = useState([]);
+  const [totalExemptions, setTotalExemptions] = useState([]);
+  const [totalPenalties, setTotalPenalties] = useState([]);
+  const [totalRemittedTax, setTotalRemittedTax] = useState([]);
+  const [dateSubmitted, setDateSubmitted] = useState([]);
+  const [returnMonths, setReturnMonths] = useState([]);
+
+  const datetimeFormat = "MMMM yyyy h:mm aaa";
   const dateFormat = "MMMM yyyy";
-  const timeFormat = "h:mm aaa";
 
   useEffect(() => {
     const mapResponse = response => {
       const { DateSubmitted } = response;
       const formattedResponse = { ...response };
       formattedResponse.DateSubmitted = GetFormatedDateTime(
-        DateSubmitted,
-        dateFormat
+        new Date(DateSubmitted),
+        datetimeFormat
       );
+      const { MonthlyData } = formattedResponse;
+      var totalOccupancy = 0;
+      var totalExemption = 0;
+      var totalPenalty = 0;
+      var totalTax = 0;
+      var monthSubmitted = "";
+
+      for (var i = 0; i < MonthlyData.length; i++) {
+        totalOccupancy += parseFloat(MonthlyData[i].GrossRentalCollected);
+        totalExemption += parseFloat(
+          MonthlyData[i].GovernmentExemptRentalCollected
+        );
+        totalPenalty += parseFloat(MonthlyData[i].PenaltyRemitted);
+        totalTax += parseFloat(MonthlyData[i].TaxRemitted);
+        monthSubmitted +=
+          GetFormatedDateTime(
+            new Date(MonthlyData[i].Month + "/01/ " + MonthlyData[i].Year),
+            dateFormat
+          ) + " ";
+      }
+      setTotalOccupancy(totalOccupancy);
+      setTotalExemptions(totalExemption);
+      setTotalPenalties(totalPenalty);
+      setTotalRemittedTax(totalTax);
+      setDateSubmitted(formattedResponse.DateSubmitted);
+      setReturnMonths(monthSubmitted.trim());
+
       return formattedResponse;
     };
     GetTransientTaxReturn(confirmationNumber)
@@ -29,24 +63,11 @@ const ConfirmationForm = props => {
   }, [confirmationNumber, props, setResponse]);
 
   const ReturnTypeDescription = response.ReturnTypeDescription;
-
-  const GetTotalOccupancyTaxCollected = () => {
-    const months = response.MonthlyData;
-    var total = 0;
-    for (var i = 0; i < months.length; i++) {
-      total += parseFloat(months[i].grossRentalCollected);
-    }
-    return total;
-  };
-
-  //const occupancyTaxCollected = GetTotalOccupancyTaxCollected(); //response.data.TaxCollected;
-  const taxRemitted = "$36.15"; //response.data.TaxRemitted;
-  const exemptionTotal = "$0.00"; //response.data.ExemptionTotal;
-  const penaltyTotal = "$6.15"; //response.data.PenaltyTotal;
-
-  //const dateToday = GetFormatedDateTime(DateSubmitted, dateFormat);
-  const timeToday = GetFormatedDateTime(new Date(), timeFormat);
-  const newDueDate = GetFormattedDueDate(new Date()).toString();
+  const date = new Date();
+  const dueDate = GetFormattedDueDate(date);
+  const newDueDate = GetFormattedDueDate(
+    date.setMonth(date.getMonth() + 1)
+  ).toString();
 
   const labels = {
     ConfirmationHeader: "Your Baltimore County Transient Occupancy Tax Return",
@@ -60,25 +81,25 @@ const ConfirmationForm = props => {
 
   const ConfirmationTableValues = [
     { id: 1, key: "Your Payment Plan", value: ReturnTypeDescription },
-    //{ id: 2, key: "Month(s) of Return", value: dateToday },
-    { id: 3, key: "Due Date", value: newDueDate },
-    //{ id: 4, key: "Occupancy Tax Collected", value: occupancyTaxCollected },
-    { id: 5, key: "Exemptions", value: exemptionTotal },
-    { id: 6, key: "Penalties", value: penaltyTotal },
-    { id: 7, key: `${ReturnTypeDescription} Tax Remitted`, value: taxRemitted }
+    { id: 2, key: "Month(s) of Return", value: returnMonths },
+    { id: 3, key: "Due Date", value: dueDate },
+    { id: 4, key: "Occupancy Tax Collected", value: totalOccupancy },
+    { id: 5, key: "Exemptions", value: totalExemptions },
+    { id: 6, key: "Penalties", value: totalPenalties },
+    {
+      id: 7,
+      key: `${ReturnTypeDescription} Tax Remitted`,
+      value: totalRemittedTax
+    }
   ];
 
   return (
     <div className="tt_form-section">
-      <div>
-        <a name="Skip"></a>
-      </div>
       <h1>
         <span>{labels.ConfirmationHeader}</span>
       </h1>
       <i>
-        {/* <span className="">{dateToday} </span> */}
-        <span className="">{timeToday}</span>
+        <span className="">{dateSubmitted}</span>
       </i>
       <h2>{labels.ConfirmationSubHeader}</h2>
       <p> {labels.ConfirmationBody}</p>
