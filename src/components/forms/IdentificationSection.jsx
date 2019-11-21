@@ -1,28 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Labels } from "../../common/Constants";
 import { ErrorMessage, Field } from "formik";
 import { GetFormattedDueDate } from "../../common/DatesUtilities";
 import InformationModal from "../InformationModal";
 
-const IdentificationSection = ({ fields }) => {
-  const [showTradeAlias, setShowTradeAlias] = useState(false);
-
-  const {
-    roomRentalCollectionFromNonTransients,
-    governmentOnBusiness
-  } = fields;
-
-  useEffect(() => {
-    if (
-      roomRentalCollectionFromNonTransients[0] < 0 ||
-      governmentOnBusiness[0] < 0
-    ) {
-      setShowTradeAlias(true);
-    } else {
-      setShowTradeAlias(false);
-    }
-  }, [roomRentalCollectionFromNonTransients, governmentOnBusiness]);
-
+const IdentificationSection = ({ showTradeAlias }) => {
   return (
     <div className="tt_form-section tt_identification-section">
       <div className="tt_date-group float-right">

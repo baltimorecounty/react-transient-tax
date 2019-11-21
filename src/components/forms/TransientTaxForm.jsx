@@ -104,6 +104,10 @@ const TransientTaxForm = componentProps => (
         monthsToReport,
         monthsLate
       );
+      const hasAtLeast1Exemption = HasAtLeast1Exemption([
+        roomRentalCollectionFromNonTransients,
+        governmentOnBusiness
+      ]);
       const isPaymentIntervalSelected = Object.keys(monthsToReport).length > 0;
       const hasExemptions = Object.keys(totalExemptions).some(
         exemptionIndex =>
@@ -148,7 +152,7 @@ const TransientTaxForm = componentProps => (
           {hasExemptions && <ExemptionCertificateField />}
           {isPaymentIntervalSelected && (
             <React.Fragment>
-              <IdentificationSection fields={props.values} />
+              <IdentificationSection showTradeAlias={hasAtLeast1Exemption} />
               <ErrorMessage name="exemptions" />
               <button type="submit">Submit</button>
             </React.Fragment>
