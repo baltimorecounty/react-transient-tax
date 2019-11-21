@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Labels } from "../../common/Constants";
 import { ErrorMessage, Field } from "formik";
 import { GetFormattedDueDate } from "../../common/DatesUtilities";
 import InformationModal from "../InformationModal";
 
-const IdentificationSection = props => {
+const IdentificationSection = ({ props }) => {
+  const [showTradeAlias, setShowTradeAlias] = useState(false);
+
+  const {
+    roomRentalCollectionFromNonTransients,
+    governmentOnBusiness
+  } = props.values;
+
+  useEffect(() => {
+    if (
+      roomRentalCollectionFromNonTransients[0] < 0 ||
+      governmentOnBusiness[0] < 0
+    ) {
+      setShowTradeAlias(true);
+    } else {
+      setShowTradeAlias(false);
+    }
+  }, [roomRentalCollectionFromNonTransients, governmentOnBusiness]);
+
   return (
     <div className="tt_form-section tt_identification-section">
       <div className="tt_date-group float-right">
@@ -15,6 +33,17 @@ const IdentificationSection = props => {
         </div>
       </div>
       <div className="float-left">
+        {showTradeAlias ? (
+          <div className="tt_form-field">
+            <div className="tt_form-field__label">
+              <label htmlFor="tradeAlias">Trade Alias</label>
+              <InformationModal title="my tittle 0" content="my content 0" />
+            </div>
+            <div>
+              <Field id="tradeAlias" name="tradeAlias" type="text" />
+            </div>
+          </div>
+        ) : null}
         <div className="tt_form-field">
           <div className="tt_form-field__label">
             <label htmlFor="nameOfSubmitter">Return Submitted By</label>
