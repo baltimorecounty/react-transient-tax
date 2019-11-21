@@ -5,8 +5,25 @@ import "./App.scss";
 import TransientTaxForm from "./components/forms/TransientTaxForm";
 import ConfirmationPage from "./components/forms/ConfirmationPage";
 import { ConstantsProvider } from "./context/ConstantsContext";
+import { setConfig } from "@baltimorecounty/javascript-utilities/config";
+
+const configValues = {
+  local: {
+    apiRoot: "//localhost:54727/api/transientTax"
+  },
+  development: {
+    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+  },
+  staging: {
+    apiRoot: "http://stagingservices.baltimorecountymd.gov/api/transientTax"
+  },
+  production: {
+    apiRoot: "http://services.baltimorecountymd.gov/api/transientTax"
+  }
+};
 
 function App() {
+  setConfig(configValues);
   return (
     <div className="tt_app">
       <ConstantsProvider>
