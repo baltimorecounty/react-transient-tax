@@ -21,4 +21,22 @@ const GetExemptionFormErrors = exemption => {
   return activeFormErrors;
 };
 
-export { GetExemptionFormErrors };
+/**
+ * Check to verify if a given exemption field has an value less than 0.
+ * Note: Exemption values are negative
+ * @param {array} exemptionTotals Array of exemption field total objects
+ */
+const HasAtLeast1Exemption = (exemptionTotals = []) => {
+  const sum = (prev, next) => prev + next;
+
+  return exemptionTotals.some(
+    total =>
+      total &&
+      Object.keys(total).length > 0 &&
+      Object.keys(total)
+        .map(key => total[key])
+        .reduce(sum) < 0
+  );
+};
+
+export { GetExemptionFormErrors, HasAtLeast1Exemption };
