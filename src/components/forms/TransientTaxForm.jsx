@@ -2,7 +2,8 @@ import React from "react";
 import * as Yup from "yup";
 import { format } from "date-fns";
 import { Labels } from "../../common/Constants";
-import { Form, Formik } from "formik";
+import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
+import { Form, Formik, ErrorMessage } from "formik";
 import ExemptionCertificateField from "./ExemptionCertificateField";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import BasicInformationSection from "./BasicInformationSection";
@@ -18,15 +19,16 @@ const initialValues = {
   businessName: "",
   address: "",
   paymentInterval: "",
-  grossOccupancy: 0,
-  roomRentalCollectionFromNonTransients: 0,
-  governmentOnBusiness: 0,
+  grossOccupancy: {},
+  roomRentalCollectionFromNonTransients: {},
+  governmentOnBusiness: {},
   exemptions: [],
   monthsLate: 0,
   monthsToReport: {},
   nameOfSubmitter: "",
   titleOfSubmitter: "",
-  email: ""
+  email: "",
+  tradeAlias: ""
 };
 
 const validationSchema = () => {
@@ -44,7 +46,22 @@ const validationSchema = () => {
       .required("Required"),
     email: Yup.string()
       .email("Please enter a valid email address.")
-      .required("Please enter your email address.")
+      .required("Please enter your email address."),
+    exemptions: Yup.array().when(
+      ["governmentOnBusiness", "roomRentalCollectionFromNonTransients"],
+      {
+        is: (governmentOnBusiness, roomRentalCollectionFromNonTransients) =>
+          HasAtLeast1Exemption([
+            governmentOnBusiness,
+            roomRentalCollectionFromNonTransients
+          ]),
+        then: Yup.array().min(
+          1,
+          "At least 1 exemption must be specified when claiming an exemption dollar amount."
+        ),
+        otherwise: Yup.array().min(0)
+      }
+    )
   });
 };
 
@@ -87,6 +104,10 @@ const TransientTaxForm = componentProps => (
         monthsToReport,
         monthsLate
       );
+      const hasAtLeast1Exemption = HasAtLeast1Exemption([
+        roomRentalCollectionFromNonTransients,
+        governmentOnBusiness
+      ]);
       const isPaymentIntervalSelected = Object.keys(monthsToReport).length > 0;
       const hasExemptions = Object.keys(totalExemptions).some(
         exemptionIndex =>
@@ -131,7 +152,8 @@ const TransientTaxForm = componentProps => (
           {hasExemptions && <ExemptionCertificateField />}
           {isPaymentIntervalSelected && (
             <React.Fragment>
-              <IdentificationSection />
+              <IdentificationSection showTradeAlias={hasAtLeast1Exemption} />
+              <ErrorMessage name="exemptions" />
               <button type="submit">Submit</button>
             </React.Fragment>
           )}
