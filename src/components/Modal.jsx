@@ -1,6 +1,8 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "reactstrap";
+import "../bootstrap.css";
+
 const ModalDisplay = props => {
   const { title, content, onHide } = props;
 
