@@ -4,13 +4,13 @@ import { ErrorMessage, Field } from "formik";
 import { GetFormattedDueDate } from "../../common/DatesUtilities";
 import InformationModal from "../InformationModal";
 
-const IdentificationSection = ({ props }) => {
+const IdentificationSection = ({ fields }) => {
   const [showTradeAlias, setShowTradeAlias] = useState(false);
 
   const {
     roomRentalCollectionFromNonTransients,
     governmentOnBusiness
-  } = props.values;
+  } = fields;
 
   useEffect(() => {
     if (
