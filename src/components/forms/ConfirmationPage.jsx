@@ -8,60 +8,70 @@ import { GetTransientTaxReturn } from "../../services/ApiService";
 
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
-  const [response, setResponse] = useState([]);
-  const [totalOccupancy, setTotalOccupancy] = useState([]);
-  const [totalExemptions, setTotalExemptions] = useState([]);
-  const [totalPenalties, setTotalPenalties] = useState([]);
-  const [totalRemittedTax, setTotalRemittedTax] = useState([]);
-  const [dateSubmitted, setDateSubmitted] = useState([]);
-  const [returnMonths, setReturnMonths] = useState([]);
+  const [response, setResponse] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const {
+    ReturnTypeDescription,
+    DateSubmitted,
+    monthlyOccupancy,
+    monthlyExemption,
+    monthlyPenalty,
+    totalRemittedTax,
+    monthSubmitted
+  } = response;
 
   const datetimeFormat = "MMMM yyyy h:mm aaa";
   const dateFormat = "MMMM yyyy";
 
   useEffect(() => {
     const mapResponse = response => {
-      const { DateSubmitted } = response;
+      const { DateSubmitted, MonthlyData } = response;
       const formattedResponse = { ...response };
       formattedResponse.DateSubmitted = GetFormatedDateTime(
         new Date(DateSubmitted),
         datetimeFormat
       );
-      const { MonthlyData } = formattedResponse;
-      var totalOccupancy = 0;
-      var totalExemption = 0;
-      var totalPenalty = 0;
-      var totalTax = 0;
-      var monthSubmitted = "";
+      var monthlyOccupancy = [];
+      var monthlyExemption = [];
+      var monthlyPenalty = [];
+      var totalRemittedTax = 0;
+      var monthSubmitted = [];
 
       for (var i = 0; i < MonthlyData.length; i++) {
-        totalOccupancy += parseFloat(MonthlyData[i].GrossRentalCollected);
-        totalExemption += parseFloat(
-          MonthlyData[i].GovernmentExemptRentalCollected
+        monthlyOccupancy = monthlyOccupancy.concat(
+          "$" + MonthlyData[i].GrossRentalCollected
         );
-        totalPenalty += parseFloat(MonthlyData[i].PenaltyRemitted);
-        totalTax += parseFloat(MonthlyData[i].TaxRemitted);
-        monthSubmitted +=
+        monthlyExemption = monthlyExemption.concat(
+          "$" +
+            (parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
+              parseFloat(MonthlyData[i].NonTransientRentalCollected))
+        );
+        monthlyPenalty = monthlyPenalty.concat(
+          "$" + MonthlyData[i].PenaltyRemitted
+        );
+        totalRemittedTax += parseFloat(MonthlyData[i].TaxRemitted);
+        monthSubmitted = monthSubmitted.concat(
           GetFormatedDateTime(
             new Date(MonthlyData[i].Month + "/01/" + MonthlyData[i].Year),
             dateFormat
-          ) + " ";
+          ) + " "
+        );
       }
-      setTotalOccupancy(totalOccupancy);
-      setTotalExemptions(totalExemption);
-      setTotalPenalties(totalPenalty);
-      setTotalRemittedTax(totalTax);
-      setDateSubmitted(formattedResponse.DateSubmitted);
-      setReturnMonths(monthSubmitted.trim());
+
+      formattedResponse.monthlyOccupancy = monthlyOccupancy;
+      formattedResponse.monthlyExemption = monthlyExemption;
+      formattedResponse.monthlyPenalty = monthlyPenalty;
+      formattedResponse.totalRemittedTax = "$" + totalRemittedTax;
+      formattedResponse.monthSubmitted = monthSubmitted;
 
       return formattedResponse;
     };
     GetTransientTaxReturn(confirmationNumber)
       .then(mapResponse)
-      .then(setResponse);
+      .then(setResponse)
+      .then(() => setIsLoading(false));
   }, [confirmationNumber]);
 
-  const ReturnTypeDescription = response.ReturnTypeDescription;
   const date = new Date();
   const dueDate = GetFormattedDueDate(date);
   const newDueDate = GetFormattedDueDate(
@@ -79,37 +89,55 @@ const ConfirmationForm = props => {
   };
 
   const ConfirmationTableValues = [
-    { id: 1, key: "Your Payment Plan", value: ReturnTypeDescription },
-    { id: 2, key: "Month(s) of Return", value: returnMonths },
-    { id: 3, key: "Due Date", value: dueDate },
-    { id: 4, key: "Occupancy Tax Collected", value: totalOccupancy },
-    { id: 5, key: "Exemptions", value: totalExemptions },
-    { id: 6, key: "Penalties", value: totalPenalties },
+    {
+      id: 1,
+      key: "Your Payment Plan",
+      values: [{ value: ReturnTypeDescription }]
+    },
+    {
+      id: 2,
+      key: "Month(s) of Return",
+      values: [{ value: monthSubmitted }]
+    },
+    { id: 3, key: "Due Date", values: [{ value: dueDate }] },
+    {
+      id: 4,
+      key: "Occupancy Tax Collected",
+      values: [{ value: monthlyOccupancy }]
+    },
+    { id: 5, key: "Exemptions", values: [{ value: monthlyExemption }] },
+    { id: 6, key: "Penalties", values: [{ value: monthlyPenalty }] },
     {
       id: 7,
       key: `${ReturnTypeDescription} Tax Remitted`,
-      value: totalRemittedTax
+      values: [{ value: totalRemittedTax }]
     }
   ];
 
   return (
-    <div className="tt_form-section">
-      <h1>
-        <span>{labels.ConfirmationHeader}</span>
-      </h1>
-      <i>
-        <span className="">{dateSubmitted}</span>
-      </i>
-      <h2>{labels.ConfirmationSubHeader}</h2>
-      <p> {labels.ConfirmationBody}</p>
-      <p>{labels.ConfirmationSubBody}</p>
-      <p>
-        <em>{labels.ConfirmationNextPayment}</em>
-      </p>
-      <ConfirmationTable
-        TaxDetailsHeader={labels.ConfirmationTaxDetailsHeader}
-        ConfirmationTableValues={ConfirmationTableValues}
-      />
+    <div>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="tt_form-section">
+          <h1>
+            <span>{labels.ConfirmationHeader}</span>
+          </h1>
+          <i>
+            <span className="">{DateSubmitted}</span>
+          </i>
+          <h2>{labels.ConfirmationSubHeader}</h2>
+          <p> {labels.ConfirmationBody}</p>
+          <p>{labels.ConfirmationSubBody}</p>
+          <p>
+            <em>{labels.ConfirmationNextPayment}</em>
+          </p>
+          <ConfirmationTable
+            TaxDetailsHeader={labels.ConfirmationTaxDetailsHeader}
+            ConfirmationTableValues={ConfirmationTableValues}
+          />
+        </div>
+      )}
     </div>
   );
 };
