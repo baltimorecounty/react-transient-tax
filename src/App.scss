@@ -16,7 +16,9 @@ $default-border: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-between;
 }
-
+.float-right {
+  float: right !important;
+}
 .tt_form-section {
   border-bottom: $default-border;
   padding: $default-spacing / 2;

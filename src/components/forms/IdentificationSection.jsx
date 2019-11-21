@@ -29,7 +29,7 @@ const IdentificationSection = ({ showTradeAlias }) => {
         <div className="tt_form-field">
           <div className="tt_form-field__label">
             <label htmlFor="nameOfSubmitter">Return Submitted By</label>
-            <InformationModal title="my tittle 1" content="my content 1" />
+            <InformationModal title="my tittle 1" content="content 1"/>
           </div>
           <div>
             <Field id="nameOfSubmitter" name="nameOfSubmitter" type="text" />
