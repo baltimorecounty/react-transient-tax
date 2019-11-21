@@ -17,7 +17,8 @@ const ConfirmationForm = props => {
     monthlyExemption,
     monthlyPenalty,
     totalRemittedTax,
-    monthSubmitted
+    monthSubmitted,
+    dueDate
   } = response;
 
   const datetimeFormat = "MMMM yyyy h:mm aaa";
@@ -25,7 +26,7 @@ const ConfirmationForm = props => {
 
   useEffect(() => {
     const mapResponse = response => {
-      const { DateSubmitted, MonthlyData } = response;
+      const { DateSubmitted, MonthlyData, ReturnType } = response;
       const formattedResponse = { ...response };
       formattedResponse.DateSubmitted = GetFormatedDateTime(
         new Date(DateSubmitted),
@@ -58,11 +59,31 @@ const ConfirmationForm = props => {
         );
       }
 
+      let dueDate = "";
+      if (ReturnType === 1) {
+        dueDate = GetFormattedDueDate(
+          new Date(
+            response.MonthlyData[2].Month +
+              "/01/" +
+              response.MonthlyData[2].Year
+          )
+        );
+      } else {
+        dueDate = GetFormattedDueDate(
+          new Date(
+            response.MonthlyData[0].Month +
+              "/01/" +
+              response.MonthlyData[0].Year
+          )
+        );
+      }
+
       formattedResponse.monthlyOccupancy = monthlyOccupancy;
       formattedResponse.monthlyExemption = monthlyExemption;
       formattedResponse.monthlyPenalty = monthlyPenalty;
       formattedResponse.totalRemittedTax = "$" + totalRemittedTax;
       formattedResponse.monthSubmitted = monthSubmitted;
+      formattedResponse.dueDate = dueDate;
 
       return formattedResponse;
     };
@@ -73,7 +94,7 @@ const ConfirmationForm = props => {
   }, [confirmationNumber]);
 
   const date = new Date();
-  const dueDate = GetFormattedDueDate(date);
+
   const newDueDate = GetFormattedDueDate(
     date.setMonth(date.getMonth() + 1)
   ).toString();
