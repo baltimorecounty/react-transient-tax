@@ -1,9 +1,8 @@
 import axios from "axios";
 import { MapTaxReturnToServerModel } from "../data/TaxReturnMapper";
+import { getValue } from "@baltimorecounty/javascript-utilities/config";
 
 let exemptionId = 0;
-
-const apiBaseUrl = "//localhost:54727/api/transientTax";
 
 /**
  * Get a lookup value for a given endpoint
@@ -11,7 +10,7 @@ const apiBaseUrl = "//localhost:54727/api/transientTax";
  */
 const GetLookupItem = endpoint =>
   axios
-    .get(`${apiBaseUrl}/${endpoint}`)
+    .get(`${getValue("apiRoot")}/${endpoint}`)
     .then(({ status, data }) => (status === 200 ? data : []))
     .catch(
       error =>
@@ -34,7 +33,9 @@ const GetFilingTypes = () => GetLookupItem("filingTypes");
  */
 const GetTransientTaxReturn = confirmationNumber =>
   axios
-    .get(`${apiBaseUrl}/return?confirmationnumber=${confirmationNumber}`)
+    .get(
+      `${getValue("apiRoot")}/return?confirmationnumber=${confirmationNumber}`
+    )
     .then(({ status, data }) => (status === 200 ? data : []))
     .catch(
       error =>
@@ -55,7 +56,7 @@ const SaveExemption = exemption => {
 
 const SaveReturn = taxReturn =>
   axios
-    .post(`${apiBaseUrl}/return`, MapTaxReturnToServerModel(taxReturn))
+    .post(`${getValue("apiRoot")}/return`, MapTaxReturnToServerModel(taxReturn))
     .then(({ status, data }) => (status === 200 ? data : []))
     .catch(
       error =>
