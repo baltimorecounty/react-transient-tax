@@ -26,7 +26,8 @@ const initialValues = {
   monthsToReport: {},
   nameOfSubmitter: "",
   titleOfSubmitter: "",
-  email: ""
+  email: "",
+  tradeAlias: ""
 };
 
 const validationSchema = () => {
@@ -131,7 +132,7 @@ const TransientTaxForm = componentProps => (
           {hasExemptions && <ExemptionCertificateField />}
           {isPaymentIntervalSelected && (
             <React.Fragment>
-              <IdentificationSection props={props} />
+              <IdentificationSection fields={props.values} />
               <button type="submit">Submit</button>
             </React.Fragment>
           )}

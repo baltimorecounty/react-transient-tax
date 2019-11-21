@@ -22,8 +22,9 @@ const configValues = {
   }
 };
 
+setConfig(configValues);
+
 function App() {
-  setConfig(configValues);
   return (
     <div className="tt_app">
       <ConstantsProvider>
