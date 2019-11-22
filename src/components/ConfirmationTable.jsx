@@ -32,8 +32,12 @@ const ConfirmationTable = props => {
                   <strong>{item.key}</strong>
                 </p>
               </td>
-              {item.value.map(result => (
-                <td colSpan="1" rowSpan="1">
+              {item.value.map((result, resultIndex) => (
+                <td
+                  key={`table-total-${item.id}-${resultIndex}`}
+                  colSpan="1"
+                  rowSpan="1"
+                >
                   <p>{result}</p>
                 </td>
               ))}
