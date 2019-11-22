@@ -52,7 +52,7 @@ const ConfirmationForm = props => {
           <p>
             You have successfully completed the Baltimore County Transient
             Occupancy Tax Return. Your confirmation number for this return is{" "}
-            {confirmationNumber}.
+            <strong>{confirmationNumber}</strong>.
           </p>
           <p>
             Please present this number to the appropriate Budget and Finance
