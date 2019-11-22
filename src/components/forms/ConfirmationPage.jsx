@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  GetFormattedDueDate,
-  GetFormatedDateTime
-} from "../../common/DatesUtilities";
+import { GetFormattedDueDate } from "../../common/DatesUtilities";
 import ConfirmationTable from "../ConfirmationTable";
 import { GetTransientTaxReturn } from "../../services/ApiService";
 
@@ -16,71 +13,13 @@ const ConfirmationForm = props => {
     monthlyOccupancy,
     monthlyExemption,
     monthlyPenalty,
-    totalRemittedTax,
+    monthlyRemittedTax,
     monthSubmitted,
     dueDate
   } = response;
 
-  const datetimeFormat = "MMMM yyyy h:mm aaa";
-  const dateFormat = "MMMM yyyy";
-
   useEffect(() => {
-    const mapResponse = response => {
-      const { DateSubmitted, MonthlyData, ReturnType } = response;
-      const formattedResponse = { ...response };
-      formattedResponse.DateSubmitted = GetFormatedDateTime(
-        new Date(DateSubmitted),
-        datetimeFormat
-      );
-      var monthlyOccupancy = [];
-      var monthlyExemption = [];
-      var monthlyPenalty = [];
-      var totalRemittedTax = 0;
-      var monthSubmitted = [];
-
-      for (var i = 0; i < MonthlyData.length; i++) {
-        monthlyOccupancy = monthlyOccupancy.concat(
-          "$" + MonthlyData[i].GrossRentalCollected
-        );
-        monthlyExemption = monthlyExemption.concat(
-          "$" +
-            (parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
-              parseFloat(MonthlyData[i].NonTransientRentalCollected))
-        );
-        monthlyPenalty = monthlyPenalty.concat(
-          "$" + MonthlyData[i].PenaltyRemitted
-        );
-        totalRemittedTax += parseFloat(MonthlyData[i].TaxRemitted);
-
-        monthSubmitted = monthSubmitted.concat(
-          GetFormatedDateTime(
-            new Date(MonthlyData[i].Month + "/01/" + MonthlyData[i].Year),
-            dateFormat
-          ) + " "
-        );
-      }
-
-      const monthOfReturn = ReturnType === 1 ? 2 : 0;
-
-      const dueDate = GetFormattedDueDate(
-        new Date(
-          MonthlyData[monthOfReturn].Month +
-            "/01/" +
-            MonthlyData[monthOfReturn].Year
-        )
-      );
-
-      formattedResponse.monthlyOccupancy = monthlyOccupancy;
-      formattedResponse.monthlyExemption = monthlyExemption;
-      formattedResponse.monthlyPenalty = monthlyPenalty;
-      formattedResponse.totalRemittedTax = "$" + totalRemittedTax;
-      formattedResponse.monthSubmitted = monthSubmitted;
-      formattedResponse.dueDate = dueDate;
-
-      return formattedResponse;
-    };
     GetTransientTaxReturn(confirmationNumber)
-      .then(mapResponse)
       .then(setResponse)
       .then(() => setIsLoading(false));
   }, [confirmationNumber]);
@@ -102,23 +41,11 @@ const ConfirmationForm = props => {
   };
 
   const ConfirmationTableValues = [
-    {
-      id: 1,
-      key: "Month of Return",
-      values: [monthSubmitted]
-    },
-    {
-      id: 2,
-      key: "Occupancy Tax Collected",
-      values: [monthlyOccupancy]
-    },
-    { id: 3, key: "Exemptions", values: [monthlyExemption] },
-    { id: 4, key: "Penalties", values: [monthlyPenalty] },
-    {
-      id: 5,
-      key: `${ReturnTypeDescription} Tax Remitted`,
-      values: [totalRemittedTax]
-    }
+    { id: 1, key: "Month of Return", value: monthSubmitted },
+    { id: 2, key: "Occupancy Tax Collected", value: monthlyOccupancy },
+    { id: 3, key: "Exemptions", value: monthlyExemption },
+    { id: 4, key: "Penalties", value: monthlyPenalty },
+    { id: 5, key: "Monthly Tax Remitted", value: monthlyRemittedTax }
   ];
 
   return (
