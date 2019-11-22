@@ -54,36 +54,48 @@ const MapResponseDataForTaxReturn = taxReturn => {
   var totalMonthlyRemittedTax = 0;
 
   for (var i = 0; i < MonthlyData.length; i++) {
+    const {
+      GrossRentalCollected,
+      GovernmentExemptRentalCollected,
+      NonTransientRentalCollected,
+      PenaltyRemitted,
+      Year,
+      Month
+    } = MonthlyData[i];
+
     monthlyOccupancy = monthlyOccupancy.concat(
-      FormatCurrency(MonthlyData[i].GrossRentalCollected)
+      FormatCurrency(GrossRentalCollected)
     );
-    totalMonthlyOccupancy += parseFloat(MonthlyData[i].GrossRentalCollected);
+    totalMonthlyOccupancy += GrossRentalCollected;
 
     monthlyExemption = monthlyExemption.concat(
       FormatCurrency(
-        parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
-          parseFloat(MonthlyData[i].NonTransientRentalCollected)
+        parseFloat(GovernmentExemptRentalCollected) +
+          parseFloat(NonTransientRentalCollected)
       )
     );
     totalMonthlyExemption +=
-      parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
-      parseFloat(MonthlyData[i].NonTransientRentalCollected);
+      parseFloat(GovernmentExemptRentalCollected) +
+      parseFloat(NonTransientRentalCollected);
 
-    monthlyPenalty = monthlyPenalty.concat(
-      FormatCurrency(MonthlyData[i].PenaltyRemitted)
-    );
-    totalMonthlyPenalty += parseFloat(MonthlyData[i].PenaltyRemitted);
+    monthlyPenalty = monthlyPenalty.concat(FormatCurrency(PenaltyRemitted));
+    totalMonthlyPenalty += parseFloat(PenaltyRemitted);
+
+    // Right now the api is not return a value for TaxRemitted, so we need to calculate this.
+    const taxRemittedForMonth =
+      GrossRentalCollected +
+      GovernmentExemptRentalCollected +
+      NonTransientRentalCollected +
+      PenaltyRemitted;
 
     monthlyRemittedTax = monthlyRemittedTax.concat(
-      FormatCurrency(MonthlyData[i].TaxRemitted)
+      FormatCurrency(taxRemittedForMonth)
     );
-    totalMonthlyRemittedTax += parseFloat(MonthlyData[i].TaxRemitted);
+
+    totalMonthlyRemittedTax += taxRemittedForMonth;
 
     monthSubmitted = monthSubmitted.concat(
-      GetFormatedDateTime(
-        new Date(MonthlyData[i].Month + "/01/" + MonthlyData[i].Year),
-        dateFormat
-      ) + " "
+      GetFormatedDateTime(new Date(Month + "/01/" + Year), dateFormat) + " "
     );
   }
 
