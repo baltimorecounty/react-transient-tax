@@ -1,11 +1,13 @@
 import React from "react";
+import { GetFormatedDateTime } from "../common/DatesUtilities";
 
 const ConfirmationTable = props => {
   const {
     TaxDetailsHeader,
     ConfirmationTableValues,
     DueDate,
-    ReturnType
+    ReturnType,
+    DateSubmitted
   } = props;
 
   return (
@@ -13,6 +15,10 @@ const ConfirmationTable = props => {
       <h3>{TaxDetailsHeader}</h3>
       <p>
         <strong>Your Payment Plan</strong>: {ReturnType}
+      </p>
+      <p>
+        <strong>Date Submitted</strong>:{" "}
+        {GetFormatedDateTime(new Date(DateSubmitted), "MMMM dd, yyyy")}
       </p>
       <p>
         <strong>Due Date</strong>: {DueDate}

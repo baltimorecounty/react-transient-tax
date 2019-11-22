@@ -51,6 +51,7 @@ const ConfirmationForm = props => {
             <span className="">{DateSubmitted}</span>
           </i>
           <h2>Transient Tax Return Submitted</h2>
+          <h3>Confirmation Number: {confirmationNumber}</h3>
           <p>
             You have successfully completed the Baltimore County Transient
             Occupancy Tax Return. Your confirmation number for this return is{" "}
@@ -63,13 +64,14 @@ const ConfirmationForm = props => {
           </p>
           <p>
             <em>
-              You have signed up for {ReturnTypeDescription} payments; the due
-              date for your next payment is {newDueDate}
+              You have signed up for {ReturnTypeDescription.toLowerCase()}{" "}
+              payments the due date for your next payment is {newDueDate}
             </em>
           </p>
           <ConfirmationTable
             TaxDetailsHeader={"Transient Occupancy Tax Return Details:"}
             ConfirmationTableValues={ConfirmationTableValues}
+            DateSubmitted={DateSubmitted}
             DueDate={dueDate}
             ReturnType={ReturnTypeDescription}
           />
