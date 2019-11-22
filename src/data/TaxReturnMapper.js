@@ -28,11 +28,15 @@ const GetDataForMonth = (taxReturn, monthIndex) => {
   };
 };
 
-const MapResponseDataForTaxReturn = response => {
+/**
+ * Maps Transient Tax Form Data to the confirmation page
+ * @param {object} taxReturn tax return form data model
+ */
+const MapResponseDataForTaxReturn = taxReturn => {
   const dateTimeFormat = "MMMM yyyy h:mm aaa";
   const dateFormat = "MMMM yyyy";
-  const { DateSubmitted, MonthlyData, ReturnType } = response;
-  const formattedResponse = { ...response };
+  const { DateSubmitted, MonthlyData, ReturnType } = taxReturn;
+  const formattedResponse = { ...taxReturn };
   formattedResponse.DateSubmitted = GetFormatedDateTime(
     new Date(DateSubmitted),
     dateTimeFormat
@@ -81,7 +85,9 @@ const MapResponseDataForTaxReturn = response => {
     );
   }
 
-  if (ReturnType === 1) {
+  const isMonthly = Object.keys(MonthlyData).length === 1;
+
+  if (!isMonthly) {
     monthlyOccupancy = monthlyOccupancy.concat("$" + totalMonthlyOccupancy);
     monthlyExemption = monthlyExemption.concat("$" + totalMonthlyExemption);
     monthlyPenalty = monthlyPenalty.concat("$" + totalMonthlyPenalty);
@@ -91,7 +97,7 @@ const MapResponseDataForTaxReturn = response => {
     monthSubmitted = monthSubmitted.concat("Totals");
   }
 
-  const monthOfReturn = ReturnType === 1 ? 2 : 0;
+  const monthOfReturn = isMonthly ? 0 : 2;
 
   const dueDate = GetFormattedDueDate(
     new Date(
