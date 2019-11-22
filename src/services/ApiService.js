@@ -1,5 +1,8 @@
 import axios from "axios";
-import { MapTaxReturnToServerModel } from "../data/TaxReturnMapper";
+import {
+  MapTaxReturnToServerModel,
+  MapResponseDataForTaxReturn
+} from "../data/TaxReturnMapper";
 import { getValue } from "@baltimorecounty/javascript-utilities/config";
 
 let exemptionId = 0;
@@ -36,7 +39,9 @@ const GetTransientTaxReturn = confirmationNumber =>
     .get(
       `${getValue("apiRoot")}/return?confirmationnumber=${confirmationNumber}`
     )
-    .then(({ status, data }) => (status === 200 ? data : []))
+    .then(({ status, data }) =>
+      status === 200 ? MapResponseDataForTaxReturn(data) : []
+    )
     .catch(
       error =>
         console.error(
