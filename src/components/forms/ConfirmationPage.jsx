@@ -63,9 +63,9 @@ const ConfirmationForm = props => {
 
       const dueDate = GetFormattedDueDate(
         new Date(
-          response.MonthlyData[monthOfReturn].Month +
+          MonthlyData[monthOfReturn].Month +
             "/01/" +
-            response.MonthlyData[monthOfReturn].Year
+            MonthlyData[monthOfReturn].Year
         )
       );
 
