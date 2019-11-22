@@ -36,7 +36,7 @@ const GetDataForMonth = (taxReturn, monthIndex) => {
 const MapResponseDataForTaxReturn = taxReturn => {
   const dateTimeFormat = "MMMM yyyy h:mm aaa";
   const dateFormat = "MMMM yyyy";
-  const { DateSubmitted, MonthlyData, ReturnType } = taxReturn;
+  const { DateSubmitted, MonthlyData } = taxReturn;
   const formattedResponse = { ...taxReturn };
   formattedResponse.DateSubmitted = GetFormatedDateTime(
     new Date(DateSubmitted),
@@ -94,7 +94,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
     monthlyExemption.push(FormatCurrency(totalMonthlyExemption));
     monthlyPenalty.push(FormatCurrency(totalMonthlyPenalty));
     monthlyRemittedTax.push(FormatCurrency(totalMonthlyRemittedTax));
-    monthSubmitted = monthSubmitted.concat("Totals");
+    monthSubmitted = monthSubmitted.concat("Total");
   }
 
   const monthOfReturn = isMonthly ? 0 : 2;
