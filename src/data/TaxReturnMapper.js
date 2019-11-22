@@ -45,7 +45,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
   const formattedResponse = { ...taxReturn };
   formattedResponse.DateSubmitted = GetFormatedDateTime(
     new Date(DateSubmitted),
-    dateTimeFormat
+    "MMMM dd yyyy"
   );
   var monthlyOccupancy = [];
   var monthlyExemption = [];
