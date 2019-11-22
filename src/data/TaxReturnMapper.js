@@ -2,6 +2,7 @@ import {
   GetFormattedDueDate,
   GetFormatedDateTime
 } from "../common/DatesUtilities";
+import { FormatCurrency } from "../common/FormatUtilities";
 
 /**
  * Maps Transient Tax Form Data to the Server Model
@@ -54,26 +55,27 @@ const MapResponseDataForTaxReturn = taxReturn => {
 
   for (var i = 0; i < MonthlyData.length; i++) {
     monthlyOccupancy = monthlyOccupancy.concat(
-      "$" + MonthlyData[i].GrossRentalCollected
+      FormatCurrency(MonthlyData[i].GrossRentalCollected)
     );
     totalMonthlyOccupancy += parseFloat(MonthlyData[i].GrossRentalCollected);
 
     monthlyExemption = monthlyExemption.concat(
-      "$" +
-        (parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
-          parseFloat(MonthlyData[i].NonTransientRentalCollected))
+      FormatCurrency(
+        parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
+          parseFloat(MonthlyData[i].NonTransientRentalCollected)
+      )
     );
     totalMonthlyExemption +=
       parseFloat(MonthlyData[i].GovernmentExemptRentalCollected) +
       parseFloat(MonthlyData[i].NonTransientRentalCollected);
 
     monthlyPenalty = monthlyPenalty.concat(
-      "$" + MonthlyData[i].PenaltyRemitted
+      FormatCurrency(MonthlyData[i].PenaltyRemitted)
     );
     totalMonthlyPenalty += parseFloat(MonthlyData[i].PenaltyRemitted);
 
     monthlyRemittedTax = monthlyRemittedTax.concat(
-      "$" + MonthlyData[i].TaxRemitted
+      FormatCurrency(MonthlyData[i].TaxRemitted)
     );
     totalMonthlyRemittedTax += parseFloat(MonthlyData[i].TaxRemitted);
 
@@ -88,12 +90,10 @@ const MapResponseDataForTaxReturn = taxReturn => {
   const isMonthly = Object.keys(MonthlyData).length === 1;
 
   if (!isMonthly) {
-    monthlyOccupancy = monthlyOccupancy.concat("$" + totalMonthlyOccupancy);
-    monthlyExemption = monthlyExemption.concat("$" + totalMonthlyExemption);
-    monthlyPenalty = monthlyPenalty.concat("$" + totalMonthlyPenalty);
-    monthlyRemittedTax = monthlyRemittedTax.concat(
-      "$" + totalMonthlyRemittedTax
-    );
+    monthlyOccupancy.push(FormatCurrency(totalMonthlyOccupancy));
+    monthlyExemption.push(FormatCurrency(totalMonthlyExemption));
+    monthlyPenalty.push(FormatCurrency(totalMonthlyPenalty));
+    monthlyRemittedTax.push(FormatCurrency(totalMonthlyRemittedTax));
     monthSubmitted = monthSubmitted.concat("Totals");
   }
 
