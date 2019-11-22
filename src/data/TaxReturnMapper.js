@@ -81,11 +81,15 @@ const MapResponseDataForTaxReturn = response => {
     );
   }
 
-  monthlyOccupancy = monthlyOccupancy.concat("$" + totalMonthlyOccupancy);
-  monthlyExemption = monthlyExemption.concat("$" + totalMonthlyExemption);
-  monthlyPenalty = monthlyPenalty.concat("$" + totalMonthlyPenalty);
-  monthlyRemittedTax = monthlyRemittedTax.concat("$" + totalMonthlyRemittedTax);
-  monthSubmitted = monthSubmitted.concat("Totals");
+  if (ReturnType === 1) {
+    monthlyOccupancy = monthlyOccupancy.concat("$" + totalMonthlyOccupancy);
+    monthlyExemption = monthlyExemption.concat("$" + totalMonthlyExemption);
+    monthlyPenalty = monthlyPenalty.concat("$" + totalMonthlyPenalty);
+    monthlyRemittedTax = monthlyRemittedTax.concat(
+      "$" + totalMonthlyRemittedTax
+    );
+    monthSubmitted = monthSubmitted.concat("Totals");
+  }
 
   const monthOfReturn = ReturnType === 1 ? 2 : 0;
 
