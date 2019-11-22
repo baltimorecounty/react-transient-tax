@@ -47,9 +47,6 @@ const ConfirmationForm = props => {
           <h1>
             <span>Your Baltimore County Transient Occupancy Tax Return</span>
           </h1>
-          <i>
-            <span className="">{DateSubmitted}</span>
-          </i>
           <h2>Transient Tax Return Submitted</h2>
           <h3>Confirmation Number: {confirmationNumber}</h3>
           <p>
