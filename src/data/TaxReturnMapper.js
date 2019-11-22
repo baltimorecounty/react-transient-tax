@@ -39,13 +39,12 @@ const GetDataForMonth = (taxReturn, monthIndex) => {
  * @param {object} taxReturn tax return form data model
  */
 const MapResponseDataForTaxReturn = taxReturn => {
-  const dateTimeFormat = "MMMM yyyy h:mm aaa";
   const dateFormat = "MMMM yyyy";
   const { DateSubmitted, MonthlyData } = taxReturn;
   const formattedResponse = { ...taxReturn };
   formattedResponse.DateSubmitted = GetFormatedDateTime(
     new Date(DateSubmitted),
-    dateTimeFormat
+    "MMMM dd yyyy"
   );
   var monthlyOccupancy = [];
   var monthlyExemption = [];

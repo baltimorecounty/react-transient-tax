@@ -1,5 +1,4 @@
 import React from "react";
-import { GetFormatedDateTime } from "../common/DatesUtilities";
 
 const ConfirmationTable = props => {
   const {
@@ -17,8 +16,7 @@ const ConfirmationTable = props => {
         <strong>Your Payment Plan</strong>: {ReturnType}
       </p>
       <p>
-        <strong>Date Submitted</strong>:{" "}
-        {GetFormatedDateTime(new Date(DateSubmitted), "MMMM dd, yyyy")}
+        <strong>Date Submitted</strong>: {DateSubmitted}
       </p>
       <p>
         <strong>Due Date</strong>: {DueDate}
