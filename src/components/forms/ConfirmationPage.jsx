@@ -59,24 +59,15 @@ const ConfirmationForm = props => {
         );
       }
 
-      let dueDate = "";
-      if (ReturnType === 1) {
-        dueDate = GetFormattedDueDate(
-          new Date(
-            response.MonthlyData[2].Month +
-              "/01/" +
-              response.MonthlyData[2].Year
-          )
-        );
-      } else {
-        dueDate = GetFormattedDueDate(
-          new Date(
-            response.MonthlyData[0].Month +
-              "/01/" +
-              response.MonthlyData[0].Year
-          )
-        );
-      }
+      const monthOfReturn = ReturnType === 1 ? 2 : 0;
+
+      const dueDate = GetFormattedDueDate(
+        new Date(
+          response.MonthlyData[monthOfReturn].Month +
+            "/01/" +
+            response.MonthlyData[monthOfReturn].Year
+        )
+      );
 
       formattedResponse.monthlyOccupancy = monthlyOccupancy;
       formattedResponse.monthlyExemption = monthlyExemption;
