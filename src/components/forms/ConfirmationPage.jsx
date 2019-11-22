@@ -15,6 +15,9 @@ const ConfirmationForm = props => {
     monthlyPenalty,
     monthlyRemittedTax,
     monthSubmitted,
+    monthlyTaxCollected,
+    monthlyInterest,
+    monthlyNetRoomRental,
     dueDate
   } = response;
 
@@ -34,8 +37,11 @@ const ConfirmationForm = props => {
     { id: 1, key: "Month of Return", value: monthSubmitted },
     { id: 2, key: "Occupancy Tax Collected", value: monthlyOccupancy },
     { id: 3, key: "Exemptions", value: monthlyExemption },
-    { id: 4, key: "Penalties", value: monthlyPenalty },
-    { id: 5, key: "Monthly Tax Remitted", value: monthlyRemittedTax }
+    { id: 4, key: "Net Room Rental Collections", value: monthlyNetRoomRental },
+    { id: 5, key: "Tax Collected", value: monthlyTaxCollected },
+    { id: 6, key: "Interest", value: monthlyInterest },
+    { id: 7, key: "Penalties", value: monthlyPenalty },
+    { id: 8, key: "Monthly Tax Remitted", value: monthlyRemittedTax }
   ];
 
   return (

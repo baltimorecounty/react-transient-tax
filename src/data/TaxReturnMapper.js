@@ -3,6 +3,11 @@ import {
   GetFormatedDateTime
 } from "../common/DatesUtilities";
 import { FormatCurrency } from "../common/FormatUtilities";
+import {
+  CalculatePenalty,
+  CalculateInterest,
+  CalculateTaxCollected
+} from "../common/Calculations";
 
 /**
  * Maps Transient Tax Form Data to the Server Model
@@ -47,18 +52,23 @@ const MapResponseDataForTaxReturn = taxReturn => {
   var monthlyPenalty = [];
   var monthlyRemittedTax = [];
   var monthSubmitted = [];
+  var monthlyInterest = [];
+  var monthlyTaxCollected = [];
+  var monthlyNetRoomRental = [];
 
   var totalMonthlyOccupancy = 0;
   var totalMonthlyExemption = 0;
   var totalMonthlyPenalty = 0;
   var totalMonthlyRemittedTax = 0;
+  var totalMonthlyInterest = 0;
+  var totalMonthlyTaxCollected = 0;
+  var totalMonthlyNetRoomRental = 0;
 
   for (var i = 0; i < MonthlyData.length; i++) {
     const {
       GrossRentalCollected,
       GovernmentExemptRentalCollected,
       NonTransientRentalCollected,
-      PenaltyRemitted,
       Year,
       Month
     } = MonthlyData[i];
@@ -78,15 +88,33 @@ const MapResponseDataForTaxReturn = taxReturn => {
       parseFloat(GovernmentExemptRentalCollected) +
       parseFloat(NonTransientRentalCollected);
 
-    monthlyPenalty = monthlyPenalty.concat(FormatCurrency(PenaltyRemitted));
-    totalMonthlyPenalty += parseFloat(PenaltyRemitted);
+    const netRoomRentalsForMonth =
+      GrossRentalCollected +
+      GovernmentExemptRentalCollected +
+      NonTransientRentalCollected;
+    const taxCollectedForMonth = CalculateTaxCollected(netRoomRentalsForMonth);
+    const interestForMonth = CalculateInterest(taxCollectedForMonth, 5);
+    const penaltyForMonth = CalculatePenalty(taxCollectedForMonth);
+
+    totalMonthlyPenalty += penaltyForMonth;
+
+    monthlyPenalty.push(FormatCurrency(totalMonthlyPenalty));
+
+    totalMonthlyInterest += interestForMonth;
+
+    monthlyInterest.push(FormatCurrency(interestForMonth));
+
+    totalMonthlyTaxCollected += taxCollectedForMonth;
+
+    monthlyTaxCollected.push(FormatCurrency(taxCollectedForMonth));
+
+    totalMonthlyNetRoomRental += netRoomRentalsForMonth;
+
+    monthlyNetRoomRental.push(FormatCurrency(netRoomRentalsForMonth));
 
     // Right now the api is not return a value for TaxRemitted, so we need to calculate this.
     const taxRemittedForMonth =
-      GrossRentalCollected +
-      GovernmentExemptRentalCollected +
-      NonTransientRentalCollected +
-      PenaltyRemitted;
+      taxCollectedForMonth + penaltyForMonth + interestForMonth;
 
     monthlyRemittedTax = monthlyRemittedTax.concat(
       FormatCurrency(taxRemittedForMonth)
@@ -104,8 +132,11 @@ const MapResponseDataForTaxReturn = taxReturn => {
   if (!isMonthly) {
     monthlyOccupancy.push(FormatCurrency(totalMonthlyOccupancy));
     monthlyExemption.push(FormatCurrency(totalMonthlyExemption));
+    monthlyNetRoomRental.push(FormatCurrency(totalMonthlyNetRoomRental));
+    monthlyInterest.push(FormatCurrency(totalMonthlyInterest));
     monthlyPenalty.push(FormatCurrency(totalMonthlyPenalty));
     monthlyRemittedTax.push(FormatCurrency(totalMonthlyRemittedTax));
+    monthlyTaxCollected.push(FormatCurrency(totalMonthlyTaxCollected));
     monthSubmitted = monthSubmitted.concat("Total");
   }
 
@@ -121,7 +152,10 @@ const MapResponseDataForTaxReturn = taxReturn => {
 
   formattedResponse.monthlyOccupancy = monthlyOccupancy;
   formattedResponse.monthlyExemption = monthlyExemption;
+  formattedResponse.monthlyNetRoomRental = monthlyNetRoomRental;
+  formattedResponse.monthlyTaxCollected = monthlyTaxCollected;
   formattedResponse.monthlyPenalty = monthlyPenalty;
+  formattedResponse.monthlyInterest = monthlyInterest;
   formattedResponse.monthlyRemittedTax = monthlyRemittedTax;
   formattedResponse.monthSubmitted = monthSubmitted;
   formattedResponse.dueDate = dueDate;
