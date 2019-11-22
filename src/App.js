@@ -15,7 +15,7 @@ const configValues = {
     apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
   },
   staging: {
-    apiRoot: "http://stagingservices.baltimorecountymd.gov/api/transientTax"
+    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
   },
   production: {
     apiRoot: "http://services.baltimorecountymd.gov/api/transientTax"
