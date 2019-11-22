@@ -1,5 +1,4 @@
 import React from "react";
-import { GetFormatedDateTime } from "../common/DatesUtilities";
 
 const ConfirmationTable = props => {
   const {
