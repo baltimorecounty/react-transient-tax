@@ -25,22 +25,34 @@ const ConfirmationTable = props => {
       </p>
       <table align="left" cellPadding="1" cellSpacing="1" id="BACO_table">
         <tbody>
-          {ConfirmationTableValues.map(item => (
+          {ConfirmationTableValues.map((item, itemIndex) => (
             <tr key={item.id}>
               <td colSpan="1" rowSpan="1">
                 <p>
                   <strong>{item.key}</strong>
                 </p>
               </td>
-              {item.value.map((result, resultIndex) => (
-                <td
-                  key={`table-total-${item.id}-${resultIndex}`}
-                  colSpan="1"
-                  rowSpan="1"
-                >
-                  <p>{result}</p>
-                </td>
-              ))}
+              {item.value.map((result, resultIndex) => {
+                const isFirstRow = itemIndex === 0;
+                const isLastCell =
+                  itemIndex === ConfirmationTableValues.length - 1 &&
+                  resultIndex === item.value.length - 1;
+                return (
+                  <td
+                    key={`table-total-${item.id}-${resultIndex}`}
+                    colSpan="1"
+                    rowSpan="1"
+                  >
+                    {isFirstRow || isLastCell ? (
+                      <p>
+                        <strong>{result}</strong>
+                      </p>
+                    ) : (
+                      <p>{result}</p>
+                    )}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
