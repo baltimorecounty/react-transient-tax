@@ -51,6 +51,7 @@ const ConfirmationForm = props => {
           "$" + MonthlyData[i].PenaltyRemitted
         );
         totalRemittedTax += parseFloat(MonthlyData[i].TaxRemitted);
+
         monthSubmitted = monthSubmitted.concat(
           GetFormatedDateTime(
             new Date(MonthlyData[i].Month + "/01/" + MonthlyData[i].Year),
@@ -103,26 +104,20 @@ const ConfirmationForm = props => {
   const ConfirmationTableValues = [
     {
       id: 1,
-      key: "Your Payment Plan",
-      values: [{ value: ReturnTypeDescription }]
+      key: "Month of Return",
+      values: [monthSubmitted]
     },
     {
       id: 2,
-      key: "Month(s) of Return",
-      values: [{ value: monthSubmitted }]
-    },
-    { id: 3, key: "Due Date", values: [{ value: dueDate }] },
-    {
-      id: 4,
       key: "Occupancy Tax Collected",
-      values: [{ value: monthlyOccupancy }]
+      values: [monthlyOccupancy]
     },
-    { id: 5, key: "Exemptions", values: [{ value: monthlyExemption }] },
-    { id: 6, key: "Penalties", values: [{ value: monthlyPenalty }] },
+    { id: 3, key: "Exemptions", values: [monthlyExemption] },
+    { id: 4, key: "Penalties", values: [monthlyPenalty] },
     {
-      id: 7,
+      id: 5,
       key: `${ReturnTypeDescription} Tax Remitted`,
-      values: [{ value: totalRemittedTax }]
+      values: [totalRemittedTax]
     }
   ];
 
@@ -147,6 +142,8 @@ const ConfirmationForm = props => {
           <ConfirmationTable
             TaxDetailsHeader={labels.ConfirmationTaxDetailsHeader}
             ConfirmationTableValues={ConfirmationTableValues}
+            DueDate={dueDate}
+            ReturnType={ReturnTypeDescription}
           />
         </div>
       )}

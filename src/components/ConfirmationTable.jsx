@@ -1,11 +1,22 @@
 import React from "react";
 
 const ConfirmationTable = props => {
-  const { TaxDetailsHeader, ConfirmationTableValues } = props;
+  const {
+    TaxDetailsHeader,
+    ConfirmationTableValues,
+    DueDate,
+    ReturnType
+  } = props;
 
   return (
     <div>
       <h3>{TaxDetailsHeader}</h3>
+      <p>
+        <strong>Your Payment Plan</strong>: {ReturnType}
+      </p>
+      <p>
+        <strong>Due Date</strong>: {DueDate}
+      </p>
       <table align="left" cellPadding="1" cellSpacing="1" id="BACO_table">
         <tbody>
           {ConfirmationTableValues.map(item => (
@@ -17,7 +28,7 @@ const ConfirmationTable = props => {
               </td>
               {item.values.map(result => (
                 <td key={item.id} colSpan="1" rowSpan="1">
-                  <p>{result.value}</p>
+                  <p>{result}</p>
                 </td>
               ))}
             </tr>
