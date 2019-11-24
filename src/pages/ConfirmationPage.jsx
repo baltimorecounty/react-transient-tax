@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { GetFormattedDueDate } from "../../common/DatesUtilities";
-import ConfirmationTable from "../ConfirmationTable";
-import { GetTransientTaxReturn } from "../../services/ApiService";
+import { GetFormattedDueDate } from "../common/DatesUtilities";
+import ConfirmationTable from "../components/ConfirmationTable";
+import { GetTransientTaxReturn } from "../services/ApiService";
 
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
