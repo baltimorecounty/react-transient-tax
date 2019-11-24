@@ -3,7 +3,8 @@ import {
   MapTaxReturnToServerModel,
   MapResponseDataForTaxReturn
 } from "../data/TaxReturnMapper";
-import { getValue } from "@baltimorecounty/javascript-utilities/config";
+import { Config } from "@baltimorecounty/javascript-utilities";
+const { getValue } = Config;
 
 let exemptionId = 0;
 
