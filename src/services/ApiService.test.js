@@ -1,6 +1,14 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { SaveExemption, SaveReturn } from "./ApiService";
+import { Config } from "@baltimorecounty/javascript-utilities";
+
+// Set Config for Api Service
+Config.setConfig({
+  local: {
+    apiRoot: "//test/api"
+  }
+});
 
 const buildReturn = (monthlyData = [], exemptions = []) => ({
   accountNumber: "123ABC",
