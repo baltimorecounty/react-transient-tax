@@ -35,7 +35,7 @@ function App() {
           path="/ConfirmationPage/:confirmationNumber"
           component={ConfirmationPage}
         />
-        <Route exact path="/errors" component={ErrorPage} />
+        <Route exact path="/error" component={ErrorPage} />
       </Router>
     </div>
   );
