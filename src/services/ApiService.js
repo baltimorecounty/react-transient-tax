@@ -15,12 +15,7 @@ let exemptionId = 0;
 const GetLookupItem = endpoint =>
   axios
     .get(`${getValue("apiRoot")}/${endpoint}`)
-    .then(({ status, data }) => (status === 200 ? data : []))
-    .catch(
-      error =>
-        console.error(`Something went wrong looking up values: ${error}`) ||
-        error
-    );
+    .then(({ status, data }) => (status === 200 ? data : []));
 
 /**
  * Get Exemption Types
