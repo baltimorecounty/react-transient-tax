@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://baltimorecounty.github.io/react-transient-tax",
   "dependencies": {
-    "@baltimorecounty/javascript-utilities": "^1.0.1",
+    "@baltimorecounty/javascript-utilities": "^1.0.5",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^9.3.2",
     "axios-mock-adapter": "^1.17.0",
     "gh-pages": "^2.1.1"
   }

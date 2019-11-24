@@ -5,7 +5,8 @@ import "./App.scss";
 import TransientTaxForm from "./components/forms/TransientTaxForm";
 import ConfirmationPage from "./components/forms/ConfirmationPage";
 import { ConstantsProvider } from "./context/ConstantsContext";
-import { setConfig } from "@baltimorecounty/javascript-utilities/config";
+import { Config } from "@baltimorecounty/javascript-utilities";
+const { setConfig } = Config;
 
 const configValues = {
   local: {
