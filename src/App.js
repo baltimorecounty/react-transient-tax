@@ -5,6 +5,7 @@ import "./App.scss";
 import TransientTaxForm from "./pages/TransientTaxForm";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import { Config } from "@baltimorecounty/javascript-utilities";
+import ErrorPage from "./pages/ErrorPage";
 const { setConfig } = Config;
 
 const configValues = {
@@ -34,6 +35,7 @@ function App() {
           path="/ConfirmationPage/:confirmationNumber"
           component={ConfirmationPage}
         />
+        <Route exact path="/errors" component={ErrorPage} />
       </Router>
     </div>
   );
