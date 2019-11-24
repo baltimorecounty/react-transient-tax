@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { format } from "date-fns";
-import { ConstantsProvider } from "../context/ConstantsContext";
 import { Labels } from "../common/Constants";
 import { HasAtLeast1Exemption } from "../common/ExemptionUtilities";
 import { Form, Formik, ErrorMessage } from "formik";
@@ -13,7 +12,7 @@ import IdentificationSection from "../components/forms/IdentificationSection";
 import GrossOccupancySection from "../components/forms/GrossOccupancySection";
 import ExemptionsSection from "../components/forms/ExemptionsSection";
 import TransientTaxSection from "../components/forms/TransientTaxSection";
-import { SaveReturn } from "../services/ApiService";
+import { GetFilingTypes, SaveReturn } from "../services/ApiService";
 
 const initialValues = {
   accountNumber: "",
@@ -72,8 +71,26 @@ const onSubmit = (values, history) => {
   });
 };
 
-const TransientTaxForm = componentProps => (
-  <ConstantsProvider>
+const TransientTaxForm = componentProps => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [filingTypes, setFilingTypes] = useState([]);
+
+  useEffect(() => {
+    if (filingTypes.length === 0) {
+      GetFilingTypes()
+        .then(filingTypes => {
+          setFilingTypes(filingTypes);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          componentProps.history.push("/error", { ...error });
+        });
+    }
+  }, [filingTypes, componentProps]);
+
+  return isLoading ? (
+    <p>Loading Form...</p>
+  ) : (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
@@ -127,7 +144,10 @@ const TransientTaxForm = componentProps => (
         return (
           <Form>
             <BasicInformationSection />
-            <PaymentSelectionSection paymentInterval={paymentInterval} />
+            <PaymentSelectionSection
+              paymentInterval={paymentInterval}
+              filingTypes={filingTypes}
+            />
             {isPaymentIntervalSelected && (
               <React.Fragment>
                 <GrossOccupancySection
@@ -164,7 +184,7 @@ const TransientTaxForm = componentProps => (
         );
       }}
     </Formik>
-  </ConstantsProvider>
-);
+  );
+};
 
 export default TransientTaxForm;
