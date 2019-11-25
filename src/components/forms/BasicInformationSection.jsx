@@ -1,5 +1,5 @@
 import React from "react";
-import { Field } from "formik";
+import Field from "../Field";
 import ErrorMessage from "../ErrorMessage";
 
 const BasicInformationSection = props => (

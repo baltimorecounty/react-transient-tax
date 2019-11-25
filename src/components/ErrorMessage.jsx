@@ -2,7 +2,7 @@ import React from "react";
 import { ErrorMessage as FormikErrorMessage } from "formik";
 
 const renderErrorMessage = msg => (
-  <p role="alert" class="error-message">
+  <p role="alert" className="error-message">
     {msg}
   </p>
 );
