@@ -36,7 +36,7 @@ const GetFormattedDueDate = fillingDate =>
  * @returns {string} friendly version of a date
  */
 const GetFormatedDateTime = (dateToFormat, dateFormat) => {
-  return format(dateToFormat, dateFormat);
+  return format(dateToFormat, dateFormat || DefaultDateFormat);
 };
 
 /**
