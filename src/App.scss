@@ -110,15 +110,16 @@ input[type="text"] {
 
 .tt_identification-section {
   border-bottom: none;
+}
 
-  .tt_form-field {
-    margin-bottom: 15px;
-    max-width: 400px;
+.tt_form-field {
+  margin-bottom: 15px;
+  max-width: 400px;
+  width: 100%;
+
+  input {
+    display: block;
     width: 100%;
-
-    input {
-      width: 100%;
-    }
   }
 }
 
@@ -175,6 +176,10 @@ input[type="text"] {
   font-weight: 700;
 }
 
-.tt_has-errors {
+input.tt_has-errors {
   box-shadow: 0 0 3px #c51110;
+}
+
+label.tt_has-errors {
+  color: #c51110;
 }
