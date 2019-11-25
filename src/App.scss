@@ -164,3 +164,12 @@ input[type="text"] {
   clear: both;
   display: table;
 }
+
+.tt_app .error .error-message,
+.tt_app .error-message {
+  color: #c51110;
+  display: block;
+  font-size: 0.75em;
+  margin-top: 0.5em;
+  font-weight: 700;
+}

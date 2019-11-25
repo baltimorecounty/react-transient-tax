@@ -1,6 +1,7 @@
 import React from "react";
 import { Labels } from "../../common/Constants";
-import { ErrorMessage, Field } from "formik";
+import { Field } from "formik";
+import ErrorMessage from "../ErrorMessage";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import InformationModal from "../InformationModal";
 

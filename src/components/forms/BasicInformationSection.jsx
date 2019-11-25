@@ -1,5 +1,6 @@
 import React from "react";
-import { ErrorMessage, Field } from "formik";
+import { Field } from "formik";
+import ErrorMessage from "../ErrorMessage";
 
 const BasicInformationSection = props => (
   <div className="tt_form-section">
