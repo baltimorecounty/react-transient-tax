@@ -3,7 +3,7 @@ import { Field as FormikField } from "formik";
 import ErrorMessage from "./ErrorMessage";
 
 const Field = props => {
-  const { name, type, id, label, infoComponent } = props;
+  const { name, type, id, label, infoComponent, ...rest } = props;
   return (
     <FormikField name={name}>
       {({
@@ -13,7 +13,7 @@ const Field = props => {
       }) => {
         const cssClasses = meta.error && meta.touched ? "tt_has-errors" : "";
         return (
-          <div className="tt_form-field">
+          <div className="tt_form-field" {...rest}>
             {label && (
               <div className="tt_form-field__label">
                 <label htmlFor={id} className={cssClasses}>

@@ -9,6 +9,7 @@ const BasicInformationSection = props => (
       name="accountNumber"
       type="text"
       label="Account Number"
+      style={{ width: "200px" }}
     />
     <Field
       id="businessName"
