@@ -79,7 +79,8 @@ const ReturnInterval = props => {
 
   const getMonth = monthIndex => {
     if (Object.entries(months).length > 0) {
-      return GetFormatedDateTime(new Date(months[monthIndex]), "MM/yyyy");
+      const month = months[monthIndex];
+      return month ? GetFormatedDateTime(new Date(month), "MM/yyyy") : "";
     }
   };
 
