@@ -1,6 +1,7 @@
 import {
   GetFormattedDueDate,
-  GetFormatedDateTime
+  GetFormatedDateTime,
+  GetDueDateStatus
 } from "../common/DatesUtilities";
 import { FormatCurrency } from "../common/FormatUtilities";
 import {
@@ -41,27 +42,39 @@ const GetDataForMonth = (taxReturn, monthIndex) => {
 const MapResponseDataForTaxReturn = taxReturn => {
   const dateFormat = "MMMM yyyy";
   const { DateSubmitted, MonthlyData } = taxReturn;
+
   const formattedResponse = { ...taxReturn };
   formattedResponse.DateSubmitted = GetFormatedDateTime(
     new Date(DateSubmitted),
     "MMMM dd yyyy"
   );
-  var monthlyOccupancy = [];
-  var monthlyExemption = [];
-  var monthlyPenalty = [];
-  var monthlyRemittedTax = [];
-  var monthSubmitted = [];
-  var monthlyInterest = [];
-  var monthlyTaxCollected = [];
-  var monthlyNetRoomRental = [];
+  let monthlyOccupancy = [];
+  let monthlyExemption = [];
+  let monthlyPenalty = [];
+  let monthlyRemittedTax = [];
+  let monthSubmitted = [];
+  let monthlyInterest = [];
+  let monthlyTaxCollected = [];
+  let monthlyNetRoomRental = [];
 
-  var totalMonthlyOccupancy = 0;
-  var totalMonthlyExemption = 0;
-  var totalMonthlyPenalty = 0;
-  var totalMonthlyRemittedTax = 0;
-  var totalMonthlyInterest = 0;
-  var totalMonthlyTaxCollected = 0;
-  var totalMonthlyNetRoomRental = 0;
+  let totalMonthlyOccupancy = 0;
+  let totalMonthlyExemption = 0;
+  let totalMonthlyPenalty = 0;
+  let totalMonthlyRemittedTax = 0;
+  let totalMonthlyInterest = 0;
+  let totalMonthlyTaxCollected = 0;
+  let totalMonthlyNetRoomRental = 0;
+
+  const isMonthly = Object.keys(MonthlyData).length === 1;
+  const monthOfReturn = isMonthly ? 0 : 2;
+  const dueDate = new Date(
+    MonthlyData[monthOfReturn].Month + "/01/" + MonthlyData[monthOfReturn].Year
+  );
+  const formattedDueDate = GetFormattedDueDate(dueDate);
+  const { isLate, value: monthsLate } = GetDueDateStatus(
+    dueDate,
+    new Date(DateSubmitted)
+  );
 
   for (var i = 0; i < MonthlyData.length; i++) {
     const {
@@ -92,8 +105,10 @@ const MapResponseDataForTaxReturn = taxReturn => {
       GovernmentExemptRentalCollected +
       NonTransientRentalCollected;
     const taxCollectedForMonth = CalculateTaxCollected(netRoomRentalsForMonth);
-    const interestForMonth = CalculateInterest(taxCollectedForMonth, 5);
-    const penaltyForMonth = CalculatePenalty(taxCollectedForMonth);
+    const interestForMonth = isLate
+      ? CalculateInterest(taxCollectedForMonth, monthsLate)
+      : 0;
+    const penaltyForMonth = isLate ? CalculatePenalty(taxCollectedForMonth) : 0;
 
     totalMonthlyPenalty += penaltyForMonth;
 
@@ -126,8 +141,6 @@ const MapResponseDataForTaxReturn = taxReturn => {
     );
   }
 
-  const isMonthly = Object.keys(MonthlyData).length === 1;
-
   if (!isMonthly) {
     monthlyOccupancy.push(FormatCurrency(totalMonthlyOccupancy));
     monthlyExemption.push(FormatCurrency(totalMonthlyExemption));
@@ -139,16 +152,6 @@ const MapResponseDataForTaxReturn = taxReturn => {
     monthSubmitted = monthSubmitted.concat("Total");
   }
 
-  const monthOfReturn = isMonthly ? 0 : 2;
-
-  const dueDate = GetFormattedDueDate(
-    new Date(
-      MonthlyData[monthOfReturn].Month +
-        "/01/" +
-        MonthlyData[monthOfReturn].Year
-    )
-  );
-
   formattedResponse.monthlyOccupancy = monthlyOccupancy;
   formattedResponse.monthlyExemption = monthlyExemption;
   formattedResponse.monthlyNetRoomRental = monthlyNetRoomRental;
@@ -157,7 +160,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
   formattedResponse.monthlyInterest = monthlyInterest;
   formattedResponse.monthlyRemittedTax = monthlyRemittedTax;
   formattedResponse.monthSubmitted = monthSubmitted;
-  formattedResponse.dueDate = dueDate;
+  formattedResponse.dueDate = formattedDueDate;
 
   return formattedResponse;
 };
