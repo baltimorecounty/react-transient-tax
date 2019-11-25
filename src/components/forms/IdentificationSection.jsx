@@ -1,7 +1,7 @@
 import React from "react";
 import { Labels } from "../../common/Constants";
 import { ErrorMessage, Field } from "formik";
-import { GetFormattedDueDate } from "../../common/DatesUtilities";
+import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import InformationModal from "../InformationModal";
 
 const IdentificationSection = ({ showTradeAlias }) => {
@@ -10,7 +10,7 @@ const IdentificationSection = ({ showTradeAlias }) => {
       <div className="tt_date-group float-right">
         <div className="tt_month-pickers">
           <div className="tt_month-picker">
-            <label>Date: {GetFormattedDueDate(new Date())}</label>
+            <label>Date: {GetFormatedDateTime(new Date())}</label>
           </div>
         </div>
       </div>
@@ -29,7 +29,7 @@ const IdentificationSection = ({ showTradeAlias }) => {
         <div className="tt_form-field">
           <div className="tt_form-field__label">
             <label htmlFor="nameOfSubmitter">Return Submitted By</label>
-            <InformationModal title="my tittle 1" content="content 1"/>
+            <InformationModal title="my tittle 1" content="content 1" />
           </div>
           <div>
             <Field id="nameOfSubmitter" name="nameOfSubmitter" type="text" />
