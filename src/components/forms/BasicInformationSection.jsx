@@ -1,25 +1,22 @@
 import React from "react";
 import Field from "../Field";
-import ErrorMessage from "../ErrorMessage";
+import InformationModal from "../InformationModal";
 
 const BasicInformationSection = props => (
   <div className="tt_form-section">
-    {/* Basic Information Section */}
-    <label htmlFor="accountNumber">Account Number</label>
-    <div>
-      <Field id="accountNumber" name="accountNumber" type="text" />
-      <ErrorMessage name="accountNumber" />
-    </div>
-    <label htmlFor="businessName">Business Name</label>
-    <div>
-      <Field id="businessName" name="businessName" type="text" />
-      <ErrorMessage name="businessName" />
-    </div>
-    <label htmlFor="address">Address</label>
-    <div>
-      <Field id="address" name="address" type="text" />
-      <ErrorMessage name="address" />
-    </div>
+    <Field
+      id="accountNumber"
+      name="accountNumber"
+      type="text"
+      label="Account Number"
+    />
+    <Field
+      id="businessName"
+      name="businessName"
+      type="text"
+      label="Business Name"
+    />
+    <Field id="address" name="address" type="text" label="Address" />
   </div>
 );
 
