@@ -160,7 +160,8 @@ const MapResponseDataForTaxReturn = taxReturn => {
   formattedResponse.monthlyInterest = monthlyInterest;
   formattedResponse.monthlyRemittedTax = monthlyRemittedTax;
   formattedResponse.monthSubmitted = monthSubmitted;
-  formattedResponse.dueDate = formattedDueDate;
+  formattedResponse.dueDate = dueDate;
+  formattedResponse.formattedDueDate = formattedDueDate;
 
   return formattedResponse;
 };

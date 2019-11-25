@@ -37,12 +37,6 @@ const GetTransientTaxReturn = confirmationNumber =>
     )
     .then(({ status, data }) =>
       status === 200 ? MapResponseDataForTaxReturn(data) : []
-    )
-    .catch(
-      error =>
-        console.error(
-          `Something went wrong looking up values: ${confirmationNumber}`
-        ) || error
     );
 
 const SaveExemption = exemption => {
