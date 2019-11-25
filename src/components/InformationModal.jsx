@@ -15,9 +15,9 @@ const InformationModal = props => {
 
   return (
     <React.Fragment>
-      <Button type="button" color="link" onClick={showModal}>
+      <button type="button" class="tt_button--info" onClick={showModal}>
         Why do I need to do this?
-      </Button>
+      </button>
       <ModalDisplay
         show={modalShow}
         onHide={hideModal}

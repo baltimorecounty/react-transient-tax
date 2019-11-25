@@ -183,3 +183,15 @@ input.tt_has-errors {
 label.tt_has-errors {
   color: #c51110;
 }
+
+.tt_button--info {
+  background: none;
+  border: none;
+
+  color: #002280;
+  font-size: 14px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
