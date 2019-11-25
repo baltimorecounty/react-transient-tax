@@ -2,10 +2,10 @@ import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.scss";
-import TransientTaxForm from "./components/forms/TransientTaxForm";
-import ConfirmationPage from "./components/forms/ConfirmationPage";
-import { ConstantsProvider } from "./context/ConstantsContext";
+import TransientTaxFormPage from "./pages/TransientTaxFormPage";
+import ConfirmationPage from "./pages/ConfirmationPage";
 import { Config } from "@baltimorecounty/javascript-utilities";
+import ErrorPage from "./pages/ErrorPage";
 const { setConfig } = Config;
 
 const configValues = {
@@ -28,16 +28,15 @@ setConfig(configValues);
 function App() {
   return (
     <div className="tt_app">
-      <ConstantsProvider>
-        <Router>
-          <Route exact path="/" component={TransientTaxForm} />
-          <Route
-            exact
-            path="/ConfirmationPage/:confirmationNumber"
-            component={ConfirmationPage}
-          />
-        </Router>
-      </ConstantsProvider>
+      <Router>
+        <Route exact path="/" component={TransientTaxFormPage} />
+        <Route
+          exact
+          path="/ConfirmationPage/:confirmationNumber"
+          component={ConfirmationPage}
+        />
+        <Route exact path="/error" component={ErrorPage} />
+      </Router>
     </div>
   );
 }

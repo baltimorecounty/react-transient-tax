@@ -1,20 +1,32 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Field } from "formik";
 import { RadioButton } from "../common/RadioButton";
 import DateRangeSelector from "./DateRangeSelector";
 import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
 import { FormHints } from "../common/Constants";
-import { ConstantsContext } from "../context/ConstantsContext";
+import { GetExemptionTypes } from "../services/ApiService";
 
 const ExemptionSelector = props => {
   const {
     exemption: exemptionFromProps = {},
     onExemptionSave = () => {}
   } = props;
-  const [{ exemptionTypes }] = useContext(ConstantsContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const [exemptionTypes, setExemptionTypes] = useState([]);
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
   const [exemption, setExemption] = useState(exemptionFromProps);
+
+  useEffect(() => {
+    if (exemptionTypes.length === 0) {
+      GetExemptionTypes()
+        .then(exemptionTypes => {
+          setExemptionTypes(exemptionTypes);
+          setIsLoading(false);
+        })
+        .catch(error => props.history.push("/error", { ...error }));
+    }
+  }, [exemptionTypes, props]);
 
   useEffect(() => {
     setExemption(exemptionFromProps);
@@ -58,7 +70,9 @@ const ExemptionSelector = props => {
     setExemption({});
   };
 
-  return (
+  return isLoading ? (
+    <p>Loading Exemption Form...</p>
+  ) : (
     <div className="tt_exemption-selector">
       {formErrors.length > 0 && (
         <ul className="tt_error-list">

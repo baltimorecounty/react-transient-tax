@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Field } from "formik";
 import { PaymentDirections } from "../common/Constants";
 import { RadioButton } from "../common/RadioButton";
-import { ConstantsContext } from "../context/ConstantsContext";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
 
-const PaymentOptions = props => {
-  const [{ filingTypes }] = useContext(ConstantsContext);
-
+const PaymentOptions = ({ filingTypes }) => {
   return (
     <React.Fragment>
       <p className="tt_label">{PaymentLabel}</p>
