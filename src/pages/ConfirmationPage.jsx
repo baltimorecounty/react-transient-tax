@@ -19,7 +19,8 @@ const ConfirmationForm = props => {
     monthlyTaxCollected,
     monthlyInterest,
     monthlyNetRoomRental,
-    dueDate
+    dueDate,
+    formattedDueDate
   } = response;
 
   useEffect(() => {
@@ -31,12 +32,12 @@ const ConfirmationForm = props => {
       .catch(error => {
         props.history.push("/error", { ...error });
       });
-  }, [confirmationNumber]);
+  }, [confirmationNumber, props.history]);
+
+  const monthsToAdd = monthlyInterest && monthlyInterest.length === 1 ? 1 : 3;
 
   const newDueDate = monthlyInterest
-    ? GetFormattedDueDate(
-        addMonths(new Date(dueDate), monthlyInterest.length)
-      ).toString()
+    ? GetFormattedDueDate(addMonths(dueDate, monthsToAdd)).toString()
     : null;
 
   const ConfirmationTableValues = [
@@ -81,7 +82,7 @@ const ConfirmationForm = props => {
             TaxDetailsHeader={"Transient Occupancy Tax Return Details:"}
             ConfirmationTableValues={ConfirmationTableValues}
             DateSubmitted={DateSubmitted}
-            DueDate={dueDate}
+            DueDate={formattedDueDate}
             ReturnType={ReturnTypeDescription}
           />
         </div>
