@@ -1,8 +1,9 @@
 import React from "react";
 import { Field as FormikField } from "formik";
+import ErrorMessage from "./ErrorMessage";
 
 const Field = props => {
-  const { name, type, id } = props;
+  const { name, type, id, label, infoComponent } = props;
   return (
     <FormikField name={name}>
       {({
@@ -11,7 +12,20 @@ const Field = props => {
         meta
       }) => {
         const cssClasses = meta.error && meta.touched ? "tt_has-errors" : "";
-        return <input type={type} id={id} className={cssClasses} {...field} />;
+        return (
+          <div className="tt_form-field">
+            {label && (
+              <div className="tt_form-field__label">
+                <label htmlFor={id} className={cssClasses}>
+                  {label}
+                </label>
+                {infoComponent}
+              </div>
+            )}
+            <input type={type} id={id} className={cssClasses} {...field} />
+            <ErrorMessage name={name} />
+          </div>
+        );
       }}
     </FormikField>
   );
