@@ -48,41 +48,31 @@ const MapResponseDataForTaxReturn = taxReturn => {
     new Date(DateSubmitted),
     "MMMM dd yyyy"
   );
-  var monthlyOccupancy = [];
-  var monthlyExemption = [];
-  var monthlyPenalty = [];
-  var monthlyRemittedTax = [];
-  var monthSubmitted = [];
-  var monthlyInterest = [];
-  var monthlyTaxCollected = [];
-  var monthlyNetRoomRental = [];
+  let monthlyOccupancy = [];
+  let monthlyExemption = [];
+  let monthlyPenalty = [];
+  let monthlyRemittedTax = [];
+  let monthSubmitted = [];
+  let monthlyInterest = [];
+  let monthlyTaxCollected = [];
+  let monthlyNetRoomRental = [];
 
-  var totalMonthlyOccupancy = 0;
-  var totalMonthlyExemption = 0;
-  var totalMonthlyPenalty = 0;
-  var totalMonthlyRemittedTax = 0;
-  var totalMonthlyInterest = 0;
-  var totalMonthlyTaxCollected = 0;
-  var totalMonthlyNetRoomRental = 0;
+  let totalMonthlyOccupancy = 0;
+  let totalMonthlyExemption = 0;
+  let totalMonthlyPenalty = 0;
+  let totalMonthlyRemittedTax = 0;
+  let totalMonthlyInterest = 0;
+  let totalMonthlyTaxCollected = 0;
+  let totalMonthlyNetRoomRental = 0;
 
   const isMonthly = Object.keys(MonthlyData).length === 1;
-
   const monthOfReturn = isMonthly ? 0 : 2;
-
-  const dueDate = GetFormattedDueDate(
-    new Date(
-      MonthlyData[monthOfReturn].Month +
-        "/01/" +
-        MonthlyData[monthOfReturn].Year
-    )
+  const dueDate = new Date(
+    MonthlyData[monthOfReturn].Month + "/01/" + MonthlyData[monthOfReturn].Year
   );
-
+  const formattedDueDate = GetFormattedDueDate(dueDate);
   const { isLate, value: monthsLate } = GetDueDateStatus(
-    new Date(
-      MonthlyData[monthOfReturn].Month +
-        "/01/" +
-        MonthlyData[monthOfReturn].Year
-    ),
+    dueDate,
     new Date(DateSubmitted)
   );
 
@@ -170,7 +160,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
   formattedResponse.monthlyInterest = monthlyInterest;
   formattedResponse.monthlyRemittedTax = monthlyRemittedTax;
   formattedResponse.monthSubmitted = monthSubmitted;
-  formattedResponse.dueDate = dueDate;
+  formattedResponse.dueDate = formattedDueDate;
 
   return formattedResponse;
 };
