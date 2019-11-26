@@ -110,15 +110,16 @@ input[type="text"] {
 
 .tt_identification-section {
   border-bottom: none;
+}
 
-  .tt_form-field {
-    margin-bottom: 15px;
-    max-width: 400px;
+.tt_form-field {
+  margin-bottom: 15px;
+  max-width: 400px;
+  width: 100%;
+
+  input {
+    display: block;
     width: 100%;
-
-    input {
-      width: 100%;
-    }
   }
 }
 
@@ -163,6 +164,36 @@ input[type="text"] {
   content: "";
   clear: both;
   display: table;
+}
+
+/* copied from baltcogo this should be generic */
+.tt_app .error .error-message,
+.tt_app .error-message {
+  color: #c51110;
+  display: block;
+  font-size: 0.75em;
+  margin-top: 0.5em;
+  font-weight: 700;
+}
+
+input.tt_has-errors {
+  box-shadow: 0 0 3px #c51110;
+}
+
+label.tt_has-errors {
+  color: #c51110;
+}
+
+.tt_button--info {
+  background: none;
+  border: none;
+
+  color: #002280;
+  font-size: 14px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .react-datepicker__navigation {
