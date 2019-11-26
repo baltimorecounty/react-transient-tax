@@ -70,11 +70,11 @@ const getDirtyExcemptionConfirmation = () =>
     "You have unsaved changes in the expemption form, do you wish to continue without those changes?"
   );
 const onSubmit = (values, history) => {
-  var isSubmit = true;
+  var canSubmit = true;
   if (!values.isExemptionFormDirty) {
-    isSubmit = getDirtyExcemptionConfirmation();
+    canSubmit = getDirtyExcemptionConfirmation();
   }
-  if (isSubmit) {
+  if (canSubmit) {
     SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
       history.push(`/confirmationPage/${ConfirmationNumber}`);
     });
