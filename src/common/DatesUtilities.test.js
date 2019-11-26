@@ -18,17 +18,31 @@ describe("Get Formatted Due Date", () => {
 });
 
 describe("Get Due Date Status", () => {
-  test("should past due status, when the date of filing is past than the due date", () => {
+  test("should past due status, when the date of filing is past than the due date by 1 day", () => {
     const actual = GetDueDateStatus(
-      new Date("July 1, 2019"),
-      new Date("December 15, 2019")
+      new Date("April 1, 2019"),
+      new Date("November 25, 2019")
     );
     expect(actual).toEqual({
       isLate: true,
-      value: 4,
+      value: 5,
       dateType: "month",
       label: "Past Due",
-      message: "4 months"
+      message: "5 months"
+    });
+  });
+
+  test("should past due status, when the date of filing is past than the due date by 1 day", () => {
+    const actual = GetDueDateStatus(
+      new Date("April 1, 2019"),
+      new Date("November 30, 2019")
+    );
+    expect(actual).toEqual({
+      isLate: true,
+      value: 6,
+      dateType: "month",
+      label: "Past Due",
+      message: "6 months"
     });
   });
 
