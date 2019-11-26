@@ -195,3 +195,7 @@ label.tt_has-errors {
     text-decoration: underline;
   }
 }
+
+.react-datepicker__navigation {
+  width: 0 !important;
+}

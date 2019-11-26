@@ -4,7 +4,8 @@ import DatePicker from "react-datepicker";
 import { addMonths } from "date-fns";
 import {
   GetDueDateStatus,
-  GetFormattedDueDate
+  GetFormattedDueDate,
+  GetFormatedDateTime
 } from "../common/DatesUtilities";
 import { Labels } from "../common/Constants";
 import { GetIdByDescription } from "../common/LookupUtilities";
@@ -76,6 +77,13 @@ const ReturnInterval = props => {
     }
   };
 
+  const getMonth = monthIndex => {
+    if (Object.entries(months).length > 0) {
+      const month = months[monthIndex];
+      return month ? GetFormatedDateTime(new Date(month), "MM/yyyy") : "";
+    }
+  };
+
   /** Ensure dates make it to form */
   useEffect(() => {
     setFieldValue("monthsToReport", months);
@@ -108,15 +116,21 @@ const ReturnInterval = props => {
             const id = `month-date-picker-${monthIndex}`;
             return (
               <div className="tt_month-picker" key={monthIndex}>
-                <label htmlFor={id}>{getMonthLabel(monthIndex)}</label>
-                <DatePicker
-                  id={id}
-                  selected={months[monthIndex]}
-                  onChange={date => handleDateChange(date, monthIndex)}
-                  startDate={startDate}
-                  dateFormat="MM/yyyy"
-                  showMonthYearPicker
-                />
+                {Object.entries(months).length > 0 || monthIndex === 0 ? (
+                  <label htmlFor={id}>{getMonthLabel(monthIndex)}</label>
+                ) : null}
+                {monthIndex === 0 ? (
+                  <DatePicker
+                    id={id}
+                    selected={months[monthIndex]}
+                    onChange={date => handleDateChange(date, monthIndex)}
+                    startDate={startDate}
+                    dateFormat="MM/yyyy"
+                    showMonthYearPicker
+                  />
+                ) : (
+                  <p>{getMonth(monthIndex)}</p>
+                )}
               </div>
             );
           })}

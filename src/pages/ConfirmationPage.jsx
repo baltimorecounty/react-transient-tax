@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { GetFormattedDueDate } from "../common/DatesUtilities";
 import ConfirmationTable from "../components/ConfirmationTable";
 import { GetTransientTaxReturn } from "../services/ApiService";
+import { addMonths } from "date-fns";
 
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
@@ -18,20 +19,26 @@ const ConfirmationForm = props => {
     monthlyTaxCollected,
     monthlyInterest,
     monthlyNetRoomRental,
-    dueDate
+    dueDate,
+    formattedDueDate
   } = response;
 
   useEffect(() => {
     GetTransientTaxReturn(confirmationNumber)
-      .then(setResponse)
-      .then(() => setIsLoading(false));
-  }, [confirmationNumber]);
+      .then(response => {
+        setResponse(response);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        props.history.push("/error", { ...error });
+      });
+  }, [confirmationNumber, props.history]);
 
-  const date = new Date();
+  const monthsToAdd = monthlyInterest && monthlyInterest.length === 1 ? 1 : 3;
 
-  const newDueDate = GetFormattedDueDate(
-    date.setMonth(date.getMonth() + 1)
-  ).toString();
+  const newDueDate = monthlyInterest
+    ? GetFormattedDueDate(addMonths(dueDate, monthsToAdd)).toString()
+    : null;
 
   const ConfirmationTableValues = [
     { id: 1, key: "Month of Return", value: monthSubmitted },
@@ -75,7 +82,7 @@ const ConfirmationForm = props => {
             TaxDetailsHeader={"Transient Occupancy Tax Return Details:"}
             ConfirmationTableValues={ConfirmationTableValues}
             DateSubmitted={DateSubmitted}
-            DueDate={dueDate}
+            DueDate={formattedDueDate}
             ReturnType={ReturnTypeDescription}
           />
         </div>
