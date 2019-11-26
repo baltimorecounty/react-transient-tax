@@ -13,6 +13,7 @@ import GrossOccupancySection from "../components/forms/GrossOccupancySection";
 import ExemptionsSection from "../components/forms/ExemptionsSection";
 import TransientTaxSection from "../components/forms/TransientTaxSection";
 import { GetFilingTypes, SaveReturn } from "../services/ApiService";
+import { ErrorPath } from "../common/ErrorUtility";
 
 const initialValues = {
   accountNumber: "",
@@ -83,7 +84,7 @@ const TransientTaxForm = componentProps => {
           setIsLoading(false);
         })
         .catch(error => {
-          componentProps.history.push("/error", { ...error });
+          componentProps.history.push(ErrorPath(error), { ...error });
         });
     }
   }, [filingTypes, componentProps]);
