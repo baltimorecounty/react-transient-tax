@@ -19,13 +19,15 @@ const ExemptionListItem = props => {
   const removeItem = () => {
     handleRemoveClick(id);
   };
-   const isLoadingText =isSelectorFormDirty !==id ? 'Edit': 'Editing....'
+   const isLoadingText =isSelectorFormDirty !==id ? 'Edit': 'Editing....';
+   const isDisabled =isSelectorFormDirty !==id ? false: true;
+   const cssClasses="editButton";
   return (
     <li className="tt-exemption">
       {label} - From: {format(fromDate, DefaultDateFormat)} To:{" "}
       {format(toDate, DefaultDateFormat)}
      {handleEditClick  && (
-        <button type="button" onClick={editItem}>
+        <button className={cssClasses} type="button" onClick={editItem} disabled={isDisabled}>
         {isLoadingText}
         </button>
       )}
