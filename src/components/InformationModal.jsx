@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "reactstrap";
 import ModalDisplay from "./Modal";
 
 const InformationModal = props => {

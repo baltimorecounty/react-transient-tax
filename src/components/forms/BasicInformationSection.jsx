@@ -1,6 +1,5 @@
 import React from "react";
 import Field from "../Field";
-import InformationModal from "../InformationModal";
 
 const BasicInformationSection = props => (
   <div className="tt_form-section">
