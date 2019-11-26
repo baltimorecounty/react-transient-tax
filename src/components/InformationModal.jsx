@@ -14,7 +14,7 @@ const InformationModal = props => {
 
   return (
     <React.Fragment>
-      <button type="button" class="tt_button--info" onClick={showModal}>
+      <button type="button" className="tt_button--info" onClick={showModal}>
         Why do I need to do this?
       </button>
       <ModalDisplay
