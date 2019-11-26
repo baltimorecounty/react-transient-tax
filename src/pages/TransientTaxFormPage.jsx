@@ -65,17 +65,20 @@ const validationSchema = () => {
     )
   });
 };
-
+const getDirtyExcemptionConfirmation = () =>
+  window.confirm(
+    "You have unsaved changes in the expemption form, do you wish to continue without those changes?"
+  );
 const onSubmit = (values, history) => {
   var isSubmit = true;
   if (!values.isExemptionFormDirty) {
-    isSubmit = window.getConfirmation();
+    isSubmit = getDirtyExcemptionConfirmation();
   }
-   if (isSubmit) {
-     SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
-       history.push(`/confirmationPage/${ConfirmationNumber}`);
-     });
-   }
+  if (isSubmit) {
+    SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
+      history.push(`/confirmationPage/${ConfirmationNumber}`);
+    });
+  }
 };
 
 const TransientTaxForm = componentProps => {
