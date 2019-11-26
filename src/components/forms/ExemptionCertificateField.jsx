@@ -33,6 +33,7 @@ const ExemptionCertificate = ({
 
   const removeExemption = exemptionId => {
     setExemptions(exemptions.filter(exemption => exemption.id !== exemptionId));
+    setExemption({});
   };
 
   return (
