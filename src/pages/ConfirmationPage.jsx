@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { GetFormattedDueDate } from "../common/DatesUtilities";
 import ConfirmationTable from "../components/ConfirmationTable";
 import { GetTransientTaxReturn } from "../services/ApiService";
-import { addMonths } from "date-fns";
 
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
@@ -19,7 +17,6 @@ const ConfirmationForm = props => {
     monthlyTaxCollected,
     monthlyInterest,
     monthlyNetRoomRental,
-    dueDate,
     formattedDueDate
   } = response;
 
@@ -33,12 +30,6 @@ const ConfirmationForm = props => {
         props.history.push("/error", { ...error });
       });
   }, [confirmationNumber, props.history]);
-
-  const monthsToAdd = monthlyInterest && monthlyInterest.length === 1 ? 1 : 3;
-
-  const newDueDate = monthlyInterest
-    ? GetFormattedDueDate(addMonths(dueDate, monthsToAdd)).toString()
-    : null;
 
   const ConfirmationTableValues = [
     { id: 1, key: "Month of Return", value: monthSubmitted },
@@ -71,12 +62,6 @@ const ConfirmationForm = props => {
             Please present this number to the appropriate Budget and Finance
             Official when making inquiries in regards to your Transient
             Occupancy Tax Return.
-          </p>
-          <p>
-            <em>
-              You have signed up for {ReturnTypeDescription.toLowerCase()}{" "}
-              payments the due date for your next payment is {newDueDate}
-            </em>
           </p>
           <ConfirmationTable
             TaxDetailsHeader={"Transient Occupancy Tax Return Details:"}
