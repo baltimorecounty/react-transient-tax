@@ -71,7 +71,6 @@ const onSubmit = (values, history) => {
   if (!values.isExemptionFormDirty) {
     isSubmit = window.getConfirmation();
   }
-  console.log('isSubmit:' + isSubmit);
    if (isSubmit) {
      SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
        history.push(`/confirmationPage/${ConfirmationNumber}`);
