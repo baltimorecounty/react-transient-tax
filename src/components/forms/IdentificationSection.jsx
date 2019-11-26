@@ -1,6 +1,6 @@
 import React from "react";
 import { Labels } from "../../common/Constants";
-import { ErrorMessage, Field } from "formik";
+import Field from "../Field";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import InformationModal from "../InformationModal";
 
@@ -16,45 +16,55 @@ const IdentificationSection = ({ showTradeAlias }) => {
       </div>
       <div className="float-left">
         {showTradeAlias ? (
-          <div className="tt_form-field">
-            <div className="tt_form-field__label">
-              <label htmlFor="tradeAlias">Trade Alias</label>
-              <InformationModal title="my tittle 0" content="my content 0" />
-            </div>
-            <div>
-              <Field id="tradeAlias" name="tradeAlias" type="text" />
-            </div>
-          </div>
+          <Field
+            id="tradeAlias"
+            name="tradeAlias"
+            type="text"
+            label="Account Number"
+            infoComponent={
+              <InformationModal
+                title="Trade Alias"
+                content="Trade Alias is an optional field that..."
+              />
+            }
+          />
         ) : null}
-        <div className="tt_form-field">
-          <div className="tt_form-field__label">
-            <label htmlFor="nameOfSubmitter">Return Submitted By</label>
-            <InformationModal title="my tittle 1" content="content 1" />
-          </div>
-          <div>
-            <Field id="nameOfSubmitter" name="nameOfSubmitter" type="text" />
-            <ErrorMessage name="nameOfSubmitter" />
-          </div>
-        </div>
-        <div className="tt_form-field">
-          <div className="tt_form-field__label">
-            <label htmlFor="titleOfSubmitter">Title</label>
-            <InformationModal title="my title 2" content="my content 2" />
-          </div>
-          <div>
-            <Field id="titleOfSubmitter" name="titleOfSubmitter" type="text" />
-            <ErrorMessage name="titleOfSubmitter" />
-          </div>
-        </div>
-        <div className="tt_form-field">
-          <div className="tt_form-field__label">
-            <label htmlFor="email">Email</label>
-          </div>
-          <div>
-            <Field id="email" name="email" type="text" />
-            <ErrorMessage name="email" />
-          </div>
-        </div>
+        <Field
+          id="nameOfSubmitter"
+          name="nameOfSubmitter"
+          type="text"
+          label="Return Submitted By"
+          infoComponent={
+            <InformationModal
+              title="Return Submitted By"
+              content="We need to associate a name with a business in the case we have any follow up questions on the return."
+            />
+          }
+        />
+        <Field
+          id="titleOfSubmitter"
+          name="titleOfSubmitter"
+          type="text"
+          label="Title of Submitter"
+          infoComponent={
+            <InformationModal
+              title="Title of Submitter"
+              content="We need to associate a title with the person who submitted the return in the case we have any follow up questions on the return."
+            />
+          }
+        />
+        <Field
+          id="email"
+          name="email"
+          type="text"
+          label="Email"
+          infoComponent={
+            <InformationModal
+              title="Email"
+              content="We will send you a confirmation number that you will bring when you pay the form in person."
+            />
+          }
+        />
         <div>
           <label>{Labels.LegalNote}</label>
         </div>
