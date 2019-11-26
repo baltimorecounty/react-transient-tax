@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "reactstrap";
 import ModalDisplay from "./Modal";
 
 const InformationModal = props => {
@@ -15,9 +14,9 @@ const InformationModal = props => {
 
   return (
     <React.Fragment>
-      <Button type="button" color="link" onClick={showModal}>
+      <button type="button" className="tt_button--info" onClick={showModal}>
         Why do I need to do this?
-      </Button>
+      </button>
       <ModalDisplay
         show={modalShow}
         onHide={hideModal}
