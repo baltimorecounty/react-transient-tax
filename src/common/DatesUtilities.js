@@ -4,7 +4,8 @@ import {
   differenceInMonths,
   endOfMonth,
   format,
-  startOfDay
+  startOfDay,
+  isEqual
 } from "date-fns";
 import { Labels, DateTypes } from "./Constants";
 const DefaultDateFormat = "MMMM d, yyyy";
@@ -49,6 +50,10 @@ const GetFormatedDateTime = (dateToFormat, dateFormat) => {
 const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
   const dueDate = startOfDay(GetDueDate(filingForDate));
   const startDateOfFilingDate = startOfDay(dateOfFilingDate);
+  const isFilingDateEndOfMonth = isEqual(
+    startOfDay(endOfMonth(dateOfFilingDate)),
+    startDateOfFilingDate
+  );
   const dateDifference = differenceInDays(dueDate, startDateOfFilingDate);
 
   if (dateDifference > 0) {
@@ -62,11 +67,12 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
   }
 
   /**
-   * Reverse dateOfFilingDate and dueDate from above to give us a positive number
-   * Add 1 to ensure that if it's 1 day after the due date it is considered 1 month late
+   * Person will only be charged if it's the last day of the month.
+   * The ternary adds 1 to the difference in this case, to ensure they are charged.
    */
   const monthDifference =
-    differenceInMonths(startDateOfFilingDate, dueDate) + 1;
+    differenceInMonths(startDateOfFilingDate, dueDate) +
+    (isFilingDateEndOfMonth ? 1 : 0);
 
   return {
     isLate: true,
