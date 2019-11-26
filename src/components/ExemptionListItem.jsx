@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { DefaultDateFormat } from "../common/DatesUtilities";
 
 const ExemptionListItem = props => {
-  const { exemption, handleEditClick, handleRemoveClick } = props;
+  const { exemption, handleEditClick, handleRemoveClick, isEdit } = props;
   const { id, type, label, fromDate, toDate } = exemption;
 
   const editItem = () => {
@@ -24,10 +24,10 @@ const ExemptionListItem = props => {
     <li className="tt-exemption">
       {label} - From: {format(fromDate, DefaultDateFormat)} To:{" "}
       {format(toDate, DefaultDateFormat)}
-      {handleEditClick && (
+     {handleEditClick  && (isEdit !==id?
         <button type="button" onClick={editItem}>
           Edit
-        </button>
+        </button>:null
       )}
       {handleRemoveClick && (
         <button type="button" onClick={removeItem}>
