@@ -14,6 +14,8 @@ import ExemptionsSection from "../components/forms/ExemptionsSection";
 import TransientTaxSection from "../components/forms/TransientTaxSection";
 import { GetFilingTypes, SaveReturn } from "../services/ApiService";
 
+
+
 const initialValues = {
   accountNumber: "",
   businessName: "",
@@ -28,7 +30,8 @@ const initialValues = {
   nameOfSubmitter: "",
   titleOfSubmitter: "",
   email: "",
-  tradeAlias: ""
+  tradeAlias: "",
+  editNotClicked: true
 };
 
 const validationSchema = () => {
@@ -47,6 +50,15 @@ const validationSchema = () => {
     email: Yup.string()
       .email("Please enter a valid email address.")
       .required("Please enter your email address."),
+      editNotClicked: Yup
+      .boolean()
+      .test(
+        'is-true',
+        'Please Update exemption before submitting',
+        value => value === true
+      ),
+  
+
     exemptions: Yup.array().when(
       ["governmentOnBusiness", "roomRentalCollectionFromNonTransients"],
       {
@@ -66,9 +78,10 @@ const validationSchema = () => {
 };
 
 const onSubmit = (values, history) => {
-  SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
-    history.push(`/confirmationPage/${ConfirmationNumber}`);
-  });
+ 
+    SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
+      history.push(`/confirmationPage/${ConfirmationNumber}`);
+    });
 };
 
 const TransientTaxForm = componentProps => {
@@ -177,6 +190,7 @@ const TransientTaxForm = componentProps => {
               <React.Fragment>
                 <IdentificationSection showTradeAlias={hasAtLeast1Exemption} />
                 <ErrorMessage name="exemptions" />
+                <ErrorMessage name="editNotClicked" />
                 <button type="submit">Submit</button>
               </React.Fragment>
             )}
