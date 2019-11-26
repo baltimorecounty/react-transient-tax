@@ -30,7 +30,7 @@ const ConfirmationForm = props => {
       .catch(error => {
         props.history.push(ErrorPath(error), { ...error });
       });
-  }, [confirmationNumber, props]);
+  }, [confirmationNumber, props.history]);
 
   const ConfirmationTableValues = [
     { id: 1, key: "Month of Return", value: monthSubmitted },
