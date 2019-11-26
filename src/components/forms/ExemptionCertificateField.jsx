@@ -22,12 +22,12 @@ const ExemptionCertificate = ({
   const saveExemption = exemption => {
     const savedExemption = SaveExemption(exemption);
     const updatedExemptions = AddOrUpdate(exemptions, savedExemption);
-    setFieldValue('editNotClicked', true);
+    setFieldValue('isExemptionFormDirty', true);
     setExemptions(updatedExemptions);
   };
 
   const editExemption = exemptionToEdit => {
-    setFieldValue('editNotClicked', false);
+    setFieldValue('isExemptionFormDirty', false);
     setExemption({ ...exemptionToEdit });
   };
 
