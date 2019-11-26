@@ -28,7 +28,8 @@ const initialValues = {
   nameOfSubmitter: "",
   titleOfSubmitter: "",
   email: "",
-  tradeAlias: ""
+  tradeAlias: "",
+  isExemptionFormDirty: true
 };
 
 const validationSchema = () => {
@@ -64,11 +65,20 @@ const validationSchema = () => {
     )
   });
 };
-
+const getDirtyExcemptionConfirmation = () =>
+  window.confirm(
+    "You have unsaved changes in the expemption form, do you wish to continue without those changes?"
+  );
 const onSubmit = (values, history) => {
-  SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
-    history.push(`/confirmationPage/${ConfirmationNumber}`);
-  });
+  var canSubmit = true;
+  if (!values.isExemptionFormDirty) {
+    canSubmit = getDirtyExcemptionConfirmation();
+  }
+  if (canSubmit) {
+    SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
+      history.push(`/confirmationPage/${ConfirmationNumber}`);
+    });
+  }
 };
 
 const TransientTaxForm = componentProps => {
