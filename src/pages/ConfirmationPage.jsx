@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { GetFormattedDueDate } from "../common/DatesUtilities";
 import ConfirmationTable from "../components/ConfirmationTable";
 import { GetTransientTaxReturn } from "../services/ApiService";
 
@@ -18,7 +17,6 @@ const ConfirmationForm = props => {
     monthlyTaxCollected,
     monthlyInterest,
     monthlyNetRoomRental,
-    dueDate,
     formattedDueDate
   } = response;
 
