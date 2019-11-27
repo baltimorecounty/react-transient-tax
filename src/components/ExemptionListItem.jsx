@@ -27,8 +27,9 @@ const ExemptionListItem = props => {
 
   const isDisabled = isSelectorFormDirty === id;
   const cssClasses = "editButton";
+  const cssExemptionClasses = !isDisabled? 'tt-exemption': 'tt-exemption tt-color';
   return (
-    <li className="tt-exemption">
+    <li className={cssExemptionClasses}>
       {label} - From: {format(fromDate, DefaultDateFormat)} To:{" "}
       {format(toDate, DefaultDateFormat)}
       {handleEditClick &&
@@ -43,7 +44,7 @@ const ExemptionListItem = props => {
             Remove
           </button>
         ) : null)}
-      {isDisabled && <span className="tt_is-editing tt-color">Editing...</span>}
+      {isDisabled && <span className="tt_is-editing">Editing...</span>}
     </li>
   );
 };
