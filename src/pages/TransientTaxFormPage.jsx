@@ -13,6 +13,7 @@ import GrossOccupancySection from "../components/forms/GrossOccupancySection";
 import ExemptionsSection from "../components/forms/ExemptionsSection";
 import TransientTaxSection from "../components/forms/TransientTaxSection";
 import { GetFilingTypes, SaveReturn } from "../services/ApiService";
+import { ErrorPath } from "../common/ErrorUtility";
 
 const initialValues = {
   accountNumber: "",
@@ -28,7 +29,8 @@ const initialValues = {
   nameOfSubmitter: "",
   titleOfSubmitter: "",
   email: "",
-  tradeAlias: ""
+  tradeAlias: "",
+  isExemptionFormDirty: true
 };
 
 const validationSchema = () => {
@@ -64,11 +66,20 @@ const validationSchema = () => {
     )
   });
 };
-
+const getDirtyExcemptionConfirmation = () =>
+  window.confirm(
+    "You have unsaved changes in the expemption form, do you wish to continue without those changes?"
+  );
 const onSubmit = (values, history) => {
-  SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
-    history.push(`/confirmationPage/${ConfirmationNumber}`);
-  });
+  var canSubmit = true;
+  if (!values.isExemptionFormDirty) {
+    canSubmit = getDirtyExcemptionConfirmation();
+  }
+  if (canSubmit) {
+    SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
+      history.push(`/confirmationPage/${ConfirmationNumber}`);
+    });
+  }
 };
 
 const TransientTaxForm = componentProps => {
@@ -83,7 +94,7 @@ const TransientTaxForm = componentProps => {
           setIsLoading(false);
         })
         .catch(error => {
-          componentProps.history.push("/error", { ...error });
+          componentProps.history.push(ErrorPath(error), { ...error });
         });
     }
   }, [filingTypes, componentProps]);

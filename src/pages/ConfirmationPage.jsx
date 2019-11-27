@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ConfirmationTable from "../components/ConfirmationTable";
 import { GetTransientTaxReturn } from "../services/ApiService";
+import { ErrorPath } from "../common/ErrorUtility";
 
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
@@ -27,7 +28,7 @@ const ConfirmationForm = props => {
         setIsLoading(false);
       })
       .catch(error => {
-        props.history.push("/error", { ...error });
+        props.history.push(ErrorPath(error), { ...error });
       });
   }, [confirmationNumber, props.history]);
 
