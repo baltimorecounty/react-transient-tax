@@ -203,4 +203,8 @@ label.tt_has-errors {
 .tt_is-editing {
   display: inline-block;
   margin-left: $default-spacing / 2;
+  &.tt-color {
+    background: yellow;
+  }
+
 }

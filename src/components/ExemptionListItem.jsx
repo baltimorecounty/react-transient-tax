@@ -43,7 +43,7 @@ const ExemptionListItem = props => {
             Remove
           </button>
         ) : null)}
-      {isDisabled && <span className="tt_is-editing">Editing...</span>}
+      {isDisabled && <span className="tt_is-editing tt-color">Editing...</span>}
     </li>
   );
 };
