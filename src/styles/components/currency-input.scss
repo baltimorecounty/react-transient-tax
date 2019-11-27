@@ -1,0 +1,12 @@
+.tt_input--currency {
+  span,
+  input {
+    display: inline-block;
+  }
+
+  .tt_input-prefix {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: $default-spacing / 2;
+  }
+}
