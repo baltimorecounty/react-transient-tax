@@ -16,7 +16,6 @@ import { GetFilingTypes, SaveReturn } from "../services/ApiService";
 import { ErrorPath } from "../common/ErrorUtility";
 
 const initialValues = {
-  accountNumber: "",
   businessName: "",
   address: "",
   paymentInterval: "",
@@ -35,7 +34,6 @@ const initialValues = {
 
 const validationSchema = () => {
   return Yup.object().shape({
-    accountNumber: Yup.string().required("Required"),
     businessName: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),

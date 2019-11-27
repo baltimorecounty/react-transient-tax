@@ -4,13 +4,6 @@ import Field from "../Field";
 const BasicInformationSection = props => (
   <div className="tt_form-section">
     <Field
-      id="accountNumber"
-      name="accountNumber"
-      type="text"
-      label="Account Number"
-      style={{ width: "200px" }}
-    />
-    <Field
       id="businessName"
       name="businessName"
       type="text"
