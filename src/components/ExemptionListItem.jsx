@@ -32,17 +32,18 @@ const ExemptionListItem = props => {
       {label} - From: {format(fromDate, DefaultDateFormat)} To:{" "}
       {format(toDate, DefaultDateFormat)}
       {handleEditClick &&
-        (isDisabled === false ? (
+        (!isDisabled ? (
           <button className={cssClasses} type="button" onClick={editItem}>
-            {isDisabled === false ? "Edit" : "Editing..."}
+            Edit
           </button>
         ) : null)}
       {handleRemoveClick &&
-        (isDisabled === false ? (
+        (!isDisabled ? (
           <button type="button" onClick={removeItem}>
             Remove
           </button>
         ) : null)}
+      {isDisabled && <span className="tt_is-editing">Editing...</span>}
     </li>
   );
 };
