@@ -8,7 +8,7 @@ const ErrorPage = props => {
       case "invalidconfirmation": {
         return "This is an incorrect confirmation number";
       }
-      case "noresponse": {
+      case "network": {
         return "The server is not responding please contact magic people for assistance";
       }
       default: {

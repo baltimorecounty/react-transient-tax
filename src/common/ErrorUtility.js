@@ -1,9 +1,4 @@
-const ErrorPath = error => {
-  if (error.response) {
-    return "/error/invalidconfirmation";
-  } else {
-    return "/error/noresponse";
-  }
-};
+const ErrorPath = error =>
+  `/error/${error.response ? "invalidConfirmation" : "network"} `;
 
 export { ErrorPath };
