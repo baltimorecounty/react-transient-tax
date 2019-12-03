@@ -1,6 +1,7 @@
 import React from "react";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
+import { connect } from "formik";
 
 const ExemptionsSection = ({
   labels: Labels,
@@ -42,4 +43,4 @@ const ExemptionsSection = ({
   </div>
 );
 
-export default ExemptionsSection;
+export default connect(ExemptionsSection);

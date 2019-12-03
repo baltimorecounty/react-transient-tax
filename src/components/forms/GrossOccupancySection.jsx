@@ -1,7 +1,13 @@
 import React from "react";
 import PaymentField from "../PaymentField";
+import { connect } from "formik";
 
-const GrossOccupancySection = ({ label, monthsToReport, buildMonthLabel }) => (
+const GrossOccupancySection = ({
+  label,
+  monthsToReport,
+  buildMonthLabel,
+  form
+}) => (
   <div className="tt_form-section">
     <PaymentField
       name="grossOccupancy"
@@ -12,4 +18,4 @@ const GrossOccupancySection = ({ label, monthsToReport, buildMonthLabel }) => (
   </div>
 );
 
-export default GrossOccupancySection;
+export default connect(GrossOccupancySection);
