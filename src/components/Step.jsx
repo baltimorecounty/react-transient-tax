@@ -3,6 +3,7 @@ import { connect } from "formik";
 
 const Step = props => {
   const {
+    isHidden = false,
     isForm = true,
     label,
     component,
@@ -19,7 +20,6 @@ const Step = props => {
   } = props;
 
   const handleNextClick = () => {
-    console.log(nextStep);
     onNextClick(nextStep);
   };
 
@@ -33,7 +33,7 @@ const Step = props => {
   };
 
   const nextButton =
-    nextStep && !isLastStep && isForm ? (
+    nextStep && !isLastStep && isForm && !isHidden ? (
       <button type="submit" className="next">
         Next - {nextStep}
       </button>
@@ -54,11 +54,13 @@ const Step = props => {
     ...component,
     ...{
       props: {
+        isHidden,
         nextButton,
         prevButton,
         submitButton,
         onValidSubmission,
         tabs,
+        formik,
         isActiveStep,
         label
       }

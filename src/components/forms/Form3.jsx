@@ -1,17 +1,24 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
+import { Labels } from "../../common/Constants";
 import TransientTaxTabs from "../../components/TransientTaxTabs";
+import GrossOccupancySection from "../../components/forms/GrossOccupancySection";
+import ExemptionsSection from "../../components/forms/ExemptionsSection";
+import { GetCalculatedTotals } from "../../common/Calculations";
 import * as Yup from "yup";
 
-const Form1 = props => {
+const Form3 = props => {
   const {
     nextButton,
     prevButton,
     onValidSubmission,
     tabs,
     isActiveStep,
-    label
+    label,
+    formik
   } = props;
+
+  const { monthsToReport } = formik.values;
 
   return (
     <Formik
@@ -30,9 +37,17 @@ const Form1 = props => {
           <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
           <h2>{label}</h2>
           <div className="form-1">
-            <label htmlFor="email">Email</label>
-            <Field id="email" type="email" name="email" />
-            <ErrorMessage name="email" component="div" />
+            <React.Fragment>
+              <GrossOccupancySection
+                label={Labels.GrossOccupancy}
+                monthsToReport={monthsToReport}
+              />
+              <ExemptionsSection
+                labels={Labels}
+                monthsToReport={monthsToReport}
+                //totalExemptions={totalExemptions}
+              />
+            </React.Fragment>
           </div>
           {prevButton}
           {nextButton}
@@ -42,4 +57,4 @@ const Form1 = props => {
   );
 };
 
-export default Form1;
+export default Form3;

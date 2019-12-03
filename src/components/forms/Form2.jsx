@@ -14,6 +14,7 @@ const Form2 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
+    monthsToReport,
     label
   } = props;
   const [filingTypes, setFilingTypes] = useState([]);
@@ -62,6 +63,7 @@ const Form2 = props => {
                 paymentInterval={paymentInterval}
                 filingTypes={filingTypes}
                 tabs={tabs}
+                monthsToReport={monthsToReport}
               />
             )}
           </div>

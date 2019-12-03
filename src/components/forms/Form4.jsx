@@ -2,8 +2,16 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const Form1 = props => {
-  const { nextButton, prevButton, onValidSubmission } = props;
+const Form4 = props => {
+  const {
+    nextButton,
+    prevButton,
+    onValidSubmission,
+    tabs,
+    isActiveStep,
+    label,
+    formik
+  } = props;
 
   return (
     <Formik
@@ -32,4 +40,4 @@ const Form1 = props => {
   );
 };
 
-export default Form1;
+export default Form4;

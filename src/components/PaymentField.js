@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import { Field } from "formik";
+import { Field, connect } from "formik";
 import CurrencyInput from "react-currency-input";
 
 const CustomInputComponent = ({
@@ -87,4 +87,4 @@ PaymentField.propTypes = {
   monthToReport: PropTypes.object
 };
 
-export default PaymentField;
+export default connect(PaymentField);

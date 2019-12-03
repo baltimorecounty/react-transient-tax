@@ -151,6 +151,7 @@ const ReturnInterval = props => {
                     onChange={date => handleDateChange(date, monthIndex)}
                     startDate={startDate}
                     dateFormat="MM/yyyy"
+                    monthsToReport={months}
                     showMonthYearPicker
                   />
                 ) : (
