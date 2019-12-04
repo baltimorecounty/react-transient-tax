@@ -52,8 +52,6 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
   const startDateOfFilingDate = startOfDay(dateOfFilingDate);
   const dateDifference = differenceInDays(dueDate, startDateOfFilingDate);
 
-  console.log(dateDifference);
-
   if (dateDifference > 0) {
     return {
       isLate: false,
