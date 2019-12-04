@@ -5,6 +5,7 @@ import Form2 from "./components/forms/Form2";
 import Form3 from "./components/forms/Form3";
 import Form4 from "./components/forms/Form4";
 import Form5 from "./components/forms/Form5";
+import Form6 from "./components/forms/Form6";
 import { Config } from "@baltimorecounty/javascript-utilities";
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.scss";
@@ -73,7 +74,7 @@ const steps = [
   {
     stepNumber: 8,
     label: "Step 8 - Review",
-    component: <Form5 />
+    component: <Form6 />
   }
 ];
 
