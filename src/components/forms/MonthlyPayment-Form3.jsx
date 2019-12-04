@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Formik, Form } from "formik";
+import { Form, Formik } from "formik";
+import React from "react";
+import * as Yup from "yup";
+import { CalculateTotalsPerMonths } from "../../common/Calculations";
 import { Labels } from "../../common/Constants";
-import TransientTaxTabs from "../TransientTaxTabs";
+import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
-import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
-import { CalculateTotalsPerMonths } from "../../common/Calculations";
-import * as Yup from "yup";
+import TransientTaxTabs from "../TransientTaxTabs";
 
 const MonthlyPaymentForm3 = props => {
   const {
