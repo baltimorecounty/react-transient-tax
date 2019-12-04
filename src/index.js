@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Form1 from "./components/forms/Form1";
-import Form2 from "./components/forms/Form2";
-import Form3 from "./components/forms/Form3";
-import Form4 from "./components/forms/Form4";
-import Form5 from "./components/forms/Form5";
-import Form6 from "./components/forms/Form6";
+import BasicInformationForm1 from "./components/forms/BasicInformation-Form1";
+import PaymentOptionsForm2 from "./components/forms/PaymentOptions-Form2";
+import MonthlyPaymentForm3 from "./components/forms/MonthlyPayment-Form3";
+import ExemptionCertificateForm4 from "./components/forms/ExemptionCertificate-Form4";
+import IdentificationForm5 from "./components/forms/Identification-Form5";
+import ReviewForm6 from "./components/forms/Review-Form6";
 import { Config } from "@baltimorecounty/javascript-utilities";
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.scss";
@@ -36,45 +36,47 @@ const steps = [
   {
     stepNumber: 1,
     label: "Step 1 - Business Demographics",
-    component: <Form1 />
+    component: <BasicInformationForm1 />
   },
   {
     stepNumber: 2,
     label: "Step 2 - Payment Selection",
-    component: <Form2 />
+    component: <PaymentOptionsForm2 />
   },
   {
     stepNumber: 3,
     label: "Step 3 - Month",
-    component: <Form3 />
-    //isHidden: true,
+    component: <MonthlyPaymentForm3 />,
+    isHidden: true
   },
   {
     stepNumber: 4,
     label: "Step 4 - Month",
-    component: <Form3 />
-    //isHidden: true,
+    component: <MonthlyPaymentForm3 />,
+    isHidden: true
   },
   {
     stepNumber: 5,
     label: "Step 5 - Month",
-    component: <Form3 />
-    //isHidden: true,
+    component: <MonthlyPaymentForm3 />,
+    isHidden: true
   },
   {
     stepNumber: 6,
     label: "Step 6 - Exemption Certificates ",
-    component: <Form4 />
+    component: <ExemptionCertificateForm4 />,
+    isHidden: true
   },
   {
     stepNumber: 7,
     label: "Step 7 - Identification",
-    component: <Form5 />
+    component: <IdentificationForm5 />
   },
   {
     stepNumber: 8,
     label: "Step 8 - Review",
-    component: <Form6 />
+    component: <ReviewForm6 />,
+    isForm: false
   }
 ];
 
