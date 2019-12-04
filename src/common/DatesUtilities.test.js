@@ -20,36 +20,8 @@ describe("Get Formatted Due Date", () => {
 describe("Get Due Date Status", () => {
   test("should past due status, when the date of filing is past than the due date by 1 day", () => {
     const actual = GetDueDateStatus(
-      new Date("April 1, 2019"),
-      new Date("November 25, 2019")
-    );
-    expect(actual).toEqual({
-      isLate: true,
-      value: 5,
-      dateType: "month",
-      label: "Past Due",
-      message: "5 months"
-    });
-  });
-
-  test("should past due status, when the date of filing is past than the due date by 1 day", () => {
-    const actual = GetDueDateStatus(
-      new Date("April 1, 2019"),
-      new Date("November 30, 2019")
-    );
-    expect(actual).toEqual({
-      isLate: true,
-      value: 6,
-      dateType: "month",
-      label: "Past Due",
-      message: "6 months"
-    });
-  });
-
-  test("should past due status, when the date of filing is past than the due date by 1 day", () => {
-    const actual = GetDueDateStatus(
-      new Date("July 1, 2019"),
-      new Date("September 1, 2019")
+      new Date("August 1, 2019"),
+      new Date("October 1, 2019")
     );
     expect(actual).toEqual({
       isLate: true,
@@ -57,6 +29,34 @@ describe("Get Due Date Status", () => {
       dateType: "month",
       label: "Past Due",
       message: "1 month"
+    });
+  });
+
+  test("should past due status, when the date of filing is at then end of a month with 30 days", () => {
+    const actual = GetDueDateStatus(
+      new Date("August 1, 2019"),
+      new Date("November 30, 2019")
+    );
+    expect(actual).toEqual({
+      isLate: true,
+      value: 2,
+      dateType: "month",
+      label: "Past Due",
+      message: "2 months"
+    });
+  });
+
+  test("should past due status, when the date of filing is at then end of a month with 31 days", () => {
+    const actual = GetDueDateStatus(
+      new Date("August 1, 2019"),
+      new Date("December 31, 2019")
+    );
+    expect(actual).toEqual({
+      isLate: true,
+      value: 3,
+      dateType: "month",
+      label: "Past Due",
+      message: "3 months"
     });
   });
 
