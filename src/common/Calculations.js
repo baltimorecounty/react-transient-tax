@@ -10,15 +10,7 @@ const CalculateInterest = (
   taxCollected,
   numberOfMonthsLate,
   interestRate = RatesAndFees.InterestRate
-) => {
-  let taxPlusInterest = taxCollected;
-
-  for (let i = 0; i < numberOfMonthsLate; i++) {
-    taxPlusInterest = taxPlusInterest + taxPlusInterest * interestRate;
-  }
-
-  return taxPlusInterest - taxCollected;
-};
+) => taxCollected * numberOfMonthsLate * interestRate;
 
 /**
  * Calculate the penalty fee based on tax collected.
