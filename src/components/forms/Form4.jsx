@@ -1,5 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import ExemptionCertificateField from "../forms/ExemptionCertificateField";
+import TransientTaxTabs from "../../components/TransientTaxTabs";
 import * as Yup from "yup";
 
 const Form4 = props => {
@@ -27,10 +29,10 @@ const Form4 = props => {
     >
       {props => (
         <Form>
+          <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
+          <h2>{label}</h2>
           <div className="form-1">
-            <label htmlFor="email">Email</label>
-            <Field id="email" type="email" name="email" />
-            <ErrorMessage name="email" component="div" />
+            <ExemptionCertificateField />
           </div>
           {prevButton}
           {nextButton}
