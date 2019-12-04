@@ -114,13 +114,13 @@ const GetCalculatedTotals = (fields = {}, monthsToReport, monthsLate = 0) => {
 
   if (monthsLate) {
     transientInterest = CalculateTotalsPerMonths(
-      [netRoomRentalCollections],
+      [transientTaxCollected],
       monthsToReport,
       total => CalculateInterest(total, monthsLate)
     );
 
     transientPenalty = CalculateTotalsPerMonths(
-      [netRoomRentalCollections],
+      [transientTaxCollected],
       monthsToReport,
       CalculatePenalty
     );
