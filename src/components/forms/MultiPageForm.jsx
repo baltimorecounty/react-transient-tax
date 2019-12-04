@@ -3,7 +3,8 @@ import Step from "../Step";
 import { Formik } from "formik";
 
 const MultiPageForm = props => {
-  const { steps = [] } = props;
+  const { stepList } = props;
+  const { steps } = stepList;
   const [activeStep, setActiveStep] = useState(1);
 
   const handleNavClick = stepNumber => {
@@ -35,6 +36,7 @@ const MultiPageForm = props => {
                 <Step
                   key={stepNumber}
                   {...step}
+                  stepList={stepList}
                   isLastStep={isLastStep}
                   onNextClick={handleNavClick}
                   onPrevClick={handleNavClick}
