@@ -1,6 +1,7 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import TransientTaxTabs from "../../components/TransientTaxTabs";
+import Field from "../Field";
 import * as Yup from "yup";
 
 const Form1 = props => {
