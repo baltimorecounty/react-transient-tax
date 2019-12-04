@@ -48,7 +48,7 @@ const calculateTotalByMonth = (data, monthIndex, callback = total => total) =>
  * Gets totals for a number of fields grouped by month
  * @param {array} data list of totals for different fields in the report. Each item is an object that will keys
  * that match up with teh number of items to report. Example: an item would contain 3 items for a quarter
- * @param {*} monthsToReport the number of inputs for a corresponding field. Example this value will be 3 for a quarterly form
+ * @param {number} monthsToReport the number of inputs for a corresponding field. Example this value will be 3 for a quarterly form
  * @param {function} totalFn applied once the total has been calculated. Allows us to apply interest and penalties.
  */
 const CalculateTotalsPerMonths = (
