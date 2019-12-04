@@ -12,7 +12,7 @@ import { GetIdByDescription } from "../common/LookupUtilities";
 import { connect } from "formik";
 
 const ReturnInterval = props => {
-  const { paymentInterval, filingTypes, formik, tabs, name } = props;
+  const { paymentInterval, filingTypes, formik, tabs } = props;
   const { setFieldValue } = formik;
   const [months, setMonths] = useState({});
   const [dueDate, setDueDate] = useState();
@@ -112,7 +112,6 @@ const ReturnInterval = props => {
   /** Ensure dates make it to form */
   useEffect(() => {
     setFieldValue("monthsToReport", months);
-    setFieldValue("monthdatepicker", months);
   }, [months, setFieldValue]);
 
   useEffect(() => {
@@ -154,7 +153,6 @@ const ReturnInterval = props => {
                     dateFormat="MM/yyyy"
                     monthsToReport={months}
                     showMonthYearPicker
-                    name={name}
                   />
                 ) : (
                   <p>{getMonth(monthIndex)}</p>

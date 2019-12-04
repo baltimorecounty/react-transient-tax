@@ -15,6 +15,7 @@ const PaymentOptionsForm2 = props => {
     tabs,
     isActiveStep,
     monthsToReport,
+    monthsLate,
     label
   } = props;
   const [filingTypes, setFilingTypes] = useState([]);
@@ -38,15 +39,12 @@ const PaymentOptionsForm2 = props => {
 
   return (
     <Formik
-      initialValues={{ paymentInterval: "", monthdatepicker: "" }}
+      initialValues={{ paymentInterval: "" }}
       onSubmit={values => {
         onValidSubmission(values);
       }}
       validationSchema={Yup.object({
         paymentInterval: Yup.string()
-          .transform(value => (!value ? null : value))
-          .required("Required"),
-        monthdatepicker: Yup.string()
           .transform(value => (!value ? null : value))
           .required("Required")
       })}
@@ -61,12 +59,10 @@ const PaymentOptionsForm2 = props => {
               filingTypes={filingTypes}
               handleOnChange={handleOnChange}
             />
-            <ErrorMessage name="monthdatepicker" component="div" />
             {paymentInterval && (
               <ReturnDateSelector
                 paymentInterval={paymentInterval}
                 filingTypes={filingTypes}
-                name="monthdatepicker"
                 tabs={tabs}
                 monthsToReport={monthsToReport}
               />

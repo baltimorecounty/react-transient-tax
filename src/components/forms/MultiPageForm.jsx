@@ -24,7 +24,7 @@ const MultiPageForm = props => {
         {props => (
           <div onSubmit={props.handleSubmit}>
             {steps.map(step => {
-              const { stepNumber, isHidden } = step;
+              const { stepNumber } = step;
               const isActiveStep = stepNumber === activeStep;
               const nextStep =
                 stepNumber < steps.length ? stepNumber + 1 : null;

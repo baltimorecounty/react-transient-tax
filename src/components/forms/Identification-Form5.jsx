@@ -15,8 +15,7 @@ const IdentificationForm5 = props => {
     tabs,
     isActiveStep,
     label,
-    formik,
-    showTradeAlias
+    formik
   } = props;
 
   return (
@@ -50,12 +49,12 @@ const IdentificationForm5 = props => {
               </div>
             </div>
             <div className="float-left">
-              {showTradeAlias ? (
+              {formik.values.showTradeAlias ? (
                 <Field
                   id="tradeAlias"
                   name="tradeAlias"
                   type="text"
-                  label="Account Number"
+                  label="Trade Alias"
                   infoComponent={
                     <InformationModal
                       title="Trade Alias"

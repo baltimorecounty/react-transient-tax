@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
-import { CalculateTotalsPerMonths } from "../../common/Calculations";
+import { GetCalculatedTotals } from "../../common/Calculations";
 import { Labels } from "../../common/Constants";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import PaymentField from "../PaymentField";
@@ -19,7 +19,7 @@ const MonthlyPaymentForm3 = props => {
     formik
   } = props;
 
-  const { monthsToReport = {} } = formik.values;
+  const { monthsToReport = {}, monthsLate = 0 } = formik.values;
 
   return (
     <Formik
@@ -32,6 +32,9 @@ const MonthlyPaymentForm3 = props => {
         onValidSubmission(values);
       }}
       validationSchema={Yup.object({
+        grossOccupancy: Yup.string()
+          .transform(value => (!value ? null : value))
+          .required("Required"),
         exemptions: Yup.array().when(
           ["governmentOnBusiness", "roomRentalCollectionFromNonTransients"],
           {
@@ -50,36 +53,50 @@ const MonthlyPaymentForm3 = props => {
       })}
     >
       {props => {
+        const { values } = props;
         const {
           grossOccupancy,
-          governmentOnBusiness,
-          roomRentalCollectionFromNonTransients
-        } = props.values;
-
-        const totalExemptions = CalculateTotalsPerMonths(
-          [governmentOnBusiness, roomRentalCollectionFromNonTransients],
-          monthsToReport
+          roomRentalCollectionFromNonTransients,
+          governmentOnBusiness
+        } = values;
+        const {
+          totalExemptions,
+          netRoomRentalCollections,
+          transientTaxCollected,
+          transientInterest,
+          transientPenalty,
+          totalInterestAndPenalties,
+          monthlyTaxRemitted
+        } = GetCalculatedTotals(
+          {
+            grossOccupancy,
+            roomRentalCollectionFromNonTransients,
+            governmentOnBusiness
+          },
+          monthsToReport,
+          monthsLate
         );
-
-        const totalNetRoomRentals = CalculateTotalsPerMonths(
-          [totalExemptions, grossOccupancy],
-          monthsToReport
+        const hasAtLeast1Exemption = HasAtLeast1Exemption([
+          roomRentalCollectionFromNonTransients,
+          governmentOnBusiness
+        ]);
+        const isPaymentIntervalSelected =
+          Object.keys(monthsToReport).length > 0;
+        const hasExemptions = Object.keys(totalExemptions).some(
+          exemptionIndex =>
+            totalExemptions[exemptionIndex] <
+            0 /** exemption totals are negative values */
         );
-
         return (
           <Form>
             <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
             <h2>{label}</h2>
-            <div className="form-1">
-              <React.Fragment>
-                <div className="tt_form-section">
-                  <PaymentField
-                    name="grossOccupancy"
-                    label={Labels.GrossOccupancy}
-                    monthsToReport={monthsToReport}
-                  />
-                </div>
-              </React.Fragment>
+            <div className="tt_form-section">
+              <PaymentField
+                name="grossOccupancy"
+                label={Labels.GrossOccupancy}
+                monthsToReport={monthsToReport}
+              />
             </div>
             <div className="tt_form-section">
               <h3>{Labels.ExemptionTitle} (if applicable)</h3>
@@ -105,8 +122,43 @@ const MonthlyPaymentForm3 = props => {
               />
               <PaymentTotal
                 name="netRoomRentalTotal"
-                totals={totalNetRoomRentals}
+                totals={netRoomRentalCollections}
                 label={Labels.NetRoomRentalLabel}
+                className="tt_section-total"
+              />
+            </div>
+            <div className="tt_form-section">
+              <h3>
+                {Labels.TransientOccupancyTaxRemittedTitle} (if applicable)
+              </h3>
+              <PaymentTotal
+                name="transientTaxCollected"
+                totals={transientTaxCollected}
+                label={Labels.TaxCollected}
+                className="tt_subtotal"
+              />
+              <PaymentTotal
+                name="transientTaxInterest"
+                totals={transientInterest}
+                label={Labels.TaxInterest}
+                className="tt_subtotal-item"
+              />
+              <PaymentTotal
+                name="transientTaxPenalty"
+                totals={transientPenalty}
+                label={Labels.TaxPenalty}
+                className="tt_subtotal-item"
+              />
+              <PaymentTotal
+                name="totalInterestAndPenalties"
+                totals={totalInterestAndPenalties}
+                label={Labels.PenaltyInterestTotal}
+                className="tt_subtotal"
+              />
+              <PaymentTotal
+                name="monthlyTaxRemitted"
+                totals={monthlyTaxRemitted}
+                label={Labels.MonthlyTaxRemitted}
                 className="tt_section-total"
               />
             </div>
