@@ -4,7 +4,7 @@ import classnames from "classnames";
 import PaymentTotalLabel from "./PaymentTotalLabel";
 
 const PaymentTotal = props => {
-  const { label, totals = [], name, className } = props;
+  const { label, totals = {}, name, className } = props;
   const cssClasses = classnames("tt_form-group total", className);
 
   return (
