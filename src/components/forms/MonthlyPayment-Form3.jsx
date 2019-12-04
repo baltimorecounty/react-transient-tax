@@ -76,10 +76,7 @@ const MonthlyPaymentForm3 = props => {
           monthsToReport,
           monthsLate
         );
-        const hasAtLeast1Exemption = HasAtLeast1Exemption([
-          roomRentalCollectionFromNonTransients,
-          governmentOnBusiness
-        ]);
+
         const isPaymentIntervalSelected =
           Object.keys(monthsToReport).length > 0;
         const hasExemptions = Object.keys(totalExemptions).some(
