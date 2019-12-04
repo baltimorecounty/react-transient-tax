@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
-import TransientTaxTabs from "../../components/TransientTaxTabs";
+import TransientTaxTabs from "../TransientTaxTabs";
 import { GetFilingTypes } from "../../services/ApiService";
 import { ErrorPath } from "../../common/ErrorUtility";
 import * as Yup from "yup";
 
-const Form2 = props => {
+const PaymentOptionsForm2 = props => {
   const {
     nextButton,
     prevButton,
@@ -80,4 +80,4 @@ const Form2 = props => {
   );
 };
 
-export default Form2;
+export default PaymentOptionsForm2;

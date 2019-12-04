@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import { Labels } from "../../common/Constants";
-import TransientTaxTabs from "../../components/TransientTaxTabs";
+import TransientTaxTabs from "../TransientTaxTabs";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import * as Yup from "yup";
 
-const Form3 = props => {
+const MonthlyPaymentForm3 = props => {
   const {
     nextButton,
     prevButton,
@@ -30,12 +30,12 @@ const Form3 = props => {
 
   useEffect(() => {
     setTotalExemptions(
-      governmentOnBusiness + roomRentalCollectionFromNonTransients
+      parseFloat(governmentOnBusiness + roomRentalCollectionFromNonTransients)
     );
   }, [governmentOnBusiness, roomRentalCollectionFromNonTransients]);
 
   useEffect(() => {
-    setNetRoomRentalCollections(grossOccupancy + totalExemptions);
+    setNetRoomRentalCollections(parseFloat(grossOccupancy + totalExemptions));
   }, [grossOccupancy, totalExemptions]);
 
   return (
@@ -118,4 +118,4 @@ const Form3 = props => {
   );
 };
 
-export default Form3;
+export default MonthlyPaymentForm3;

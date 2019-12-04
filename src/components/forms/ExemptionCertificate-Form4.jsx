@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import ExemptionCertificateField from "../forms/ExemptionCertificateField";
-import TransientTaxTabs from "../../components/TransientTaxTabs";
+import ExemptionCertificateField from "./ExemptionCertificateField";
+import TransientTaxTabs from "../TransientTaxTabs";
 import * as Yup from "yup";
 
-const Form4 = props => {
+const ExemptionCertificateForm4 = props => {
   const {
     nextButton,
     prevButton,
@@ -42,4 +42,4 @@ const Form4 = props => {
   );
 };
 
-export default Form4;
+export default ExemptionCertificateForm4;

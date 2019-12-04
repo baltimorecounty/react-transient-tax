@@ -1,9 +1,9 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import TransientTaxTabs from "../../components/TransientTaxTabs";
+import TransientTaxTabs from "../TransientTaxTabs";
 import * as Yup from "yup";
 
-const Form1 = props => {
+const BasicInformationForm1 = props => {
   const {
     nextButton,
     prevButton,
@@ -37,9 +37,8 @@ const Form1 = props => {
               type="text"
               label="Business Name"
             />
-            <ErrorMessage name="businessName" component="div" />
+
             <Field id="address" name="address" type="text" label="Address" />
-            <ErrorMessage name="address" component="div" />
           </div>
           {prevButton}
           {nextButton}
@@ -49,4 +48,4 @@ const Form1 = props => {
   );
 };
 
-export default Form1;
+export default BasicInformationForm1;

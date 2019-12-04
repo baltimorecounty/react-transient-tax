@@ -1,12 +1,12 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
-import TransientTaxTabs from "../../components/TransientTaxTabs";
+import TransientTaxTabs from "../TransientTaxTabs";
 import { Labels } from "../../common/Constants";
 import InformationModal from "../InformationModal";
 import * as Yup from "yup";
 
-const Form6 = props => {
+const ReviewForm6 = props => {
   const {
     nextButton,
     prevButton,
@@ -113,4 +113,4 @@ const Form6 = props => {
   );
 };
 
-export default Form6;
+export default ReviewForm6;
