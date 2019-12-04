@@ -61,7 +61,7 @@ const steps = [
   }),
   new Step({
     id: "payment-selection",
-    label: "Step 2 - Payment Selection",
+    label: "Step 2 - Payment Interval Selection",
     component: <PaymentOptionsForm2 />,
     onFormSubmission: onPaymentSelectionSubmission
   }),
