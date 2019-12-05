@@ -3,7 +3,6 @@ import React from "react";
 import * as Yup from "yup";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import { Labels } from "../../common/Constants";
-import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import TransientTaxTabs from "../TransientTaxTabs";
@@ -47,24 +46,9 @@ const MonthlyPaymentForm3 = props => {
         onValidSubmission({ monthlyData });
       }}
       validationSchema={Yup.object({
-        grossOccupancy: Yup.string()
-          .transform(value => (!value ? null : value))
-          .required("Required"),
-        exemptions: Yup.array().when(
-          ["governmentOnBusiness", "roomRentalCollectionFromNonTransients"],
-          {
-            is: (governmentOnBusiness, roomRentalCollectionFromNonTransients) =>
-              HasAtLeast1Exemption([
-                governmentOnBusiness,
-                roomRentalCollectionFromNonTransients
-              ]),
-            then: Yup.array().min(
-              1,
-              "At least 1 exemption must be specified when claiming an exemption dollar amount."
-            ),
-            otherwise: Yup.array().min(0)
-          }
-        )
+        grossOccupancy: Yup.number()
+          .min(0.01, "Specify an amount for gross occupancy.")
+          .required("Required")
       })}
     >
       {props => {
