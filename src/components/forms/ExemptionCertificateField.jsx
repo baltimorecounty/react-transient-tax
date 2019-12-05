@@ -14,25 +14,33 @@ const ExemptionCertificate = ({
   const { setFieldValue } = form;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
+  const [isSelectorFormDirty, setIsSelectorFormDirty] =useState(0);
 
   useEffect(() => {
     setFieldValue("exemptions", exemptions);
   }, [exemptions, setFieldValue]);
+
+  useEffect(() => {
+    setIsSelectorFormDirty(0);
+  }, [setIsSelectorFormDirty]);
 
   const saveExemption = exemption => {
     const savedExemption = SaveExemption(exemption);
     const updatedExemptions = AddOrUpdate(exemptions, savedExemption);
     setFieldValue('isExemptionFormDirty', true);
     setExemptions(updatedExemptions);
+    setIsSelectorFormDirty(0);
   };
 
   const editExemption = exemptionToEdit => {
     setFieldValue('isExemptionFormDirty', false);
     setExemption({ ...exemptionToEdit });
+    setIsSelectorFormDirty(exemptionToEdit.id);
   };
 
   const removeExemption = exemptionId => {
     setExemptions(exemptions.filter(exemption => exemption.id !== exemptionId));
+    setExemption({});
   };
 
   return (
@@ -45,6 +53,7 @@ const ExemptionCertificate = ({
       {exemptions.length > 0 && (
         <ExemptionsList
           exemptions={exemptions}
+          isSelectorFormDirty={isSelectorFormDirty}
           handleEditClick={editExemption}
           handleRemoveClick={removeExemption}
         />

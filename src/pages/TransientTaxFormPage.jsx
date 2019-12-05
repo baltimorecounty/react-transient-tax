@@ -13,9 +13,9 @@ import GrossOccupancySection from "../components/forms/GrossOccupancySection";
 import ExemptionsSection from "../components/forms/ExemptionsSection";
 import TransientTaxSection from "../components/forms/TransientTaxSection";
 import { GetFilingTypes, SaveReturn } from "../services/ApiService";
+import { ErrorPath } from "../common/ErrorUtility";
 
 const initialValues = {
-  accountNumber: "",
   businessName: "",
   address: "",
   paymentInterval: "",
@@ -34,7 +34,6 @@ const initialValues = {
 
 const validationSchema = () => {
   return Yup.object().shape({
-    accountNumber: Yup.string().required("Required"),
     businessName: Yup.string()
       .transform(value => (!value ? null : value))
       .required("Required"),
@@ -93,7 +92,7 @@ const TransientTaxForm = componentProps => {
           setIsLoading(false);
         })
         .catch(error => {
-          componentProps.history.push("/error", { ...error });
+          componentProps.history.push(ErrorPath(error), { ...error });
         });
     }
   }, [filingTypes, componentProps]);

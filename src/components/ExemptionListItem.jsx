@@ -3,7 +3,12 @@ import { format } from "date-fns";
 import { DefaultDateFormat } from "../common/DatesUtilities";
 
 const ExemptionListItem = props => {
-  const { exemption, handleEditClick, handleRemoveClick } = props;
+  const {
+    exemption,
+    handleEditClick,
+    handleRemoveClick,
+    isSelectorFormDirty
+  } = props;
   const { id, type, label, fromDate, toDate } = exemption;
 
   const editItem = () => {
@@ -20,20 +25,26 @@ const ExemptionListItem = props => {
     handleRemoveClick(id);
   };
 
+  const isDisabled = isSelectorFormDirty === id;
+  const cssClasses = "editButton";
+  const cssExemptionClasses =`tt-exemption ${!isDisabled ? '': 'tt-color'}`;
   return (
-    <li className="tt-exemption">
+    <li className={cssExemptionClasses}>
       {label} - From: {format(fromDate, DefaultDateFormat)} To:{" "}
       {format(toDate, DefaultDateFormat)}
-      {handleEditClick && (
-        <button type="button" onClick={editItem}>
-          Edit
-        </button>
-      )}
-      {handleRemoveClick && (
-        <button type="button" onClick={removeItem}>
-          Remove
-        </button>
-      )}
+      {handleEditClick &&
+        (!isDisabled ? (
+          <button className={cssClasses} type="button" onClick={editItem}>
+            Edit
+          </button>
+        ) : null)}
+      {handleRemoveClick &&
+        (!isDisabled ? (
+          <button type="button" onClick={removeItem}>
+            Remove
+          </button>
+        ) : null)}
+      {isDisabled && <span className="tt_is-editing">Editing...</span>}
     </li>
   );
 };

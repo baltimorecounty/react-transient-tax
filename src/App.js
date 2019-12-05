@@ -24,7 +24,6 @@ const configValues = {
 };
 
 setConfig(configValues);
-
 function App() {
   return (
     <div className="tt_app">
@@ -32,10 +31,10 @@ function App() {
         <Route exact path="/" component={TransientTaxFormPage} />
         <Route
           exact
-          path="/ConfirmationPage/:confirmationNumber"
+          path="/confirmation/:confirmationNumber"
           component={ConfirmationPage}
         />
-        <Route exact path="/error" component={ErrorPage} />
+        <Route exact path="/error/:errorType" component={ErrorPage} />
       </Router>
     </div>
   );
