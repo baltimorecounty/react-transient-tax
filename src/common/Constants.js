@@ -14,6 +14,12 @@ const PaymentDirections = {
   PaymentNote:
     "Note: Must select the interval in which you have selected previously unless it's a new year."
 };
+const CountyAddress = {
+  Agency: "BALTIMORE COUNTY MARYLAND",
+  Department: "Office of Budget and Finance",
+  Street: "400 Washington Avenue, Room 150",
+  City: "Towson, Maryland 21204-4665"
+};
 
 const RatesAndFees = {
   PenaltyRate: 0.1, // 10%
@@ -65,5 +71,6 @@ export {
   Labels,
   Messages,
   PaymentDirections,
-  RatesAndFees
+  RatesAndFees,
+  CountyAddress
 };
