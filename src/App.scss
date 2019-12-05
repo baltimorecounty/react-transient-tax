@@ -200,13 +200,14 @@ label.tt_has-errors {
   width: 0 !important;
 }
 
+@import "./styles/components/currency-input";
+
 .tt_is-editing {
   display: inline-block;
   margin-left: $default-spacing / 2;
 }
-  .tt-exemption{
-    &.tt-color {
-      background: yellow;
-    }
+.tt-exemption {
+  &.tt-color {
+    background: yellow;
   }
-
+}

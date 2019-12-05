@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { Field } from "formik";
-import CurrencyInput from "react-currency-input";
+import CurrencyInput from "./CurrencyInput";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -21,7 +21,9 @@ const CustomInputComponent = ({
   const [values, setValues] = useState({});
   const cssClasses = classnames("tt_form-group flex-end total", className);
 
-  const handleChange = (valueAsNumber, monthIndex) => {
+  const handleChange = (changeEvent, monthIndex) => {
+    const valueAsNumber =
+      parseFloat(changeEvent.target.value) * (isNegativeValue ? -1 : 1) || 0;
     setValues({ ...values, ...{ [monthIndex]: valueAsNumber } });
   };
 
@@ -38,21 +40,18 @@ const CustomInputComponent = ({
             const inputName = `${name}-${monthIndex}`;
             const inputValue = values[monthIndex]
               ? Math.abs(values[monthIndex])
-              : 0;
+              : "";
 
             return (
               <div className="tt_currency-picker" key={inputName}>
                 {/* Disabled for now until we confirm the final design */}
                 {/* <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label> */}
                 <CurrencyInput
-                  prefix={`${isNegativeValue ? "-" : ""}$`}
-                  decimalSeparator="."
-                  thousandSeparator=","
-                  allowNegative={true}
+                  isNegativeValue={isNegativeValue}
                   id={inputName}
                   name={inputName}
-                  onChange={(maskedValue, valueAsNumber) =>
-                    handleChange(valueAsNumber, monthIndex)
+                  onChange={changeEvent =>
+                    handleChange(changeEvent, monthIndex)
                   }
                   value={inputValue}
                 />
