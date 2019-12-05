@@ -42,7 +42,7 @@ const GetTransientTaxReturn = confirmationNumber =>
 /**
  * Get Address Data from GIS
  */
-const GetAddress = location =>
+const GetAddresses = location =>
   axios
     .get(
       `https://bcgis.baltimorecountymd.gov/arcgis/rest/services/Geocoders/CompositeGeocode_CS/GeocodeServer/reverseGeocode?location=${location}`
@@ -72,7 +72,7 @@ const SaveReturn = taxReturn =>
 export {
   GetExemptionTypes,
   GetTransientTaxReturn,
-  GetAddress,
+  GetAddresses,
   GetFilingTypes,
   SaveExemption,
   SaveReturn

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Field from "../Field";
 import AutoCompleteField from "../AutoCompleteField";
-import { GetAddress } from "../../services/ApiService";
+import { GetAddresses } from "../../services/ApiService";
 import { ErrorPath } from "../../common/ErrorUtility";
 
 const BasicInformationSection = ({ name, formik = {}, props }) => {
@@ -14,7 +14,8 @@ const BasicInformationSection = ({ name, formik = {}, props }) => {
   ]);
 
   const handleAddressChange = e => {
-    GetAddress("400 washington")
+    const { value } = e.target;
+    GetAddresses(value)
       .then(response => {
         setItems(response);
       })
