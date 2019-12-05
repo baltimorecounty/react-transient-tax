@@ -18,6 +18,7 @@ const Step = props => {
     isActiveStep,
     onFormSubmission = () => {},
     stepList,
+    data,
     ...rest
   } = props;
 
@@ -65,7 +66,8 @@ const Step = props => {
         tabs,
         formik,
         isActiveStep,
-        label
+        label,
+        data
       }
     }
   };
