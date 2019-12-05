@@ -73,60 +73,32 @@ const CalculateTotalsPerMonths = (
 /**
  * Get a list of calculations based on given Transient Tax Data
  * @param {object} fields the required input fields to calculate totals for transient tax. Fields are grouped by their form name.
- * @param {number} monthsToReport the number of inputs for a corresponding field. Example this value will be 3 for a quarterly form
  * @param {number} monthsLate number of months tardy on payment, this will determine if penalty and interest is charged
  * @returns {object} an object containing all the desired totals
  */
-const GetCalculatedTotals = (fields = {}, monthsToReport, monthsLate = 0) => {
+const GetCalculatedTotals = (fields = {}, monthsLate = 0) => {
   const {
     grossOccupancy,
     roomRentalCollectionFromNonTransients,
     governmentOnBusiness
   } = fields;
 
-  const totalExemptions = CalculateTotalsPerMonths(
-    [roomRentalCollectionFromNonTransients, governmentOnBusiness],
-    monthsToReport
-  );
+  const totalExemptions =
+    roomRentalCollectionFromNonTransients + governmentOnBusiness;
+  const netRoomRentalCollections = totalExemptions + grossOccupancy;
+  const transientTaxCollected = CalculateTaxCollected(netRoomRentalCollections);
 
-  const netRoomRentalCollections = CalculateTotalsPerMonths(
-    [totalExemptions, grossOccupancy],
-    monthsToReport
-  );
-
-  const transientTaxCollected = CalculateTotalsPerMonths(
-    [netRoomRentalCollections],
-    monthsToReport,
-    CalculateTaxCollected
-  );
-
-  let transientInterest = {};
-  let transientPenalty = {};
-  let totalInterestAndPenalties = {};
+  let transientInterest = 0;
+  let transientPenalty = 0;
+  let totalInterestAndPenalties = 0;
 
   if (monthsLate) {
-    transientInterest = CalculateTotalsPerMonths(
-      [netRoomRentalCollections],
-      monthsToReport,
-      total => CalculateInterest(total, monthsLate)
-    );
-
-    transientPenalty = CalculateTotalsPerMonths(
-      [netRoomRentalCollections],
-      monthsToReport,
-      CalculatePenalty
-    );
-
-    totalInterestAndPenalties = CalculateTotalsPerMonths(
-      [transientInterest, transientPenalty],
-      monthsToReport
-    );
+    transientInterest = CalculateInterest(transientTaxCollected, monthsLate);
+    transientPenalty = CalculatePenalty(transientTaxCollected);
+    totalInterestAndPenalties = transientInterest + transientPenalty;
   }
 
-  const monthlyTaxRemitted = CalculateTotalsPerMonths(
-    [transientTaxCollected, totalInterestAndPenalties],
-    monthsToReport
-  );
+  const monthlyTaxRemitted = transientTaxCollected + totalInterestAndPenalties;
 
   return {
     totalExemptions,
