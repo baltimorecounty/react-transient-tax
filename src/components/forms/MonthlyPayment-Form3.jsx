@@ -7,6 +7,7 @@ import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import PaymentField from "../PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import TransientTaxTabs from "../TransientTaxTabs";
+import { AddOrUpdate } from "../../common/ArrayUtilities";
 
 const MonthlyPaymentForm3 = props => {
   const {
@@ -16,20 +17,37 @@ const MonthlyPaymentForm3 = props => {
     tabs,
     isActiveStep,
     label,
-    formik
+    formik,
+    data: { date = null }
   } = props;
 
-  const { monthsToReport = {}, monthsLate = 0 } = formik.values;
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
 
   return (
     <Formik
       initialValues={{
-        grossOccupancy: "",
-        governmentOnBusiness: "",
-        roomRentalCollectionFromNonTransients: ""
+        grossOccupancy: 0,
+        governmentOnBusiness: 0,
+        roomRentalCollectionFromNonTransients: 0
       }}
       onSubmit={values => {
-        onValidSubmission(values);
+        const { monthlyData = [] } = formik.values;
+        const monthData = {
+          ...values,
+          month,
+          year
+        };
+
+        const updatedMonthlyData = AddOrUpdate(
+          monthlyData,
+          monthData,
+          data => data.year === year && data.month === month
+        );
+
+        onValidSubmission({
+          monthlyData: updatedMonthlyData
+        });
       }}
       validationSchema={Yup.object({
         grossOccupancy: Yup.string()
@@ -59,34 +77,36 @@ const MonthlyPaymentForm3 = props => {
           roomRentalCollectionFromNonTransients,
           governmentOnBusiness
         } = values;
-        const {
-          totalExemptions,
-          netRoomRentalCollections,
-          transientTaxCollected,
-          transientInterest,
-          transientPenalty,
-          totalInterestAndPenalties,
-          monthlyTaxRemitted
-        } = GetCalculatedTotals(
-          {
-            grossOccupancy,
-            roomRentalCollectionFromNonTransients,
-            governmentOnBusiness
-          },
-          monthsToReport,
-          monthsLate
-        );
-        const hasAtLeast1Exemption = HasAtLeast1Exemption([
-          roomRentalCollectionFromNonTransients,
-          governmentOnBusiness
-        ]);
-        const isPaymentIntervalSelected =
-          Object.keys(monthsToReport).length > 0;
-        const hasExemptions = Object.keys(totalExemptions).some(
-          exemptionIndex =>
-            totalExemptions[exemptionIndex] <
-            0 /** exemption totals are negative values */
-        );
+        // const {
+        //   totalExemptions,
+        //   netRoomRentalCollections,
+        //   transientTaxCollected,
+        //   transientInterest,
+        //   transientPenalty,
+        //   totalInterestAndPenalties,
+        //   monthlyTaxRemitted
+        // } = GetCalculatedTotals(
+        //   {
+        //     grossOccupancy,
+        //     roomRentalCollectionFromNonTransients,
+        //     governmentOnBusiness
+        //   },
+        //   monthsToReport,
+        //   monthsLate
+        // );
+
+        // const hasAtLeast1Exemption = HasAtLeast1Exemption([
+        //   roomRentalCollectionFromNonTransients,
+        //   governmentOnBusiness
+        // ]);
+
+        // const isPaymentIntervalSelected =
+        //   Object.keys(monthsToReport).length > 0;
+        // const hasExemptions = Object.keys(totalExemptions).some(
+        //   exemptionIndex =>
+        //     totalExemptions[exemptionIndex] <
+        //     0 /** exemption totals are negative values */
+        // );
         return (
           <Form>
             <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
@@ -95,7 +115,7 @@ const MonthlyPaymentForm3 = props => {
               <PaymentField
                 name="grossOccupancy"
                 label={Labels.GrossOccupancy}
-                monthsToReport={monthsToReport}
+                date={date}
               />
             </div>
             <div className="tt_form-section">
@@ -104,17 +124,17 @@ const MonthlyPaymentForm3 = props => {
                 isNegativeValue={true}
                 name="roomRentalCollectionFromNonTransients"
                 label={Labels.ExemptionOption1}
-                monthsToReport={monthsToReport}
+                date={date}
                 className="tt_subtotal-item"
               />
               <PaymentField
                 isNegativeValue={true}
                 name="governmentOnBusiness"
                 label={Labels.ExemptionOption2}
-                monthsToReport={monthsToReport}
+                date={date}
                 className="tt_subtotal-item"
               />
-              <PaymentTotal
+              {/* <PaymentTotal
                 name="exemptionTotal"
                 totals={totalExemptions}
                 label={Labels.ExemptionTotal}
@@ -125,13 +145,13 @@ const MonthlyPaymentForm3 = props => {
                 totals={netRoomRentalCollections}
                 label={Labels.NetRoomRentalLabel}
                 className="tt_section-total"
-              />
+              /> */}
             </div>
             <div className="tt_form-section">
               <h3>
                 {Labels.TransientOccupancyTaxRemittedTitle} (if applicable)
               </h3>
-              <PaymentTotal
+              {/* <PaymentTotal
                 name="transientTaxCollected"
                 totals={transientTaxCollected}
                 label={Labels.TaxCollected}
@@ -160,7 +180,7 @@ const MonthlyPaymentForm3 = props => {
                 totals={monthlyTaxRemitted}
                 label={Labels.MonthlyTaxRemitted}
                 className="tt_section-total"
-              />
+              /> */}
             </div>
             {prevButton}
             {nextButton}
