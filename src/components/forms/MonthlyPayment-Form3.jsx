@@ -18,7 +18,7 @@ const MonthlyPaymentForm3 = props => {
     isActiveStep,
     label,
     formik,
-    data: { date = null }
+    data: { date }
   } = props;
 
   const month = date.getMonth() + 1;
