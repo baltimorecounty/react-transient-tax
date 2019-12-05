@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./App.scss";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import { Config } from "@baltimorecounty/javascript-utilities";
+import FormPage from "./pages/FormPage";
 import ErrorPage from "./pages/ErrorPage";
 const { setConfig } = Config;
 
@@ -28,7 +29,7 @@ function App() {
     <div className="tt_app">
       <Router>
         {/* TODO: this needs to be integrated into the multi-page app */}
-        <Route exact path="/" component={{}} />
+        <Route exact path="/" component={FormPage} />
         <Route
           exact
           path="/confirmation/:confirmationNumber"
