@@ -152,7 +152,8 @@ const TransientTaxForm = componentProps => {
 
         return (
           <Form>
-            <BasicInformationSection />
+            <BasicInformationSection name="location" />
+
             <PaymentSelectionSection
               paymentInterval={paymentInterval}
               filingTypes={filingTypes}

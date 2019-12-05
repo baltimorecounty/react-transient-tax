@@ -17,6 +17,7 @@ const AutoCompleteField = props => {
   return (
     <Autocomplete
       name="location"
+      label="Address"
       getItemValue={item => item.label}
       id="location-autocomplete-input"
       items={items}
@@ -42,9 +43,9 @@ const AutoCompleteField = props => {
       value={value}
       onChange={handleChange}
       onSelect={handleSelect}
-      className={`text-input ${
-        formik.errors.location && formik.touched.location ? "error" : ""
-      }`}
+      // className={`text-input ${
+      //   formik.errors.location && formik.touched.location ? "error" : ""
+      // }`}
       wrapperStyle={{}}
     >
       {props.children}
