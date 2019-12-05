@@ -15,7 +15,6 @@ const PaymentOptionsForm2 = props => {
     tabs,
     isActiveStep,
     monthsToReport,
-    monthsLate,
     label
   } = props;
   const [filingTypes, setFilingTypes] = useState([]);

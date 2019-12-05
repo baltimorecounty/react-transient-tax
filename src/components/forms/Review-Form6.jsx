@@ -1,10 +1,11 @@
+import { Form, Formik } from "formik";
+import Field from "../Field";
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { GetFormatedDateTime } from "../../common/DatesUtilities";
-import TransientTaxTabs from "../TransientTaxTabs";
-import { Labels } from "../../common/Constants";
-import InformationModal from "../InformationModal";
 import * as Yup from "yup";
+import { Labels } from "../../common/Constants";
+import { GetFormatedDateTime } from "../../common/DatesUtilities";
+import InformationModal from "../InformationModal";
+import TransientTaxTabs from "../TransientTaxTabs";
 
 const ReviewForm6 = props => {
   const {
@@ -14,7 +15,6 @@ const ReviewForm6 = props => {
     tabs,
     isActiveStep,
     label,
-    formik,
     showTradeAlias
   } = props;
 
