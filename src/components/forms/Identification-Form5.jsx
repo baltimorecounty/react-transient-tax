@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import Field from "../Field";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
+import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import TransientTaxTabs from "../TransientTaxTabs";
 import { Labels } from "../../common/Constants";
 import InformationModal from "../InformationModal";
@@ -17,6 +18,14 @@ const IdentificationForm5 = props => {
     label,
     formik
   } = props;
+  const {
+    roomRentalCollectionFromNonTransients,
+    governmentOnBusiness
+  } = formik.values;
+  const showTradeAlias = HasAtLeast1Exemption([
+    roomRentalCollectionFromNonTransients,
+    governmentOnBusiness
+  ]);
 
   return (
     <Formik
@@ -49,7 +58,7 @@ const IdentificationForm5 = props => {
               </div>
             </div>
             <div className="float-left">
-              {formik.values.showTradeAlias ? (
+              {showTradeAlias ? (
                 <Field
                   id="tradeAlias"
                   name="tradeAlias"
