@@ -30,47 +30,6 @@ const CalculateTaxCollected = netRoomRentalCollections =>
   netRoomRentalCollections * RatesAndFees.TransientTaxRate;
 
 /**
- * Gets sum for a given month based on a list of field data
- * @param {array} data list of totals for different fields in the report. Each item is an object that will keys
- * @param {number} monthIndex index of the month that you wish to return
- * @param {function} callback allows you to manipulate the total once the total is calculated
- */
-const calculateTotalByMonth = (data, monthIndex, callback = total => total) =>
-  callback(
-    data.reduce(
-      (sum, totals) =>
-        (sum += totals && totals[monthIndex] ? totals[monthIndex] : 0),
-      0
-    )
-  );
-
-/**
- * Gets totals for a number of fields grouped by month
- * @param {array} data list of totals for different fields in the report. Each item is an object that will keys
- * that match up with teh number of items to report. Example: an item would contain 3 items for a quarter
- * @param {number} monthsToReport the number of inputs for a corresponding field. Example this value will be 3 for a quarterly form
- * @param {function} totalFn applied once the total has been calculated. Allows us to apply interest and penalties.
- */
-const CalculateTotalsPerMonths = (
-  data = [],
-  monthsToReport,
-  totalFn = total => total
-) => {
-  const total = {};
-  Object.keys(monthsToReport).forEach((monthKey, monthIndex) => {
-    if (!total[monthIndex]) {
-      total[monthIndex] = 0;
-    }
-    const sum = calculateTotalByMonth(data, monthIndex);
-    total[monthIndex] += sum;
-  });
-  return Object.keys(total).reduce((newObj, key) => {
-    newObj[key] = totalFn(total[key]);
-    return newObj;
-  }, {});
-};
-
-/**
  * Get a list of calculations based on given Transient Tax Data
  * @param {object} fields the required input fields to calculate totals for transient tax. Fields are grouped by their form name.
  * @param {number} monthsLate number of months tardy on payment, this will determine if penalty and interest is charged
@@ -115,6 +74,5 @@ export {
   CalculateInterest,
   CalculatePenalty,
   CalculateTaxCollected,
-  CalculateTotalsPerMonths,
   GetCalculatedTotals
 };
