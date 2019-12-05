@@ -33,22 +33,17 @@ const MonthlyPaymentForm3 = props => {
         roomRentalCollectionFromNonTransients: 0
       }}
       onSubmit={values => {
-        const { monthlyData = [] } = formik.values;
-        const monthData = {
-          ...values,
-          month,
-          year
-        };
-
-        const updatedMonthlyData = AddOrUpdate(
-          monthlyData,
-          monthData,
+        const monthlyData = AddOrUpdate(
+          formik.values.monthlyData || [],
+          {
+            ...values,
+            month,
+            year
+          },
           data => data.year === year && data.month === month
         );
 
-        onValidSubmission({
-          monthlyData: updatedMonthlyData
-        });
+        onValidSubmission({ monthlyData });
       }}
       validationSchema={Yup.object({
         grossOccupancy: Yup.string()
