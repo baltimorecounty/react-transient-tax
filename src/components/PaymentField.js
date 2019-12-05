@@ -25,20 +25,18 @@ const CustomInputComponent = ({
     setFieldValue(name, valueAsNumber);
   };
 
-  const inputName = `${name}-test`;
-
   return (
     <div className={cssClasses}>
       <label>{label}</label>
       <div className="tt_currency-pickers">
-        <div className="tt_currency-picker" key={inputName}>
+        <div className="tt_currency-picker">
           <CurrencyInput
             prefix={`${isNegativeValue ? "-" : ""}$`}
             decimalSeparator="."
             thousandSeparator=","
             allowNegative={true}
-            id={inputName}
-            name={inputName}
+            id={name}
+            name={name}
             onChange={handleChange}
             value={value}
           />
