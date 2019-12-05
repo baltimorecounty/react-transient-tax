@@ -15,13 +15,9 @@ const BasicInformationSection = ({ name, formik = {}, props }) => {
 
   const handleAddressChange = e => {
     const { value } = e.target;
-    GetAddresses(value)
-      .then(response => {
-        setItems(response);
-      })
-      .catch(error => {
-        props.history.push(ErrorPath(error), { ...error });
-      });
+    GetAddresses(value).then(response => {
+      setItems(response);
+    });
   };
   const handleAddressSelect = val => {
     console.log("testing auto complete---select");
@@ -42,8 +38,8 @@ const BasicInformationSection = ({ name, formik = {}, props }) => {
         formik={formik}
         name={name}
         value={values.location}
-        onChange={handleAddressChange}
-        onSelect={handleAddressSelect}
+        handleAddressChange={handleAddressChange}
+        handleAddressSelect={handleAddressSelect}
         label="Address"
       />
 

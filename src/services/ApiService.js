@@ -44,9 +44,7 @@ const GetTransientTaxReturn = confirmationNumber =>
  */
 const GetAddresses = location =>
   axios
-    .get(
-      `https://bcgis.baltimorecountymd.gov/arcgis/rest/services/Geocoders/CompositeGeocode_CS/GeocodeServer/reverseGeocode?location=${location}`
-    )
+    .get(`http://localhost:54727/api/gis/addressLookup/${location}`)
     .then(({ status, data }) => (status === 200 ? data : []));
 
 const SaveExemption = exemption => {

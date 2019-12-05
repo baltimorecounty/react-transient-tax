@@ -2,18 +2,24 @@ import React from "react";
 import Autocomplete from "react-autocomplete";
 
 const AutoCompleteField = props => {
-  const { items, formik, onChange, onSelect, value } = props;
-console.log(formik);
+  const {
+    items,
+    formik,
+    handleAddressChange,
+    handleAddressSelect,
+    value
+  } = props;
+  console.log(formik);
   const handleChange = changeEvent => {
     const { value } = changeEvent.target;
     formik.setFieldValue("location", value);
-    onChange(changeEvent);
+    handleAddressChange(changeEvent);
   };
   const handleSelect = val => {
     formik.setFieldValue("location", val);
-    onSelect(val);
+    handleAddressSelect(val);
   };
-console.log('insde autocompleteField');
+  console.log("insde autocompleteField");
   return (
     <Autocomplete
       name="location"
