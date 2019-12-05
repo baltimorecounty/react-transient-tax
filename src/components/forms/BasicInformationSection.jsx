@@ -3,15 +3,16 @@ import Field from "../Field";
 import AutoCompleteField from "../AutoCompleteField";
 import { GetAddresses } from "../../services/ApiService";
 import { ErrorPath } from "../../common/ErrorUtility";
+import _ from 'lodash';
 
 const BasicInformationSection = ({ name, formik = {}, props }) => {
   const { values = {} } = formik;
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      label: "400 washington ave, towson, 21204"
-    }
-  ]);
+  const [Address, setItems] = useState([])
+  //   {
+  //     id: 1,
+  //     label: "400 washington ave, towson, 21204"
+  //   }
+  // ]);
 
   const handleAddressChange = e => {
     const { value } = e.target;
@@ -22,6 +23,13 @@ const BasicInformationSection = ({ name, formik = {}, props }) => {
   const handleAddressSelect = val => {
     console.log("testing auto complete---select");
   };
+  const UpperCaseFirstLetter = (address, city, zip) => {
+		return _.startCase(_.camelCase(address)) + `, ` + _.startCase(_.camelCase(city)) + `, ` + _.startCase(_.camelCase(zip));
+	};
+	const items = Address.map((item, index) => ({
+		id: item.Latitude + item.Longitude,
+		label: UpperCaseFirstLetter(item.StreetAddress, item.City, item.Zip),
+	}));
 
   console.log(formik);
   console.log(items);
