@@ -21,12 +21,11 @@ const CustomInputComponent = ({
   const cssClasses = classnames("tt_form-group flex-end total", className);
 
   const handleChange = (formattedNumber, valueAsNumber) => {
-    setValue(valueAsNumber);
-    setFieldValue(name, value);
+    setValue(Math.abs(valueAsNumber));
+    setFieldValue(name, valueAsNumber);
   };
 
   const inputName = `${name}-test`;
-  const inputValue = value ? Math.abs(value) : 0;
 
   return (
     <div className={cssClasses}>
@@ -41,7 +40,7 @@ const CustomInputComponent = ({
             id={inputName}
             name={inputName}
             onChange={handleChange}
-            value={inputValue}
+            value={value}
           />
           {touched[field.name] && errors[field.name] && (
             <div className="error">{errors[field.name]}</div>
