@@ -12,7 +12,7 @@ import { GetIdByDescription } from "../common/LookupUtilities";
 import { connect } from "formik";
 
 const ReturnInterval = props => {
-  const { paymentInterval, filingTypes, formik, tabs } = props;
+  const { paymentInterval, filingTypes, formik } = props;
   const { setFieldValue } = formik;
   const [months, setMonths] = useState({});
   const [dueDate, setDueDate] = useState();
@@ -47,31 +47,6 @@ const ReturnInterval = props => {
 
     const dueDate = GetFormattedDueDate(lastFilingMonth);
     const status = GetDueDateStatus(lastFilingMonth, new Date());
-
-    for (var i = 0; i < tabs.length; i++) {
-      tabs[2].isHidden = false;
-      tabs[2].label = `Step 3 - ${GetFormatedDateTime(
-        date,
-        "MMMM"
-      )} Tax Return`;
-
-      if (
-        paymentInterval === "1" &&
-        (tabs[i] === tabs[3] || tabs[i] === tabs[4])
-      ) {
-        tabs[3].isHidden = false;
-        tabs[3].label = `Step 4 - ${GetFormatedDateTime(
-          addMonths(date, 1),
-          "MMMM"
-        )} Tax Return`;
-
-        tabs[4].isHidden = false;
-        tabs[4].label = `Step 5 - ${GetFormatedDateTime(
-          addMonths(date, 2),
-          "MMMM"
-        )} Tax Return`;
-      }
-    }
 
     setStatus(status);
     setDueDate(dueDate);

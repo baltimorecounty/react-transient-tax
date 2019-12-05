@@ -16,6 +16,9 @@ const Step = props => {
     formik,
     tabs,
     isActiveStep,
+    onFormSubmission = () => {},
+    stepList,
+    data,
     ...rest
   } = props;
 
@@ -28,6 +31,7 @@ const Step = props => {
   };
 
   const onValidSubmission = values => {
+    onFormSubmission(stepList, values);
     formik.setValues({ ...formik.values, ...values });
     onNextClick(nextStep);
   };
@@ -62,7 +66,8 @@ const Step = props => {
         tabs,
         formik,
         isActiveStep,
-        label
+        label,
+        data
       }
     }
   };
