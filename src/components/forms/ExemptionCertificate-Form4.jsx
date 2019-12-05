@@ -1,8 +1,8 @@
+import { Form, Formik } from "formik";
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import ExemptionCertificateField from "./ExemptionCertificateField";
-import TransientTaxTabs from "../TransientTaxTabs";
 import * as Yup from "yup";
+import TransientTaxTabs from "../TransientTaxTabs";
+import ExemptionCertificateField from "./ExemptionCertificateField";
 
 const ExemptionCertificateForm4 = props => {
   const {
@@ -11,8 +11,7 @@ const ExemptionCertificateForm4 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
-    label,
-    formik
+    label
   } = props;
 
   return (
