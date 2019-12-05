@@ -13,55 +13,40 @@ const CustomInputComponent = ({
   const {
     className,
     isNegativeValue,
-    monthsToReport = {},
     label
     // buildMonthLabel = () => {}
   } = props;
   const { setFieldValue, touched, errors } = form;
-  const [values, setValues] = useState({});
+  const [value, setValue] = useState(0);
   const cssClasses = classnames("tt_form-group flex-end total", className);
 
-  const handleChange = (valueAsNumber, monthIndex) => {
-    setValues({ ...values, ...{ [monthIndex]: valueAsNumber } });
+  const handleChange = (formattedNumber, valueAsNumber) => {
+    setValue(valueAsNumber);
+    setFieldValue(name, value);
   };
 
-  useEffect(() => {
-    setFieldValue(name, values);
-  }, [name, values, setFieldValue]);
+  const inputName = `${name}-test`;
+  const inputValue = value ? Math.abs(value) : 0;
 
   return (
     <div className={cssClasses}>
       <label>{label}</label>
       <div className="tt_currency-pickers">
-        {monthsToReport &&
-          Object.keys(monthsToReport).map((month, monthIndex) => {
-            const inputName = `${name}-${monthIndex}`;
-            const inputValue = values[monthIndex]
-              ? Math.abs(values[monthIndex])
-              : 0;
-
-            return (
-              <div className="tt_currency-picker" key={inputName}>
-                {/* Disabled for now until we confirm the final design */}
-                {/* <label htmlFor={inputName}>{buildMonthLabel(monthIndex)}</label> */}
-                <CurrencyInput
-                  prefix={`${isNegativeValue ? "-" : ""}$`}
-                  decimalSeparator="."
-                  thousandSeparator=","
-                  allowNegative={true}
-                  id={inputName}
-                  name={inputName}
-                  onChange={(maskedValue, valueAsNumber) =>
-                    handleChange(valueAsNumber, monthIndex)
-                  }
-                  value={inputValue}
-                />
-                {touched[field.name] && errors[field.name] && (
-                  <div className="error">{errors[field.name]}</div>
-                )}
-              </div>
-            );
-          })}
+        <div className="tt_currency-picker" key={inputName}>
+          <CurrencyInput
+            prefix={`${isNegativeValue ? "-" : ""}$`}
+            decimalSeparator="."
+            thousandSeparator=","
+            allowNegative={true}
+            id={inputName}
+            name={inputName}
+            onChange={handleChange}
+            value={inputValue}
+          />
+          {touched[field.name] && errors[field.name] && (
+            <div className="error">{errors[field.name]}</div>
+          )}
+        </div>
       </div>
     </div>
   );
