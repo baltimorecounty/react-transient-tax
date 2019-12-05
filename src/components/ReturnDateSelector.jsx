@@ -12,7 +12,7 @@ import { GetIdByDescription } from "../common/LookupUtilities";
 import { connect } from "formik";
 
 const ReturnInterval = props => {
-  const { paymentInterval, filingTypes, formik, tabs } = props;
+  const { paymentInterval, filingTypes, formik } = props;
   const { setFieldValue } = formik;
   const [months, setMonths] = useState({});
   const [dueDate, setDueDate] = useState();
