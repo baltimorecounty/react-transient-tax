@@ -3,16 +3,11 @@ import Field from "../Field";
 import AutoCompleteField from "../AutoCompleteField";
 import { GetAddresses } from "../../services/ApiService";
 import { ErrorPath } from "../../common/ErrorUtility";
-import _ from 'lodash';
+import _ from "lodash";
 
 const BasicInformationSection = ({ name, formik = {}, props }) => {
   const { values = {} } = formik;
-  const [Address, setItems] = useState([])
-  //   {
-  //     id: 1,
-  //     label: "400 washington ave, towson, 21204"
-  //   }
-  // ]);
+  const [Address, setItems] = useState([]);
 
   const handleAddressChange = e => {
     const { value } = e.target;
@@ -20,19 +15,32 @@ const BasicInformationSection = ({ name, formik = {}, props }) => {
       setItems(response);
     });
   };
-  const handleAddressSelect = val => {
-    console.log("testing auto complete---select");
-  };
-  const UpperCaseFirstLetter = (address, city, zip) => {
-		return _.startCase(_.camelCase(address)) + `, ` + _.startCase(_.camelCase(city)) + `, ` + _.startCase(_.camelCase(zip));
-	};
-	const items = Address.map((item, index) => ({
-		id: item.Latitude + item.Longitude,
-		label: UpperCaseFirstLetter(item.StreetAddress, item.City, item.Zip),
-	}));
 
-  console.log(formik);
-  console.log(items);
+  const handleAddressSelect = val => {
+    const splitAddress = val.split(",");
+    formik.setFieldValue("address", splitAddress[0]);
+    formik.setFieldValue("city", splitAddress[1]);
+    formik.setFieldValue("zipcode", splitAddress[2]);
+    formik.setFieldValue("location", "");
+  };
+
+  const UpperCaseFirstLetter = (address, city, zip) => {
+    return (
+      _.startCase(_.camelCase(address)) +
+      `, ` +
+      _.startCase(_.camelCase(city)) +
+      `, ` +
+      _.startCase(_.camelCase(zip))
+    );
+  };
+  const items = Address.map((item, index) => ({
+    id: item.Latitude + item.Longitude,
+    label: UpperCaseFirstLetter(item.StreetAddress, item.City, item.Zip),
+    street: item.StreetAddress,
+    city: item.City,
+    zip: item.Zip
+  }));
+
   return (
     <div className="tt_form-section">
       <Field
@@ -41,6 +49,7 @@ const BasicInformationSection = ({ name, formik = {}, props }) => {
         type="text"
         label="Business Name"
       />
+      <label id="address">Address Search:</label>
       <AutoCompleteField
         items={items}
         formik={formik}
@@ -50,12 +59,29 @@ const BasicInformationSection = ({ name, formik = {}, props }) => {
         handleAddressSelect={handleAddressSelect}
         label="Address"
       />
-
-      <Field id="address" name="address" type="text" label="Address" />
-      <Field id="address2" name="address2" type="text" label="Address 2" />
-      <Field id="city" name="city" type="text" label="City" />
-      <Field id="state" name="state" type="text" label="State" />
-      <Field id="zipcode" name="zipcode" type="text" label="Zip Code" />
+      {formik.values.address !== "" ? (
+        <div>
+          <br></br>
+          <label id="businessaddress">Business Address</label>
+          <div>
+            <label id="address">Address: {formik.values.address}</label>
+          </div>
+          {formik.values.address2 ? (
+            <div>
+              <label id="address2">Address2: {formik.values.address2}</label>
+            </div>
+          ) : null}
+          <div>
+            <label id="city">City: {formik.values.city}</label>
+          </div>
+          <div>
+            <label id="state">State: MD</label>
+          </div>
+          <div>
+            <label id="zip">Zip Code: {formik.values.zipcode}</label>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
