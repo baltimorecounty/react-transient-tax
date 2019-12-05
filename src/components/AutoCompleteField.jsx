@@ -3,7 +3,7 @@ import Autocomplete from "react-autocomplete";
 
 const AutoCompleteField = props => {
   const { items, formik, onChange, onSelect, value } = props;
-
+console.log(formik);
   const handleChange = changeEvent => {
     const { value } = changeEvent.target;
     formik.setFieldValue("location", value);
@@ -13,7 +13,7 @@ const AutoCompleteField = props => {
     formik.setFieldValue("location", val);
     onSelect(val);
   };
-
+console.log('insde autocompleteField');
   return (
     <Autocomplete
       name="location"

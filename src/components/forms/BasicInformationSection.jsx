@@ -5,12 +5,25 @@ import AutoCompleteField from "../AutoCompleteField";
 const BasicInformationSection = ({
   name,
   formik = {},
-  items,
-  handleAddressChange,
-  handleAddressSelect
+ // formikprops,
+
+ // handleAddressChange,
+ // handleAddressSelect
 }) => {
   const { values = {} } = formik;
-
+	const handleAddressChange = (e) => {
+	  console.log('testing auto complete');
+	
+  };
+  const handleAddressSelect = (val) => {
+	  console.log('testing auto complete---select');
+	};
+  const items=[{
+		id:1,
+		label: '400 washington ave, towson, 21204',
+  }];
+  console.log(formik);
+  console.log(items);
   return (
     <div className="tt_form-section">
       <Field
@@ -19,7 +32,7 @@ const BasicInformationSection = ({
         type="text"
         label="Business Name"
       />
-      {/* <AutoCompleteField
+       <AutoCompleteField
         items={items}
         formik={formik}
         name={name}
@@ -27,7 +40,7 @@ const BasicInformationSection = ({
         onChange={handleAddressChange}
         onSelect={handleAddressSelect}
         label = "Address"
-      /> */}
+      /> 
 
       <Field id="address" name="address" type="text" label="Address" />
       <Field id="address2" name="address2" type="text" label="Address 2" />
