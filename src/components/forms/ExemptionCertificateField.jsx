@@ -26,14 +26,18 @@ const ExemptionCertificate = ({
 
   const saveExemption = exemption => {
     const savedExemption = SaveExemption(exemption);
-    const updatedExemptions = AddOrUpdate(exemptions, savedExemption);
-    setFieldValue('isExemptionFormDirty', true);
+    const updatedExemptions = AddOrUpdate(
+      exemptions,
+      savedExemption,
+      item => item.id === savedExemption.id
+    );
+    setFieldValue("isExemptionFormDirty", true);
     setExemptions(updatedExemptions);
     setIsSelectorFormDirty(0);
   };
 
   const editExemption = exemptionToEdit => {
-    setFieldValue('isExemptionFormDirty', false);
+    setFieldValue("isExemptionFormDirty", false);
     setExemption({ ...exemptionToEdit });
     setIsSelectorFormDirty(exemptionToEdit.id);
   };
