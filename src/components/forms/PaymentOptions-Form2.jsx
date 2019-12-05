@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
+import ErrorMessage from "../ErrorMessage";
 import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import TransientTaxTabs from "../TransientTaxTabs";
@@ -38,14 +39,19 @@ const PaymentOptionsForm2 = props => {
 
   return (
     <Formik
-      initialValues={{ paymentInterval: "" }}
+      initialValues={{ paymentInterval: "", monthsToReport: {} }}
       onSubmit={values => {
         onValidSubmission(values);
       }}
       validationSchema={Yup.object({
         paymentInterval: Yup.string()
           .transform(value => (!value ? null : value))
-          .required("Required")
+          .required("Required"),
+        monthsToReport: Yup.mixed().test(
+          "has-months",
+          "A date must be selected before you can proceed.",
+          value => Object.keys(value).length > 0
+        )
       })}
     >
       {props => (
@@ -59,12 +65,15 @@ const PaymentOptionsForm2 = props => {
               handleOnChange={handleOnChange}
             />
             {paymentInterval && (
-              <ReturnDateSelector
-                paymentInterval={paymentInterval}
-                filingTypes={filingTypes}
-                tabs={tabs}
-                monthsToReport={monthsToReport}
-              />
+              <React.Fragment>
+                <ReturnDateSelector
+                  paymentInterval={paymentInterval}
+                  filingTypes={filingTypes}
+                  tabs={tabs}
+                  monthsToReport={monthsToReport}
+                />
+                <ErrorMessage name="monthsToReport" />
+              </React.Fragment>
             )}
           </div>
           {prevButton}
