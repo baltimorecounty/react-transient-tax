@@ -12,8 +12,6 @@ const PaymentTotalLabel = props => {
 };
 
 PaymentTotalLabel.propTypes = {
-  /** Helps uniquely identify this component along with name*/
-  monthIndex: PropTypes.number,
   /** Helps uniquely identify this component along with monthIndex */
   name: PropTypes.string.isRequired,
   /** Total as a number to display */

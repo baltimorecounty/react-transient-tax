@@ -26,9 +26,8 @@ PaymentTotal.propTypes = {
   label: PropTypes.string.isRequired,
   /**  Gives a unique key to the totals */
   name: PropTypes.string.isRequired,
-  /** An object that contains the totals for the specified field (see name).
-   * Example: The object will contain 3 keys if the we are looking at quarterly data. */
-  totals: PropTypes.object
+  /** Total value */
+  total: PropTypes.number
 };
 
 export default PaymentTotal;
