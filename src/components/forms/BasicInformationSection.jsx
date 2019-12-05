@@ -1,27 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Field from "../Field";
 import AutoCompleteField from "../AutoCompleteField";
+import { GetAddress } from "../../services/ApiService";
+import { ErrorPath } from "../../common/ErrorUtility";
 
-const BasicInformationSection = ({
-  name,
-  formik = {},
- // formikprops,
-
- // handleAddressChange,
- // handleAddressSelect
-}) => {
+const BasicInformationSection = ({ name, formik = {}, props }) => {
   const { values = {} } = formik;
-	const handleAddressChange = (e) => {
-	  console.log('testing auto complete');
-	
+  const [items, setItems] = useState([
+    {
+      id: 1,
+      label: "400 washington ave, towson, 21204"
+    }
+  ]);
+
+  const handleAddressChange = e => {
+    GetAddress("400 washington")
+      .then(response => {
+        setItems(response);
+      })
+      .catch(error => {
+        props.history.push(ErrorPath(error), { ...error });
+      });
   };
-  const handleAddressSelect = (val) => {
-	  console.log('testing auto complete---select');
-	};
-  const items=[{
-		id:1,
-		label: '400 washington ave, towson, 21204',
-  }];
+  const handleAddressSelect = val => {
+    console.log("testing auto complete---select");
+  };
+
   console.log(formik);
   console.log(items);
   return (
@@ -32,15 +36,15 @@ const BasicInformationSection = ({
         type="text"
         label="Business Name"
       />
-       <AutoCompleteField
+      <AutoCompleteField
         items={items}
         formik={formik}
         name={name}
         value={values.location}
         onChange={handleAddressChange}
         onSelect={handleAddressSelect}
-        label = "Address"
-      /> 
+        label="Address"
+      />
 
       <Field id="address" name="address" type="text" label="Address" />
       <Field id="address2" name="address2" type="text" label="Address 2" />
