@@ -33,8 +33,9 @@ const MonthlyPaymentForm3 = props => {
         roomRentalCollectionFromNonTransients: 0
       }}
       onSubmit={values => {
+        const { monthlyData: existingMonthlyData = [] } = formik.values;
         const monthlyData = AddOrUpdate(
-          formik.values.monthlyData || [],
+          existingMonthlyData,
           {
             ...values,
             month,
