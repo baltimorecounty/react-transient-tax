@@ -40,7 +40,7 @@ const CustomInputComponent = ({
             const inputName = `${name}-${monthIndex}`;
             const inputValue = values[monthIndex]
               ? Math.abs(values[monthIndex])
-              : 0;
+              : "";
 
             return (
               <div className="tt_currency-picker" key={inputName}>
