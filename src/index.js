@@ -35,6 +35,10 @@ const configValues = {
 
 setConfig(configValues);
 
+const onPaymentFormSubmission = (stepList, values) => {
+  console.log(values);
+};
+
 const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
   stepList.reset();
   let stepToInsertAfter = "payment-selection";
@@ -45,7 +49,11 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
     const step = new Step({
       id,
       label: `${friendlyDate} Tax Return`,
-      component: <MonthlyPaymentForm3 />
+      component: <MonthlyPaymentForm3 />,
+      onFormSubmission: onPaymentFormSubmission,
+      data: {
+        date
+      }
     });
 
     stepList.addStep(step, stepToInsertAfter);
