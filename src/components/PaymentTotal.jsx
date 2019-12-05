@@ -4,21 +4,18 @@ import classnames from "classnames";
 import PaymentTotalLabel from "./PaymentTotalLabel";
 
 const PaymentTotal = props => {
-  const { label, totals = {}, name, className } = props;
+  const { label, total = 0, name, className } = props;
   const cssClasses = classnames("tt_form-group total", className);
 
   return (
     <div className={cssClasses}>
       <label className="tt_total-label">{label}</label>
       <div className="tt_currency-pickers">
-        {Object.keys(totals).map((totalKey, monthIndex) => (
-          <PaymentTotalLabel
-            key={`payment-total-label-${name}-${totalKey}`}
-            name={name}
-            monthIndex={monthIndex}
-            total={totals[totalKey]}
-          />
-        ))}
+        <PaymentTotalLabel
+          key={`payment-total-label-${name}`}
+          name={name}
+          total={total}
+        />
       </div>
     </div>
   );
