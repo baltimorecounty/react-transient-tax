@@ -10,16 +10,22 @@ const { setConfig } = Config;
 
 const configValues = {
   local: {
-    apiRoot: "//localhost:54727/api/transientTax"
+    apiRoot: "//localhost:54727/api/transientTax",
+    gisApiRoot: "http://localhost:54727/api/gis/addressLookup/"
   },
   development: {
-    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax",
+    gisApiRoot:
+      "https://testservices.baltimorecountymd.gov/api/gis/addressLookup/"
   },
   staging: {
-    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax",
+    gisApiRoot:
+      "https://testservices.baltimorecountymd.gov/api/gis/addressLookup/"
   },
   production: {
-    apiRoot: "http://services.baltimorecountymd.gov/api/transientTax"
+    apiRoot: "http://services.baltimorecountymd.gov/api/transientTax",
+    gisApiRoot: "https://services.baltimorecountymd.gov/api/gis/addressLookup/"
   }
 };
 
