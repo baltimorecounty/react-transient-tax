@@ -2,32 +2,24 @@ import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.scss";
+import TransientTaxFormPage from "./pages/TransientTaxFormPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import { Config } from "@baltimorecounty/javascript-utilities";
-import FormPage from "./pages/FormPage";
 import ErrorPage from "./pages/ErrorPage";
 const { setConfig } = Config;
 
-const localApiRoot = "//localhost:54727/api/";
-const testApiRoot = "http://testservices.baltimorecountymd.gov/api/";
-const prodApiRoot = "https://services.baltimorecountymd.gov/api/";
-
 const configValues = {
   local: {
-    apiRoot: `${localApiRoot}transientTax`,
-    gisApiRoot: `${localApiRoot}gis/addressLookup`
+    apiRoot: "//localhost:54727/api/transientTax"
   },
   development: {
-    apiRoot: `${testApiRoot}transientTax`,
-    gisApiRoot: `${testApiRoot}gis/addressLookup`
+    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
   },
   staging: {
-    apiRoot: `${testApiRoot}transientTax`,
-    gisApiRoot: `${testApiRoot}gis/addressLookup`
+    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
   },
   production: {
-    apiRoot: `${prodApiRoot}transientTax`,
-    gisApiRoot: `${prodApiRoot}gis/addressLookup`
+    apiRoot: "http://services.baltimorecountymd.gov/api/transientTax"
   }
 };
 
@@ -36,8 +28,7 @@ function App() {
   return (
     <div className="tt_app">
       <Router>
-        {/* TODO: this needs to be integrated into the multi-page app */}
-        <Route exact path="/" component={FormPage} />
+        <Route exact path="/" component={TransientTaxFormPage} />
         <Route
           exact
           path="/confirmation/:confirmationNumber"
