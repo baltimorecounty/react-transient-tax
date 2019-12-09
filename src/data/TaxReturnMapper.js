@@ -145,7 +145,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
  * Map exemptions to the Server Model
  * @param {Array} exemptions
  */
-const MapExemptionsToServerModel = exemptions =>
+const MapExemptionsToServerModel = (exemptions = []) =>
   exemptions.map(({ fromDate: startDate, toDate: endDate, type: typeId }) => ({
     startDate,
     endDate,
