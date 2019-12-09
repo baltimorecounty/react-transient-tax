@@ -15,7 +15,7 @@ const prodApiRoot = "https://services.baltimorecountymd.gov/api/";
 const configValues = {
   local: {
     apiRoot: `${localApiRoot}transientTax`,
-    gisApiRoot: "//localhost:54727/api/gis/addressLookup"
+    gisApiRoot: `${localApiRoot}gis/addressLookup`
   },
   development: {
     apiRoot: `${testApiRoot}transientTax`,

@@ -10,8 +10,8 @@ const CustomInputComponent = ({
   form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { name } = field;
-  const { className, label, value } = props;
+  const { name, value } = field;
+  const { className, label } = props;
   const { setFieldValue, touched, errors } = form;
   const [Address, setItems] = useState([]);
 
@@ -20,14 +20,11 @@ const CustomInputComponent = ({
     GetAddresses(value).then(response => {
       setItems(response);
     });
+    setFieldValue("businessAddress", value);
   };
 
   const handleSelect = val => {
-    const splitAddress = val.split(",");
-    val.setFieldValue("address", splitAddress[0]);
-    val.setFieldValue("city", splitAddress[1]);
-    val.setFieldValue("zipcode", splitAddress[2]);
-    setFieldValue(name, val);
+    setFieldValue("businessAddress", val);
   };
 
   const UpperCaseFirstLetter = (address, city, zip) => {
@@ -40,6 +37,11 @@ const CustomInputComponent = ({
     );
   };
 
+  const displayErrors = classes => {
+    return touched[field.name] && errors[field.name]
+      ? "tt_form-field tt_has-errors"
+      : classes;
+  };
   const items = Address.map((item, index) => ({
     id: item.Latitude + item.Longitude,
     label: UpperCaseFirstLetter(item.StreetAddress, item.City, item.Zip),
@@ -50,15 +52,23 @@ const CustomInputComponent = ({
 
   return (
     <div>
-      <label id="address">{label}</label>
+      <div className="tt_form-field__label">
+        <label for={name} id="addressSearch" className={displayErrors()}>
+          {label}
+        </label>
+      </div>
       <Autocomplete
         name={name}
         label={label}
         getItemValue={item => item.label}
-        id="location-autocomplete-input"
+        id={name}
         items={items}
         renderInput={props => (
-          <input className="autocomplete-input" {...props} />
+          <input
+            type="text"
+            className={displayErrors("tt_form-field input")}
+            {...props}
+          />
         )}
         renderItem={(item, isHighlighted) => (
           <div
@@ -84,6 +94,10 @@ const CustomInputComponent = ({
       >
         {props.children}
       </Autocomplete>
+
+      {touched[field.name] && errors[field.name] && (
+        <div className="error">{errors[field.name]}</div>
+      )}
     </div>
   );
 };
@@ -93,8 +107,6 @@ const AddressLookupField = props => (
 );
 
 AddressLookupField.propTypes = {
-  /** Determines if the input should be treated as a negative or positive currency. */
-  isNegativeValue: PropTypes.bool,
   /** General label to describe the input(s). */
   label: PropTypes.string.isRequired
 };

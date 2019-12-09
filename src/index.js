@@ -10,18 +10,26 @@ import TransientTaxStepList from "./steps/TransientTaxStepList";
 
 const { setConfig } = Config;
 
+const localApiRoot = "//localhost:54727/api/";
+const testApiRoot = "http://testservices.baltimorecountymd.gov/api/";
+const prodApiRoot = "https://services.baltimorecountymd.gov/api/";
+
 const configValues = {
   local: {
-    apiRoot: "//localhost:54727/api/transientTax"
+    apiRoot: `${localApiRoot}transientTax`,
+    gisApiRoot: `${localApiRoot}gis/addressLookup`
   },
   development: {
-    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+    apiRoot: `${testApiRoot}transientTax`,
+    gisApiRoot: `${testApiRoot}gis/addressLookup`
   },
   staging: {
-    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+    apiRoot: `${testApiRoot}transientTax`,
+    gisApiRoot: `${testApiRoot}gis/addressLookup`
   },
   production: {
-    apiRoot: "http://services.baltimorecountymd.gov/api/transientTax"
+    apiRoot: `${prodApiRoot}transientTax`,
+    gisApiRoot: `${prodApiRoot}gis/addressLookup`
   }
 };
 

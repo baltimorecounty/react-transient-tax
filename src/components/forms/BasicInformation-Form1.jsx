@@ -18,7 +18,7 @@ const BasicInformationForm1 = props => {
 
   return (
     <Formik
-      initialValues={{ businessName: "", address: "" }}
+      initialValues={{ businessName: "", businessAddress: "" }}
       onSubmit={values => {
         onValidSubmission(values);
       }}
@@ -26,7 +26,9 @@ const BasicInformationForm1 = props => {
         businessName: Yup.string()
           .transform(value => (!value ? null : value))
           .required("Required"),
-        address: Yup.string().required("Required")
+        businessAddress: Yup.string()
+          .transform(value => (!value ? null : value))
+          .required("Required")
       })}
     >
       {props => (
@@ -41,35 +43,10 @@ const BasicInformationForm1 = props => {
               label="Business Name"
             />
             <AddressLookupField
+              id="businessAddress"
               name="businessAddress"
-              label="Address Search:"
+              label="Business Address"
             />
-
-            {/* {formik.values.address !== "" ? (
-              <div>
-                <br></br>
-                <label id="businessaddress">Business Address</label>
-                <div>
-                  <label id="address">Address: {formik.values.address}</label>
-                </div>
-                {formik.values.address2 ? (
-                  <div>
-                    <label id="address2">
-                      Address2: {formik.values.address2}
-                    </label>
-                  </div>
-                ) : null}
-                <div>
-                  <label id="city">City: {formik.values.city}</label>
-                </div>
-                <div>
-                  <label id="state">State: MD</label>
-                </div>
-                <div>
-                  <label id="zip">Zip Code: {formik.values.zipcode}</label>
-                </div>
-              </div>
-            ) : null} */}
           </div>
           {prevButton}
           {nextButton}
