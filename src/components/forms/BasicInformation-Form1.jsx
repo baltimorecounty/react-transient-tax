@@ -2,6 +2,8 @@ import React from "react";
 import { Formik, Form } from "formik";
 import TransientTaxTabs from "../../components/TransientTaxTabs";
 import Field from "../Field";
+import AddressLookupField from "../AddressLookupField";
+
 import * as Yup from "yup";
 
 const BasicInformationForm1 = props => {
@@ -38,8 +40,36 @@ const BasicInformationForm1 = props => {
               type="text"
               label="Business Name"
             />
+            <AddressLookupField
+              name="businessAddress"
+              label="Address Search:"
+            />
 
-            <Field id="address" name="address" type="text" label="Address" />
+            {/* {formik.values.address !== "" ? (
+              <div>
+                <br></br>
+                <label id="businessaddress">Business Address</label>
+                <div>
+                  <label id="address">Address: {formik.values.address}</label>
+                </div>
+                {formik.values.address2 ? (
+                  <div>
+                    <label id="address2">
+                      Address2: {formik.values.address2}
+                    </label>
+                  </div>
+                ) : null}
+                <div>
+                  <label id="city">City: {formik.values.city}</label>
+                </div>
+                <div>
+                  <label id="state">State: MD</label>
+                </div>
+                <div>
+                  <label id="zip">Zip Code: {formik.values.zipcode}</label>
+                </div>
+              </div>
+            ) : null} */}
           </div>
           {prevButton}
           {nextButton}

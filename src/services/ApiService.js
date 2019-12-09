@@ -45,7 +45,7 @@ const GetTransientTaxReturn = confirmationNumber =>
 const GetAddresses = location =>
   axios
 
-    .get(`${getValue("gisApiRoot")}${location}`)
+    .get(`//localhost:54727/api/gis/addressLookup/${location}`)
     .then(({ status, data }) => (status === 200 ? data : []));
 
 const SaveExemption = exemption => {
