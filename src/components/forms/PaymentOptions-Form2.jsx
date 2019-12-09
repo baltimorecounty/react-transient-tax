@@ -32,7 +32,7 @@ const PaymentOptionsForm2 = props => {
           history.push(ErrorPath(error), { ...error });
         });
     }
-  }, [filingTypes, props]);
+  }, [filingTypes, history]);
 
   const handleOnChange = onClick => {
     setPaymentInterval(onClick.currentTarget.value);

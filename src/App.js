@@ -6,7 +6,6 @@ import "./App.scss";
 import MultiPageForm from "./components/forms/MultiPageForm";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import ErrorPage from "./pages/ErrorPage";
-import FormPage from "./pages/FormPage";
 import TransientTaxStepList from "./steps/TransientTaxStepList";
 const { setConfig } = Config;
 
