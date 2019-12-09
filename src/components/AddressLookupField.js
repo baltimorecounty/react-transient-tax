@@ -11,7 +11,7 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const { name, value } = field;
-  const { className, label } = props;
+  const { label } = props;
   const { setFieldValue, touched, errors } = form;
   const [Address, setItems] = useState([]);
 
