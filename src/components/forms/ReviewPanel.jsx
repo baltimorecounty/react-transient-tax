@@ -1,14 +1,12 @@
-import { Form, Formik } from "formik";
 import React from "react";
 import { SaveReturn } from "../../services/ApiService";
 import { Labels } from "../../common/Constants";
 import TransientTaxTabs from "../TransientTaxTabs";
 
-const ReviewForm6 = props => {
+const ReviewPanel = props => {
   const {
     submitButton,
     prevButton,
-    onValidSubmission,
     tabs,
     isActiveStep,
     history,
@@ -34,4 +32,4 @@ const ReviewForm6 = props => {
   );
 };
 
-export default ReviewForm6;
+export default ReviewPanel;
