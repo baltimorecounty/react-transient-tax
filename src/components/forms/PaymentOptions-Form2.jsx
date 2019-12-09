@@ -16,7 +16,8 @@ const PaymentOptionsForm2 = props => {
     tabs,
     isActiveStep,
     monthsToReport,
-    label
+    label,
+    history
   } = props;
   const [filingTypes, setFilingTypes] = useState([]);
   const [paymentInterval, setPaymentInterval] = useState();
@@ -28,7 +29,7 @@ const PaymentOptionsForm2 = props => {
           setFilingTypes(filingTypes);
         })
         .catch(error => {
-          props.history.push(ErrorPath(error), { ...error });
+          history.push(ErrorPath(error), { ...error });
         });
     }
   }, [filingTypes, props]);
