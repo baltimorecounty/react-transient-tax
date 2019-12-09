@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import ConfirmationTable from "../components/ConfirmationTable";
 import { GetTransientTaxReturn } from "../services/ApiService";
 import { ErrorPath } from "../common/ErrorUtility";
-import { CountyAddress } from "../common/Constants";
-const { Agency, Department,Street,City } = CountyAddress;
+import { BudgetAndFinanceOfficeAddress } from "../common/Constants";
+const { Agency, Department, Street, City } = BudgetAndFinanceOfficeAddress;
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
   const [response, setResponse] = useState({});
@@ -77,7 +77,6 @@ const ConfirmationForm = props => {
           <p>{Street}</p>
           <p>{City}</p>
         </div>
-       
       )}
     </div>
   );

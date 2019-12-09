@@ -14,7 +14,7 @@ const PaymentDirections = {
   PaymentNote:
     "Note: Must select the interval in which you have selected previously unless it's a new year."
 };
-const CountyAddress = {
+const BudgetAndFinanceOfficeAddress = {
   Agency: "BALTIMORE COUNTY MARYLAND",
   Department: "Office of Budget and Finance",
   Street: "400 Washington Avenue, Room 150",
@@ -72,5 +72,5 @@ export {
   Messages,
   PaymentDirections,
   RatesAndFees,
-  CountyAddress
+  BudgetAndFinanceOfficeAddress
 };
