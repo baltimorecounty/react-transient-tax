@@ -15,7 +15,7 @@ const CustomInputComponent = ({
   const { setFieldValue, touched, errors } = form;
   const [Address, setItems] = useState([]);
 
-  const handleChange = changeEvent => {
+  const handleAddressChange = changeEvent => {
     const { value } = changeEvent.target;
     GetAddresses(value).then(response => {
       setItems(response);
@@ -23,7 +23,7 @@ const CustomInputComponent = ({
     setFieldValue("businessAddress", value);
   };
 
-  const handleSelect = val => {
+  const handleAddressSelect = val => {
     setFieldValue("businessAddress", val);
   };
 
@@ -88,8 +88,8 @@ const CustomInputComponent = ({
           />
         )}
         value={value}
-        onChange={handleChange}
-        onSelect={handleSelect}
+        onChange={handleAddressChange}
+        onSelect={handleAddressSelect}
         wrapperStyle={{}}
       >
         {props.children}
