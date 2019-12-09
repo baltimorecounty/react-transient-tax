@@ -18,9 +18,9 @@ import {
 const GetDataForMonth = (taxReturn, monthIndex) => {
   const {
     monthsToReport,
-    grossOccupancy,
-    governmentOnBusiness,
-    roomRentalCollectionFromNonTransients
+    grossRentalCollected,
+    governmentExemptRentalCollected,
+    nonTransientRentalCollected
   } = taxReturn;
   const returnDate = monthsToReport[monthIndex];
 
@@ -28,10 +28,10 @@ const GetDataForMonth = (taxReturn, monthIndex) => {
     /** month is 0 based so 11 = December but server is not 0 based */
     month: returnDate.getMonth() + 1,
     year: returnDate.getFullYear(),
-    grossRentalCollected: grossOccupancy[monthIndex] || 0,
-    nonTransientRentalCollected:
-      roomRentalCollectionFromNonTransients[monthIndex] || 0,
-    governmentExemptRentalCollected: governmentOnBusiness[monthIndex] || 0
+    grossRentalCollected: grossRentalCollected[monthIndex] || 0,
+    nonTransientRentalCollected: nonTransientRentalCollected[monthIndex] || 0,
+    governmentExemptRentalCollected:
+      governmentExemptRentalCollected[monthIndex] || 0
   };
 };
 
@@ -182,14 +182,10 @@ const MapExemptionsToServerModel = exemptions =>
  * @param {object} taxReturn transient tax form data
  */
 const MapTaxReturnToServerModel = taxReturn => {
-  const { monthsToReport, exemptions, paymentInterval = 0 } = taxReturn;
-  const monthlyData = Object.keys(monthsToReport).map(monthKey =>
-    GetDataForMonth(taxReturn, monthKey)
-  );
+  const { exemptions, paymentInterval = 0 } = taxReturn;
   const mappedExemptions = MapExemptionsToServerModel(exemptions);
   return {
     ...taxReturn,
-    monthlyData,
     ...{ exemptions: mappedExemptions },
     ...{ returnType: parseInt(paymentInterval) }
   };

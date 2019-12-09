@@ -32,8 +32,8 @@ const onPaymentFormSubmission = (
   }
 
   const hasAtLeast1Exemption = monthlyData.some(
-    ({ roomRentalCollectionFromNonTransients, governmentOnBusiness }) =>
-      !!governmentOnBusiness || !!roomRentalCollectionFromNonTransients
+    ({ nonTransientRentalCollected, governmentExemptRentalCollected }) =>
+      !!governmentExemptRentalCollected || !!nonTransientRentalCollected
   );
 
   const exemptionStepId = "exemption-certificate";

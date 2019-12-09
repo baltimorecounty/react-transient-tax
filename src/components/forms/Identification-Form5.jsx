@@ -19,12 +19,12 @@ const IdentificationForm5 = props => {
     formik
   } = props;
   const {
-    roomRentalCollectionFromNonTransients,
-    governmentOnBusiness
+    nonTransientRentalCollected,
+    governmentExemptRentalCollected
   } = formik.values;
   const showTradeAlias = HasAtLeast1Exemption([
-    roomRentalCollectionFromNonTransients,
-    governmentOnBusiness
+    nonTransientRentalCollected,
+    governmentExemptRentalCollected
   ]);
 
   return (
