@@ -8,18 +8,26 @@ import { Config } from "@baltimorecounty/javascript-utilities";
 import ErrorPage from "./pages/ErrorPage";
 const { setConfig } = Config;
 
+const localApiRoot = "//localhost:54727/api/";
+const testApiRoot = "http://testservices.baltimorecountymd.gov/api/";
+const prodApiRoot = "http://services.baltimorecountymd.gov/api/";
+
 const configValues = {
   local: {
-    apiRoot: "//localhost:54727/api/transientTax"
+    apiRoot: localApiRoot + "transientTax",
+    gisApiRoot: testApiRoot + "gis/addressLookup/"
   },
   development: {
-    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+    apiRoot: testApiRoot + "transientTax",
+    gisApiRoot: testApiRoot + "gis/addressLookup/"
   },
   staging: {
-    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+    apiRoot: testApiRoot + "transientTax",
+    gisApiRoot: testApiRoot + "gis/addressLookup/"
   },
   production: {
-    apiRoot: "http://services.baltimorecountymd.gov/api/transientTax"
+    apiRoot: prodApiRoot + "transientTax",
+    gisApiRoot: prodApiRoot + "gis/addressLookup/"
   }
 };
 

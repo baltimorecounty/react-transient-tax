@@ -39,6 +39,15 @@ const GetTransientTaxReturn = confirmationNumber =>
       status === 200 ? MapResponseDataForTaxReturn(data) : []
     );
 
+/**
+ * Get Address Data from GIS
+ */
+const GetAddresses = location =>
+  axios
+
+    .get(`${getValue("gisApiRoot")}${location}`)
+    .then(({ status, data }) => (status === 200 ? data : []));
+
 const SaveExemption = exemption => {
   const { id } = exemption;
   exemptionId =
@@ -62,6 +71,7 @@ const SaveReturn = taxReturn =>
 export {
   GetExemptionTypes,
   GetTransientTaxReturn,
+  GetAddresses,
   GetFilingTypes,
   SaveExemption,
   SaveReturn
