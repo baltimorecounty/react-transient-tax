@@ -5,7 +5,7 @@ import ExemptionCertificateForm4 from "../components/forms/ExemptionCertificate-
 import IdentificationForm5 from "../components/forms/Identification-Form5";
 import MonthlyPaymentForm3 from "../components/forms/MonthlyPayment-Form3";
 import PaymentOptionsForm2 from "../components/forms/PaymentOptions-Form2";
-import ReviewForm6 from "../components/forms/ReviewPanel";
+import ReviewForm6 from "../components/forms/ReviewFormPanel";
 import Step from "./Step";
 import StepList from "./StepList";
 
