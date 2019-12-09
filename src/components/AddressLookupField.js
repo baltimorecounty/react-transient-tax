@@ -53,7 +53,7 @@ const CustomInputComponent = ({
   return (
     <div>
       <div className="tt_form-field__label">
-        <label for={name} id="addressSearch" className={displayErrors()}>
+        <label htmlFor={name} id="addressSearch" className={displayErrors()}>
           {label}
         </label>
       </div>
