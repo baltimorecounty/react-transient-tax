@@ -11,31 +11,6 @@ import {
 } from "../common/Calculations";
 
 /**
- * Maps Transient Tax Form Data to the Server Model
- * @param {object} taxReturn tax return form data model
- * @param {number} monthIndex index of month of the data to return
- */
-const GetDataForMonth = (taxReturn, monthIndex) => {
-  const {
-    monthsToReport,
-    grossRentalCollected,
-    governmentExemptRentalCollected,
-    nonTransientRentalCollected
-  } = taxReturn;
-  const returnDate = monthsToReport[monthIndex];
-
-  return {
-    /** month is 0 based so 11 = December but server is not 0 based */
-    month: returnDate.getMonth() + 1,
-    year: returnDate.getFullYear(),
-    grossRentalCollected: grossRentalCollected[monthIndex] || 0,
-    nonTransientRentalCollected: nonTransientRentalCollected[monthIndex] || 0,
-    governmentExemptRentalCollected:
-      governmentExemptRentalCollected[monthIndex] || 0
-  };
-};
-
-/**
  * Maps Transient Tax Form Data to the confirmation page
  * @param {object} taxReturn tax return form data model
  */
@@ -191,8 +166,4 @@ const MapTaxReturnToServerModel = taxReturn => {
   };
 };
 
-export {
-  GetDataForMonth,
-  MapResponseDataForTaxReturn,
-  MapTaxReturnToServerModel
-};
+export { MapResponseDataForTaxReturn, MapTaxReturnToServerModel };
