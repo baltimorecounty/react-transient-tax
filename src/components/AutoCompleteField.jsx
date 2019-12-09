@@ -9,17 +9,18 @@ const AutoCompleteField = props => {
     handleAddressSelect,
     value
   } = props;
-  console.log(formik);
+
   const handleChange = changeEvent => {
     const { value } = changeEvent.target;
     formik.setFieldValue("location", value);
     handleAddressChange(changeEvent);
   };
+
   const handleSelect = val => {
     formik.setFieldValue("location", val);
     handleAddressSelect(val);
   };
-  console.log("insde autocompleteField");
+
   return (
     <Autocomplete
       name="location"
@@ -49,9 +50,6 @@ const AutoCompleteField = props => {
       value={value}
       onChange={handleChange}
       onSelect={handleSelect}
-      // className={`text-input ${
-      //   formik.errors.location && formik.touched.location ? "error" : ""
-      // }`}
       wrapperStyle={{}}
     >
       {props.children}

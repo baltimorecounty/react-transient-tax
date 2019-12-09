@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Field from "../Field";
 import AutoCompleteField from "../AutoCompleteField";
 import { GetAddresses } from "../../services/ApiService";
-import { ErrorPath } from "../../common/ErrorUtility";
 import _ from "lodash";
 
 const BasicInformationSection = ({ name, formik = {}, props }) => {
