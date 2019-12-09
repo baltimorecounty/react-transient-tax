@@ -1,12 +1,40 @@
+import { Config } from "@baltimorecounty/javascript-utilities";
 import React from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import ReactDOM from "react-dom";
+import "./App.scss";
+import MultiPageForm from "./components/forms/MultiPageForm";
 import "./index.scss";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import TransientTaxStepList from "./steps/TransientTaxStepList";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const { setConfig } = Config;
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+const configValues = {
+  local: {
+    apiRoot: "//localhost:54727/api/transientTax"
+  },
+  development: {
+    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+  },
+  staging: {
+    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+  },
+  production: {
+    apiRoot: "http://services.baltimorecountymd.gov/api/transientTax"
+  }
+};
+
+setConfig(configValues);
+
+function App() {
+  return (
+    <div className="App">
+      <MultiPageForm stepList={TransientTaxStepList} />
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
 serviceWorker.unregister();
