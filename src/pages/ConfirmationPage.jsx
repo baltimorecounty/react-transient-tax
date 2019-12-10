@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ReturnSummary from "../components/ReturnSummary";
-import { GetTransientTaxReturn } from "../services/ApiService";
+import { BudgetAndFinanceOfficeAddress } from "../common/Constants";
 import { ErrorPath } from "../common/ErrorUtility";
+import Address from "../components/Address";
+import { GetTransientTaxReturn } from "../services/ApiService";
 
+const {
+  Organization,
+  Department,
+  City,
+  Street
+} = BudgetAndFinanceOfficeAddress;
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
   const [response, setResponse] = useState({});
@@ -70,6 +78,12 @@ const ConfirmationForm = props => {
             dateSubmitted={DateSubmitted}
             dueDate={formattedDueDate}
             returnType={ReturnTypeDescription}
+          />
+          <Address
+            line1={Organization}
+            line2={Department}
+            street={Street}
+            city={City}
           />
         </div>
       )}
