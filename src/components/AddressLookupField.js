@@ -50,7 +50,7 @@ const CustomInputComponent = ({
       : classes;
   };
   const items = Address.map((item, index) => ({
-    id: item.Latitude + item.Longitude,
+    id: item.AddressId,
     label: `${UpperCaseFirstLetter(item.StreetAddress)}${UpperCaseFirstLetter(
       item.City
     )}${item.Zip}`,
