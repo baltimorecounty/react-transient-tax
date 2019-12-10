@@ -39,8 +39,8 @@ const ConfirmationForm = props => {
     { id: 4, key: "Net Room Rental Collections", value: monthlyNetRoomRental },
     { id: 5, key: "Tax Collected", value: monthlyTaxCollected },
     { id: 6, key: "Interest", value: monthlyInterest },
-    { id: 7, key: "Penalties", value: monthlyPenalty },
-    { id: 8, key: "Monthly Tax Remitted", value: monthlyRemittedTax }
+    { id: 7, key: "Penalties", value: monthlyPenalty }
+    // { id: 8, key: "Monthly Tax Remitted", value: monthlyRemittedTax }
   ];
 
   return (
