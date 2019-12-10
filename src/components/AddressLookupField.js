@@ -34,17 +34,19 @@ const CustomInputComponent = ({
     setFieldValue("businessAddressParts", item);
   };
 
-  const UpperCaseFirstLetter = value => {
-    var addressPieces = value.split(" ");
-    let newAddress = "";
-    for (var i = 0; i < addressPieces.length; i++) {
-      newAddress +=
-        addressPieces[i].charAt(0).toUpperCase() +
-        addressPieces[i].slice(1) +
-        " ";
-    }
-    return newAddress;
-  };
+  /**
+   * Convert the first letter in a list of words separated by a give separator
+   * @param {string} value string that contains spaces, Ex. washington ave
+   * @param {string} separator string value for separator, Ex " ", ","
+   */
+  const UpperCaseFirstLetter = (value, separator = " ") =>
+    value
+      .split(separator)
+      .map(
+        addressPieces =>
+          addressPieces.charAt(0).toUpperCase() + addressPieces.slice(1)
+      )
+      .join(" ");
 
   const toggleErrorClasses = classes =>
     touched[field.name] && errors[field.name]
@@ -53,9 +55,9 @@ const CustomInputComponent = ({
 
   const items = Address.map((item, index) => ({
     id: item.AddressId,
-    label: `${UpperCaseFirstLetter(item.StreetAddress)}${UpperCaseFirstLetter(
+    label: `${UpperCaseFirstLetter(item.StreetAddress)} ${UpperCaseFirstLetter(
       item.City
-    )}${item.Zip}`,
+    )} ${item.Zip}`,
     street: item.StreetAddress,
     city: item.City,
     zip: item.Zip
