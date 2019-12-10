@@ -29,11 +29,9 @@ const CustomInputComponent = ({
     setFieldValue("businessAddress", value);
   };
 
-  const handleAddressSelect = selectEvent => {
-    const { value } = selectEvent;
-
-    //setFieldValue("businessAddress", val);
-    //setFieldValue("businessAddressParts", val.split(" "));
+  const handleAddressSelect = (value, item) => {
+    setFieldValue("businessAddress", value);
+    setFieldValue("businessAddressParts", item);
   };
 
   const UpperCaseFirstLetter = value => {
@@ -62,8 +60,6 @@ const CustomInputComponent = ({
     city: item.City,
     zip: item.Zip
   }));
-
-  console.log(items);
 
   return (
     <div className="tt_form-field">
