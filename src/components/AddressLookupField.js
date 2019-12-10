@@ -3,6 +3,7 @@ import Autocomplete from "react-autocomplete";
 import PropTypes from "prop-types";
 import { Field, connect } from "formik";
 import { GetAddresses } from "../services/ApiService";
+import ErrorMessage from "./ErrorMessage";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -28,8 +29,11 @@ const CustomInputComponent = ({
     setFieldValue("businessAddress", value);
   };
 
-  const handleAddressSelect = val => {
-    setFieldValue("businessAddress", val);
+  const handleAddressSelect = selectEvent => {
+    const { value } = selectEvent;
+
+    //setFieldValue("businessAddress", val);
+    //setFieldValue("businessAddressParts", val.split(" "));
   };
 
   const UpperCaseFirstLetter = value => {
@@ -44,11 +48,11 @@ const CustomInputComponent = ({
     return newAddress;
   };
 
-  const toggleErrorClasses = classes => {
-    return touched[field.name] && errors[field.name]
+  const toggleErrorClasses = classes =>
+    touched[field.name] && errors[field.name]
       ? "tt_form-field tt_has-errors"
       : classes;
-  };
+
   const items = Address.map((item, index) => ({
     id: item.AddressId,
     label: `${UpperCaseFirstLetter(item.StreetAddress)}${UpperCaseFirstLetter(
@@ -59,8 +63,10 @@ const CustomInputComponent = ({
     zip: item.Zip
   }));
 
+  console.log(items);
+
   return (
-    <div>
+    <div className="tt_form-field">
       <div className="tt_form-field__label">
         <label
           htmlFor={name}
@@ -109,7 +115,7 @@ const CustomInputComponent = ({
       </Autocomplete>
 
       {touched[field.name] && errors[field.name] && (
-        <div className="error">{errors[field.name]}</div>
+        <ErrorMessage name="businessAddress" component="div" />
       )}
     </div>
   );
