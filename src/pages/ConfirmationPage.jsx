@@ -65,11 +65,11 @@ const ConfirmationForm = props => {
             Occupancy Tax Return.
           </p>
           <ReturnSummary
-            TaxDetailsHeader={"Transient Occupancy Tax Return Details:"}
-            ConfirmationTableValues={ConfirmationTableValues}
-            DateSubmitted={DateSubmitted}
-            DueDate={formattedDueDate}
-            ReturnType={ReturnTypeDescription}
+            header={"Transient Occupancy Tax Return Details:"}
+            values={ConfirmationTableValues}
+            dateSubmitted={DateSubmitted}
+            dueDate={formattedDueDate}
+            returnType={ReturnTypeDescription}
           />
         </div>
       )}
