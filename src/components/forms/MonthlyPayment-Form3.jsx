@@ -27,9 +27,9 @@ const MonthlyPaymentForm3 = props => {
   return (
     <Formik
       initialValues={{
-        grossOccupancy: 0,
-        governmentOnBusiness: 0,
-        roomRentalCollectionFromNonTransients: 0
+        grossRentalCollected: 0,
+        governmentExemptRentalCollected: 0,
+        nonTransientRentalCollected: 0
       }}
       onSubmit={values => {
         const { monthlyData: existingMonthlyData = [] } = formik.values;
@@ -46,7 +46,7 @@ const MonthlyPaymentForm3 = props => {
         onValidSubmission({ monthlyData });
       }}
       validationSchema={Yup.object({
-        grossOccupancy: Yup.number()
+        grossRentalCollected: Yup.number()
           .min(0.01, "Specify an amount for gross occupancy.")
           .required("Required")
       })}
@@ -54,9 +54,9 @@ const MonthlyPaymentForm3 = props => {
       {props => {
         const { values } = props;
         const {
-          grossOccupancy,
-          roomRentalCollectionFromNonTransients,
-          governmentOnBusiness
+          grossRentalCollected,
+          nonTransientRentalCollected,
+          governmentExemptRentalCollected
         } = values;
 
         const {
@@ -69,9 +69,9 @@ const MonthlyPaymentForm3 = props => {
           monthlyTaxRemitted
         } = GetCalculatedTotals(
           {
-            grossOccupancy,
-            roomRentalCollectionFromNonTransients,
-            governmentOnBusiness
+            grossRentalCollected,
+            nonTransientRentalCollected,
+            governmentExemptRentalCollected
           },
           monthsLate
         );
@@ -82,7 +82,7 @@ const MonthlyPaymentForm3 = props => {
             <h2>{label}</h2>
             <div className="tt_form-section">
               <PaymentField
-                name="grossOccupancy"
+                name="grossRentalCollected"
                 label={Labels.GrossOccupancy}
                 date={date}
               />
@@ -91,14 +91,14 @@ const MonthlyPaymentForm3 = props => {
               <h3>{Labels.ExemptionTitle} (if applicable)</h3>
               <PaymentField
                 isNegativeValue={true}
-                name="roomRentalCollectionFromNonTransients"
+                name="nonTransientRentalCollected"
                 label={Labels.ExemptionOption1}
                 date={date}
                 className="tt_subtotal-item"
               />
               <PaymentField
                 isNegativeValue={true}
-                name="governmentOnBusiness"
+                name="governmentExemptRentalCollected"
                 label={Labels.ExemptionOption2}
                 date={date}
                 className="tt_subtotal-item"

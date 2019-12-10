@@ -14,7 +14,7 @@ const ExemptionsSection = ({
     <h3>{Labels.ExemptionTitle} (if applicable)</h3>
     <PaymentField
       isNegativeValue={true}
-      name="roomRentalCollectionFromNonTransients"
+      name="nonTransientRentalCollected"
       label={Labels.ExemptionOption1}
       monthsToReport={monthsToReport}
       buildMonthLabel={buildMonthLabel}
@@ -22,7 +22,7 @@ const ExemptionsSection = ({
     />
     <PaymentField
       isNegativeValue={true}
-      name="governmentOnBusiness"
+      name="governmentExemptRentalCollected"
       label={Labels.ExemptionOption2}
       monthsToReport={monthsToReport}
       buildMonthLabel={buildMonthLabel}

@@ -1,19 +1,25 @@
-import { GetDataForMonth, MapTaxReturnToServerModel } from "./TaxReturnMapper";
+import { MapTaxReturnToServerModel } from "./TaxReturnMapper";
 
 const monthFormData = {
   accountNumber: "123ABC",
   address: "test",
   businessName: "test",
   email: "test@aol.com",
+  monthlyData: [
+    {
+      month: 1,
+      year: 2019,
+      grossRentalCollected: 100,
+      governmentExemptRentalCollected: -50,
+      nonTransientRentalCollected: -75
+    }
+  ],
   exemptions: [],
-  governmentOnBusiness: { 0: -50 },
-  grossOccupancy: { 0: 100 },
   isReturnLate: true,
   monthsLate: 8,
   monthsToReport: { 0: new Date(2019, 0, 1) },
   nameOfSubmitter: "test",
   paymentInterval: "2",
-  roomRentalCollectionFromNonTransients: { 0: -75 },
   titleOfSubmitter: "test"
 };
 
@@ -23,10 +29,31 @@ const quarterlyFormData = {
   businessName: "test",
   email: "test@aol.com",
   exemptions: [],
-  governmentOnBusiness: { 0: -50, 1: -100, 2: -200 },
-  grossOccupancy: { 0: 100, 1: 200, 2: 400 },
   isReturnLate: true,
   monthsLate: 8,
+  monthlyData: [
+    {
+      month: 1,
+      year: 2019,
+      grossRentalCollected: 100,
+      nonTransientRentalCollected: -75,
+      governmentExemptRentalCollected: -50
+    },
+    {
+      month: 2,
+      year: 2019,
+      grossRentalCollected: 200,
+      nonTransientRentalCollected: -150,
+      governmentExemptRentalCollected: -100
+    },
+    {
+      month: 3,
+      year: 2019,
+      grossRentalCollected: 400,
+      nonTransientRentalCollected: -300,
+      governmentExemptRentalCollected: -200
+    }
+  ],
   monthsToReport: {
     0: new Date(2019, 0, 1),
     1: new Date(2019, 1, 1),
@@ -34,7 +61,6 @@ const quarterlyFormData = {
   },
   nameOfSubmitter: "test",
   paymentInterval: "1",
-  roomRentalCollectionFromNonTransients: { 0: -75, 1: -150, 2: -300 },
   titleOfSubmitter: "test"
 };
 
@@ -45,32 +71,6 @@ const exemption = {
   toDate: new Date(2019, 0, 10),
   type: 2
 };
-
-describe("GetDataForMonth", () => {
-  test("should return proper data for the first item monthly return", () => {
-    const actual = GetDataForMonth(monthFormData, 0);
-
-    expect(actual).toEqual({
-      month: 1,
-      year: 2019,
-      grossRentalCollected: 100,
-      nonTransientRentalCollected: -75,
-      governmentExemptRentalCollected: -50
-    });
-  });
-
-  test("should return proper data for the last item quarterly return", () => {
-    const actual = GetDataForMonth(quarterlyFormData, 2);
-
-    expect(actual).toEqual({
-      month: 3,
-      year: 2019,
-      grossRentalCollected: 400,
-      nonTransientRentalCollected: -300,
-      governmentExemptRentalCollected: -200
-    });
-  });
-});
 
 describe("MapTaxReturnToServerModel", () => {
   test("should map form data for a month to the server model without exemptions", () => {
@@ -84,6 +84,7 @@ describe("MapTaxReturnToServerModel", () => {
         exemptions: [],
         nameOfSubmitter: "test",
         titleOfSubmitter: "test",
+        returnType: 2,
         monthlyData: [
           {
             month: 1,

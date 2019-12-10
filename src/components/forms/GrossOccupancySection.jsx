@@ -2,6 +2,7 @@ import React from "react";
 import PaymentField from "../PaymentField";
 import { connect } from "formik";
 
+/** Note field name "grossRentalCollected" */
 const GrossOccupancySection = ({
   label,
   monthsToReport,
@@ -10,7 +11,7 @@ const GrossOccupancySection = ({
 }) => (
   <div className="tt_form-section">
     <PaymentField
-      name="grossOccupancy"
+      name="grossRentalCollected"
       label={label}
       monthsToReport={monthsToReport}
       buildMonthLabel={buildMonthLabel}
