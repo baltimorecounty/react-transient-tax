@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ConfirmationTable from "../components/ConfirmationTable";
+import ReturnSummary from "../components/ReturnSummary";
 import { GetTransientTaxReturn } from "../services/ApiService";
 import { ErrorPath } from "../common/ErrorUtility";
 
@@ -64,7 +64,7 @@ const ConfirmationForm = props => {
             Official when making inquiries in regards to your Transient
             Occupancy Tax Return.
           </p>
-          <ConfirmationTable
+          <ReturnSummary
             TaxDetailsHeader={"Transient Occupancy Tax Return Details:"}
             ConfirmationTableValues={ConfirmationTableValues}
             DateSubmitted={DateSubmitted}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ConfirmationTable = props => {
+const ReturnSummary = props => {
   const {
     TaxDetailsHeader,
     ConfirmationTableValues,
@@ -59,4 +59,4 @@ const ConfirmationTable = props => {
   );
 };
 
-export default ConfirmationTable;
+export default ReturnSummary;
