@@ -11,6 +11,7 @@ const ExemptionCertificateForm4 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
+    activeStep,
     label
   } = props;
 
@@ -28,7 +29,11 @@ const ExemptionCertificateForm4 = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
+          <TransientTaxTabs
+            tabs={tabs}
+            isActiveStep={isActiveStep}
+            activeStep={activeStep}
+          />
           <h2>{label}</h2>
           <div className="form-1">
             <ExemptionCertificateField />

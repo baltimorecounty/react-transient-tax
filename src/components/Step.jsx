@@ -16,6 +16,7 @@ const Step = props => {
     formik,
     tabs,
     isActiveStep,
+    activeStep,
     onFormSubmission = () => {},
     stepList,
     data,
@@ -67,6 +68,7 @@ const Step = props => {
         tabs,
         formik,
         isActiveStep,
+        activeStep,
         label,
         data,
         history
@@ -74,7 +76,7 @@ const Step = props => {
     }
   };
 
-  return <div {...rest}>{componentWithProps}</div>;
+  return <fieldset {...rest}>{componentWithProps}</fieldset>;
 };
 
 export default connect(Step);
