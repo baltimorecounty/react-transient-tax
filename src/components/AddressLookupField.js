@@ -3,7 +3,6 @@ import Autocomplete from "react-autocomplete";
 import PropTypes from "prop-types";
 import { Field, connect } from "formik";
 import { GetAddresses } from "../services/ApiService";
-import _ from "lodash";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -17,9 +16,15 @@ const CustomInputComponent = ({
 
   const handleAddressChange = changeEvent => {
     const { value } = changeEvent.target;
-    GetAddresses(value).then(response => {
-      setItems(response);
-    });
+    if (value) {
+      GetAddresses(value)
+        .then(response => {
+          setItems(response);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
     setFieldValue("businessAddress", value);
   };
 
@@ -27,14 +32,16 @@ const CustomInputComponent = ({
     setFieldValue("businessAddress", val);
   };
 
-  const UpperCaseFirstLetter = (address, city, zip) => {
-    return (
-      _.startCase(_.camelCase(address)) +
-      `, ` +
-      _.startCase(_.camelCase(city)) +
-      `, ` +
-      _.startCase(_.camelCase(zip))
-    );
+  const UpperCaseFirstLetter = value => {
+    var addressPieces = value.split(" ");
+    let newAddress = "";
+    for (var i = 0; i < addressPieces.length; i++) {
+      newAddress +=
+        addressPieces[i].charAt(0).toUpperCase() +
+        addressPieces[i].slice(1) +
+        " ";
+    }
+    return newAddress;
   };
 
   const toggleErrorClasses = classes => {
@@ -44,7 +51,9 @@ const CustomInputComponent = ({
   };
   const items = Address.map((item, index) => ({
     id: item.Latitude + item.Longitude,
-    label: UpperCaseFirstLetter(item.StreetAddress, item.City, item.Zip),
+    label: `${UpperCaseFirstLetter(item.StreetAddress)}${UpperCaseFirstLetter(
+      item.City
+    )}${item.Zip}`,
     street: item.StreetAddress,
     city: item.City,
     zip: item.Zip
