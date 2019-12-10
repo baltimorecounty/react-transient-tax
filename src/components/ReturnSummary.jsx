@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ReturnSummary = props => {
-  const { header, values, dueDate, returnType, dateSubmitted } = props;
+  const { header, values = [], dueDate, returnType, dateSubmitted } = props;
 
   return (
     <div>
@@ -10,9 +10,11 @@ const ReturnSummary = props => {
       <p>
         <strong>Your Payment Plan</strong>: {returnType}
       </p>
-      <p>
-        <strong>Date Submitted</strong>: {dateSubmitted}
-      </p>
+      {dateSubmitted && (
+        <p>
+          <strong>Date Submitted</strong>: {dateSubmitted}
+        </p>
+      )}
       <p>
         <strong>Due Date</strong>: {dueDate}
       </p>
@@ -25,27 +27,28 @@ const ReturnSummary = props => {
                   <strong>{item.key}</strong>
                 </p>
               </td>
-              {item.value.map((result, resultIndex) => {
-                const isFirstRow = itemIndex === 0;
-                const isLastCell =
-                  itemIndex === values.length - 1 &&
-                  resultIndex === item.value.length - 1;
-                return (
-                  <td
-                    key={`table-total-${item.id}-${resultIndex}`}
-                    colSpan="1"
-                    rowSpan="1"
-                  >
-                    {isFirstRow || isLastCell ? (
-                      <p>
-                        <strong>{result}</strong>
-                      </p>
-                    ) : (
-                      <p>{result}</p>
-                    )}
-                  </td>
-                );
-              })}
+              {console.log(item) ||
+                item.value.map((result, resultIndex) => {
+                  const isFirstRow = itemIndex === 0;
+                  const isLastCell =
+                    itemIndex === values.length - 1 &&
+                    resultIndex === item.value.length - 1;
+                  return (
+                    <td
+                      key={`table-total-${item.id}-${resultIndex}`}
+                      colSpan="1"
+                      rowSpan="1"
+                    >
+                      {isFirstRow || isLastCell ? (
+                        <p>
+                          <strong>{result}</strong>
+                        </p>
+                      ) : (
+                        <p>{result}</p>
+                      )}
+                    </td>
+                  );
+                })}
             </tr>
           ))}
         </tbody>

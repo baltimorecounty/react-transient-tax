@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
-import { addMonths } from "date-fns";
+import { addMonths, parse } from "date-fns";
 import {
   GetDueDateStatus,
   GetFormattedDueDate,
@@ -97,9 +97,10 @@ const ReturnInterval = props => {
 
   useEffect(() => {
     const { isLate, value } = status;
+    setFieldValue("dueDate", parse(dueDate));
     setFieldValue("monthsLate", isLate ? value : 0);
     setFieldValue("isReturnLate", isLate);
-  }, [status, setFieldValue]);
+  }, [status, dueDate, setFieldValue]);
 
   if (!paymentInterval) {
     return <p>Please select your payment interval before proceeding.</p>;
