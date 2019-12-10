@@ -37,7 +37,7 @@ const CustomInputComponent = ({
     );
   };
 
-  const displayErrors = classes => {
+  const toggleErrorClasses = classes => {
     return touched[field.name] && errors[field.name]
       ? "tt_form-field tt_has-errors"
       : classes;
@@ -53,7 +53,11 @@ const CustomInputComponent = ({
   return (
     <div>
       <div className="tt_form-field__label">
-        <label htmlFor={name} id="addressSearch" className={displayErrors()}>
+        <label
+          htmlFor={name}
+          id="addressSearch"
+          className={toggleErrorClasses()}
+        >
           {label}
         </label>
       </div>
@@ -66,7 +70,7 @@ const CustomInputComponent = ({
         renderInput={props => (
           <input
             type="text"
-            className={displayErrors("tt_form-field input")}
+            className={toggleErrorClasses("tt_form-field input")}
             {...props}
           />
         )}

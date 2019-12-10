@@ -9,26 +9,26 @@ import ErrorPage from "./pages/ErrorPage";
 import TransientTaxStepList from "./steps/TransientTaxStepList";
 const { setConfig } = Config;
 
-const localApiRoot = "//localhost:54727/api/";
-const testApiRoot = "http://testservices.baltimorecountymd.gov/api/";
-const prodApiRoot = "https://services.baltimorecountymd.gov/api/";
+const localApiRoot = "//localhost:54727/api";
+const testApiRoot = "http://testservices.baltimorecountymd.gov/api";
+const prodApiRoot = "https://services.baltimorecountymd.gov/api";
 
 const configValues = {
   local: {
-    apiRoot: `${localApiRoot}transientTax`,
-    gisApiRoot: `${localApiRoot}gis/addressLookup`
+    apiRoot: `${localApiRoot}/transientTax`,
+    gisApiRoot: `${localApiRoot}`
   },
   development: {
-    apiRoot: `${testApiRoot}transientTax`,
-    gisApiRoot: `${testApiRoot}gis/addressLookup`
+    apiRoot: `${testApiRoot}/transientTax`,
+    gisApiRoot: `${testApiRoot}`
   },
   staging: {
-    apiRoot: `${testApiRoot}transientTax`,
-    gisApiRoot: `${testApiRoot}gis/addressLookup`
+    apiRoot: `${testApiRoot}/transientTax`,
+    gisApiRoot: `${testApiRoot}`
   },
   production: {
-    apiRoot: `${prodApiRoot}transientTax`,
-    gisApiRoot: `${prodApiRoot}gis/addressLookup`
+    apiRoot: `${prodApiRoot}/transientTax`,
+    gisApiRoot: `${prodApiRoot}`
   }
 };
 
