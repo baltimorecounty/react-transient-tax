@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const ReturnSummary = props => {
   const { header, values, dueDate, returnType, dateSubmitted } = props;
@@ -51,6 +52,19 @@ const ReturnSummary = props => {
       </table>
     </div>
   );
+};
+
+ReturnSummary.propTypes = {
+  /** Headline for the summary */
+  header: PropTypes.string,
+  /**  A list of key / value pairs with summaries data by month */
+  values: PropTypes.array,
+  /** Due date of the return */
+  dueDate: PropTypes.string,
+  /** String return type for the return (Monthly or Quarterly) */
+  returnType: PropTypes.string,
+  /** Date of return submission */
+  dateSubmitted: PropTypes.string
 };
 
 export default ReturnSummary;
