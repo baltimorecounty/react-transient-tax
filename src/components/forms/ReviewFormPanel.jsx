@@ -3,7 +3,6 @@ import { Labels } from "../../common/Constants";
 import { SaveReturn } from "../../services/ApiService";
 import ReturnSummary from "../ReturnSummary";
 import TransientTaxTabs from "../TransientTaxTabs";
-import { MapResponseDataForTaxReturn } from "../../data/TaxReturnMapper";
 
 const ReviewPanel = props => {
   const {

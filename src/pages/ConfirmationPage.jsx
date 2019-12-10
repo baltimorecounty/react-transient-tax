@@ -27,7 +27,6 @@ const ConfirmationForm = props => {
     interestCollected,
     taxRemitted,
     monthsSubmitted,
-    dueDate,
     formattedDueDate
   } = response;
 

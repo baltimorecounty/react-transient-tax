@@ -1,15 +1,14 @@
+import { format } from "date-fns";
 import {
-  GetFormattedDueDate,
-  GetFormatedDateTime,
-  GetDueDateStatus
-} from "../common/DatesUtilities";
-import { FormatCurrency } from "../common/FormatUtilities";
-import {
-  CalculatePenalty,
   CalculateInterest,
+  CalculatePenalty,
   CalculateTaxCollected
 } from "../common/Calculations";
-import { format } from "date-fns";
+import {
+  GetDueDateStatus,
+  GetFormatedDateTime,
+  GetFormattedDueDate
+} from "../common/DatesUtilities";
 
 const dateFormat = "MMMM yyyy";
 
@@ -82,6 +81,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
   }
 
   const occupancyTaxCollected = getValue(MonthlyData, ["GrossRentalCollected"]);
+
   const exemptions = getValue(MonthlyData, [
     "GovernmentExemptRentalCollected",
     "NonTransientRentalCollected"
@@ -93,11 +93,13 @@ const MapResponseDataForTaxReturn = taxReturn => {
   ]);
 
   const taxCollected = netRoomRentals.map(CalculateTaxCollected);
+
   const interestCollected = taxCollected.map(tax =>
     isLate ? CalculateInterest(tax, monthsLate) : 0
   );
-  const penaltiesCollected = taxCollected.map(
-    isLate ? CalculatePenalty : () => 0
+
+  const penaltiesCollected = taxCollected.map(tax =>
+    isLate ? CalculatePenalty(tax) : 0
   );
 
   const taxRemitted = getValuesFromTotals([
