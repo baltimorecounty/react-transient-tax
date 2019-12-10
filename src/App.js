@@ -7,7 +7,6 @@ import MultiPageForm from "./components/forms/MultiPageForm";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import ErrorPage from "./pages/ErrorPage";
 import TransientTaxStepList from "./steps/TransientTaxStepList";
-
 const { setConfig } = Config;
 
 const localApiRoot = "//localhost:54727/api/";
@@ -45,13 +44,11 @@ const App = () => (
           <MultiPageForm {...props} stepList={TransientTaxStepList} />
         )}
       />
-
       <Route
         exact
         path="/confirmation/:confirmationNumber"
         component={ConfirmationPage}
       />
-
       <Route exact path="/error/:errorType" component={ErrorPage} />
     </Router>
   </div>

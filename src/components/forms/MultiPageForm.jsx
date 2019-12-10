@@ -3,7 +3,7 @@ import Step from "../Step";
 import { Formik } from "formik";
 
 const MultiPageForm = props => {
-  const { stepList } = props;
+  const { history, stepList } = props;
   const { steps } = stepList;
   const [activeStep, setActiveStep] = useState(1);
 
@@ -44,6 +44,7 @@ const MultiPageForm = props => {
                   prevStep={prevStep}
                   tabs={tabs}
                   isActiveStep={isActiveStep}
+                  history={history}
                   style={{ display: isActiveStep ? "block" : "none" }}
                 />
               );
