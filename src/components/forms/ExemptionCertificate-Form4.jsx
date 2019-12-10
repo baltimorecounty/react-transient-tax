@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import TransientTaxTabs from "../TransientTaxTabs";
-import ExemptionCertificateField from "./ExemptionCertificateField";
+import ExemptionCertificateField from "../ExemptionCertificateField";
 
 const ExemptionCertificateForm4 = props => {
   const {
