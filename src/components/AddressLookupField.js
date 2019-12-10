@@ -67,7 +67,7 @@ const CustomInputComponent = ({
         <label
           htmlFor={name}
           id="addressSearch"
-          className={toggleErrorClasses()}
+          className={toggleErrorClasses("")}
         >
           {label}
         </label>
