@@ -4,6 +4,7 @@ import { BudgetAndFinanceOfficeAddress } from "../common/Constants";
 import { ErrorPath } from "../common/ErrorUtility";
 import Address from "../components/Address";
 import { GetTransientTaxReturn } from "../services/ApiService";
+import { FormatCurrency } from "../common/FormatUtilities";
 
 const {
   Organization,
@@ -18,14 +19,15 @@ const ConfirmationForm = props => {
   const {
     ReturnTypeDescription,
     DateSubmitted,
-    monthlyOccupancy,
-    monthlyExemption,
-    monthlyPenalty,
-    monthlyRemittedTax,
-    monthSubmitted,
-    monthlyTaxCollected,
-    monthlyInterest,
-    monthlyNetRoomRental,
+    occupancyTaxCollected,
+    exemptions,
+    netRoomRentals,
+    taxCollected,
+    penaltiesCollected,
+    interestCollected,
+    taxRemitted,
+    monthsSubmitted,
+    dueDate,
     formattedDueDate
   } = response;
 
@@ -41,14 +43,44 @@ const ConfirmationForm = props => {
   }, [confirmationNumber, props.history]);
 
   const ConfirmationTableValues = [
-    { id: 1, key: "Month of Return", value: monthSubmitted },
-    { id: 2, key: "Occupancy Tax Collected", value: monthlyOccupancy },
-    { id: 3, key: "Exemptions", value: monthlyExemption },
-    { id: 4, key: "Net Room Rental Collections", value: monthlyNetRoomRental },
-    { id: 5, key: "Tax Collected", value: monthlyTaxCollected },
-    { id: 6, key: "Interest", value: monthlyInterest },
-    { id: 7, key: "Penalties", value: monthlyPenalty }
-    // { id: 8, key: "Monthly Tax Remitted", value: monthlyRemittedTax }
+    { id: 1, key: "Month of Return", value: monthsSubmitted },
+    {
+      id: 2,
+      key: "Occupancy Tax Collected",
+      value: occupancyTaxCollected,
+      formatFn: FormatCurrency
+    },
+    { id: 3, key: "Exemptions", value: exemptions, formatFn: FormatCurrency },
+    {
+      id: 4,
+      key: "Net Room Rental Collections",
+      value: netRoomRentals,
+      formatFn: FormatCurrency
+    },
+    {
+      id: 5,
+      key: "Tax Collected",
+      value: taxCollected,
+      formatFn: FormatCurrency
+    },
+    {
+      id: 6,
+      key: "Interest",
+      value: interestCollected,
+      formatFn: FormatCurrency
+    },
+    {
+      id: 7,
+      key: "Penalties",
+      value: penaltiesCollected,
+      formatFn: FormatCurrency
+    },
+    {
+      id: 8,
+      key: "Monthly Tax Remitted",
+      value: taxRemitted,
+      formatFn: FormatCurrency
+    }
   ];
 
   return (
