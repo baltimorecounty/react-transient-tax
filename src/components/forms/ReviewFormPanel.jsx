@@ -15,7 +15,6 @@ const ReviewPanel = props => {
   } = props;
 
   const handleSubmit = () => {
-    console.log(formik.values);
     SaveReturn(formik.values).then(({ ConfirmationNumber = 0 }) => {
       history.push(`/confirmation/${ConfirmationNumber}`);
     });
