@@ -94,90 +94,32 @@ const MapResponseDataForTaxReturn = taxReturn => {
 
   const taxCollected = netRoomRentals.map(CalculateTaxCollected);
   const interestCollected = taxCollected.map(tax =>
-    CalculateInterest(tax, monthsLate)
+    isLate ? CalculateInterest(tax, monthsLate) : 0
   );
-  const penaltiesCollected = taxCollected.map(CalculatePenalty);
+  const penaltiesCollected = taxCollected.map(
+    isLate ? CalculatePenalty : () => 0
+  );
 
-  console.log(interestCollected);
+  const taxRemitted = getValuesFromTotals([
+    taxCollected,
+    interestCollected,
+    penaltiesCollected
+  ]);
 
-  //   let monthlyPenalty = [];
-  //   let monthlyRemittedTax = [];
-  //   let monthSubmitted = [];
-  //   let monthlyInterest = [];
+  const totals = {
+    occupancyTaxCollected,
+    exemptions,
+    netRoomRentals,
+    taxCollected,
+    penaltiesCollected,
+    interestCollected,
+    taxRemitted,
+    monthsSubmitted,
+    dueDate,
+    formattedDueDate
+  };
 
-  //   let totalMonthlyPenalty = 0;
-  //   let totalMonthlyRemittedTax = 0;
-  //   let totalMonthlyInterest = 0;
-
-  //   const isMonthly = Object.keys(MonthlyData).length === 1;
-  //   const monthOfReturn = isMonthly ? 0 : 2;
-  //   const dueDate =
-  //     "test" ||
-  //     new Date(
-  //       MonthlyData[monthOfReturn].Month +
-  //         "/01/" +
-  //         MonthlyData[monthOfReturn].Year
-  //     );
-  //   const formattedDueDate = GetFormattedDueDate(dueDate);
-  //   const { isLate, value: monthsLate } = GetDueDateStatus(
-  //     dueDate,
-  //     new Date(DateSubmitted)
-  //   );
-
-  //   for (var i = 0; i < MonthlyData.length; i++) {
-  //     const { Year, Month } = MonthlyData[i];
-
-  // const interestForMonth = isLate
-  //   ? CalculateInterest(taxCollectedForMonth, monthsLate)
-  //   : 0;
-  // const penaltyForMonth = isLate ? CalculatePenalty(taxCollectedForMonth) : 0;
-
-  // totalMonthlyPenalty += penaltyForMonth;
-
-  // monthlyPenalty.push(FormatCurrency(totalMonthlyPenalty));
-
-  // totalMonthlyInterest += interestForMonth;
-
-  // monthlyInterest.push(FormatCurrency(interestForMonth));
-
-  // totalMonthlyTaxCollected += taxCollectedForMonth;
-
-  // monthlyTaxCollected.push(FormatCurrency(taxCollectedForMonth));
-
-  // Right now the api is not return a value for TaxRemitted, so we need to calculate this.
-  // const taxRemittedForMonth =
-  //   taxCollectedForMonth + penaltyForMonth + interestForMonth;
-
-  // monthlyRemittedTax = monthlyRemittedTax.concat(
-  //   FormatCurrency(taxRemittedForMonth)
-  // );
-
-  // totalMonthlyRemittedTax += taxRemittedForMonth;
-
-  // monthSubmitted = monthSubmitted.concat(
-  //   GetFormatedDateTime(new Date(Month + "/01/" + Year), dateFormat) + " "
-  // );
-  //}
-
-  //   if (!isMonthly) {
-  //     monthlyInterest.push(FormatCurrency(totalMonthlyInterest));
-  //     monthlyPenalty.push(FormatCurrency(totalMonthlyPenalty));
-  //     monthlyRemittedTax.push(FormatCurrency(totalMonthlyRemittedTax));
-  //     monthSubmitted = monthSubmitted.concat("Total");
-  //   }
-
-  formattedResponse.monthlyOccupancy = occupancyTaxCollected;
-  formattedResponse.monthlyExemption = exemptions;
-  formattedResponse.monthlyNetRoomRental = netRoomRentals;
-  formattedResponse.monthlyTaxCollected = taxCollected;
-  formattedResponse.monthlyPenalty = penaltiesCollected;
-  formattedResponse.monthlyInterest = interestCollected;
-  //   formattedResponse.monthlyRemittedTax = monthlyRemittedTax;
-  formattedResponse.monthSubmitted = monthsSubmitted;
-  //   formattedResponse.dueDate = dueDate;
-  //   formattedResponse.formattedDueDate = formattedDueDate;
-
-  return formattedResponse;
+  return { ...formattedResponse, ...totals };
 };
 
 /**
