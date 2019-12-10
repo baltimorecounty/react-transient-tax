@@ -15,20 +15,16 @@ const prodApiRoot = "https://services.baltimorecountymd.gov/api";
 
 const configValues = {
   local: {
-    apiRoot: `${localApiRoot}/transientTax`,
-    gisApiRoot: `${localApiRoot}`
+    apiRoot: localApiRoot
   },
   development: {
-    apiRoot: `${testApiRoot}/transientTax`,
-    gisApiRoot: `${testApiRoot}`
+    apiRoot: testApiRoot
   },
   staging: {
-    apiRoot: `${testApiRoot}/transientTax`,
-    gisApiRoot: `${testApiRoot}`
+    apiRoot: testApiRoot
   },
   production: {
-    apiRoot: `${prodApiRoot}/transientTax`,
-    gisApiRoot: `${prodApiRoot}`
+    apiRoot: prodApiRoot
   }
 };
 
