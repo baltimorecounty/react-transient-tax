@@ -27,28 +27,29 @@ const ReturnSummary = props => {
                   <strong>{item.key}</strong>
                 </p>
               </td>
-              {console.log(item) ||
-                item.value.map((result, resultIndex) => {
-                  const isFirstRow = itemIndex === 0;
-                  const isLastCell =
-                    itemIndex === values.length - 1 &&
-                    resultIndex === item.value.length - 1;
-                  return (
-                    <td
-                      key={`table-total-${item.id}-${resultIndex}`}
-                      colSpan="1"
-                      rowSpan="1"
-                    >
-                      {isFirstRow || isLastCell ? (
-                        <p>
-                          <strong>{result}</strong>
-                        </p>
-                      ) : (
-                        <p>{result}</p>
-                      )}
-                    </td>
-                  );
-                })}
+              {item.value.map((result, resultIndex) => {
+                const isFirstRow = itemIndex === 0;
+                const isLastCell =
+                  itemIndex === values.length - 1 &&
+                  resultIndex === item.value.length - 1;
+                const { formatFn = x => x } = item;
+                const itemText = formatFn(result);
+                return (
+                  <td
+                    key={`table-total-${item.id}-${resultIndex}`}
+                    colSpan="1"
+                    rowSpan="1"
+                  >
+                    {isFirstRow || isLastCell ? (
+                      <p>
+                        <strong>{itemText}</strong>
+                      </p>
+                    ) : (
+                      <p>{itemText}</p>
+                    )}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
