@@ -49,7 +49,7 @@ const getValuesFromTotals = (totals = []) => {
 };
 
 const getDateInformation = ({
-  dateSubmitted: DateSubmitted,
+  dateSubmitted: DateSubmitted = new Date(),
   monthlyData = []
 }) => {
   const dateSubmitted = DateSubmitted
@@ -175,8 +175,6 @@ const MapResponseDataForTaxReturn = taxReturn => {
   ]);
 
   const taxCollected = netRoomRentals.map(CalculateTaxCollected);
-
-  console.log(monthsLate);
 
   const interestCollected = taxCollected.map(tax =>
     isLate ? CalculateInterest(tax, monthsLate) : 0
