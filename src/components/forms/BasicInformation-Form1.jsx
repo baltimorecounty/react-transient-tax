@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import TransientTaxTabs from "../../components/TransientTaxTabs";
 import Field from "../Field";
+import { GetAddresses } from "../../services/ApiService";
 import AddressLookupField from "../AddressLookupField";
 
 import * as Yup from "yup";
@@ -13,13 +14,19 @@ const BasicInformationForm1 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
+    businessAddress,
+    businessAddressParts,
     activeStep,
     label
   } = props;
 
+  const errorMessage = () => {
+    return businessAddressParts ? false : true;
+  };
+
   return (
     <Formik
-      initialValues={{ businessName: "", businessAddress: "" }}
+      initialValues={{ businessName: "", businessAddressParts: {} }}
       onSubmit={values => {
         onValidSubmission(values);
       }}
@@ -27,9 +34,21 @@ const BasicInformationForm1 = props => {
         businessName: Yup.string()
           .transform(value => (!value ? null : value))
           .required("Required"),
-        businessAddress: Yup.string()
-          .transform(value => (!value ? null : value))
-          .required("Required")
+        businessAddressParts: Yup.string()
+          .nullable()
+          .required()
+          .test(
+            "has-address",
+            "A valid address must be entered",
+            value => Object.keys(value).length > 0
+            //{
+            //   return new Promise((resolve, reject) => {
+            //     GetAddresses(businessAddress)
+            //       .then(() => resolve(false))
+            //       .catch(() => reject(true));
+            //   });
+            // })
+          )
       })}
     >
       {props => (
@@ -51,6 +70,7 @@ const BasicInformationForm1 = props => {
               id="businessAddress"
               name="businessAddress"
               label="Business Address"
+              errorMessage={errorMessage}
             />
           </div>
           {prevButton}
