@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { GetFilingTypes } from "../services/ApiService";
 
 const ReturnSummary = props => {
-  const { header, values = [], dueDate, returnType, dateSubmitted } = props;
+  const {
+    header,
+    values = [],
+    dueDate,
+    returnType,
+    dateSubmitted,
+    paymentInterval
+  } = props;
+  const [filingType, setFilingType] = useState(returnType);
+
+  useEffect(() => {
+    GetFilingTypes().then(filingTypes => {
+      if (paymentInterval) {
+        const filingType = filingTypes.find(
+          x => x.Id === parseInt(paymentInterval)
+        );
+        setFilingType(filingType.Description);
+      }
+    });
+  }, [paymentInterval]);
 
   return (
     <div>
       <h3>{header}</h3>
-      <p>
-        <strong>Your Payment Plan</strong>: {returnType}
-      </p>
+      {filingType && (
+        <p>
+          <strong>Your Payment Plan</strong>: {filingType}
+        </p>
+      )}
       {dateSubmitted && (
         <p>
           <strong>Date Submitted</strong>: {dateSubmitted}

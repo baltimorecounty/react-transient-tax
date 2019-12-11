@@ -19,7 +19,7 @@ const ReviewPanel = props => {
   } = props;
 
   const { values } = formik;
-  const { dueDate } = values;
+  const { dueDate, paymentInterval } = values;
 
   const handleSubmit = () => {
     setIsSubmitting(true);
@@ -39,7 +39,7 @@ const ReviewPanel = props => {
         header={"Transient Occupancy Tax Return Details:"}
         values={taxReturnValues}
         dueDate={dueDate}
-        returnType={""}
+        paymentInterval={paymentInterval}
       />
       <label>{Labels.LegalNote}</label>
       {!isSubmitting && prevButton}
