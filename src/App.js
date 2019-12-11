@@ -3,8 +3,6 @@ import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { HashRouter as Router, Route } from "react-router-dom";
 import "./App.scss";
-import "./styles/SiteExecutive/citysourced-reporter.min.css";
-import "./styles/SiteExecutive/inside-responsive.min.css";
 import MultiPageForm from "./components/forms/MultiPageForm";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import ErrorPage from "./pages/ErrorPage";
