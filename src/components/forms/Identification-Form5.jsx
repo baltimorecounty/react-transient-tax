@@ -19,14 +19,8 @@ const IdentificationForm5 = props => {
     label,
     formik
   } = props;
-  const {
-    nonTransientRentalCollected,
-    governmentExemptRentalCollected
-  } = formik.values;
-  const showTradeAlias = HasAtLeast1Exemption([
-    nonTransientRentalCollected,
-    governmentExemptRentalCollected
-  ]);
+  const { monthlyData } = formik.values;
+  const showTradeAlias = HasAtLeast1Exemption(monthlyData);
 
   return (
     <Formik
