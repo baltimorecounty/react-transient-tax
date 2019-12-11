@@ -90,7 +90,9 @@ ReturnSummary.propTypes = {
   /** String return type for the return (Monthly or Quarterly) */
   returnType: PropTypes.string,
   /** Date of return submission */
-  dateSubmitted: PropTypes.string
+  dateSubmitted: PropTypes.string,
+  /** Payment Interval as denoted by its id, used to look up the friendly value */
+  paymentInterval: PropTypes.string
 };
 
 export default ReturnSummary;
