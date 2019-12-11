@@ -43,6 +43,7 @@ const MultiPageForm = props => {
                   prevStep={prevStep}
                   tabs={tabs}
                   isActiveStep={isActiveStep}
+                  activeStep={activeStep}
                   history={history}
                   style={{ display: isActiveStep ? "block" : "none" }}
                 />

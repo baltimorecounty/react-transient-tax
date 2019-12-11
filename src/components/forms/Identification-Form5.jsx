@@ -15,6 +15,7 @@ const IdentificationForm5 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
+    activeStep,
     label,
     formik
   } = props;
@@ -47,7 +48,11 @@ const IdentificationForm5 = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
+          <TransientTaxTabs
+            tabs={tabs}
+            isActiveStep={isActiveStep}
+            activeStep={activeStep}
+          />
           <h2>{label}</h2>
           <div className="tt_form-section tt_identification-section">
             <div className="tt_date-group float-right">

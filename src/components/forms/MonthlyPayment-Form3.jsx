@@ -15,6 +15,7 @@ const MonthlyPaymentForm3 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
+    activeStep,
     label,
     formik,
     data: { date }
@@ -78,7 +79,11 @@ const MonthlyPaymentForm3 = props => {
 
         return (
           <Form>
-            <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
+            <TransientTaxTabs
+              tabs={tabs}
+              isActiveStep={isActiveStep}
+              activeStep={activeStep}
+            />
             <h2>{label}</h2>
             <div className="tt_form-section">
               <PaymentField

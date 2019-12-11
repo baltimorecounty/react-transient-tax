@@ -13,6 +13,7 @@ const BasicInformationForm1 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
+    activeStep,
     label
   } = props;
 
@@ -33,7 +34,11 @@ const BasicInformationForm1 = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
+          <TransientTaxTabs
+            tabs={tabs}
+            isActiveStep={isActiveStep}
+            activeStep={activeStep}
+          />
           <h2>{label}</h2>
           <div className="tt_form-section">
             <Field
