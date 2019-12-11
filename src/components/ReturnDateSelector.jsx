@@ -45,6 +45,16 @@ const ReturnInterval = props => {
       lastFilingMonth = finalMonthInQuarter;
     }
 
+    const monthlyData = Object.keys(newMonths).map(monthKey => {
+      const date = newMonths[monthKey];
+      return {
+        month: date.getMonth() + 1,
+        year: date.getFullYear()
+      };
+    });
+
+    setFieldValue("monthlyData", monthlyData);
+
     const dueDate = GetFormattedDueDate(lastFilingMonth);
     const status = GetDueDateStatus(lastFilingMonth, new Date());
 
