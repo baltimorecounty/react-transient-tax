@@ -8,6 +8,7 @@ import PaymentOptionsForm2 from "../components/forms/PaymentOptions-Form2";
 import ReviewForm6 from "../components/forms/ReviewFormPanel";
 import Step from "./Step";
 import StepList from "./StepList";
+import { HasAtLeast1Exemption } from "../common/ExemptionUtilities";
 
 /**
  * Dynamically add exemption certificate if an exemption exists
@@ -31,11 +32,7 @@ const onPaymentFormSubmission = (
     return;
   }
 
-  const hasAtLeast1Exemption = monthlyData.some(
-    ({ nonTransientRentalCollected, governmentExemptRentalCollected }) =>
-      !!governmentExemptRentalCollected || !!nonTransientRentalCollected
-  );
-
+  const hasAtLeast1Exemption = HasAtLeast1Exemption(monthlyData);
   const exemptionStepId = "exemption-certificate";
 
   if (hasAtLeast1Exemption) {
