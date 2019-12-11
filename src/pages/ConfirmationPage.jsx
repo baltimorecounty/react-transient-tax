@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { format } from "date-fns";
 import ReturnSummary from "../components/ReturnSummary";
 import { BudgetAndFinanceOfficeAddress } from "../common/Constants";
 import { ErrorPath } from "../common/ErrorUtility";
@@ -16,13 +17,21 @@ const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
   const [taxReturn, setTaxReturn] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const { ReturnTypeDescription, DateSubmitted, formattedDueDate } = taxReturn;
+  const {
+    returnTypeDescription,
+    dateSubmitted: formDateSubmitted,
+    formattedDueDate
+  } = taxReturn;
   const taxReturnValues = GetReturnSummaryValues(taxReturn);
+  const { dateSubmitted = formDateSubmitted } = taxReturn;
+  const formattedDateSubmitted = dateSubmitted
+    ? format(new Date(dateSubmitted), "MMMM dd yyyy")
+    : "";
 
   useEffect(() => {
     GetTransientTaxReturn(confirmationNumber)
       .then(response => {
-        setTaxReturn(response);
+        setTaxReturn(response || {});
         setIsLoading(false);
       })
       .catch(error => {
@@ -54,9 +63,9 @@ const ConfirmationForm = props => {
           <ReturnSummary
             header={"Transient Occupancy Tax Return Details:"}
             values={taxReturnValues}
-            dateSubmitted={DateSubmitted}
+            dateSubmitted={formattedDateSubmitted}
             dueDate={formattedDueDate}
-            returnType={ReturnTypeDescription}
+            returnType={returnTypeDescription}
           />
           <Address
             line1={Organization}
