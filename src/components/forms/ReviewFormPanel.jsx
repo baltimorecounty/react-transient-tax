@@ -1,8 +1,10 @@
 import React from "react";
 import { Labels } from "../../common/Constants";
+import { MapResponseDataForTaxReturn } from "../../data/TaxReturnMapper";
 import { SaveReturn } from "../../services/ApiService";
 import ReturnSummary from "../ReturnSummary";
 import TransientTaxTabs from "../TransientTaxTabs";
+import { GetReturnSummaryValues } from "../../data/TaxReturnMapper";
 
 const ReviewPanel = props => {
   const {
@@ -24,9 +26,8 @@ const ReviewPanel = props => {
     });
   };
 
-  //   const mappedValues = MapResponseDataForTaxReturn(values);
-
-  //   console.log(values);
+  const mappedValues = MapResponseDataForTaxReturn(values);
+  const taxReturnValues = GetReturnSummaryValues(mappedValues);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -34,7 +35,7 @@ const ReviewPanel = props => {
       <h2>{label}</h2>
       <ReturnSummary
         header={"Transient Occupancy Tax Return Details:"}
-        values={[]}
+        values={taxReturnValues}
         dueDate={dueDate}
         returnType={""}
       />

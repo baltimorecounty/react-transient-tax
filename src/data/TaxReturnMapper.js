@@ -9,6 +9,7 @@ import {
   GetFormatedDateTime,
   GetFormattedDueDate
 } from "../common/DatesUtilities";
+import { FormatCurrency } from "../common/FormatUtilities";
 
 const dateFormat = "MMMM yyyy";
 
@@ -47,6 +48,90 @@ const getValuesFromTotals = (totals = []) => {
   );
 };
 
+const getDateInformation = (data = [], DateSubmitted) => {
+  const dateSubmitted = DateSubmitted
+    ? GetFormatedDateTime(new Date(DateSubmitted), "MMMM dd yyyy")
+    : "";
+  const isMonthly = Object.keys(data).length === 1;
+  const monthOfReturn = isMonthly ? 0 : 2;
+  const dueDate = data.length
+    ? new Date(data[monthOfReturn].Month + "/01/" + data[monthOfReturn].Year)
+    : "";
+  const formattedDueDate = dueDate ? GetFormattedDueDate(dueDate) : "";
+  const { isLate, value: monthsLate } = dueDate
+    ? GetDueDateStatus(dueDate, new Date(DateSubmitted))
+    : {};
+
+  const monthsSubmitted = data.map(
+    ({ Month = 0, Year = 0 }) =>
+      `${format(new Date(Year, Month, 1), dateFormat)}`
+  );
+
+  return {
+    dateSubmitted,
+    isMonthly,
+    dueDate,
+    formattedDueDate,
+    isLate,
+    monthsLate,
+    monthsSubmitted
+  };
+};
+
+const GetReturnSummaryValues = taxReturnValues => {
+  const {
+    occupancyTaxCollected,
+    exemptions,
+    netRoomRentals,
+    taxCollected,
+    penaltiesCollected,
+    interestCollected,
+    taxRemitted,
+    monthsSubmitted
+  } = taxReturnValues;
+
+  return [
+    { id: 1, key: "Month of Return", value: monthsSubmitted },
+    {
+      id: 2,
+      key: "Occupancy Tax Collected",
+      value: occupancyTaxCollected,
+      formatFn: FormatCurrency
+    },
+    { id: 3, key: "Exemptions", value: exemptions, formatFn: FormatCurrency },
+    {
+      id: 4,
+      key: "Net Room Rental Collections",
+      value: netRoomRentals,
+      formatFn: FormatCurrency
+    },
+    {
+      id: 5,
+      key: "Tax Collected",
+      value: taxCollected,
+      formatFn: FormatCurrency
+    },
+    {
+      id: 6,
+      key: "Interest",
+      value: interestCollected,
+      formatFn: FormatCurrency
+    },
+    {
+      id: 7,
+      key: "Penalties",
+      value: penaltiesCollected,
+      formatFn: FormatCurrency
+    },
+    {
+      id: 8,
+      key: "Monthly Tax Remitted",
+      value: taxRemitted,
+      formatFn: FormatCurrency
+    }
+  ];
+};
+
 /**
  * Maps Transient Tax Form Data to the confirmation page
  * @param {object} taxReturn tax return form data model
@@ -54,27 +139,18 @@ const getValuesFromTotals = (totals = []) => {
 const MapResponseDataForTaxReturn = taxReturn => {
   const { DateSubmitted, MonthlyData = [] } = taxReturn;
   const formattedResponse = { ...taxReturn };
+  const {
+    dateSubmitted,
+    isMonthly,
+    dueDate,
+    formattedDueDate,
+    isLate,
+    monthsLate,
+    monthsSubmitted
+  } = getDateInformation(MonthlyData, DateSubmitted);
 
   /** Get Formatted Date Submitted */
-  formattedResponse.DateSubmitted = DateSubmitted
-    ? GetFormatedDateTime(new Date(DateSubmitted), "MMMM dd yyyy")
-    : "";
-
-  const isMonthly = Object.keys(MonthlyData).length === 1;
-  const monthOfReturn = isMonthly ? 0 : 2;
-  const dueDate = new Date(
-    MonthlyData[monthOfReturn].Month + "/01/" + MonthlyData[monthOfReturn].Year
-  );
-  const formattedDueDate = GetFormattedDueDate(dueDate);
-  const { isLate, value: monthsLate } = GetDueDateStatus(
-    dueDate,
-    new Date(DateSubmitted)
-  );
-
-  const monthsSubmitted = MonthlyData.map(
-    ({ Month = 0, Year = 0 }) =>
-      `${format(new Date(Year, Month, 1), dateFormat)}`
-  );
+  formattedResponse.DateSubmitted = dateSubmitted;
 
   if (!isMonthly) {
     monthsSubmitted.push("Total");
@@ -149,4 +225,8 @@ const MapTaxReturnToServerModel = taxReturn => {
   };
 };
 
-export { MapResponseDataForTaxReturn, MapTaxReturnToServerModel };
+export {
+  GetReturnSummaryValues,
+  MapResponseDataForTaxReturn,
+  MapTaxReturnToServerModel
+};

@@ -4,7 +4,7 @@ import { BudgetAndFinanceOfficeAddress } from "../common/Constants";
 import { ErrorPath } from "../common/ErrorUtility";
 import Address from "../components/Address";
 import { GetTransientTaxReturn } from "../services/ApiService";
-import { FormatCurrency } from "../common/FormatUtilities";
+import { GetReturnSummaryValues } from "../data/TaxReturnMapper";
 
 const {
   Organization,
@@ -14,73 +14,21 @@ const {
 } = BudgetAndFinanceOfficeAddress;
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
-  const [response, setResponse] = useState({});
+  const [taxReturn, setTaxReturn] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const {
-    ReturnTypeDescription,
-    DateSubmitted,
-    occupancyTaxCollected,
-    exemptions,
-    netRoomRentals,
-    taxCollected,
-    penaltiesCollected,
-    interestCollected,
-    taxRemitted,
-    monthsSubmitted,
-    formattedDueDate
-  } = response;
+  const { ReturnTypeDescription, DateSubmitted, formattedDueDate } = taxReturn;
+  const taxReturnValues = GetReturnSummaryValues(taxReturn);
 
   useEffect(() => {
     GetTransientTaxReturn(confirmationNumber)
       .then(response => {
-        setResponse(response);
+        setTaxReturn(response);
         setIsLoading(false);
       })
       .catch(error => {
         props.history.push(ErrorPath(error), { ...error });
       });
   }, [confirmationNumber, props.history]);
-
-  const ConfirmationTableValues = [
-    { id: 1, key: "Month of Return", value: monthsSubmitted },
-    {
-      id: 2,
-      key: "Occupancy Tax Collected",
-      value: occupancyTaxCollected,
-      formatFn: FormatCurrency
-    },
-    { id: 3, key: "Exemptions", value: exemptions, formatFn: FormatCurrency },
-    {
-      id: 4,
-      key: "Net Room Rental Collections",
-      value: netRoomRentals,
-      formatFn: FormatCurrency
-    },
-    {
-      id: 5,
-      key: "Tax Collected",
-      value: taxCollected,
-      formatFn: FormatCurrency
-    },
-    {
-      id: 6,
-      key: "Interest",
-      value: interestCollected,
-      formatFn: FormatCurrency
-    },
-    {
-      id: 7,
-      key: "Penalties",
-      value: penaltiesCollected,
-      formatFn: FormatCurrency
-    },
-    {
-      id: 8,
-      key: "Monthly Tax Remitted",
-      value: taxRemitted,
-      formatFn: FormatCurrency
-    }
-  ];
 
   return (
     <div>
@@ -105,7 +53,7 @@ const ConfirmationForm = props => {
           </p>
           <ReturnSummary
             header={"Transient Occupancy Tax Return Details:"}
-            values={ConfirmationTableValues}
+            values={taxReturnValues}
             dateSubmitted={DateSubmitted}
             dueDate={formattedDueDate}
             returnType={ReturnTypeDescription}
