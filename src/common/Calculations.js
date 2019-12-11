@@ -4,13 +4,13 @@ import { RatesAndFees } from "./Constants";
  * Calculate the interest based on tax collected and the number of months late.
  * @param {number} taxCollected dollar amount to base the interest off
  * @param {number} numberOfMonthsLate number of months the user has failed to pay their tax
- * @param {number} interest - interest rate to charge as a decimal
+ * @param {number} interestRate - interest rate to charge as a decimal
  */
 const CalculateInterest = (
   taxCollected,
   numberOfMonthsLate,
-  interest = RatesAndFees.InterestRate
-) => taxCollected * interest * numberOfMonthsLate;
+  interestRate = RatesAndFees.InterestRate
+) => taxCollected * numberOfMonthsLate * interestRate;
 
 /**
  * Calculate the penalty fee based on tax collected.
