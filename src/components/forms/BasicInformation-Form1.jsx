@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import TransientTaxTabs from "../../components/TransientTaxTabs";
 import Field from "../Field";
 import { GetAddresses } from "../../services/ApiService";
+import ErrorMessage from "../ErrorMessage";
 import AddressLookupField from "../AddressLookupField";
 
 import * as Yup from "yup";
@@ -18,9 +19,27 @@ const BasicInformationForm1 = props => {
     label
   } = props;
 
+  Yup.addMethod(Yup.mixed, "businessAddressCheck", function(value) {
+    return this.test(
+      "address",
+      "Please enter your phone number in the following format: 410-555-1212.",
+      function(value) {
+        if (Object.keys(props.businessAddressParts).length > 0) {
+          return GetAddresses(value).then(response => {
+            Object.keys(response).length = 1;
+          });
+        }
+      }
+    );
+  });
+
   return (
     <Formik
-      initialValues={{ businessName: "", businessAddressParts: {} }}
+      initialValues={{
+        businessName: "",
+        businessAddressParts: {},
+        businessAddress: ""
+      }}
       onSubmit={values => {
         onValidSubmission(values);
       }}
@@ -28,21 +47,27 @@ const BasicInformationForm1 = props => {
         businessName: Yup.string()
           .transform(value => (!value ? null : value))
           .required("Required"),
-        businessAddressParts: Yup.mixed()
-          .nullable()
-          .required()
-          .test(
-            "has-address",
-            "A valid address must be entered",
-            value => Object.keys(value).length > 0
-            //{
-            //   return new Promise((resolve, reject) => {
-            //     GetAddresses(businessAddress)
-            //       .then(() => resolve(false))
-            //       .catch(() => reject(true));
-            //   });
-            // })
-          )
+        businessAddressParts: Yup.mixed().test(
+          "has-address",
+          "Enter a valid address.",
+          value => Object.keys(value).length > 0
+        )
+
+        // businessAddress: Yup.mixed().test(
+        //   "is-valid-address",
+        //   "Test.",
+        //   value => {
+        //     return new Promise((resolve, reject) => {
+        //       GetAddresses(value)
+        //         .then(
+        //           resolve(response => {
+        //             Object.keys(response).length = 1;
+        //           })
+        //         )
+        //         .catch(() => reject(true));
+        //     });
+        //   }
+        // )
       })}
     >
       {props => (
@@ -60,11 +85,14 @@ const BasicInformationForm1 = props => {
               type="text"
               label="Business Name"
             />
-            <AddressLookupField
-              id="businessAddress"
-              name="businessAddress"
-              label="Business Address"
-            />
+            <React.Fragment>
+              <AddressLookupField
+                id="businessAddress"
+                name="businessAddress"
+                label="Business Address"
+              />
+              <ErrorMessage name="has-address" />
+            </React.Fragment>
           </div>
           {prevButton}
           {nextButton}
