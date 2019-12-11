@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Labels } from "../../common/Constants";
 import { MapResponseDataForTaxReturn } from "../../data/TaxReturnMapper";
 import { SaveReturn } from "../../services/ApiService";
@@ -7,6 +7,7 @@ import TransientTaxTabs from "../TransientTaxTabs";
 import { GetReturnSummaryValues } from "../../data/TaxReturnMapper";
 
 const ReviewPanel = props => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     submitButton,
     prevButton,
@@ -21,6 +22,7 @@ const ReviewPanel = props => {
   const { dueDate } = values;
 
   const handleSubmit = () => {
+    setIsSubmitting(true);
     SaveReturn(values).then(({ ConfirmationNumber = 0 }) => {
       history.push(`/confirmation/${ConfirmationNumber}`);
     });
@@ -40,8 +42,14 @@ const ReviewPanel = props => {
         returnType={""}
       />
       <label>{Labels.LegalNote}</label>
-      {prevButton}
-      {submitButton}
+      {!isSubmitting && prevButton}
+      {!isSubmitting && submitButton}
+      {isSubmitting && (
+        <p>
+          Submitting your return. You will be redirected to a confirmation page
+          shortly...
+        </p>
+      )}
     </form>
   );
 };
