@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { addMonths } from "date-fns";
+import { connect } from "formik";
 import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { addMonths, parse } from "date-fns";
+import { Labels } from "../common/Constants";
 import {
   GetDueDateStatus,
-  GetFormattedDueDate,
-  GetFormatedDateTime
+  GetFormatedDateTime,
+  GetFormattedDueDate
 } from "../common/DatesUtilities";
-import { Labels } from "../common/Constants";
 import { GetIdByDescription } from "../common/LookupUtilities";
-import { connect } from "formik";
 
 const ReturnInterval = props => {
   const { paymentInterval, filingTypes, formik } = props;
@@ -97,7 +97,7 @@ const ReturnInterval = props => {
 
   useEffect(() => {
     const { isLate, value } = status;
-    setFieldValue("dueDate", parse(dueDate));
+    setFieldValue("dueDate", dueDate);
     setFieldValue("monthsLate", isLate ? value : 0);
     setFieldValue("isReturnLate", isLate);
   }, [status, dueDate, setFieldValue]);
