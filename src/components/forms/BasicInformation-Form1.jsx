@@ -2,6 +2,8 @@ import React from "react";
 import { Formik, Form } from "formik";
 import TransientTaxTabs from "../../components/TransientTaxTabs";
 import Field from "../Field";
+import AddressLookupField from "../AddressLookupField";
+
 import * as Yup from "yup";
 
 const BasicInformationForm1 = props => {
@@ -11,12 +13,13 @@ const BasicInformationForm1 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
+    activeStep,
     label
   } = props;
 
   return (
     <Formik
-      initialValues={{ businessName: "", address: "" }}
+      initialValues={{ businessName: "", businessAddress: "" }}
       onSubmit={values => {
         onValidSubmission(values);
       }}
@@ -24,12 +27,18 @@ const BasicInformationForm1 = props => {
         businessName: Yup.string()
           .transform(value => (!value ? null : value))
           .required("Required"),
-        address: Yup.string().required("Required")
+        businessAddress: Yup.string()
+          .transform(value => (!value ? null : value))
+          .required("Required")
       })}
     >
       {props => (
         <Form>
-          <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
+          <TransientTaxTabs
+            tabs={tabs}
+            isActiveStep={isActiveStep}
+            activeStep={activeStep}
+          />
           <h2>{label}</h2>
           <div className="tt_form-section">
             <Field
@@ -38,8 +47,11 @@ const BasicInformationForm1 = props => {
               type="text"
               label="Business Name"
             />
-
-            <Field id="address" name="address" type="text" label="Address" />
+            <AddressLookupField
+              id="businessAddress"
+              name="businessAddress"
+              label="Business Address"
+            />
           </div>
           {prevButton}
           {nextButton}

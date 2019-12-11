@@ -13,6 +13,7 @@ const ReviewPanel = props => {
     prevButton,
     tabs,
     isActiveStep,
+    activeStep,
     history,
     label,
     formik
@@ -33,7 +34,11 @@ const ReviewPanel = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
+      <TransientTaxTabs
+        tabs={tabs}
+        isActiveStep={isActiveStep}
+        activeStep={activeStep}
+      />
       <h2>{label}</h2>
       <ReturnSummary
         header={"Transient Occupancy Tax Return Details:"}

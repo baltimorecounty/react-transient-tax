@@ -1,4 +1,4 @@
-import { GetDataForMonth, MapTaxReturnToServerModel } from "./TaxReturnMapper";
+import { MapTaxReturnToServerModel } from "./TaxReturnMapper";
 
 const monthFormData = {
   accountNumber: "123ABC",

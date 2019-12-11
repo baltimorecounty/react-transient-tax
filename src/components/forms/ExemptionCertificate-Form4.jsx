@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import TransientTaxTabs from "../TransientTaxTabs";
-import ExemptionCertificateField from "./ExemptionCertificateField";
+import ExemptionCertificateField from "../ExemptionCertificateField";
 
 const ExemptionCertificateForm4 = props => {
   const {
@@ -11,6 +11,7 @@ const ExemptionCertificateForm4 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
+    activeStep,
     label
   } = props;
 
@@ -28,7 +29,11 @@ const ExemptionCertificateForm4 = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs tabs={tabs} activeStep={isActiveStep} />
+          <TransientTaxTabs
+            tabs={tabs}
+            isActiveStep={isActiveStep}
+            activeStep={activeStep}
+          />
           <h2>{label}</h2>
           <div className="form-1">
             <ExemptionCertificateField />
