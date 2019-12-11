@@ -48,23 +48,29 @@ const getValuesFromTotals = (totals = []) => {
   );
 };
 
-const getDateInformation = (data = [], DateSubmitted) => {
+const getDateInformation = ({
+  dateSubmitted: DateSubmitted,
+  monthlyData = []
+}) => {
   const dateSubmitted = DateSubmitted
     ? GetFormatedDateTime(new Date(DateSubmitted), "MMMM dd yyyy")
     : "";
-  const isMonthly = Object.keys(data).length === 1;
+  const isMonthly = Object.keys(monthlyData).length === 1;
   const monthOfReturn = isMonthly ? 0 : 2;
-  const dueDate = data.length
-    ? new Date(data[monthOfReturn].Month + "/01/" + data[monthOfReturn].Year)
+  const dueDate = monthlyData.length
+    ? new Date(
+        monthlyData[monthOfReturn].month +
+          "/01/" +
+          monthlyData[monthOfReturn].year
+      )
     : "";
   const formattedDueDate = dueDate ? GetFormattedDueDate(dueDate) : "";
   const { isLate, value: monthsLate } = dueDate
     ? GetDueDateStatus(dueDate, new Date(DateSubmitted))
     : {};
-
-  const monthsSubmitted = data.map(
-    ({ Month = 0, Year = 0 }) =>
-      `${format(new Date(Year, Month, 1), dateFormat)}`
+  const monthsSubmitted = monthlyData.map(
+    ({ month = 0, year = 0 }) =>
+      `${format(new Date(year, month, 1), dateFormat)}`
   );
 
   return {
@@ -137,7 +143,7 @@ const GetReturnSummaryValues = taxReturnValues => {
  * @param {object} taxReturn tax return form data model
  */
 const MapResponseDataForTaxReturn = taxReturn => {
-  const { DateSubmitted, MonthlyData = [] } = taxReturn;
+  const { monthlyData = [] } = taxReturn;
   const formattedResponse = { ...taxReturn };
   const {
     dateSubmitted,
@@ -147,7 +153,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
     isLate,
     monthsLate,
     monthsSubmitted
-  } = getDateInformation(MonthlyData, DateSubmitted);
+  } = getDateInformation(taxReturn);
 
   /** Get Formatted Date Submitted */
   formattedResponse.DateSubmitted = dateSubmitted;
@@ -156,11 +162,11 @@ const MapResponseDataForTaxReturn = taxReturn => {
     monthsSubmitted.push("Total");
   }
 
-  const occupancyTaxCollected = getValue(MonthlyData, ["GrossRentalCollected"]);
+  const occupancyTaxCollected = getValue(monthlyData, ["grossRentalCollected"]);
 
-  const exemptions = getValue(MonthlyData, [
-    "GovernmentExemptRentalCollected",
-    "NonTransientRentalCollected"
+  const exemptions = getValue(monthlyData, [
+    "governmentExemptRentalCollected",
+    "nonTransientRentalCollected"
   ]);
 
   const netRoomRentals = getValuesFromTotals([
@@ -169,6 +175,8 @@ const MapResponseDataForTaxReturn = taxReturn => {
   ]);
 
   const taxCollected = netRoomRentals.map(CalculateTaxCollected);
+
+  console.log(monthsLate);
 
   const interestCollected = taxCollected.map(tax =>
     isLate ? CalculateInterest(tax, monthsLate) : 0
