@@ -58,6 +58,8 @@ const ReturnInterval = props => {
     const dueDate = GetFormattedDueDate(lastFilingMonth);
     const status = GetDueDateStatus(lastFilingMonth, new Date());
 
+    setFieldValue("monthsToReport", newMonths);
+
     setStatus(status);
     setDueDate(dueDate);
     setMonths(newMonths);
@@ -94,7 +96,6 @@ const ReturnInterval = props => {
     }
   };
 
-  /** Ensure dates make it to form */
   useEffect(() => {
     setFieldValue("monthsToReport", months);
   }, [months, setFieldValue]);
