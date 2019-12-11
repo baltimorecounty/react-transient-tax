@@ -14,15 +14,9 @@ const BasicInformationForm1 = props => {
     onValidSubmission,
     tabs,
     isActiveStep,
-    businessAddress,
-    businessAddressParts,
     activeStep,
     label
   } = props;
-
-  const errorMessage = () => {
-    return businessAddressParts ? false : true;
-  };
 
   return (
     <Formik
@@ -34,7 +28,7 @@ const BasicInformationForm1 = props => {
         businessName: Yup.string()
           .transform(value => (!value ? null : value))
           .required("Required"),
-        businessAddressParts: Yup.string()
+        businessAddressParts: Yup.mixed()
           .nullable()
           .required()
           .test(
@@ -70,7 +64,6 @@ const BasicInformationForm1 = props => {
               id="businessAddress"
               name="businessAddress"
               label="Business Address"
-              errorMessage={errorMessage}
             />
           </div>
           {prevButton}
