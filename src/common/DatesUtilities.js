@@ -4,7 +4,8 @@ import {
   differenceInMonths,
   endOfMonth,
   format,
-  startOfDay
+  startOfDay,
+  startOfMonth
 } from "date-fns";
 import { Labels, DateTypes } from "./Constants";
 const DefaultDateFormat = "MMMM d, yyyy";
@@ -62,11 +63,12 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
   }
 
   /**
-   * Reverse dateOfFilingDate and dueDate from above to give us a positive number
-   * Add 1 to ensure that if it's 1 day after the due date it is considered 1 month late
+   * Add since 1 day late is considered 1 month late, but differenceInMonths returns 0 for anything under 1 month
    */
-  const monthDifference =
-    differenceInMonths(startDateOfFilingDate, dueDate) + 1;
+  const monthDifference = differenceInMonths(
+    startOfMonth(startDateOfFilingDate),
+    startOfMonth(dueDate)
+  );
 
   return {
     isLate: true,
