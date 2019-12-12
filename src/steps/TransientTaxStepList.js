@@ -8,6 +8,7 @@ import PaymentOptionsForm2 from "../components/forms/PaymentOptions-Form2";
 import ReviewForm6 from "../components/forms/ReviewFormPanel";
 import Step from "./Step";
 import StepList from "./StepList";
+import { HasAtLeast1Exemption } from "../common/ExemptionUtilities";
 
 /**
  * Dynamically add exemption certificate if an exemption exists
@@ -16,26 +17,20 @@ import StepList from "./StepList";
  * @param {object} globalFormValues
  * @param {string} previousStepId reference point for inserted exemption certificate
  */
-const onPaymentFormSubmission = (
+const onPaymentFormSubmission = ({
   stepList,
   currentFormValues,
-  globalFormValues,
-  previousStepId
-) => {
+  previousStepId,
+  monthIndex
+}) => {
   const { monthlyData = [] } = currentFormValues;
-  const { monthsToReport = {} } = globalFormValues;
-  const isLastPaymentPanel =
-    monthlyData.length === Object.keys(monthsToReport).length;
+  const isLastPaymentPanel = monthlyData.length === monthIndex + 1;
 
   if (!isLastPaymentPanel) {
     return;
   }
 
-  const hasAtLeast1Exemption = monthlyData.some(
-    ({ nonTransientRentalCollected, governmentExemptRentalCollected }) =>
-      !!governmentExemptRentalCollected || !!nonTransientRentalCollected
-  );
-
+  const hasAtLeast1Exemption = HasAtLeast1Exemption(monthlyData);
   const exemptionStepId = "exemption-certificate";
 
   if (hasAtLeast1Exemption) {
@@ -65,7 +60,8 @@ const onPaymentFormSubmission = (
 const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
   stepList.reset();
   let stepToInsertAfter = "payment-selection";
-  Object.keys(monthsToReport).forEach(monthKey => {
+  Object.keys(monthsToReport).forEach((monthKey, monthIndex) => {
+    console.log(monthIndex);
     const date = monthsToReport[monthKey];
     const friendlyDate = format(date, "MMMM yyyy");
     const id = `payment-form-${friendlyDate.replace(/\s/g, "")}`;
@@ -74,12 +70,13 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
       label: `${friendlyDate} Tax Return`,
       component: <MonthlyPaymentForm3 />,
       onFormSubmission: (stepList, currentFormValues, globalFormValues) => {
-        onPaymentFormSubmission(
+        onPaymentFormSubmission({
           stepList,
           currentFormValues,
           globalFormValues,
-          id
-        );
+          monthIndex,
+          previousStepId: id
+        });
       },
       data: {
         date

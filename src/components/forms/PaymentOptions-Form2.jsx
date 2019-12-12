@@ -18,7 +18,8 @@ const PaymentOptionsForm2 = props => {
     activeStep,
     monthsToReport,
     label,
-    history
+    history,
+    formik
   } = props;
   const [filingTypes, setFilingTypes] = useState([]);
   const [paymentInterval, setPaymentInterval] = useState();
@@ -36,6 +37,8 @@ const PaymentOptionsForm2 = props => {
   }, [filingTypes, history]);
 
   const handleOnChange = onClick => {
+    formik.setFieldValue("monthlyData", []);
+    formik.setFieldValue("monthsToReport", []);
     setPaymentInterval(onClick.currentTarget.value);
   };
 

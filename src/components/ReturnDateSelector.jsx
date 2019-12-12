@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import DatePicker from "react-datepicker";
 import { addMonths } from "date-fns";
+import { connect } from "formik";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import { Labels } from "../common/Constants";
 import {
   GetDueDateStatus,
-  GetFormattedDueDate,
-  GetFormatedDateTime
+  GetFormatedDateTime,
+  GetFormattedDueDate
 } from "../common/DatesUtilities";
-import { Labels } from "../common/Constants";
 import { GetIdByDescription } from "../common/LookupUtilities";
-import { connect } from "formik";
 
 const ReturnInterval = props => {
   const { paymentInterval, filingTypes, formik } = props;
@@ -45,8 +45,20 @@ const ReturnInterval = props => {
       lastFilingMonth = finalMonthInQuarter;
     }
 
+    const monthlyData = Object.keys(newMonths).map(monthKey => {
+      const date = newMonths[monthKey];
+      return {
+        month: date.getMonth() + 1,
+        year: date.getFullYear()
+      };
+    });
+
+    setFieldValue("monthlyData", monthlyData);
+
     const dueDate = GetFormattedDueDate(lastFilingMonth);
     const status = GetDueDateStatus(lastFilingMonth, new Date());
+
+    setFieldValue("monthsToReport", newMonths);
 
     setStatus(status);
     setDueDate(dueDate);
@@ -84,7 +96,6 @@ const ReturnInterval = props => {
     }
   };
 
-  /** Ensure dates make it to form */
   useEffect(() => {
     setFieldValue("monthsToReport", months);
   }, [months, setFieldValue]);
@@ -97,13 +108,10 @@ const ReturnInterval = props => {
 
   useEffect(() => {
     const { isLate, value } = status;
+    setFieldValue("dueDate", dueDate);
     setFieldValue("monthsLate", isLate ? value : 0);
     setFieldValue("isReturnLate", isLate);
-  }, [status, setFieldValue]);
-
-  if (!paymentInterval) {
-    return <p>Please select your payment interval before proceeding.</p>;
-  }
+  }, [status, dueDate, setFieldValue]);
 
   return (
     <React.Fragment>
