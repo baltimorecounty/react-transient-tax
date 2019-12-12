@@ -113,10 +113,6 @@ const ReturnInterval = props => {
     setFieldValue("isReturnLate", isLate);
   }, [status, dueDate, setFieldValue]);
 
-  if (!paymentInterval) {
-    return <p>Please select your payment interval before proceeding.</p>;
-  }
-
   return (
     <React.Fragment>
       <div className="tt_form-group flex-end">
