@@ -26,17 +26,12 @@ const GetExemptionFormErrors = exemption => {
  * Note: Exemption values are negative
  * @param {array} exemptionTotals Array of exemption field total objects
  */
-const HasAtLeast1Exemption = (exemptionTotals = []) => {
-  const sum = (prev, next) => prev + next;
-
-  return exemptionTotals.some(
-    total =>
-      total &&
-      Object.keys(total).length > 0 &&
-      Object.keys(total)
-        .map(key => total[key])
-        .reduce(sum) < 0
+const HasAtLeast1Exemption = (monthlyData = []) =>
+  monthlyData.some(
+    ({
+      nonTransientRentalCollected = 0,
+      governmentExemptRentalCollected = 0
+    }) => !!governmentExemptRentalCollected || !!nonTransientRentalCollected
   );
-};
 
 export { GetExemptionFormErrors, HasAtLeast1Exemption };

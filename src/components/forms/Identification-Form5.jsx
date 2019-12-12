@@ -1,12 +1,11 @@
+import { Form, Formik } from "formik";
 import React from "react";
-import { Formik, Form } from "formik";
-import Field from "../Field";
+import * as Yup from "yup";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
-import TransientTaxTabs from "../TransientTaxTabs";
-import { Labels } from "../../common/Constants";
+import Field from "../Field";
 import InformationModal from "../InformationModal";
-import * as Yup from "yup";
+import TransientTaxTabs from "../TransientTaxTabs";
 
 const IdentificationForm5 = props => {
   const {
@@ -19,14 +18,8 @@ const IdentificationForm5 = props => {
     label,
     formik
   } = props;
-  const {
-    nonTransientRentalCollected,
-    governmentExemptRentalCollected
-  } = formik.values;
-  const showTradeAlias = HasAtLeast1Exemption([
-    nonTransientRentalCollected,
-    governmentExemptRentalCollected
-  ]);
+  const { monthlyData } = formik.values;
+  const showTradeAlias = HasAtLeast1Exemption(monthlyData);
 
   return (
     <Formik
@@ -113,9 +106,6 @@ const IdentificationForm5 = props => {
                   />
                 }
               />
-              <div>
-                <label>{Labels.LegalNote}</label>
-              </div>
             </div>
             <div className="clearfix"></div>
           </div>
