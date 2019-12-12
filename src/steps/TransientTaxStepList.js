@@ -20,13 +20,11 @@ import { HasAtLeast1Exemption } from "../common/ExemptionUtilities";
 const onPaymentFormSubmission = (
   stepList,
   currentFormValues,
-  globalFormValues,
-  previousStepId
+  previousStepId,
+  monthKey
 ) => {
   const { monthlyData = [] } = currentFormValues;
-  const { monthsToReport = {} } = globalFormValues;
-  const isLastPaymentPanel =
-    monthlyData.length === Object.keys(monthsToReport).length;
+  const isLastPaymentPanel = monthlyData.length === parseInt(monthKey) + 1;
 
   if (!isLastPaymentPanel) {
     return;
@@ -75,7 +73,8 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
           stepList,
           currentFormValues,
           globalFormValues,
-          id
+          id,
+          monthKey
         );
       },
       data: {
