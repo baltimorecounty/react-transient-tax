@@ -17,14 +17,14 @@ import { HasAtLeast1Exemption } from "../common/ExemptionUtilities";
  * @param {object} globalFormValues
  * @param {string} previousStepId reference point for inserted exemption certificate
  */
-const onPaymentFormSubmission = (
+const onPaymentFormSubmission = ({
   stepList,
   currentFormValues,
   previousStepId,
-  monthKey
-) => {
+  monthIndex
+}) => {
   const { monthlyData = [] } = currentFormValues;
-  const isLastPaymentPanel = monthlyData.length === parseInt(monthKey) + 1;
+  const isLastPaymentPanel = monthlyData.length === monthIndex + 1;
 
   if (!isLastPaymentPanel) {
     return;
@@ -60,7 +60,8 @@ const onPaymentFormSubmission = (
 const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
   stepList.reset();
   let stepToInsertAfter = "payment-selection";
-  Object.keys(monthsToReport).forEach(monthKey => {
+  Object.keys(monthsToReport).forEach((monthKey, monthIndex) => {
+    console.log(monthIndex);
     const date = monthsToReport[monthKey];
     const friendlyDate = format(date, "MMMM yyyy");
     const id = `payment-form-${friendlyDate.replace(/\s/g, "")}`;
@@ -69,13 +70,13 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
       label: `${friendlyDate} Tax Return`,
       component: <MonthlyPaymentForm3 />,
       onFormSubmission: (stepList, currentFormValues, globalFormValues) => {
-        onPaymentFormSubmission(
+        onPaymentFormSubmission({
           stepList,
           currentFormValues,
           globalFormValues,
-          id,
-          monthKey
-        );
+          monthIndex,
+          previousStepId: id
+        });
       },
       data: {
         date
