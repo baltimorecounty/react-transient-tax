@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import TransientTaxTabs from "../../components/TransientTaxTabs";
 import Field from "../Field";
-import { GetAddresses } from "../../services/ApiService";
+import { VerifyAddress } from "../../services/ApiService";
 import AddressLookupField from "../AddressLookupField";
 
 import * as Yup from "yup";
@@ -35,7 +35,7 @@ const BasicInformationForm1 = props => {
           .required("Required")
           .test("is-valid-address", "Please enter a valid address.", value => {
             return new Promise(resolve => {
-              GetAddresses(value)
+              VerifyAddress(value)
                 .then(response => {
                   resolve((Object.keys(response).length = 1));
                 })
