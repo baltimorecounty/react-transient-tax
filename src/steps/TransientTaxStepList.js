@@ -1,11 +1,11 @@
 import { format } from "date-fns";
 import React from "react";
-import BasicInformationForm1 from "../components/forms/BasicInformationForm";
-import ExemptionCertificateForm4 from "../components/forms/ExemptionCertificate-Form4";
-import IdentificationForm5 from "../components/forms/Identification-Form5";
-import MonthlyPaymentForm3 from "../components/forms/MonthlyPayment-Form3";
-import PaymentOptionsForm2 from "../components/forms/PaymentOptions-Form2";
-import ReviewForm6 from "../components/forms/ReviewFormPanel";
+import BasicInformationForm from "../components/forms/BasicInformationForm";
+import ExemptionCertificateForm from "../components/forms/ExemptionCertificateForm";
+import IdentificationForm from "../components/forms/IdentificationForm";
+import MonthlyPaymentForm from "../components/forms/MonthlyPaymentForm";
+import PaymentOptionsForm from "../components/forms/PaymentOptionsForm";
+import ReviewFormPanel from "../components/forms/ReviewFormPanel";
 import Step from "./Step";
 import StepList from "./StepList";
 import { HasAtLeast1Exemption } from "../common/ExemptionUtilities";
@@ -37,7 +37,7 @@ const onPaymentFormSubmission = ({
     const exemptionStep = new Step({
       id: exemptionStepId,
       label: `Exemption Certificate`,
-      component: <ExemptionCertificateForm4 />
+      component: <ExemptionCertificateForm />
     });
 
     const doesExemptionPanelExist = stepList.steps.find(
@@ -61,14 +61,13 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
   stepList.reset();
   let stepToInsertAfter = "payment-selection";
   Object.keys(monthsToReport).forEach((monthKey, monthIndex) => {
-    console.log(monthIndex);
     const date = monthsToReport[monthKey];
     const friendlyDate = format(date, "MMMM yyyy");
     const id = `payment-form-${friendlyDate.replace(/\s/g, "")}`;
     const step = new Step({
       id,
       label: `${friendlyDate} Tax Return`,
-      component: <MonthlyPaymentForm3 />,
+      component: <MonthlyPaymentForm />,
       onFormSubmission: (stepList, currentFormValues, globalFormValues) => {
         onPaymentFormSubmission({
           stepList,
@@ -92,23 +91,23 @@ const steps = [
   new Step({
     id: "basic-information",
     label: "Step 1 - Business Demographics",
-    component: <BasicInformationForm1 />
+    component: <BasicInformationForm />
   }),
   new Step({
     id: "payment-selection",
     label: "Step 2 - Payment Interval Selection",
-    component: <PaymentOptionsForm2 />,
+    component: <PaymentOptionsForm />,
     onFormSubmission: onPaymentSelectionSubmission
   }),
   new Step({
     id: "identification",
     label: "Step 7 - Identification",
-    component: <IdentificationForm5 />
+    component: <IdentificationForm />
   }),
   new Step({
     id: "review",
     label: "Step 8 - Review",
-    component: <ReviewForm6 />,
+    component: <ReviewFormPanel />,
     isForm: false
   })
 ];
