@@ -13,10 +13,11 @@ const CustomInputComponent = ({
   const { name } = field;
   const { className, isNegativeValue, label } = props;
   const { setFieldValue, touched, errors } = form;
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState();
   const cssClasses = classnames("tt_form-group flex-end total", className);
 
-  const handleChange = (formattedNumber, valueAsNumber) => {
+  const handleChange = formattedNumber => {
+    const { valueAsNumber } = formattedNumber.target;
     setValue(Math.abs(valueAsNumber));
     setFieldValue(name, valueAsNumber);
   };
