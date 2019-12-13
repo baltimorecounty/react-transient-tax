@@ -6,7 +6,7 @@ import ExemptionCertificateField from "../ExemptionCertificateField";
 import TransientTaxTabs from "../TransientTaxTabs";
 import ErrorMessage from "../ErrorMessage";
 
-const ExemptionCertificateForm4 = props => {
+const ExemptionCertificateForm = props => {
   const {
     nextButton,
     prevButton,
@@ -59,4 +59,4 @@ const ExemptionCertificateForm4 = props => {
   );
 };
 
-export default ExemptionCertificateForm4;
+export default ExemptionCertificateForm;
