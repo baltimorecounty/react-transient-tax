@@ -12,7 +12,7 @@ const CustomInputComponent = ({
 }) => {
   const { name } = field;
   const { className, isNegativeValue, label } = props;
-  const { setFieldValue, touched, errors } = form;
+  const { setFieldValue } = form;
   const [value, setValue] = useState();
   const cssClasses = classnames("tt_form-group flex-end total", className);
 
@@ -34,9 +34,7 @@ const CustomInputComponent = ({
             onChange={handleChange}
             value={value}
           />
-          {touched[field.name] && errors[field.name] && (
-            <ErrorMessage name={name} component="div" />
-          )}
+          <ErrorMessage name={name} component="div" />
         </div>
       </div>
     </div>
