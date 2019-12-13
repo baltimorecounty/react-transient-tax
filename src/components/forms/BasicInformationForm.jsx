@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import TransientTaxTabs from "../../components/TransientTaxTabs";
+import TransientTaxTabs from "../TransientTaxTabs";
 import Field from "../Field";
 import AddressLookupField from "../AddressLookupField";
 
