@@ -8,7 +8,7 @@ import { GetFilingTypes } from "../../services/ApiService";
 import { ErrorPath } from "../../common/ErrorUtility";
 import * as Yup from "yup";
 
-const PaymentOptionsForm2 = props => {
+const PaymentOptionsForm = props => {
   const {
     nextButton,
     prevButton,
@@ -93,4 +93,4 @@ const PaymentOptionsForm2 = props => {
   );
 };
 
-export default PaymentOptionsForm2;
+export default PaymentOptionsForm;

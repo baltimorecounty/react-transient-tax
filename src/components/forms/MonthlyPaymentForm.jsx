@@ -8,7 +8,7 @@ import PaymentTotal from "../PaymentTotal";
 import TransientTaxTabs from "../TransientTaxTabs";
 import { AddOrUpdate } from "../../common/ArrayUtilities";
 
-const MonthlyPaymentForm3 = props => {
+const MonthlyPaymentForm = props => {
   const {
     nextButton,
     prevButton,
@@ -165,4 +165,4 @@ const MonthlyPaymentForm3 = props => {
   );
 };
 
-export default MonthlyPaymentForm3;
+export default MonthlyPaymentForm;
