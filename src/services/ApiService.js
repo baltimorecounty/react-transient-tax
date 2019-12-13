@@ -55,7 +55,7 @@ const GetAddresses = location =>
  */
 const VerifyAddress = location =>
   axios
-    .get(`${getValue("apiRoot")}/gis/verifyaddress/${location}`)
+    .get(`${getValue("apiRoot")}/gis/geocoder/${location}`)
     .then(({ status, data }) => (status === 200 ? data : []));
 
 const SaveExemption = exemption => {
