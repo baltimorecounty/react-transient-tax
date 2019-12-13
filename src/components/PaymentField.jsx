@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { Field, connect } from "formik";
 import CurrencyInput from "react-currency-input";
+import ErrorMessage from "./ErrorMessage";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -16,7 +17,7 @@ const CustomInputComponent = ({
     label
     // buildMonthLabel = () => {}
   } = props;
-  const { setFieldValue, touched, errors } = form;
+  const { setFieldValue } = form;
   const [value, setValue] = useState(0);
   const cssClasses = classnames("tt_form-group flex-end total", className);
 
@@ -40,9 +41,7 @@ const CustomInputComponent = ({
             onChange={handleChange}
             value={value}
           />
-          {touched[field.name] && errors[field.name] && (
-            <div className="error">{errors[field.name]}</div>
-          )}
+          <ErrorMessage name={name} />
         </div>
       </div>
     </div>
