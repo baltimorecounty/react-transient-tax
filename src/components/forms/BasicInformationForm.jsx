@@ -6,7 +6,7 @@ import AddressLookupField from "../AddressLookupField";
 
 import * as Yup from "yup";
 
-const BasicInformationForm1 = props => {
+const BasicInformationForm = props => {
   const {
     nextButton,
     prevButton,
@@ -61,4 +61,4 @@ const BasicInformationForm1 = props => {
   );
 };
 
-export default BasicInformationForm1;
+export default BasicInformationForm;

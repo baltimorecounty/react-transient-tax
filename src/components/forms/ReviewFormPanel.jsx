@@ -6,7 +6,7 @@ import ReturnSummary from "../ReturnSummary";
 import TransientTaxTabs from "../TransientTaxTabs";
 import { GetReturnSummaryValues } from "../../data/TaxReturnMapper";
 
-const ReviewPanel = props => {
+const ReviewFormPanel = props => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     submitButton,
@@ -59,4 +59,4 @@ const ReviewPanel = props => {
   );
 };
 
-export default ReviewPanel;
+export default ReviewFormPanel;

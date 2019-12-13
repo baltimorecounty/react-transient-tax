@@ -7,7 +7,7 @@ import Field from "../Field";
 import InformationModal from "../InformationModal";
 import TransientTaxTabs from "../TransientTaxTabs";
 
-const IdentificationForm5 = props => {
+const IdentificationForm = props => {
   const {
     nextButton,
     prevButton,
@@ -117,4 +117,4 @@ const IdentificationForm5 = props => {
   );
 };
 
-export default IdentificationForm5;
+export default IdentificationForm;
