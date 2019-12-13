@@ -1,13 +1,13 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import TransientTaxTabs from "../../components/TransientTaxTabs";
+import TransientTaxTabs from "../TransientTaxTabs";
 import Field from "../Field";
 import { VerifyAddress } from "../../services/ApiService";
 import AddressLookupField from "../AddressLookupField";
 
 import * as Yup from "yup";
 
-const BasicInformationForm1 = props => {
+const BasicInformationForm = props => {
   const {
     nextButton,
     prevButton,
@@ -73,4 +73,4 @@ const BasicInformationForm1 = props => {
   );
 };
 
-export default BasicInformationForm1;
+export default BasicInformationForm;
