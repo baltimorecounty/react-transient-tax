@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { Field, connect } from "formik";
-import ErrorMessage from "../components/ErrorMessage";
-import CurrencyInput from "../components/CurrencyInput";
+import ErrorMessage from "./ErrorMessage";
+import CurrencyInput from "./CurrencyInput";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -34,7 +34,7 @@ const CustomInputComponent = ({
             onChange={handleChange}
             value={value}
           />
-          <ErrorMessage name={name} component="div" />
+          <ErrorMessage name={name} />
         </div>
       </div>
     </div>
