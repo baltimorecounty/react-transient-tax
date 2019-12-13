@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { Field, connect } from "formik";
-import CurrencyInput from "react-currency-input";
+import ErrorMessage from "../components/ErrorMessage";
+import CurrencyInput from "../components/CurrencyInput";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -10,12 +11,7 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const { name } = field;
-  const {
-    className,
-    isNegativeValue,
-    label
-    // buildMonthLabel = () => {}
-  } = props;
+  const { className, isNegativeValue, label } = props;
   const { setFieldValue, touched, errors } = form;
   const [value, setValue] = useState(0);
   const cssClasses = classnames("tt_form-group flex-end total", className);
@@ -31,17 +27,14 @@ const CustomInputComponent = ({
       <div className="tt_currency-pickers">
         <div className="tt_currency-picker">
           <CurrencyInput
-            prefix={`${isNegativeValue ? "-" : ""}$`}
-            decimalSeparator="."
-            thousandSeparator=","
-            allowNegative={true}
+            isNegativeValue={isNegativeValue}
             id={name}
             name={name}
             onChange={handleChange}
             value={value}
           />
           {touched[field.name] && errors[field.name] && (
-            <div className="error">{errors[field.name]}</div>
+            <ErrorMessage name={name} component="div" />
           )}
         </div>
       </div>
