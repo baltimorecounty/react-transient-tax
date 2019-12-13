@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import React from "react";
-import BasicInformationForm1 from "../components/forms/BasicInformation-Form1";
+import BasicInformationForm1 from "../components/forms/BasicInformationForm";
 import ExemptionCertificateForm4 from "../components/forms/ExemptionCertificate-Form4";
 import IdentificationForm5 from "../components/forms/Identification-Form5";
 import MonthlyPaymentForm3 from "../components/forms/MonthlyPayment-Form3";
