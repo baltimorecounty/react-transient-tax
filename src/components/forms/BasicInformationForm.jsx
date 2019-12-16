@@ -33,11 +33,17 @@ const BasicInformationForm = props => {
           .required("Required"),
         businessAddress: Yup.mixed()
           .required("Required")
-          .test("is-valid-address", "Please enter a valid address.", value => {
-            return new Promise(resolve => {
-              VerifyAddress(value).then(response => resolve(!!response));
-            });
-          })
+          .test(
+            "is-valid-address",
+            "Please enter a valid address.",
+            addressValue => {
+              return new Promise(resolve => {
+                VerifyAddress(addressValue).then(response =>
+                  resolve(!!response)
+                );
+              });
+            }
+          )
       })}
     >
       {props => (
