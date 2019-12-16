@@ -30,39 +30,41 @@ const ReturnInterval = props => {
    * @param {number} monthIndex tells us which month the
    */
   const handleDateChange = (date, monthIndex) => {
-    const newMonths = { ...months };
-    const isFirstMonthInQuarter = monthIndex === 0;
-    let lastFilingMonth = date;
-    newMonths[monthIndex] = date;
+    if (date !== null) {
+      const newMonths = { ...months };
+      const isFirstMonthInQuarter = monthIndex === 0;
+      let lastFilingMonth = date;
+      newMonths[monthIndex] = date;
 
-    // If this is a quarterly report, assume the next two months but leave them editable
-    if (!isMonthly && isFirstMonthInQuarter) {
-      const nextMonth = addMonths(date, 1);
-      const finalMonthInQuarter = addMonths(date, 2);
+      // If this is a quarterly report, assume the next two months but leave them editable
+      if (!isMonthly && isFirstMonthInQuarter) {
+        const nextMonth = addMonths(date, 1);
+        const finalMonthInQuarter = addMonths(date, 2);
 
-      newMonths[1] = nextMonth;
-      newMonths[2] = finalMonthInQuarter;
-      lastFilingMonth = finalMonthInQuarter;
+        newMonths[1] = nextMonth;
+        newMonths[2] = finalMonthInQuarter;
+        lastFilingMonth = finalMonthInQuarter;
+      }
+
+      const monthlyData = Object.keys(newMonths).map(monthKey => {
+        const date = newMonths[monthKey];
+        return {
+          month: date.getMonth() + 1,
+          year: date.getFullYear()
+        };
+      });
+
+      setFieldValue("monthlyData", monthlyData);
+
+      const dueDate = GetFormattedDueDate(lastFilingMonth);
+      const status = GetDueDateStatus(lastFilingMonth, new Date());
+
+      setFieldValue("monthsToReport", newMonths);
+
+      setStatus(status);
+      setDueDate(dueDate);
+      setMonths(newMonths);
     }
-
-    const monthlyData = Object.keys(newMonths).map(monthKey => {
-      const date = newMonths[monthKey];
-      return {
-        month: date.getMonth() + 1,
-        year: date.getFullYear()
-      };
-    });
-
-    setFieldValue("monthlyData", monthlyData);
-
-    const dueDate = GetFormattedDueDate(lastFilingMonth);
-    const status = GetDueDateStatus(lastFilingMonth, new Date());
-
-    setFieldValue("monthsToReport", newMonths);
-
-    setStatus(status);
-    setDueDate(dueDate);
-    setMonths(newMonths);
   };
 
   /**
