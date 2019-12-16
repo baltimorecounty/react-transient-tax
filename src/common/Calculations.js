@@ -41,8 +41,9 @@ const GetCalculatedTotals = (fields = {}, monthsLate = 0) => {
     nonTransientRentalCollected,
     governmentExemptRentalCollected
   } = fields;
-  
-  const totalExemptions = nonTransientRentalCollected+ governmentExemptRentalCollected;
+
+  const totalExemptions =
+    nonTransientRentalCollected + governmentExemptRentalCollected;
   const netRoomRentalCollections = totalExemptions + grossRentalCollected;
   const transientTaxCollected = CalculateTaxCollected(netRoomRentalCollections);
 

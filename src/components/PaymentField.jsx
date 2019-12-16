@@ -19,7 +19,7 @@ const CustomInputComponent = ({
   const handleChange = formattedNumber => {
     const { valueAsNumber } = formattedNumber.target;
     setValue(!valueAsNumber ? undefined : Math.abs(valueAsNumber));
-    setFieldValue(name,!valueAsNumber ? 0 : valueAsNumber);
+    setFieldValue(name, !valueAsNumber ? 0 : valueAsNumber);
   };
 
   return (
