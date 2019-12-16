@@ -35,9 +35,7 @@ const BasicInformationForm = props => {
           .required("Required")
           .test("is-valid-address", "Please enter a valid address.", value => {
             return new Promise(resolve => {
-              VerifyAddress(value)
-                .then(response => resolve(!!response))
-                .catch(resolve(false));
+              VerifyAddress(value).then(response => resolve(!!response));
             });
           })
       })}
