@@ -32,7 +32,7 @@ const CustomInputComponent = ({
             id={name}
             name={name}
             onChange={handleChange}
-            value={value}
+            value={value || ''}
           />
           <ErrorMessage name={name} />
         </div>
