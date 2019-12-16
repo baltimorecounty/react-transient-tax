@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import TransientTaxTabs from "../TransientTaxTabs";
 import Field from "../Field";
 import { VerifyAddress } from "../../services/ApiService";
-import AddressLookupField from "../AddressLookupField";
+import AddressLookupField from "../../components/AddressLookupField";
 
 import * as Yup from "yup";
 
@@ -37,7 +37,9 @@ const BasicInformationForm = props => {
             return new Promise(resolve => {
               VerifyAddress(value)
                 .then(response => {
-                  resolve((Object.keys(response).length = 1));
+                  resolve(
+                    response ? (Object.keys(response).length = 1) : false
+                  );
                 })
                 .catch(resolve(false));
             });

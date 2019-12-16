@@ -3,7 +3,7 @@ import React from "react";
 import * as Yup from "yup";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import { Labels } from "../../common/Constants";
-import PaymentField from "../PaymentField";
+import PaymentField from "../../components/PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import TransientTaxTabs from "../TransientTaxTabs";
 import { AddOrUpdate } from "../../common/ArrayUtilities";
