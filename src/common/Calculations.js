@@ -44,7 +44,7 @@ const GetCalculatedTotals = (fields = {}, monthsLate = 0) => {
 
   const totalExemptions =
     nonTransientRentalCollected + governmentExemptRentalCollected;
-  const netRoomRentalCollections = totalExemptions + grossRentalCollected;
+  const netRoomRentalCollections = grossRentalCollected - totalExemptions;
   const transientTaxCollected = CalculateTaxCollected(netRoomRentalCollections);
 
   let transientInterest = 0;
