@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import TransientTaxTabs from "../TransientTaxTabs";
 import Field from "../Field";
@@ -18,13 +18,25 @@ const BasicInformationForm = props => {
     label
   } = props;
 
+  const [isValidatingAddress, setIsValidatingAddress] = useState(false);
+
+  const ValidateAddress = async addressValue => {
+    setIsValidatingAddress(true);
+    try {
+      return await VerifyAddress(addressValue);
+    } catch (ex) {
+      return null;
+    }
+  };
+
   return (
     <Formik
       initialValues={{
         businessName: "",
-        businessAddress: ""
+        businessAddress: "",
+        businessAddressId: "none"
       }}
-      onSubmit={values => {
+      onSubmit={async values => {
         onValidSubmission(values);
       }}
       validationSchema={Yup.object({
@@ -35,12 +47,13 @@ const BasicInformationForm = props => {
           .required("Required")
           .test(
             "is-valid-address",
-            "Please enter a valid address.",
+            "Please enter a valid Baltimore County address.",
             addressValue => {
               return new Promise(resolve => {
-                VerifyAddress(addressValue).then(response =>
+                ValidateAddress(addressValue).then(response =>
                   resolve(!!response)
                 );
+                setIsValidatingAddress(false);
               });
             }
           )
@@ -66,6 +79,7 @@ const BasicInformationForm = props => {
               name="businessAddress"
               label="Business Address"
             />
+            {isValidatingAddress ? <p>Validating address...</p> : null}
           </div>
           {prevButton}
           {nextButton}
