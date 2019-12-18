@@ -4,6 +4,7 @@ import TransientTaxTabs from "../TransientTaxTabs";
 import Field from "../Field";
 import { VerifyAddress } from "../../services/ApiService";
 import AddressLookupField from "../../components/AddressLookupField";
+import ErrorMessage from "../ErrorMessage";
 
 import * as Yup from "yup";
 
@@ -38,7 +39,7 @@ const BasicInformationForm = props => {
         businessAddress: "",
         businessAddressId: "none"
       }}
-      onSubmit={async values => {
+      onSubmit={async (values, formikBag) => {
         const { businessAddress } = values;
         const addressId = await ValidateAddress(businessAddress);
 
@@ -47,7 +48,7 @@ const BasicInformationForm = props => {
           onValidSubmission(values);
         }
         else {
-          values.businessAddressId = "";
+          formikBag.setFieldValue('businessAddressId', null);
         }
 
         setIsValidatingAddress(false);
@@ -61,18 +62,6 @@ const BasicInformationForm = props => {
           .required("Required"),
         businessAddressId: Yup.mixed()
           .required("Please enter a valid Baltimore County address")
-        // .test(
-        //   "is-valid-address",
-        //   "Please enter a valid Baltimore County address.",
-        //   addressValue => {
-        //     return new Promise(resolve => {
-        //       ValidateAddress(addressValue).then(response =>
-        //         resolve(!!response)
-        //       );
-        //       setIsValidatingAddress(false);
-        //     });
-        //   }
-        // )
       })}
     >
       {props => (
@@ -95,6 +84,7 @@ const BasicInformationForm = props => {
               name="businessAddress"
               label="Business Address"
             />
+            <ErrorMessage name="businessAddressId" component="div" />
             {isValidatingAddress ? <p>Validating address...</p> : null}
           </div>
           {prevButton}
