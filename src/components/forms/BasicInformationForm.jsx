@@ -23,7 +23,8 @@ const BasicInformationForm = props => {
   const ValidateAddress = async addressValue => {
     setIsValidatingAddress(true);
     try {
-      return await VerifyAddress(addressValue);
+      const response = await VerifyAddress(addressValue);
+      return response.AddressId;
     } catch (ex) {
       return null;
     }
@@ -37,26 +38,41 @@ const BasicInformationForm = props => {
         businessAddressId: "none"
       }}
       onSubmit={async values => {
-        onValidSubmission(values);
+        const { businessAddress } = values;
+        const addressID = await ValidateAddress(businessAddress);
+        console.log(addressID);
+
+        if (addressID) {
+          values.businessAddressId = addressID
+          onValidSubmission(values);
+        }
+        else {
+          values.businessAddressId = "";
+        }
+
+        setIsValidatingAddress(false);
+
       }}
       validationSchema={Yup.object({
         businessName: Yup.string()
           .transform(value => (!value ? null : value))
           .required("Required"),
         businessAddress: Yup.mixed()
-          .required("Required")
-          .test(
-            "is-valid-address",
-            "Please enter a valid Baltimore County address.",
-            addressValue => {
-              return new Promise(resolve => {
-                ValidateAddress(addressValue).then(response =>
-                  resolve(!!response)
-                );
-                setIsValidatingAddress(false);
-              });
-            }
-          )
+          .required("Required"),
+        businessAddressId: Yup.mixed()
+          .required("Please enter a valid Baltimore County address")
+        // .test(
+        //   "is-valid-address",
+        //   "Please enter a valid Baltimore County address.",
+        //   addressValue => {
+        //     return new Promise(resolve => {
+        //       ValidateAddress(addressValue).then(response =>
+        //         resolve(!!response)
+        //       );
+        //       setIsValidatingAddress(false);
+        //     });
+        //   }
+        // )
       })}
     >
       {props => (
