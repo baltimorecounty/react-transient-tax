@@ -36,10 +36,9 @@ const BasicInformationForm = props => {
       initialValues={{
         businessName: "",
         businessAddress: "",
-        businessAddressId: "",
         businessAddressParts: {}
       }}
-      onSubmit={async (values, formikBag) => {
+      onSubmit={async values => {
         const { businessAddress, businessAddressParts } = values;
         const shouldGeocode = Object.keys(businessAddressParts).length === 0;
         const addressId = shouldGeocode
@@ -53,7 +52,6 @@ const BasicInformationForm = props => {
           setIsValidAddressMessage(
             "Please enter a valid Baltimore County address."
           );
-          formikBag.setFieldValue("businessAddressId", null);
         }
 
         setIsValidatingAddress(false);
