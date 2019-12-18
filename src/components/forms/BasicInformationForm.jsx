@@ -40,8 +40,11 @@ const BasicInformationForm = props => {
         businessAddressParts: {}
       }}
       onSubmit={async (values, formikBag) => {
-        const { businessAddress } = values;
-        const addressId = await ValidateAddress(businessAddress);
+        const { businessAddress, businessAddressParts } = values;
+        const shouldGeocode = Object.keys(businessAddressParts).length === 0;
+        const addressId = shouldGeocode
+          ? await ValidateAddress(businessAddress)
+          : businessAddressParts.id;
 
         if (addressId) {
           setIsValidAddressMessage("");
