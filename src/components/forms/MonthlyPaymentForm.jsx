@@ -110,6 +110,7 @@ const MonthlyPaymentForm = props => {
               />
               <PaymentTotal
                 name="exemptionTotal"
+                isNegativeValue={true}
                 total={totalExemptions}
                 label={Labels.ExemptionTotal}
                 className="tt_subtotal"

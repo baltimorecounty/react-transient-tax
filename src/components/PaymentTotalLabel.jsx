@@ -3,10 +3,16 @@ import PropTypes from "prop-types";
 import { FormatCurrency } from "../common/FormatUtilities";
 
 const PaymentTotalLabel = props => {
-  const { name, total = 0 } = props;
+  const { name, total = 0, isNegativeValue } = props;
+
+  const formattedCurrency = () => {
+    const currencyValue = isNegativeValue ? -total : total
+    return FormatCurrency(currencyValue)
+  }
+
   return (
     <div key={`payment-total-${name}`} className="tt_currency-picker">
-      <span className="tt_total">{FormatCurrency(total)}</span>
+      <span className="tt_total">{formattedCurrency()}</span>
     </div>
   );
 };

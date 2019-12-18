@@ -4,7 +4,7 @@ import classnames from "classnames";
 import PaymentTotalLabel from "./PaymentTotalLabel";
 
 const PaymentTotal = props => {
-  const { label, total = 0, name, className } = props;
+  const { label, total = 0, name, className, isNegativeValue = false } = props;
   const cssClasses = classnames("tt_form-group total", className);
 
   return (
@@ -15,6 +15,7 @@ const PaymentTotal = props => {
           key={`payment-total-label-${name}`}
           name={name}
           total={total}
+          isNegativeValue={isNegativeValue}
         />
       </div>
     </div>
