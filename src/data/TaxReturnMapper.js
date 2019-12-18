@@ -188,8 +188,6 @@ const MapResponseDataForTaxReturn = taxReturn => {
     "nonTransientRentalCollected"
   ]);
 
-  console.log(exemptions);
-
   const netRoomRentals = sumTotals([occupancyTaxCollected, exemptions]);
 
   const taxCollected = netRoomRentals.map(CalculateTaxCollected);
