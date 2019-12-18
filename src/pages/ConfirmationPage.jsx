@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { format } from "date-fns";
+import ReturnSummary from "../components/ReturnSummary";
 import { BudgetAndFinanceOfficeAddress } from "../common/Constants";
 import { ErrorPath } from "../common/ErrorUtility";
 import Address from "../components/Address";
-import ConfirmationTable from "../components/ConfirmationTable";
 import { GetTransientTaxReturn } from "../services/ApiService";
+import { GetReturnSummaryValues } from "../data/TaxReturnMapper";
 
 const {
   Organization,
@@ -13,43 +15,29 @@ const {
 } = BudgetAndFinanceOfficeAddress;
 const ConfirmationForm = props => {
   const { confirmationNumber = 0 } = props.match.params;
-  const [response, setResponse] = useState({});
+  const [taxReturn, setTaxReturn] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const {
-    ReturnTypeDescription,
-    DateSubmitted,
-    monthlyOccupancy,
-    monthlyExemption,
-    monthlyPenalty,
-    monthlyRemittedTax,
-    monthSubmitted,
-    monthlyTaxCollected,
-    monthlyInterest,
-    monthlyNetRoomRental,
+    returnTypeDescription,
+    dateSubmitted: formDateSubmitted,
     formattedDueDate
-  } = response;
+  } = taxReturn;
+  const taxReturnValues = GetReturnSummaryValues(taxReturn);
+  const { dateSubmitted = formDateSubmitted } = taxReturn;
+  const formattedDateSubmitted = dateSubmitted
+    ? format(new Date(dateSubmitted), "MMMM dd yyyy")
+    : "";
 
   useEffect(() => {
     GetTransientTaxReturn(confirmationNumber)
       .then(response => {
-        setResponse(response);
+        setTaxReturn(response || {});
         setIsLoading(false);
       })
       .catch(error => {
         props.history.push(ErrorPath(error), { ...error });
       });
   }, [confirmationNumber, props.history]);
-
-  const ConfirmationTableValues = [
-    { id: 1, key: "Month of Return", value: monthSubmitted },
-    { id: 2, key: "Occupancy Tax Collected", value: monthlyOccupancy },
-    { id: 3, key: "Exemptions", value: monthlyExemption },
-    { id: 4, key: "Net Room Rental Collections", value: monthlyNetRoomRental },
-    { id: 5, key: "Tax Collected", value: monthlyTaxCollected },
-    { id: 6, key: "Interest", value: monthlyInterest },
-    { id: 7, key: "Penalties", value: monthlyPenalty },
-    { id: 8, key: "Monthly Tax Remitted", value: monthlyRemittedTax }
-  ];
 
   return (
     <div>
@@ -72,12 +60,12 @@ const ConfirmationForm = props => {
             Official when making inquiries in regards to your Transient
             Occupancy Tax Return.
           </p>
-          <ConfirmationTable
-            TaxDetailsHeader={"Transient Occupancy Tax Return Details:"}
-            ConfirmationTableValues={ConfirmationTableValues}
-            DateSubmitted={DateSubmitted}
-            DueDate={formattedDueDate}
-            ReturnType={ReturnTypeDescription}
+          <ReturnSummary
+            header={"Transient Occupancy Tax Return Details:"}
+            values={taxReturnValues}
+            dateSubmitted={formattedDateSubmitted}
+            dueDate={formattedDueDate}
+            returnType={returnTypeDescription}
           />
           <Address
             line1={Organization}

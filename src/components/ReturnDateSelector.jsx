@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import DatePicker from "react-datepicker";
 import { addMonths } from "date-fns";
+import { connect } from "formik";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import { Labels } from "../common/Constants";
 import {
   GetDueDateStatus,
-  GetFormattedDueDate,
-  GetFormatedDateTime
+  GetFormatedDateTime,
+  GetFormattedDueDate
 } from "../common/DatesUtilities";
-import { Labels } from "../common/Constants";
 import { GetIdByDescription } from "../common/LookupUtilities";
-import { connect } from "formik";
 
 const ReturnInterval = props => {
   const { paymentInterval, filingTypes, formik } = props;
@@ -30,27 +30,41 @@ const ReturnInterval = props => {
    * @param {number} monthIndex tells us which month the
    */
   const handleDateChange = (date, monthIndex) => {
-    const newMonths = { ...months };
-    const isFirstMonthInQuarter = monthIndex === 0;
-    let lastFilingMonth = date;
-    newMonths[monthIndex] = date;
+    if (date !== null) {
+      const newMonths = { ...months };
+      const isFirstMonthInQuarter = monthIndex === 0;
+      let lastFilingMonth = date;
+      newMonths[monthIndex] = date;
 
-    // If this is a quarterly report, assume the next two months but leave them editable
-    if (!isMonthly && isFirstMonthInQuarter) {
-      const nextMonth = addMonths(date, 1);
-      const finalMonthInQuarter = addMonths(date, 2);
+      // If this is a quarterly report, assume the next two months but leave them editable
+      if (!isMonthly && isFirstMonthInQuarter) {
+        const nextMonth = addMonths(date, 1);
+        const finalMonthInQuarter = addMonths(date, 2);
 
-      newMonths[1] = nextMonth;
-      newMonths[2] = finalMonthInQuarter;
-      lastFilingMonth = finalMonthInQuarter;
+        newMonths[1] = nextMonth;
+        newMonths[2] = finalMonthInQuarter;
+        lastFilingMonth = finalMonthInQuarter;
+      }
+
+      const monthlyData = Object.keys(newMonths).map(monthKey => {
+        const date = newMonths[monthKey];
+        return {
+          month: date.getMonth() + 1,
+          year: date.getFullYear()
+        };
+      });
+
+      setFieldValue("monthlyData", monthlyData);
+
+      const dueDate = GetFormattedDueDate(lastFilingMonth);
+      const status = GetDueDateStatus(lastFilingMonth, new Date());
+
+      setFieldValue("monthsToReport", newMonths);
+
+      setStatus(status);
+      setDueDate(dueDate);
+      setMonths(newMonths);
     }
-
-    const dueDate = GetFormattedDueDate(lastFilingMonth);
-    const status = GetDueDateStatus(lastFilingMonth, new Date());
-
-    setStatus(status);
-    setDueDate(dueDate);
-    setMonths(newMonths);
   };
 
   /**
@@ -84,7 +98,6 @@ const ReturnInterval = props => {
     }
   };
 
-  /** Ensure dates make it to form */
   useEffect(() => {
     setFieldValue("monthsToReport", months);
   }, [months, setFieldValue]);
@@ -97,13 +110,10 @@ const ReturnInterval = props => {
 
   useEffect(() => {
     const { isLate, value } = status;
+    setFieldValue("dueDate", dueDate);
     setFieldValue("monthsLate", isLate ? value : 0);
     setFieldValue("isReturnLate", isLate);
-  }, [status, setFieldValue]);
-
-  if (!paymentInterval) {
-    return <p>Please select your payment interval before proceeding.</p>;
-  }
+  }, [status, dueDate, setFieldValue]);
 
   return (
     <React.Fragment>
@@ -126,6 +136,7 @@ const ReturnInterval = props => {
                     onChange={date => handleDateChange(date, monthIndex)}
                     startDate={startDate}
                     dateFormat="MM/yyyy"
+                    monthsToReport={months}
                     showMonthYearPicker
                   />
                 ) : (

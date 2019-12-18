@@ -20,11 +20,7 @@ const buildReturn = (monthlyData = [], exemptions = []) => ({
   exemptions,
   nameOfSubmitter: "Test Submitter",
   titleOfSubmitter: "Owner",
-  tradeAlias: "",
-  monthsToReport: { 0: new Date(2019, 0, 1) },
-  grossOccupancy: { 0: 10.0 },
-  roomRentalCollectionFromNonTransients: { 0: 20 },
-  governmentOnBusiness: { 0: 40 }
+  tradeAlias: ""
 });
 
 const buildMonthlyData = isMonthly => {

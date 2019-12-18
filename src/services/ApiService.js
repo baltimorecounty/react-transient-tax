@@ -14,7 +14,7 @@ let exemptionId = 0;
  */
 const GetLookupItem = endpoint =>
   axios
-    .get(`${getValue("apiRoot")}/${endpoint}`)
+    .get(`${getValue("apiRoot")}/transientTax/${endpoint}`)
     .then(({ status, data }) => (status === 200 ? data : []));
 
 /**
@@ -33,11 +33,22 @@ const GetFilingTypes = () => GetLookupItem("filingTypes");
 const GetTransientTaxReturn = confirmationNumber =>
   axios
     .get(
-      `${getValue("apiRoot")}/return?confirmationnumber=${confirmationNumber}`
+      `${getValue(
+        "apiRoot"
+      )}/transientTax/return?confirmationnumber=${confirmationNumber}`
     )
     .then(({ status, data }) =>
       status === 200 ? MapResponseDataForTaxReturn(data) : []
     );
+
+/**
+ * Get Address Data from GIS
+ */
+const GetAddresses = location =>
+  axios
+
+    .get(`${getValue("apiRoot")}/gis/addressLookup/${location}`)
+    .then(({ status, data }) => (status === 200 ? data : []));
 
 const SaveExemption = exemption => {
   const { id } = exemption;
@@ -51,7 +62,10 @@ const SaveExemption = exemption => {
 
 const SaveReturn = taxReturn =>
   axios
-    .post(`${getValue("apiRoot")}/return`, MapTaxReturnToServerModel(taxReturn))
+    .post(
+      `${getValue("apiRoot")}/transientTax/return`,
+      MapTaxReturnToServerModel(taxReturn)
+    )
     .then(({ status, data }) => (status === 200 ? data : []))
     .catch(
       error =>
@@ -62,6 +76,7 @@ const SaveReturn = taxReturn =>
 export {
   GetExemptionTypes,
   GetTransientTaxReturn,
+  GetAddresses,
   GetFilingTypes,
   SaveExemption,
   SaveReturn

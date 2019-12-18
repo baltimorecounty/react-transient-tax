@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ExemptionSelector from "../ExemptionSelector";
-import ExemptionsList from "../ExemptionList";
-import { AddOrUpdate } from "../../common/ArrayUtilities";
-import { SaveExemption } from "../../services/ApiService";
+import ExemptionSelector from "./ExemptionSelector";
+import ExemptionsList from "./ExemptionList";
+import { AddOrUpdate } from "../common/ArrayUtilities";
+import { SaveExemption } from "../services/ApiService";
 import { Field } from "formik";
-import { Messages } from "../../common/Constants";
+import { Messages } from "../common/Constants";
 
 const ExemptionCertificate = ({
   field, // { name, value, onChange, onBlur }
@@ -14,7 +14,7 @@ const ExemptionCertificate = ({
   const { setFieldValue } = form;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
-  const [isSelectorFormDirty, setIsSelectorFormDirty] =useState(0);
+  const [isSelectorFormDirty, setIsSelectorFormDirty] = useState(0);
 
   useEffect(() => {
     setFieldValue("exemptions", exemptions);
@@ -26,14 +26,18 @@ const ExemptionCertificate = ({
 
   const saveExemption = exemption => {
     const savedExemption = SaveExemption(exemption);
-    const updatedExemptions = AddOrUpdate(exemptions, savedExemption);
-    setFieldValue('isExemptionFormDirty', true);
+    const updatedExemptions = AddOrUpdate(
+      exemptions,
+      savedExemption,
+      item => item.id === savedExemption.id
+    );
+    setFieldValue("isExemptionFormDirty", true);
     setExemptions(updatedExemptions);
     setIsSelectorFormDirty(0);
   };
 
   const editExemption = exemptionToEdit => {
-    setFieldValue('isExemptionFormDirty', false);
+    setFieldValue("isExemptionFormDirty", false);
     setExemption({ ...exemptionToEdit });
     setIsSelectorFormDirty(exemptionToEdit.id);
   };

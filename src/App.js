@@ -1,43 +1,53 @@
-import React from "react";
-import { HashRouter as Router, Route } from "react-router-dom";
-import "react-datepicker/dist/react-datepicker.css";
-import "./App.scss";
-import TransientTaxFormPage from "./pages/TransientTaxFormPage";
-import ConfirmationPage from "./pages/ConfirmationPage";
 import { Config } from "@baltimorecounty/javascript-utilities";
+import React from "react";
+import "react-datepicker/dist/react-datepicker.css";
+import { HashRouter as Router, Route } from "react-router-dom";
+import "./App.scss";
+import MultiPageForm from "./components/forms/MultiPageForm";
+import ConfirmationPage from "./pages/ConfirmationPage";
 import ErrorPage from "./pages/ErrorPage";
+import TransientTaxStepList from "./steps/TransientTaxStepList";
 const { setConfig } = Config;
+
+const localApiRoot = "//localhost:54727/api";
+const testApiRoot = "http://testservices.baltimorecountymd.gov/api";
+const prodApiRoot = "https://services.baltimorecountymd.gov/api";
 
 const configValues = {
   local: {
-    apiRoot: "//localhost:54727/api/transientTax"
+    apiRoot: localApiRoot
   },
   development: {
-    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+    apiRoot: testApiRoot
   },
   staging: {
-    apiRoot: "http://testservices.baltimorecountymd.gov/api/transientTax"
+    apiRoot: testApiRoot
   },
   production: {
-    apiRoot: "http://services.baltimorecountymd.gov/api/transientTax"
+    apiRoot: prodApiRoot
   }
 };
 
 setConfig(configValues);
-function App() {
-  return (
-    <div className="tt_app">
-      <Router>
-        <Route exact path="/" component={TransientTaxFormPage} />
-        <Route
-          exact
-          path="/confirmation/:confirmationNumber"
-          component={ConfirmationPage}
-        />
-        <Route exact path="/error/:errorType" component={ErrorPage} />
-      </Router>
-    </div>
-  );
-}
+
+const App = () => (
+  <div className="tt_app">
+    <Router>
+      <Route
+        exact
+        path="/"
+        render={props => (
+          <MultiPageForm {...props} stepList={TransientTaxStepList} />
+        )}
+      />
+      <Route
+        exact
+        path="/confirmation/:confirmationNumber"
+        component={ConfirmationPage}
+      />
+      <Route exact path="/error/:errorType" component={ErrorPage} />
+    </Router>
+  </div>
+);
 
 export default App;
