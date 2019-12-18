@@ -48,7 +48,7 @@ const BasicInformationForm = props => {
           onValidSubmission(values);
         } else {
           setIsValidAddressMessage(
-            "Please enter a valid baltimore county address."
+            "Please enter a valid Baltimore County address."
           );
           formikBag.setFieldValue("businessAddressId", null);
         }
