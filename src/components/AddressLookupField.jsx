@@ -26,7 +26,9 @@ const CustomInputComponent = ({
           console.error(error);
         });
     }
+
     setFieldValue("businessAddress", value);
+    setFieldValue("businessAddressParts", {});
   };
 
   const handleAddressSelect = (value, item) => {

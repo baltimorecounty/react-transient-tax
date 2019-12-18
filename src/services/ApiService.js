@@ -50,6 +50,14 @@ const GetAddresses = location =>
     .get(`${getValue("apiRoot")}/gis/addressLookup/${location}`)
     .then(({ status, data }) => (status === 200 ? data : []));
 
+/**
+ * Verifies if address is in GIS database
+ */
+const VerifyAddress = location =>
+  axios
+    .get(`${getValue("apiRoot")}/gis/geocoder/${location}`)
+    .then(({ status, data }) => (status === 200 ? data : []));
+
 const SaveExemption = exemption => {
   const { id } = exemption;
   exemptionId =
@@ -79,5 +87,6 @@ export {
   GetAddresses,
   GetFilingTypes,
   SaveExemption,
+  VerifyAddress,
   SaveReturn
 };
