@@ -4,9 +4,9 @@ import TransientTaxTabs from "../TransientTaxTabs";
 import Field from "../Field";
 import { VerifyAddress } from "../../services/ApiService";
 import AddressLookupField from "../../components/AddressLookupField";
-import ErrorMessage from "../ErrorMessage";
 
 import * as Yup from "yup";
+import ErrorMessage from "../ErrorMessage";
 
 const BasicInformationForm = props => {
   const {
@@ -19,6 +19,7 @@ const BasicInformationForm = props => {
     label
   } = props;
 
+  const [validationMessage, setValidationMessage] = useState("");
   const [isValidatingAddress, setIsValidatingAddress] = useState(false);
 
   const ValidateAddress = async (addressValue, values) => {
@@ -37,31 +38,29 @@ const BasicInformationForm = props => {
       initialValues={{
         businessName: "",
         businessAddress: "",
-        businessAddressId: "none"
+        businessAddressId: "",
+        businessAddressParts: {}
       }}
       onSubmit={async (values, formikBag) => {
         const { businessAddress } = values;
         const addressId = await ValidateAddress(businessAddress);
 
         if (addressId) {
-
           onValidSubmission(values);
-        }
-        else {
-          formikBag.setFieldValue('businessAddressId', null);
+        } else {
+          setValidationMessage(
+            "Please enter a valid baltimore county address."
+          );
+          formikBag.setFieldValue("businessAddressId", null);
         }
 
         setIsValidatingAddress(false);
-
       }}
       validationSchema={Yup.object({
         businessName: Yup.string()
           .transform(value => (!value ? null : value))
           .required("Required"),
-        businessAddress: Yup.mixed()
-          .required("Required"),
-        businessAddressId: Yup.mixed()
-          .required("Please enter a valid Baltimore County address")
+        businessAddress: Yup.mixed().required("Required")
       })}
     >
       {props => (
@@ -84,7 +83,12 @@ const BasicInformationForm = props => {
               name="businessAddress"
               label="Business Address"
             />
-            <ErrorMessage name="businessAddressId" component="div" />
+            {/* <ErrorMessage name="businessAddressId" /> */}
+            {validationMessage && (
+              <p role="alert" className="error-message">
+                {validationMessage}
+              </p>
+            )}
             {isValidatingAddress ? <p>Validating address...</p> : null}
           </div>
           {prevButton}
