@@ -5,6 +5,7 @@ import AddressLookupField from "../../components/AddressLookupField";
 import { VerifyAddress } from "../../services/ApiService";
 import Field from "../Field";
 import TransientTaxTabs from "../TransientTaxTabs";
+import BasicErrorMessage from "../BasicErrorMessage";
 
 const BasicInformationForm = props => {
   const {
@@ -84,9 +85,7 @@ const BasicInformationForm = props => {
               label="Business Address"
             />
             {isValidAddressMessage && (
-              <p role="alert" className="error-message">
-                {isValidAddressMessage}
-              </p>
+              <BasicErrorMessage message={isValidAddressMessage} />
             )}
             {isValidatingAddress ? <p>Validating address...</p> : null}
           </div>

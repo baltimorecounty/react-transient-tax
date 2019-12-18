@@ -1,11 +1,8 @@
 import React from "react";
 import { ErrorMessage as FormikErrorMessage } from "formik";
+import BasicErrorMessage from "./BasicErrorMessage";
 
-const renderErrorMessage = msg => (
-  <p role="alert" className="error-message">
-    {msg}
-  </p>
-);
+const renderErrorMessage = message => <BasicErrorMessage message={message} />;
 
 const ErrorMessage = props => (
   <FormikErrorMessage {...props} render={renderErrorMessage} />
