@@ -26,7 +26,10 @@ const CustomInputComponent = ({
           console.error(error);
         });
     }
+
+    setFieldValue("businessAddressId", null);
     setFieldValue("businessAddress", value);
+    setFieldValue("businessAddressParts", {});
   };
 
   const handleAddressSelect = (value, item) => {
@@ -93,7 +96,7 @@ const CustomInputComponent = ({
             key={item.id}
             className={`autocomplete-option ${
               isHighlighted ? "is-highlighted" : ""
-              }`}
+            }`}
           >
             {item.label}
           </div>
