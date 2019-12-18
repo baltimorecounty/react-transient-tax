@@ -23,7 +23,7 @@ const IdentificationForm = props => {
 
   return (
     <Formik
-      initialValues={{ email: "", nameOfSubmitter: "", titleOfSubmitter: "" }}
+      initialValues={{ tradeAlias:'',email: "", nameOfSubmitter: "", titleOfSubmitter: "" }}
       onSubmit={values => {
         onValidSubmission(values);
       }}
