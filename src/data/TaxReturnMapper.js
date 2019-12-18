@@ -70,10 +70,10 @@ const getDateInformation = ({
   const monthOfReturn = isMonthly ? 0 : 2;
   const dueDate = monthlyData.length
     ? new Date(
-        monthlyData[monthOfReturn].month +
-          "/01/" +
-          monthlyData[monthOfReturn].year
-      )
+      monthlyData[monthOfReturn].month +
+      "/01/" +
+      monthlyData[monthOfReturn].year
+    )
     : "";
   const formattedDueDate = dueDate ? GetFormattedDueDate(dueDate) : "";
   const { isLate, value: monthsLate } = dueDate
