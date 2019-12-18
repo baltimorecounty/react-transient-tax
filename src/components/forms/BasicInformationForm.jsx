@@ -20,10 +20,11 @@ const BasicInformationForm = props => {
 
   const [isValidatingAddress, setIsValidatingAddress] = useState(false);
 
-  const ValidateAddress = async addressValue => {
+  const ValidateAddress = async (addressValue, values) => {
     setIsValidatingAddress(true);
     try {
       const response = await VerifyAddress(addressValue);
+
       return response.AddressId;
     } catch (ex) {
       return null;
@@ -39,11 +40,10 @@ const BasicInformationForm = props => {
       }}
       onSubmit={async values => {
         const { businessAddress } = values;
-        const addressID = await ValidateAddress(businessAddress);
-        console.log(addressID);
+        const addressId = await ValidateAddress(businessAddress);
 
-        if (addressID) {
-          values.businessAddressId = addressID
+        if (addressId) {
+
           onValidSubmission(values);
         }
         else {
