@@ -1,12 +1,10 @@
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import { Formik, Form } from "formik";
-import TransientTaxTabs from "../TransientTaxTabs";
-import Field from "../Field";
-import { VerifyAddress } from "../../services/ApiService";
-import AddressLookupField from "../../components/AddressLookupField";
-
 import * as Yup from "yup";
-import ErrorMessage from "../ErrorMessage";
+import AddressLookupField from "../../components/AddressLookupField";
+import { VerifyAddress } from "../../services/ApiService";
+import Field from "../Field";
+import TransientTaxTabs from "../TransientTaxTabs";
 
 const BasicInformationForm = props => {
   const {
@@ -19,7 +17,7 @@ const BasicInformationForm = props => {
     label
   } = props;
 
-  const [validationMessage, setValidationMessage] = useState("");
+  const [isValidAddressMessage, setIsValidAddressMessage] = useState("");
   const [isValidatingAddress, setIsValidatingAddress] = useState(false);
 
   const ValidateAddress = async (addressValue, values) => {
@@ -46,9 +44,10 @@ const BasicInformationForm = props => {
         const addressId = await ValidateAddress(businessAddress);
 
         if (addressId) {
+          setIsValidAddressMessage("");
           onValidSubmission(values);
         } else {
-          setValidationMessage(
+          setIsValidAddressMessage(
             "Please enter a valid baltimore county address."
           );
           formikBag.setFieldValue("businessAddressId", null);
@@ -83,10 +82,9 @@ const BasicInformationForm = props => {
               name="businessAddress"
               label="Business Address"
             />
-            {/* <ErrorMessage name="businessAddressId" /> */}
-            {validationMessage && (
+            {isValidAddressMessage && (
               <p role="alert" className="error-message">
-                {validationMessage}
+                {isValidAddressMessage}
               </p>
             )}
             {isValidatingAddress ? <p>Validating address...</p> : null}
