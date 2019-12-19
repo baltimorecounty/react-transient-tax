@@ -38,13 +38,20 @@ const Step = props => {
     onNextClick(nextStep);
   };
 
+  const nextButtonStyle = stepNumber === 1 ? { marginLeft: "auto" } : {};
+
   const nextButton =
     nextStep && !isLastStep && isForm && !isHidden ? (
-      <button type="submit" className="next seButton">
+      <button type="submit" className="next seButton" style={nextButtonStyle}>
         Next
       </button>
     ) : (
-      <button type="text" onClick={handleNextClick} className="seButton">
+      <button
+        type="text"
+        onClick={handleNextClick}
+        style={nextButtonStyle}
+        className="seButton"
+      >
         Next
       </button>
     );
