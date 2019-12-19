@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Step from "../Step";
+
 import { Formik } from "formik";
+import Step from "../Step";
 
 const MultiPageForm = props => {
   const { history, stepList } = props;
