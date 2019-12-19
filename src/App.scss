@@ -245,8 +245,29 @@ label.tt_has-errors {
   }
 }
 
+.tt_form-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* OVERRIDES */
 #root {
   button {
     width: auto;
+  }
+  .seButton {
+    margin: 5px 0;
+  }
+
+  @media screen and (max-width: 576px) {
+    .tt_form-controls {
+      display: block;
+      padding: 10px 0;
+
+      .seButton {
+        margin-top: 0;
+        margin-bottom: 25px;
+      }
+    }
   }
 }

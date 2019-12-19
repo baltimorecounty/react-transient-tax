@@ -1,12 +1,14 @@
+import * as Yup from "yup";
+
+import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import { Formik, Form } from "formik";
+
 import ErrorMessage from "../ErrorMessage";
+import { ErrorPath } from "../../common/ErrorUtility";
+import { GetFilingTypes } from "../../services/ApiService";
 import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
 import TransientTaxTabs from "../TransientTaxTabs";
-import { GetFilingTypes } from "../../services/ApiService";
-import { ErrorPath } from "../../common/ErrorUtility";
-import * as Yup from "yup";
 
 const PaymentOptionsForm = props => {
   const {
@@ -85,8 +87,10 @@ const PaymentOptionsForm = props => {
               </React.Fragment>
             )}
           </div>
-          {prevButton}
-          {nextButton}
+          <div className="tt_form-controls">
+            {prevButton}
+            {nextButton}
+          </div>
         </Form>
       )}
     </Formik>
