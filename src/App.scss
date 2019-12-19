@@ -235,3 +235,12 @@ label.tt_has-errors {
   position: fixed;
   z-index: 99999;
 }
+
+.tt_note {
+  font-size: 14px;
+  font-style: italic;
+
+  .tt_label {
+    font-weight: 700;
+  }
+}
