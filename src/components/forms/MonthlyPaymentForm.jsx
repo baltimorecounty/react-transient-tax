@@ -1,12 +1,14 @@
-import { Form, Formik } from "formik";
-import React from "react";
 import * as Yup from "yup";
+
+import { Form, Formik } from "formik";
+
+import { AddOrUpdate } from "../../common/ArrayUtilities";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import { Labels } from "../../common/Constants";
 import PaymentField from "../../components/PaymentField";
 import PaymentTotal from "../PaymentTotal";
+import React from "react";
 import TransientTaxTabs from "../TransientTaxTabs";
-import { AddOrUpdate } from "../../common/ArrayUtilities";
 
 const MonthlyPaymentForm = props => {
   const {
@@ -156,6 +158,10 @@ const MonthlyPaymentForm = props => {
                 className="tt_section-total"
               />
             </div>
+            <p className="tt_note">
+              <span className="tt_label">Note</span>:{" "}
+              {Labels.InterestDisclaimer}
+            </p>
             {prevButton}
             {nextButton}
           </Form>
