@@ -32,8 +32,8 @@ const ExemptionListItem = props => {
     <li className={cssExemptionClasses}>
       <span>
         {label} - From: {format(fromDate, DefaultDateFormat)} To:{" "}
+        {format(toDate, DefaultDateFormat)}
       </span>
-      <span>{format(toDate, DefaultDateFormat)}</span>
       <div>
         {handleEditClick &&
           (!isDisabled ? (
