@@ -1,4 +1,5 @@
 import React from "react";
+import TransientTaxTabs from "./TransientTaxTabs";
 import { connect } from "formik";
 
 const Step = props => {
@@ -76,7 +77,19 @@ const Step = props => {
     }
   };
 
-  return <fieldset {...rest}>{componentWithProps}</fieldset>;
+  return (
+    <React.Fragment>
+      {isActiveStep && (
+        <TransientTaxTabs
+          panelGroups={stepList.panelGroups || []}
+          tabs={tabs}
+          isActiveStep={isActiveStep}
+          activeStep={activeStep}
+        />
+      )}
+      <fieldset {...rest}>{componentWithProps}</fieldset>
+    </React.Fragment>
+  );
 };
 
 export default connect(Step);
