@@ -28,6 +28,8 @@ const RatesAndFees = {
 };
 
 const Labels = {
+  InterestDisclaimer:
+    "Interest calculation above is based on the current date. If your payment is not postmarked in the current month you will be assessed additional interest.",
   WhyDoWeNeedThis: "Why do we need this?",
   LegalNote:
     "I Declare under penalty of perjury that this return has been examined by me and to the best of my knowledge and belief is a true, correct and complete return.",
