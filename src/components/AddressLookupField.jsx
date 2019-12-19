@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import Autocomplete from "react-autocomplete";
-import PropTypes from "prop-types";
 import { Field, connect } from "formik";
-import { GetAddresses } from "../services/ApiService";
+import React, { useState } from "react";
+
+import Autocomplete from "react-autocomplete";
 import ErrorMessage from "./ErrorMessage";
+import { GetAddresses } from "../services/ApiService";
+import PropTypes from "prop-types";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -11,13 +12,15 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const { name, value } = field;
-  const { label } = props;
+  const { label, minLength = 0 } = props;
   const { setFieldValue, touched, errors } = form;
   const [Address, setItems] = useState([]);
 
   const handleAddressChange = changeEvent => {
     const { value } = changeEvent.target;
-    if (value) {
+    const shouldTriggerLookup = value && value.length > minLength;
+
+    if (shouldTriggerLookup) {
       GetAddresses(value)
         .then(response => {
           setItems(response);
@@ -127,7 +130,9 @@ const AddressLookupField = props => (
 
 AddressLookupField.propTypes = {
   /** General label to describe the input(s). */
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  /** The minimum character length needed before triggering autocomplete suggestions. */
+  minLength: PropTypes.number
 };
 
 export default connect(AddressLookupField);
