@@ -250,6 +250,20 @@ label.tt_has-errors {
   justify-content: space-between;
 }
 
+.tt_exemptions {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+
+  .tt_exemption {
+    background: white;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+  }
+}
+
 /* OVERRIDES */
 #root {
   button {
@@ -257,6 +271,21 @@ label.tt_has-errors {
   }
   .seButton {
     margin: 5px 0;
+  }
+
+  .editButton {
+    background: #e0e0e0;
+    border: 1px solid #ccc;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .removeButton {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    color: #002280;
+    font-weight: 100;
   }
 
   @media screen and (max-width: 576px) {
@@ -268,6 +297,17 @@ label.tt_has-errors {
         margin-top: 0;
         margin-bottom: 25px;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tt_exemption {
+    button {
+      width: 100% !important; /*Override se*/
+    }
+    .editButton {
+      margin-bottom: $default-spacing;
     }
   }
 }
