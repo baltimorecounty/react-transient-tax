@@ -1,11 +1,13 @@
+import * as Yup from "yup";
+
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import * as Yup from "yup";
+
 import AddressLookupField from "../../components/AddressLookupField";
-import { VerifyAddress } from "../../services/ApiService";
+import BasicErrorMessage from "../BasicErrorMessage";
 import Field from "../Field";
 import TransientTaxTabs from "../TransientTaxTabs";
-import BasicErrorMessage from "../BasicErrorMessage";
+import { VerifyAddress } from "../../services/ApiService";
 
 const BasicInformationForm = props => {
   const {
@@ -83,6 +85,7 @@ const BasicInformationForm = props => {
               id="businessAddress"
               name="businessAddress"
               label="Business Address"
+              minLength={3}
             />
             {isValidAddressMessage && (
               <BasicErrorMessage message={isValidAddressMessage} />
