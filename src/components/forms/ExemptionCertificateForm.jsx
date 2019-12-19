@@ -1,22 +1,14 @@
-import { Form, Formik } from "formik";
-import React from "react";
 import * as Yup from "yup";
-import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
-import ExemptionCertificateField from "../ExemptionCertificateField";
-import TransientTaxTabs from "../TransientTaxTabs";
+
+import { Form, Formik } from "formik";
+
 import ErrorMessage from "../ErrorMessage";
+import ExemptionCertificateField from "../ExemptionCertificateField";
+import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
+import React from "react";
 
 const ExemptionCertificateForm = props => {
-  const {
-    nextButton,
-    prevButton,
-    onValidSubmission,
-    tabs,
-    isActiveStep,
-    activeStep,
-    label,
-    formik
-  } = props;
+  const { nextButton, prevButton, onValidSubmission, label, formik } = props;
   const { monthlyData = [] } = formik.values;
 
   return (
@@ -41,11 +33,6 @@ const ExemptionCertificateForm = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs
-            tabs={tabs}
-            isActiveStep={isActiveStep}
-            activeStep={activeStep}
-          />
           <h2>{label}</h2>
           <div className="form-1">
             <ExemptionCertificateField />

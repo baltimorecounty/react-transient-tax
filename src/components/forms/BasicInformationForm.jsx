@@ -6,19 +6,10 @@ import React, { useState } from "react";
 import AddressLookupField from "../../components/AddressLookupField";
 import BasicErrorMessage from "../BasicErrorMessage";
 import Field from "../Field";
-import TransientTaxTabs from "../TransientTaxTabs";
 import { VerifyAddress } from "../../services/ApiService";
 
 const BasicInformationForm = props => {
-  const {
-    nextButton,
-    prevButton,
-    onValidSubmission,
-    tabs,
-    isActiveStep,
-    activeStep,
-    label
-  } = props;
+  const { nextButton, prevButton, onValidSubmission, label } = props;
 
   const [isValidAddressMessage, setIsValidAddressMessage] = useState("");
   const [isValidatingAddress, setIsValidatingAddress] = useState(false);
@@ -68,11 +59,6 @@ const BasicInformationForm = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs
-            tabs={tabs}
-            isActiveStep={isActiveStep}
-            activeStep={activeStep}
-          />
           <h2>{label}</h2>
           <div className="tt_form-section">
             <Field

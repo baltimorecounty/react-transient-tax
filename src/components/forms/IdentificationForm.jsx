@@ -1,29 +1,26 @@
-import { Form, Formik } from "formik";
-import React from "react";
 import * as Yup from "yup";
+
+import { Form, Formik } from "formik";
+
+import Field from "../Field";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
-import Field from "../Field";
 import InformationModal from "../InformationModal";
-import TransientTaxTabs from "../TransientTaxTabs";
+import React from "react";
 
 const IdentificationForm = props => {
-  const {
-    nextButton,
-    prevButton,
-    onValidSubmission,
-    tabs,
-    isActiveStep,
-    activeStep,
-    label,
-    formik
-  } = props;
+  const { nextButton, prevButton, onValidSubmission, label, formik } = props;
   const { monthlyData } = formik.values;
   const showTradeAlias = HasAtLeast1Exemption(monthlyData);
 
   return (
     <Formik
-      initialValues={{ tradeAlias:'',email: "", nameOfSubmitter: "", titleOfSubmitter: "" }}
+      initialValues={{
+        tradeAlias: "",
+        email: "",
+        nameOfSubmitter: "",
+        titleOfSubmitter: ""
+      }}
       onSubmit={values => {
         onValidSubmission(values);
       }}
@@ -41,11 +38,6 @@ const IdentificationForm = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs
-            tabs={tabs}
-            isActiveStep={isActiveStep}
-            activeStep={activeStep}
-          />
           <h2>{label}</h2>
           <div className="tt_form-section tt_identification-section">
             <div className="tt_date-group float-right">
