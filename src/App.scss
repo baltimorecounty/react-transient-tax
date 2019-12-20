@@ -282,9 +282,7 @@ label.tt_has-errors {
   margin: $default-spacing 0;
   display: flex;
   justify-content: flex-start;
-}
 
-.tt_date-rage-selector {
   label,
   input {
     margin-right: $default-spacing / 3;
@@ -293,58 +291,58 @@ label.tt_has-errors {
   input {
     width: 110px !important; /* hack to override, overriding red-inside */
   }
+}
 
-  /* OVERRIDES */
-  #root {
-    button {
-      width: auto;
-    }
+/* OVERRIDES */
+#root {
+  button {
+    width: auto;
+  }
 
-    input[type="text"],
-    input[type="text"]:focus {
-      width: 100%;
-    }
+  input[type="text"],
+  input[type="text"]:focus {
+    width: 100%;
+  }
 
-    .seButton {
-      margin: 5px 0;
-    }
+  .seButton {
+    margin: 5px 0;
+  }
 
-    .editButton {
-      background: #e0e0e0;
-      border: 1px solid #ccc;
-      width: auto;
-      max-width: 100%;
-    }
+  .editButton {
+    background: #e0e0e0;
+    border: 1px solid #ccc;
+    width: auto;
+    max-width: 100%;
+  }
 
-    .removeButton {
-      background: none;
-      border: none;
-      text-decoration: underline;
-      color: #002280;
-      font-weight: 100;
-    }
+  .removeButton {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    color: #002280;
+    font-weight: 100;
+  }
 
-    fieldset {
-      padding: 0 20px 20px 20px;
-    }
+  fieldset {
+    padding: 0 20px 20px 20px;
+  }
 
-    @media screen and (max-width: 576px) {
-      .tt_form-controls {
-        display: block;
-        padding: 10px 0;
+  @media screen and (max-width: 576px) {
+    .tt_form-controls {
+      display: block;
+      padding: 10px 0;
 
-        .seButton {
-          margin-top: 0;
-          margin-bottom: 25px;
-        }
+      .seButton {
+        margin-top: 0;
+        margin-bottom: 25px;
       }
+    }
 
-      .tt_form-group.input {
-        display: block;
+    .tt_form-group.input {
+      display: block;
 
-        label {
-          margin-bottom: $default-spacing / 2;
-        }
+      label {
+        margin-bottom: $default-spacing / 2;
       }
     }
   }
