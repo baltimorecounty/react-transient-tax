@@ -8,8 +8,6 @@ const PaymentTotal = props => {
   const { label, total = 0, name, className } = props;
   const cssClasses = classnames("tt_form-group total", className);
 
-  console.log(label);
-
   return (
     <div className={cssClasses}>
       <PaymentLabel label={label} />
