@@ -299,8 +299,13 @@ label.tt_has-errors {
     font-weight: 100;
   }
 
-  .tt_input--currency input {
-    width: 155px; /*manually tested in browser, entering 100000000.00 as a max value */
+  .tt_input--currency {
+    text-align: right;
+    width: 180px;
+
+    input {
+      width: 155px; /*manually tested in browser, entering 100000000.00 as a max value */
+    }
   }
 
   @media screen and (max-width: 576px) {
