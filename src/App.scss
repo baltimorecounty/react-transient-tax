@@ -310,6 +310,8 @@ label.tt_has-errors {
 
   .tt_date-rage-selector {
     margin: $default-spacing 0;
+    display: flex;
+    justify-content: flex-start;
   }
 
   .tt_date-rage-selector {
