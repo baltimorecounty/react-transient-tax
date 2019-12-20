@@ -8,8 +8,6 @@ const TransientTaxTabs = props => {
   const getStepByPanelGroup = activeStepId =>
     tabs.find(step => step.stepNumber === activeStepId);
 
-  console.log("rernder list", activeStep);
-
   return (
     <div className="bc-citysourced-reporter">
       <ol className="bc-citysourced-reporter-steps">

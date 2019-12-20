@@ -1,5 +1,4 @@
 import React from "react";
-import TransientTaxTabs from "./TransientTaxTabs";
 import { connect } from "formik";
 
 const Step = props => {
