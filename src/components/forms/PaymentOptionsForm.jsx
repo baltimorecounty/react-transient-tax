@@ -8,7 +8,6 @@ import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import PaymentOptions from "../PaymentOptions";
 import ReturnDateSelector from "../ReturnDateSelector";
-import TransientTaxTabs from "../TransientTaxTabs";
 
 const PaymentOptionsForm = props => {
   const {
@@ -16,10 +15,7 @@ const PaymentOptionsForm = props => {
     prevButton,
     onValidSubmission,
     tabs,
-    isActiveStep,
-    activeStep,
     monthsToReport,
-    label,
     history,
     formik
   } = props;
@@ -63,12 +59,6 @@ const PaymentOptionsForm = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs
-            tabs={tabs}
-            isActiveStep={isActiveStep}
-            activeStep={activeStep}
-          />
-          <h2>{label}</h2>
           <div className="tt_form-section">
             <ErrorMessage name="paymentInterval" component="div" />
             <PaymentOptions

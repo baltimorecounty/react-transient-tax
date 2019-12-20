@@ -288,6 +288,10 @@ label.tt_has-errors {
     font-weight: 100;
   }
 
+  fieldset {
+    padding: 0 20px 20px 20px;
+  }
+
   @media screen and (max-width: 576px) {
     .tt_form-controls {
       display: block;

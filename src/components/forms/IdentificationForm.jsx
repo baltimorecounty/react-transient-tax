@@ -7,19 +7,9 @@ import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import InformationModal from "../InformationModal";
 import React from "react";
-import TransientTaxTabs from "../TransientTaxTabs";
 
 const IdentificationForm = props => {
-  const {
-    nextButton,
-    prevButton,
-    onValidSubmission,
-    tabs,
-    isActiveStep,
-    activeStep,
-    label,
-    formik
-  } = props;
+  const { nextButton, prevButton, onValidSubmission, formik } = props;
   const { monthlyData } = formik.values;
   const showTradeAlias = HasAtLeast1Exemption(monthlyData);
 
@@ -48,12 +38,6 @@ const IdentificationForm = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs
-            tabs={tabs}
-            isActiveStep={isActiveStep}
-            activeStep={activeStep}
-          />
-          <h2>{label}</h2>
           <div className="tt_form-section tt_identification-section">
             <div className="tt_date-group float-right">
               <div className="tt_month-pickers">

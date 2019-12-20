@@ -5,20 +5,10 @@ import { Labels } from "../../common/Constants";
 import { MapResponseDataForTaxReturn } from "../../data/TaxReturnMapper";
 import ReturnSummary from "../ReturnSummary";
 import { SaveReturn } from "../../services/ApiService";
-import TransientTaxTabs from "../TransientTaxTabs";
 
 const ReviewFormPanel = props => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const {
-    submitButton,
-    prevButton,
-    tabs,
-    isActiveStep,
-    activeStep,
-    history,
-    label,
-    formik
-  } = props;
+  const { submitButton, prevButton, history, formik } = props;
 
   const { values } = formik;
   const { dueDate, paymentInterval } = values;
@@ -35,12 +25,6 @@ const ReviewFormPanel = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TransientTaxTabs
-        tabs={tabs}
-        isActiveStep={isActiveStep}
-        activeStep={activeStep}
-      />
-      <h2>{label}</h2>
       <ReturnSummary
         header={"Transient Occupancy Tax Return Details:"}
         values={taxReturnValues}

@@ -6,19 +6,9 @@ import ErrorMessage from "../ErrorMessage";
 import ExemptionCertificateField from "../ExemptionCertificateField";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import React from "react";
-import TransientTaxTabs from "../TransientTaxTabs";
 
 const ExemptionCertificateForm = props => {
-  const {
-    nextButton,
-    prevButton,
-    onValidSubmission,
-    tabs,
-    isActiveStep,
-    activeStep,
-    label,
-    formik
-  } = props;
+  const { nextButton, prevButton, onValidSubmission, formik } = props;
   const { monthlyData = [] } = formik.values;
 
   return (
@@ -43,12 +33,6 @@ const ExemptionCertificateForm = props => {
     >
       {props => (
         <Form>
-          <TransientTaxTabs
-            tabs={tabs}
-            isActiveStep={isActiveStep}
-            activeStep={activeStep}
-          />
-          <h2>{label}</h2>
           <div className="form-1">
             <ExemptionCertificateField />
             <ErrorMessage name="exemptions" />

@@ -8,10 +8,11 @@ const generateStepNumber = steps =>
  * A list of forms
  */
 class StepList {
-  constructor(steps) {
+  constructor(steps, panelGroups) {
     const sequencedSteps = generateStepNumber(steps);
     this.originalSteps = sequencedSteps;
     this.steps = sequencedSteps;
+    this.panelGroups = panelGroups;
   }
 
   /**
