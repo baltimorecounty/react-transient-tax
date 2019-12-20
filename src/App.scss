@@ -308,6 +308,21 @@ label.tt_has-errors {
     }
   }
 
+  .tt_date-rage-selector {
+    margin: $default-spacing 0;
+  }
+
+  .tt_date-rage-selector {
+    label,
+    input {
+      margin-right: $default-spacing / 3;
+    }
+
+    input {
+      width: 110px !important; /* hack to override, overriding red-inside */
+    }
+  }
+
   @media screen and (max-width: 576px) {
     .tt_form-controls {
       display: block;
