@@ -93,9 +93,10 @@ const Step = props => {
   };
 
   return (
-    <React.Fragment>
-      <fieldset {...rest}>{componentWithProps}</fieldset>
-    </React.Fragment>
+    <fieldset {...rest}>
+      <legend>{label}</legend>
+      {componentWithProps}
+    </fieldset>
   );
 };
 
