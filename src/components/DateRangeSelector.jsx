@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { addDays } from "date-fns";
+
 import DatePicker from "react-datepicker";
+import { addDays } from "date-fns";
 
 const DateRangeSelector = props => {
   const {
@@ -40,24 +41,28 @@ const DateRangeSelector = props => {
 
   return (
     <div className="tt_date-rage-selector">
-      <label htmlFor={fromDateId}>From: </label>
-      <DatePicker
-        id={fromDateId}
-        name={fromDateId}
-        selected={fromDate}
-        onChange={handleFromDateChange}
-        selectsStart
-      />
-      <label htmlFor={toDateId}>To: </label>
-      <DatePicker
-        id={toDateId}
-        name={toDateId}
-        selected={toDate}
-        onChange={handleToDateChange}
-        minDate={addDays(fromDate, 1)}
-        selectsEnd
-        startDate={fromDate}
-      />
+      <div>
+        <label htmlFor={fromDateId}>From: </label>
+        <DatePicker
+          id={fromDateId}
+          name={fromDateId}
+          selected={fromDate}
+          onChange={handleFromDateChange}
+          selectsStart
+        />
+      </div>
+      <div>
+        <label htmlFor={toDateId}>To: </label>
+        <DatePicker
+          id={toDateId}
+          name={toDateId}
+          selected={toDate}
+          onChange={handleToDateChange}
+          minDate={addDays(fromDate, 1)}
+          selectsEnd
+          startDate={fromDate}
+        />
+      </div>
     </div>
   );
 };

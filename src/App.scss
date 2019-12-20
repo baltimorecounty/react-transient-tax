@@ -48,6 +48,11 @@ $default-border: 1px solid #e0e0e0;
 .tt_currency-picker,
 .tt_month-picker {
   margin-left: $default-spacing;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
   .react-datepicker__input-container::after {
     font-family: "Font Awesome 5 Pro";
     position: absolute;
@@ -264,42 +269,82 @@ label.tt_has-errors {
   }
 }
 
-/* OVERRIDES */
-#root {
-  button {
-    width: auto;
-  }
-  .seButton {
-    margin: 5px 0;
-  }
+.tt_input--currency {
+  text-align: right;
+  width: 180px;
 
-  .editButton {
-    background: #e0e0e0;
-    border: 1px solid #ccc;
-    width: auto;
-    max-width: 100%;
+  input {
+    width: 155px; /*manually tested in browser, entering 100000000.00 as a max value */
   }
+}
 
-  .removeButton {
-    background: none;
-    border: none;
-    text-decoration: underline;
-    color: #002280;
-    font-weight: 100;
+.tt_date-rage-selector {
+  margin: $default-spacing 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tt_date-rage-selector {
+  label,
+  input {
+    margin-right: $default-spacing / 3;
   }
 
-  fieldset {
-    padding: 0 20px 20px 20px;
+  input {
+    width: 110px !important; /* hack to override, overriding red-inside */
   }
 
-  @media screen and (max-width: 576px) {
-    .tt_form-controls {
-      display: block;
-      padding: 10px 0;
+  /* OVERRIDES */
+  #root {
+    button {
+      width: auto;
+    }
 
-      .seButton {
-        margin-top: 0;
-        margin-bottom: 25px;
+    input[type="text"],
+    input[type="text"]:focus {
+      width: 100%;
+    }
+
+    .seButton {
+      margin: 5px 0;
+    }
+
+    .editButton {
+      background: #e0e0e0;
+      border: 1px solid #ccc;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .removeButton {
+      background: none;
+      border: none;
+      text-decoration: underline;
+      color: #002280;
+      font-weight: 100;
+    }
+
+    fieldset {
+      padding: 0 20px 20px 20px;
+    }
+
+    @media screen and (max-width: 576px) {
+      .tt_form-controls {
+        display: block;
+        padding: 10px 0;
+
+        .seButton {
+          margin-top: 0;
+          margin-bottom: 25px;
+        }
+      }
+
+      .tt_form-group.input {
+        display: block;
+
+        label {
+          margin-bottom: $default-spacing / 2;
+        }
       }
     }
   }
@@ -313,5 +358,8 @@ label.tt_has-errors {
     .editButton {
       margin-bottom: $default-spacing;
     }
+  }
+  .tt_total-label_note {
+    display: none;
   }
 }
