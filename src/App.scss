@@ -48,6 +48,11 @@ $default-border: 1px solid #e0e0e0;
 .tt_currency-picker,
 .tt_month-picker {
   margin-left: $default-spacing;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
   .react-datepicker__input-container::after {
     font-family: "Font Awesome 5 Pro";
     position: absolute;

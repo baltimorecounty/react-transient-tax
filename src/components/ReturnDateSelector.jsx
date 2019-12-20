@@ -1,15 +1,16 @@
-import { addMonths } from "date-fns";
-import { connect } from "formik";
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import { Labels } from "../common/Constants";
 import {
   GetDueDateStatus,
   GetFormatedDateTime,
   GetFormattedDueDate
 } from "../common/DatesUtilities";
+import React, { useEffect, useState } from "react";
+
+import DatePicker from "react-datepicker";
 import { GetIdByDescription } from "../common/LookupUtilities";
+import { Labels } from "../common/Constants";
+import PropTypes from "prop-types";
+import { addMonths } from "date-fns";
+import { connect } from "formik";
 
 const ReturnInterval = props => {
   const { paymentInterval, filingTypes, formik } = props;
@@ -117,7 +118,7 @@ const ReturnInterval = props => {
 
   return (
     <React.Fragment>
-      <div className="tt_form-group flex-end">
+      <div>
         <label htmlFor="month-date-picker-0">
           Month{isMonthly ? "" : "s"} for Return
         </label>
@@ -148,7 +149,7 @@ const ReturnInterval = props => {
         </div>
       </div>
       {dueDate && status.label && (
-        <div className="tt_form-group">
+        <div>
           <p>
             <span className="emphasize-text">{Labels.DueDate}</span>: {dueDate}
           </p>
