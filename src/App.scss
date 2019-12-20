@@ -269,6 +269,12 @@ label.tt_has-errors {
   button {
     width: auto;
   }
+
+  input[type="text"],
+  input[type="text"]:focus {
+    width: 100%;
+  }
+
   .seButton {
     margin: 5px 0;
   }
