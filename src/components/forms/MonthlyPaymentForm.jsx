@@ -153,8 +153,10 @@ const MonthlyPaymentForm = props => {
               <span className="tt_label">Note</span>:{" "}
               {Labels.InterestDisclaimer}
             </p>
-            {prevButton}
-            {nextButton}
+            <div className="tt_form-controls">
+              {prevButton}
+              {nextButton}
+            </div>
           </Form>
         );
       }}

@@ -33,8 +33,12 @@ const ReviewFormPanel = props => {
         paymentInterval={paymentInterval}
       />
       <label>{Labels.LegalNote}</label>
-      {!isSubmitting && prevButton}
-      {!isSubmitting && submitButton}
+      {!isSubmitting && (
+        <div className="tt_form-controls">
+          {prevButton}
+          {submitButton}
+        </div>
+      )}
       {isSubmitting && (
         <p>
           Submitting your return. You will be redirected to a confirmation page

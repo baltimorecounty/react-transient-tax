@@ -101,8 +101,10 @@ const IdentificationForm = props => {
             </div>
             <div className="clearfix"></div>
           </div>
-          {prevButton}
-          {nextButton}
+          <div className="tt_form-controls">
+            {prevButton}
+            {nextButton}
+          </div>
         </Form>
       )}
     </Formik>

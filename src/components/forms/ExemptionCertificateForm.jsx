@@ -38,8 +38,10 @@ const ExemptionCertificateForm = props => {
             <ExemptionCertificateField />
             <ErrorMessage name="exemptions" />
           </div>
-          {prevButton}
-          {nextButton}
+          <div className="tt_form-controls">
+            {prevButton}
+            {nextButton}
+          </div>
         </Form>
       )}
     </Formik>

@@ -39,23 +39,38 @@ const Step = props => {
     onNextClick(nextStep);
   };
 
+  const nextButtonStyle = stepNumber === 1 ? { marginLeft: "auto" } : {};
+
   const nextButton =
     nextStep && !isLastStep && isForm && !isHidden ? (
-      <button type="submit" className="next">
-        Next - {nextStep}
+      <button type="submit" className="next seButton" style={nextButtonStyle}>
+        Next
       </button>
     ) : (
-      <button type="text" onClick={handleNextClick}>
-        Next - {nextStep}
+      <button
+        type="text"
+        onClick={handleNextClick}
+        style={nextButtonStyle}
+        className="seButton"
+      >
+        Next
       </button>
     );
   const prevButton = prevStep && (
-    <button onClick={handlePrevClick} type="button" className="previous">
-      Previous - {prevStep}
+    <button
+      onClick={handlePrevClick}
+      type="button"
+      className="previous seButton"
+    >
+      Previous
     </button>
   );
 
-  const submitButton = isLastStep && <button type="submit">Submit</button>;
+  const submitButton = isLastStep && (
+    <button type="submit" className="seButton">
+      Submit
+    </button>
+  );
 
   const componentWithProps = {
     ...component,
