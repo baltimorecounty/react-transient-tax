@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import CurrencyInput from "./CurrencyInput";
 import ErrorMessage from "./ErrorMessage";
+import PaymentLabel from "./PaymentLabel";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
@@ -31,7 +32,7 @@ const CustomInputComponent = ({
 
   return (
     <div className={cssClasses}>
-      <label>{label}</label>
+      <PaymentLabel label={label} />
       <div className="tt_currency-pickers">
         <div className="tt_currency-picker">
           <CurrencyInput
@@ -56,7 +57,7 @@ PaymentField.propTypes = {
   /** Determines if the input should be treated as a negative or positive currency. */
   isNegativeValue: PropTypes.bool,
   /** General label to describe the input(s). */
-  label: PropTypes.string.isRequired
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
 };
 
 export default connect(PaymentField);

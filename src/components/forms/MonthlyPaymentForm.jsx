@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import { Labels, LabelsWithNotes } from "../../common/Constants";
 
 import { AddOrUpdate } from "../../common/ArrayUtilities";
 import { GetCalculatedTotals } from "../../common/Calculations";
-import { Labels } from "../../common/Constants";
 import PaymentField from "../../components/PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import React from "react";
@@ -99,7 +99,7 @@ const MonthlyPaymentForm = props => {
               <PaymentField
                 isNegativeValue={true}
                 name="nonTransientRentalCollected"
-                label={Labels.ExemptionOption1}
+                label={LabelsWithNotes.NonTransientsRentalCollected}
                 date={date}
                 className="tt_subtotal-item"
               />
@@ -130,19 +130,19 @@ const MonthlyPaymentForm = props => {
               <PaymentTotal
                 name="transientTaxCollected"
                 total={transientTaxCollected}
-                label={Labels.TaxCollected}
+                label={LabelsWithNotes.TaxCollected}
                 className="tt_subtotal"
               />
               <PaymentTotal
                 name="transientTaxInterest"
                 total={transientInterest}
-                label={Labels.TaxInterest}
+                label={LabelsWithNotes.TaxInterest}
                 className="tt_subtotal-item"
               />
               <PaymentTotal
                 name="transientTaxPenalty"
                 total={transientPenalty}
-                label={Labels.TaxPenalty}
+                label={LabelsWithNotes.TaxPenalty}
                 className="tt_subtotal-item"
               />
               <PaymentTotal

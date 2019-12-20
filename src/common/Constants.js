@@ -39,24 +39,40 @@ const Labels = {
   DueDate: "Due Date",
   PastDue: "Past Due",
   ExemptionTitle: "Exemptions",
-  ExemptionOption1:
-    "Room Rental Collection from Not Transients (Accommodations from more than 90 days)",
   ExemptionOption2:
     "Federal, State or County official or employee when on official business",
   ExemptionTotal: "Total Exemptions",
   MonthlyTaxRemitted: "Monthly Tax Amount Remitted",
-  TaxInterest: `Interest: Add ${FormatPercentage(
-    RatesAndFees.InterestRate
-  )} of the Tax Collected each month this return is late`,
-  TaxPenalty: `Penalty: Add ${FormatPercentage(
-    RatesAndFees.PenaltyRate
-  )} of Tax Collected to be added after one month from Due Date`,
+
   TransientOccupancyTaxRemittedTitle: "Transient Occupancy Tax Remitted",
-  TaxCollected: `Tax Collected (Net Room Rental * Transient Occupancy Tax - ${FormatPercentage(
-    RatesAndFees.TransientTaxRate
-  )})`,
+
   NetRoomRentalLabel: "Net Room Rental Collections",
   PenaltyInterestTotal: "Total Interest and Penalties"
+};
+
+const LabelsWithNotes = {
+  NonTransientsRentalCollected: {
+    label: "Room Rental Collection from Not Transients",
+    note: " (Accommodations from more than 90 days)"
+  },
+  TaxInterest: {
+    label: "Interest",
+    note: `: Add ${FormatPercentage(
+      RatesAndFees.InterestRate
+    )} of the Tax Collected each month this return is late`
+  },
+  TaxCollected: {
+    label: "Tax Collected",
+    note: ` (Net Room Rental * Transient Occupancy Tax - ${FormatPercentage(
+      RatesAndFees.TransientTaxRate
+    )})`
+  },
+  TaxPenalty: {
+    label: "Penalty",
+    note: `: Add ${FormatPercentage(
+      RatesAndFees.PenaltyRate
+    )} of Tax Collected to be added after one month from Due Date`
+  }
 };
 
 const Messages = {
@@ -72,6 +88,7 @@ export {
   DateTypes,
   FormHints,
   Labels,
+  LabelsWithNotes,
   Messages,
   PaymentDirections,
   RatesAndFees,

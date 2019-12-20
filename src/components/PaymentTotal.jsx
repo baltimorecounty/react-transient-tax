@@ -1,15 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
+import PaymentLabel from "./PaymentLabel";
 import PaymentTotalLabel from "./PaymentTotalLabel";
+import PropTypes from "prop-types";
+import React from "react";
+import classnames from "classnames";
 
 const PaymentTotal = props => {
   const { label, total = 0, name, className } = props;
   const cssClasses = classnames("tt_form-group total", className);
 
+  console.log(label);
+
   return (
     <div className={cssClasses}>
-      <label className="tt_total-label">{label}</label>
+      <PaymentLabel label={label} />
       <div className="tt_currency-pickers">
         <PaymentTotalLabel
           key={`payment-total-label-${name}`}
@@ -23,7 +26,7 @@ const PaymentTotal = props => {
 
 PaymentTotal.propTypes = {
   /** Label to describe the total */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   /**  Gives a unique key to the totals */
   name: PropTypes.string.isRequired,
   /** Total value */

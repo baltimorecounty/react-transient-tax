@@ -353,4 +353,7 @@ label.tt_has-errors {
       margin-bottom: $default-spacing;
     }
   }
+  .tt_total-label_note {
+    display: none;
+  }
 }
