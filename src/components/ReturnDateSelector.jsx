@@ -149,7 +149,7 @@ const ReturnInterval = props => {
         </div>
       </div>
       {dueDate && status.label && (
-        <div>
+        <div className="tt_form-group">
           <p>
             <span className="emphasize-text">{Labels.DueDate}</span>: {dueDate}
           </p>
