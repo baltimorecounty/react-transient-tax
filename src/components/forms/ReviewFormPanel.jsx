@@ -8,7 +8,7 @@ import { SaveReturn } from "../../services/ApiService";
 
 const ReviewFormPanel = props => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { submitButton, prevButton, history, label, formik } = props;
+  const { submitButton, prevButton, history, formik } = props;
 
   const { values } = formik;
   const { dueDate, paymentInterval } = values;
