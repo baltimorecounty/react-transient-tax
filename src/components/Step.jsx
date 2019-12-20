@@ -22,6 +22,7 @@ const Step = props => {
     stepList,
     data,
     history,
+    panelGroupId,
     ...rest
   } = props;
 
@@ -79,14 +80,6 @@ const Step = props => {
 
   return (
     <React.Fragment>
-      {isActiveStep && (
-        <TransientTaxTabs
-          panelGroups={stepList.panelGroups || []}
-          tabs={tabs}
-          isActiveStep={isActiveStep}
-          activeStep={activeStep}
-        />
-      )}
       <fieldset {...rest}>{componentWithProps}</fieldset>
     </React.Fragment>
   );
