@@ -92,6 +92,7 @@ const Step = props => {
   return (
     <fieldset {...rest}>
       <legend>{label}</legend>
+      <div className="clearfix"></div>
       {componentWithProps}
     </fieldset>
   );
