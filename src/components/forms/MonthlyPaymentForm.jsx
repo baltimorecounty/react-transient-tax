@@ -8,17 +8,12 @@ import { GetCalculatedTotals } from "../../common/Calculations";
 import PaymentField from "../../components/PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import React from "react";
-import TransientTaxTabs from "../TransientTaxTabs";
 
 const MonthlyPaymentForm = props => {
   const {
     nextButton,
     prevButton,
     onValidSubmission,
-    tabs,
-    isActiveStep,
-    activeStep,
-    label,
     formik,
     data: { date }
   } = props;
@@ -81,12 +76,6 @@ const MonthlyPaymentForm = props => {
 
         return (
           <Form>
-            <TransientTaxTabs
-              tabs={tabs}
-              isActiveStep={isActiveStep}
-              activeStep={activeStep}
-            />
-            <h2>{label}</h2>
             <div className="tt_form-section">
               <PaymentField
                 name="grossRentalCollected"

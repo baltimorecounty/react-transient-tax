@@ -1,14 +1,14 @@
-import { format } from "date-fns";
-import React from "react";
 import BasicInformationForm from "../components/forms/BasicInformationForm";
 import ExemptionCertificateForm from "../components/forms/ExemptionCertificateForm";
+import { HasAtLeast1Exemption } from "../common/ExemptionUtilities";
 import IdentificationForm from "../components/forms/IdentificationForm";
 import MonthlyPaymentForm from "../components/forms/MonthlyPaymentForm";
 import PaymentOptionsForm from "../components/forms/PaymentOptionsForm";
+import React from "react";
 import ReviewFormPanel from "../components/forms/ReviewFormPanel";
 import Step from "./Step";
 import StepList from "./StepList";
-import { HasAtLeast1Exemption } from "../common/ExemptionUtilities";
+import { format } from "date-fns";
 
 /**
  * Dynamically add exemption certificate if an exemption exists
@@ -37,7 +37,8 @@ const onPaymentFormSubmission = ({
     const exemptionStep = new Step({
       id: exemptionStepId,
       label: `Exemption Certificate`,
-      component: <ExemptionCertificateForm />
+      component: <ExemptionCertificateForm />,
+      panelGroupId: 2
     });
 
     const doesExemptionPanelExist = stepList.steps.find(
@@ -68,6 +69,7 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
       id,
       label: `${friendlyDate} Tax Return`,
       component: <MonthlyPaymentForm />,
+      panelGroupId: 2,
       onFormSubmission: (stepList, currentFormValues, globalFormValues) => {
         onPaymentFormSubmission({
           stepList,
@@ -87,29 +89,52 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
   });
 };
 
+const panelGroups = [
+  {
+    id: 1,
+    label: "Step 1 - Business Information"
+  },
+  {
+    id: 2,
+    label: "Step 2 - Tax Return Forms"
+  },
+  {
+    id: 3,
+    label: "Step 3 - Additional Information"
+  },
+  {
+    id: 4,
+    label: "Step 4 - Review & Submit"
+  }
+];
+
 const steps = [
   new Step({
     id: "basic-information",
-    label: "Step 1 - Business Demographics",
-    component: <BasicInformationForm />
+    label: "Business Information",
+    component: <BasicInformationForm />,
+    panelGroupId: 1
   }),
   new Step({
     id: "payment-selection",
     label: "Step 2 - Payment Interval Selection",
     component: <PaymentOptionsForm />,
-    onFormSubmission: onPaymentSelectionSubmission
+    onFormSubmission: onPaymentSelectionSubmission,
+    panelGroupId: 2
   }),
   new Step({
     id: "identification",
     label: "Step 7 - Identification",
-    component: <IdentificationForm />
+    component: <IdentificationForm />,
+    panelGroupId: 3
   }),
   new Step({
     id: "review",
     label: "Step 8 - Review",
     component: <ReviewFormPanel />,
-    isForm: false
+    isForm: false,
+    panelGroupId: 4
   })
 ];
 
-export default new StepList(steps);
+export default new StepList(steps, panelGroups);

@@ -15,12 +15,12 @@ const Step = props => {
     isLastStep,
     formik,
     tabs,
-    isActiveStep,
     activeStep,
     onFormSubmission = () => {},
     stepList,
     data,
     history,
+    panelGroupId,
     ...rest
   } = props;
 
@@ -82,16 +82,19 @@ const Step = props => {
         onValidSubmission,
         tabs,
         formik,
-        isActiveStep,
         activeStep,
-        label,
         data,
         history
       }
     }
   };
 
-  return <fieldset {...rest}>{componentWithProps}</fieldset>;
+  return (
+    <fieldset {...rest}>
+      <legend>{label}</legend>
+      {componentWithProps}
+    </fieldset>
+  );
 };
 
 export default connect(Step);

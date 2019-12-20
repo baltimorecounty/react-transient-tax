@@ -269,59 +269,63 @@ label.tt_has-errors {
   }
 }
 
-/* OVERRIDES */
-#root {
-  button {
-    width: auto;
+.tt_input--currency {
+  text-align: right;
+  width: 180px;
+
+  input {
+    width: 155px; /*manually tested in browser, entering 100000000.00 as a max value */
+  }
+}
+
+.tt_date-rage-selector {
+  margin: $default-spacing 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tt_date-rage-selector {
+  label,
+  input {
+    margin-right: $default-spacing / 3;
   }
 
-  input[type="text"],
-  input[type="text"]:focus {
-    width: 100%;
+  input {
+    width: 110px !important; /* hack to override, overriding red-inside */
   }
 
-  .seButton {
-    margin: 5px 0;
-  }
-
-  .editButton {
-    background: #e0e0e0;
-    border: 1px solid #ccc;
-    width: auto;
-    max-width: 100%;
-  }
-
-  .removeButton {
-    background: none;
-    border: none;
-    text-decoration: underline;
-    color: #002280;
-    font-weight: 100;
-  }
-
-  .tt_input--currency {
-    text-align: right;
-    width: 180px;
-
-    input {
-      width: 155px; /*manually tested in browser, entering 100000000.00 as a max value */
-    }
-  }
-
-  .tt_date-rage-selector {
-    margin: $default-spacing 0;
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  .tt_date-rage-selector {
-    label,
-    input {
-      margin-right: $default-spacing / 3;
+  /* OVERRIDES */
+  #root {
+    button {
+      width: auto;
     }
 
-    input {
-      width: 110px !important; /* hack to override, overriding red-inside */
+    input[type="text"],
+    input[type="text"]:focus {
+      width: 100%;
+    }
+
+    .seButton {
+      margin: 5px 0;
+    }
+
+    .editButton {
+      background: #e0e0e0;
+      border: 1px solid #ccc;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .removeButton {
+      background: none;
+      border: none;
+      text-decoration: underline;
+      color: #002280;
+      font-weight: 100;
+    }
+
+    fieldset {
+      padding: 0 20px 20px 20px;
     }
   }
 

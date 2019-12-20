@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import Step from "../Step";
+
 import { Formik } from "formik";
+import Step from "../Step";
+import TransientTaxTabs from "../TransientTaxTabs";
 
 const MultiPageForm = props => {
   const { history, stepList } = props;
-  const { steps } = stepList;
+  const { steps = [], panelGroups = [] } = stepList;
   const [activeStep, setActiveStep] = useState(1);
 
   const handleNavClick = stepNumber => {
@@ -13,6 +15,11 @@ const MultiPageForm = props => {
 
   return (
     <div className="tt_form">
+      <TransientTaxTabs
+        panelGroups={panelGroups}
+        tabs={steps}
+        activeStep={activeStep}
+      />
       <Formik
         initialValues={{}}
         onSubmit={(values, actions) => {
@@ -42,7 +49,6 @@ const MultiPageForm = props => {
                   nextStep={nextStep}
                   prevStep={prevStep}
                   tabs={tabs}
-                  isActiveStep={isActiveStep}
                   activeStep={activeStep}
                   history={history}
                   style={{ display: isActiveStep ? "block" : "none" }}
