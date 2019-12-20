@@ -16,7 +16,6 @@ const PaymentOptionsForm = props => {
     onValidSubmission,
     tabs,
     monthsToReport,
-    label,
     history,
     formik
   } = props;
@@ -60,7 +59,6 @@ const PaymentOptionsForm = props => {
     >
       {props => (
         <Form>
-          <h2>{label}</h2>
           <div className="tt_form-section">
             <ErrorMessage name="paymentInterval" component="div" />
             <PaymentOptions

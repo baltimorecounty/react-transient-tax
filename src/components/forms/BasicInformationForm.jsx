@@ -9,7 +9,7 @@ import Field from "../Field";
 import { VerifyAddress } from "../../services/ApiService";
 
 const BasicInformationForm = props => {
-  const { nextButton, prevButton, onValidSubmission, label } = props;
+  const { nextButton, prevButton, onValidSubmission } = props;
 
   const [isValidAddressMessage, setIsValidAddressMessage] = useState("");
   const [isValidatingAddress, setIsValidatingAddress] = useState(false);
@@ -59,7 +59,6 @@ const BasicInformationForm = props => {
     >
       {props => (
         <Form>
-          <h2>{label}</h2>
           <div className="tt_form-section">
             <Field
               id="businessName"

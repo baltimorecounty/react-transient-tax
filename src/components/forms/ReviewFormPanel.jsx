@@ -25,7 +25,6 @@ const ReviewFormPanel = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{label}</h2>
       <ReturnSummary
         header={"Transient Occupancy Tax Return Details:"}
         values={taxReturnValues}

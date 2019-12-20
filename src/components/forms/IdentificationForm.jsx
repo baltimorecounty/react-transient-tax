@@ -9,7 +9,7 @@ import InformationModal from "../InformationModal";
 import React from "react";
 
 const IdentificationForm = props => {
-  const { nextButton, prevButton, onValidSubmission, label, formik } = props;
+  const { nextButton, prevButton, onValidSubmission, formik } = props;
   const { monthlyData } = formik.values;
   const showTradeAlias = HasAtLeast1Exemption(monthlyData);
 
@@ -38,7 +38,6 @@ const IdentificationForm = props => {
     >
       {props => (
         <Form>
-          <h2>{label}</h2>
           <div className="tt_form-section tt_identification-section">
             <div className="tt_date-group float-right">
               <div className="tt_month-pickers">

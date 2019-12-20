@@ -14,7 +14,6 @@ const MonthlyPaymentForm = props => {
     nextButton,
     prevButton,
     onValidSubmission,
-    label,
     formik,
     data: { date }
   } = props;
@@ -77,7 +76,6 @@ const MonthlyPaymentForm = props => {
 
         return (
           <Form>
-            <h2>{label}</h2>
             <div className="tt_form-section">
               <PaymentField
                 name="grossRentalCollected"
