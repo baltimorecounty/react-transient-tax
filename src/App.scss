@@ -327,24 +327,24 @@ label.tt_has-errors {
     fieldset {
       padding: 0 20px 20px 20px;
     }
-  }
 
-  @media screen and (max-width: 576px) {
-    .tt_form-controls {
-      display: block;
-      padding: 10px 0;
+    @media screen and (max-width: 576px) {
+      .tt_form-controls {
+        display: block;
+        padding: 10px 0;
 
-      .seButton {
-        margin-top: 0;
-        margin-bottom: 25px;
+        .seButton {
+          margin-top: 0;
+          margin-bottom: 25px;
+        }
       }
-    }
 
-    .tt_form-group.input {
-      display: block;
+      .tt_form-group.input {
+        display: block;
 
-      label {
-        margin-bottom: $default-spacing / 2;
+        label {
+          margin-bottom: $default-spacing / 2;
+        }
       }
     }
   }
