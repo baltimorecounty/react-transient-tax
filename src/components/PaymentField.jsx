@@ -1,9 +1,10 @@
+import { Field, connect } from "formik";
 import React, { useState } from "react";
+
+import CurrencyInput from "./CurrencyInput";
+import ErrorMessage from "./ErrorMessage";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import { Field, connect } from "formik";
-import ErrorMessage from "./ErrorMessage";
-import CurrencyInput from "./CurrencyInput";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -14,12 +15,18 @@ const CustomInputComponent = ({
   const { className, isNegativeValue, label } = props;
   const { setFieldValue } = form;
   const [value, setValue] = useState();
-  const cssClasses = classnames("tt_form-group flex-end total", className);
+  const cssClasses = classnames(
+    "tt_form-group flex-end total input",
+    className
+  );
 
   const handleChange = formattedNumber => {
     const { valueAsNumber } = formattedNumber.target;
     setValue(!valueAsNumber ? undefined : Math.abs(valueAsNumber));
-    setFieldValue(name, !valueAsNumber ? 0 : isNegativeValue ? -valueAsNumber : valueAsNumber);
+    setFieldValue(
+      name,
+      !valueAsNumber ? 0 : isNegativeValue ? -valueAsNumber : valueAsNumber
+    );
   };
 
   return (
@@ -32,7 +39,7 @@ const CustomInputComponent = ({
             id={name}
             name={name}
             onChange={handleChange}
-            value={value || ''}
+            value={value || ""}
           />
           <ErrorMessage name={name} />
         </div>

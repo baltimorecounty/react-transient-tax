@@ -333,6 +333,14 @@ label.tt_has-errors {
         margin-bottom: 25px;
       }
     }
+
+    .tt_form-group.input {
+      display: block;
+
+      label {
+        margin-bottom: $default-spacing / 2;
+      }
+    }
   }
 }
 
