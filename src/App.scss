@@ -269,15 +269,6 @@ label.tt_has-errors {
   }
 }
 
-.tt_input--currency {
-  text-align: right;
-  width: 180px;
-
-  input {
-    width: 155px; /*manually tested in browser, entering 100000000.00 as a max value */
-  }
-}
-
 .tt_date-rage-selector {
   margin: $default-spacing 0;
   display: flex;
@@ -325,6 +316,15 @@ label.tt_has-errors {
 
   fieldset {
     padding: 0 20px 20px 20px;
+  }
+
+  .tt_input--currency {
+    text-align: right;
+    width: 180px;
+
+    input {
+      width: 155px; /*manually tested in browser, entering 100000000.00 as a max value */
+    }
   }
 
   @media screen and (max-width: 576px) {
