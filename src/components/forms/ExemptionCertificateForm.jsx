@@ -1,10 +1,12 @@
-import { Form, Formik } from "formik";
-import React from "react";
 import * as Yup from "yup";
-import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
-import ExemptionCertificateField from "../ExemptionCertificateField";
-import TransientTaxTabs from "../TransientTaxTabs";
+
+import { Form, Formik } from "formik";
+
 import ErrorMessage from "../ErrorMessage";
+import ExemptionCertificateField from "../ExemptionCertificateField";
+import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
+import React from "react";
+import TransientTaxTabs from "../TransientTaxTabs";
 
 const ExemptionCertificateForm = props => {
   const {
@@ -51,8 +53,10 @@ const ExemptionCertificateForm = props => {
             <ExemptionCertificateField />
             <ErrorMessage name="exemptions" />
           </div>
-          {prevButton}
-          {nextButton}
+          <div className="tt_form-controls">
+            {prevButton}
+            {nextButton}
+          </div>
         </Form>
       )}
     </Formik>

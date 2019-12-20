@@ -1,10 +1,12 @@
-import { Form, Formik } from "formik";
-import React from "react";
 import * as Yup from "yup";
+
+import { Form, Formik } from "formik";
+
+import Field from "../Field";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
-import Field from "../Field";
 import InformationModal from "../InformationModal";
+import React from "react";
 import TransientTaxTabs from "../TransientTaxTabs";
 
 const IdentificationForm = props => {
@@ -23,7 +25,12 @@ const IdentificationForm = props => {
 
   return (
     <Formik
-      initialValues={{ tradeAlias:'',email: "", nameOfSubmitter: "", titleOfSubmitter: "" }}
+      initialValues={{
+        tradeAlias: "",
+        email: "",
+        nameOfSubmitter: "",
+        titleOfSubmitter: ""
+      }}
       onSubmit={values => {
         onValidSubmission(values);
       }}
@@ -109,8 +116,10 @@ const IdentificationForm = props => {
             </div>
             <div className="clearfix"></div>
           </div>
-          {prevButton}
-          {nextButton}
+          <div className="tt_form-controls">
+            {prevButton}
+            {nextButton}
+          </div>
         </Form>
       )}
     </Formik>

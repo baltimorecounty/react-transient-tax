@@ -92,8 +92,10 @@ const BasicInformationForm = props => {
             )}
             {isValidatingAddress ? <p>Validating address...</p> : null}
           </div>
-          {prevButton}
-          {nextButton}
+          <div className="tt_form-controls">
+            {prevButton}
+            {nextButton}
+          </div>
         </Form>
       )}
     </Formik>
