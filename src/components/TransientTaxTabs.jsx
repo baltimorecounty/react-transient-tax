@@ -8,23 +8,24 @@ const TransientTaxTabs = props => {
   const getStepByPanelGroup = activeStepId =>
     tabs.find(step => step.stepNumber === activeStepId);
 
+  console.log("rernder list", activeStep);
+
   return (
     <div className="bc-citysourced-reporter">
       <ol className="bc-citysourced-reporter-steps">
         {itemsToMap.map(item => {
           const step = hasPanelGroups ? getStepByPanelGroup(activeStep) : item;
-          const isActiveItem = hasPanelGroups
-            ? step.panelGroupId === item.id
-            : step.stepNumber === activeStep;
+          const isActiveOrCompletedItem = hasPanelGroups
+            ? step.panelGroupId >= item.id
+            : step.stepNumber <= activeStep;
 
           return (
             <li
               key={item.id}
               style={{
-                display: step.isHidden ? "none" : "block",
-                background: isActiveItem ? "gold" : "lightgray"
+                display: step.isHidden ? "none" : "block"
               }}
-              className={isActiveItem ? "highlight" : ""}
+              className={isActiveOrCompletedItem ? "highlight" : ""}
             >
               {item.label}
             </li>
