@@ -15,7 +15,6 @@ const Step = props => {
     isLastStep,
     formik,
     tabs,
-    isActiveStep,
     activeStep,
     onFormSubmission = () => {},
     stepList,
@@ -83,9 +82,7 @@ const Step = props => {
         onValidSubmission,
         tabs,
         formik,
-        isActiveStep,
         activeStep,
-        label,
         data,
         history
       }
