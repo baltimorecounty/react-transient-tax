@@ -22,6 +22,7 @@ const CustomInputComponent = ({
   );
 
   const handleChange = formattedNumber => {
+    /** IE 11 valueAsNumber does not work, so we have to use the string "value" from the target */
     const { value, valueAsNumber } = formattedNumber.target;
     const currencyValue = valueAsNumber || parseFloat(value);
 
