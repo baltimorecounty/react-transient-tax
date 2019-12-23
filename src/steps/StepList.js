@@ -28,10 +28,22 @@ class StepList {
   }
 
   /**
+   * Remove step based on a regular expression
+   * @param {string} prop property you wish to use to filter
+   * @param {RegExp} regExpression regex to filter property by
+   */
+  removeStep(prop, regExpression) {
+    const filteredSteps = this.steps.filter(
+      step => !step[prop].match(regExpression)
+    );
+    this.steps = generateStepNumber(filteredSteps);
+  }
+
+  /**
    * Remove a step based on given unique id
    * @param {string} idToRemove unique id to identify a certain step
    */
-  removeStep(idToRemove) {
+  removeStepById(idToRemove) {
     const filteredSteps = this.steps.filter(({ id }) => id !== idToRemove);
     this.steps = generateStepNumber(filteredSteps);
   }
