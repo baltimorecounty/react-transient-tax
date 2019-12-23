@@ -58,8 +58,16 @@ const onPaymentFormSubmission = ({
  * @param {StepList} stepList
  * @param {object} currentFormValues formik values for the current step form
  */
-const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
-  stepList.reset();
+const onPaymentSelectionSubmission = (
+  stepList,
+  { monthsToReport },
+  formikValues,
+  shouldResetSteps
+) => {
+  if (!shouldResetSteps) {
+    return;
+  }
+
   let stepToInsertAfter = "payment-selection";
   Object.keys(monthsToReport).forEach((monthKey, monthIndex) => {
     const date = monthsToReport[monthKey];
