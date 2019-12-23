@@ -32,8 +32,20 @@ const Step = props => {
     onPrevClick(prevStep);
   };
 
-  const onValidSubmission = values => {
-    onFormSubmission(stepList, values, formik.values);
+  /**
+   * Call callback (onFormSubmission), set main formik field values, navigate to the next form
+   * @param {object} values form values from form panel to be inserted into the paged form's context
+   * @param {boolean} shouldSkipFormSubmission manually skip callback, a case for this would be when nothing has changed in the form.
+   */
+  const onValidSubmission = (values, shouldSkipFormSubmission = true) => {
+    if (shouldSkipFormSubmission) {
+      onFormSubmission(
+        stepList,
+        values,
+        formik.values,
+        shouldSkipFormSubmission
+      );
+    }
     formik.setValues({ ...formik.values, ...values });
     onNextClick(nextStep);
   };

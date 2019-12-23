@@ -21,6 +21,10 @@ const PaymentOptionsForm = props => {
   } = props;
   const [filingTypes, setFilingTypes] = useState([]);
   const [paymentInterval, setPaymentInterval] = useState();
+  const {
+    paymentInterval: intervalFromFormik,
+    monthsToReport: monthsToReportFromFormik
+  } = formik.values;
 
   useEffect(() => {
     if (filingTypes.length === 0) {
@@ -36,7 +40,8 @@ const PaymentOptionsForm = props => {
 
   const handleOnChange = onClick => {
     formik.setFieldValue("monthlyData", []);
-    formik.setFieldValue("monthsToReport", []);
+    formik.setFieldValue("monthsToReport", {});
+    formik.setFieldValue("exemptions", []);
     setPaymentInterval(onClick.currentTarget.value);
   };
 
@@ -44,7 +49,12 @@ const PaymentOptionsForm = props => {
     <Formik
       initialValues={{ paymentInterval: "", monthsToReport: {} }}
       onSubmit={values => {
-        onValidSubmission(values);
+        const { paymentInterval, monthsToReport } = values;
+        const hasChange =
+          paymentInterval !== intervalFromFormik ||
+          monthsToReport !== monthsToReportFromFormik;
+
+        onValidSubmission(values, hasChange);
       }}
       validationSchema={Yup.object({
         paymentInterval: Yup.string()
