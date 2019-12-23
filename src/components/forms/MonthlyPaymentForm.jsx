@@ -21,7 +21,7 @@ const MonthlyPaymentForm = props => {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const { monthsLate = 0 } = formik.values;
-
+  //console.log(formik.values);
   return (
     <Formik
       initialValues={{
@@ -80,7 +80,7 @@ const MonthlyPaymentForm = props => {
               <PaymentField
                 name="grossRentalCollected"
                 label={Labels.GrossOccupancy}
-                month={month}
+                date={date}
               />
             </div>
             <div className="tt_form-section">
@@ -89,14 +89,14 @@ const MonthlyPaymentForm = props => {
                 isNegativeValue={true}
                 name="nonTransientRentalCollected"
                 label={LabelsWithNotes.NonTransientsRentalCollected}
-                month={month}
+                date={date}
                 className="tt_subtotal-item"
               />
               <PaymentField
                 isNegativeValue={true}
                 name="governmentExemptRentalCollected"
                 label={Labels.ExemptionOption2}
-                month={month}
+                date={date}
                 className="tt_subtotal-item"
               />
               <PaymentTotal
