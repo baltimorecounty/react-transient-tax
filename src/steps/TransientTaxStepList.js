@@ -67,16 +67,7 @@ const removeExistingPaymentFormSteps = stepList => {
  * @param {StepList} stepList
  * @param {object} currentFormValues formik values for the current step form
  */
-const onPaymentSelectionSubmission = (
-  stepList,
-  { monthsToReport },
-  formikValues,
-  shouldResetSteps
-) => {
-  if (!shouldResetSteps) {
-    return;
-  }
-
+const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
   removeExistingPaymentFormSteps(stepList);
 
   let stepToInsertAfter = "payment-selection";
