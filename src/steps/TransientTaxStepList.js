@@ -49,8 +49,17 @@ const onPaymentFormSubmission = ({
       stepList.addStep(exemptionStep, previousStepId);
     }
   } else {
-    stepList.removeStep(exemptionStepId);
+    stepList.removeStepById(exemptionStepId);
   }
+};
+
+/**
+ * Remove existing payment form steps
+ * @param {object} stepList
+ */
+const removeExistingPaymentFormSteps = stepList => {
+  const paymentFormRegex = /^((?!payment-form-).)*$/gim;
+  stepList.removeStep("id", paymentFormRegex);
 };
 
 /**
@@ -67,6 +76,8 @@ const onPaymentSelectionSubmission = (
   if (!shouldResetSteps) {
     return;
   }
+
+  removeExistingPaymentFormSteps(stepList);
 
   let stepToInsertAfter = "payment-selection";
   Object.keys(monthsToReport).forEach((monthKey, monthIndex) => {
