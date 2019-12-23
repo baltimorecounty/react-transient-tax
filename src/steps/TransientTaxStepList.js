@@ -58,7 +58,7 @@ const onPaymentFormSubmission = ({
  * @param {object} stepList
  */
 const removeExistingPaymentFormSteps = stepList => {
-  const paymentFormRegex = /^((?!payment-form-).)*$/gim;
+  const paymentFormRegex = /^payment-form-.*$/gi;
   stepList.removeStep("id", paymentFormRegex);
 };
 
