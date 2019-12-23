@@ -38,6 +38,9 @@ const Step = props => {
    * @param {boolean} shouldSkipFormSubmission manually skip callback, a case for this would be when nothing has changed in the form.
    */
   const onValidSubmission = (values, shouldSkipFormSubmission = true) => {
+    const nextStepItem = stepList.steps.find(x => x.stepNumber === nextStep);
+
+    //TODO: Push the next step's id to the history?
     if (shouldSkipFormSubmission) {
       onFormSubmission(
         stepList,
