@@ -32,8 +32,8 @@ const Step = props => {
     onPrevClick(prevStep);
   };
 
-  const onValidSubmission = values => {
-    onFormSubmission(stepList, values, formik.values);
+  const onValidSubmission = (values, shouldResetSteps = true) => {
+    onFormSubmission(stepList, values, formik.values, shouldResetSteps);
     formik.setValues({ ...formik.values, ...values });
     onNextClick(nextStep);
   };
