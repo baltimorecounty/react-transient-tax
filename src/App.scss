@@ -357,6 +357,17 @@ label.tt_has-errors {
       margin-bottom: $default-spacing;
     }
   }
+
+  .tt_button--info {
+    display: block;
+    padding-left: 0;
+    margin-bottom: $default-spacing / 2;
+  }
+
+  .tt_form-field__label {
+    display: block;
+  }
+
   .tt_total-label_note {
     display: none;
   }
