@@ -51,7 +51,7 @@ describe("remove step by reg ex", () => {
       })
     ]);
 
-    stepList.removeStep("label", /^((?!tep 3).)*$/gim);
+    stepList.removeStep("label", /^.*tep\s3.*$/gim);
 
     expect(stepList.steps).toEqual([
       new Step({
