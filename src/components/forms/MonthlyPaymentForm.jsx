@@ -21,7 +21,7 @@ const MonthlyPaymentForm = props => {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const { monthsLate = 0 } = formik.values;
-  //console.log(formik.values);
+
   return (
     <Formik
       initialValues={{
