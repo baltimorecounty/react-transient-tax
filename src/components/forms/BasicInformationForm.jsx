@@ -9,7 +9,18 @@ import Field from "../Field";
 import { VerifyAddress } from "../../services/ApiService";
 
 const BasicInformationForm = props => {
-  const { nextButton, prevButton, onValidSubmission } = props;
+  const {
+    nextButton,
+    prevButton,
+    onValidSubmission,
+    formik: { values = {} }
+  } = props;
+
+  const {
+    businessName = "",
+    businessAddress = "",
+    businessAddressParts = {}
+  } = values;
 
   const [isValidAddressMessage, setIsValidAddressMessage] = useState("");
   const [isValidatingAddress, setIsValidatingAddress] = useState(false);
@@ -28,9 +39,9 @@ const BasicInformationForm = props => {
   return (
     <Formik
       initialValues={{
-        businessName: "",
-        businessAddress: "",
-        businessAddressParts: {}
+        businessName,
+        businessAddress,
+        businessAddressParts
       }}
       onSubmit={async values => {
         const { businessAddress, businessAddressParts } = values;

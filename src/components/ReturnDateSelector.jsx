@@ -13,9 +13,9 @@ import { addMonths } from "date-fns";
 import { connect } from "formik";
 
 const ReturnInterval = props => {
-  const { paymentInterval, filingTypes, formik } = props;
+  const { paymentInterval, filingTypes, monthsToReport, formik } = props;
   const { setFieldValue } = formik;
-  const [months, setMonths] = useState({});
+  const [months, setMonths] = useState(monthsToReport);
   const [dueDate, setDueDate] = useState();
   const [status, setStatus] = useState({});
   const monthlyId = GetIdByDescription(filingTypes, "monthly");

@@ -19,12 +19,12 @@ const PaymentOptionsForm = props => {
     history,
     formik
   } = props;
-  const [filingTypes, setFilingTypes] = useState([]);
-  const [paymentInterval, setPaymentInterval] = useState();
   const {
     paymentInterval: intervalFromFormik,
-    monthsToReport: monthsToReportFromFormik
+    monthsToReport: monthsToReportFromFormik = {}
   } = formik.values;
+  const [filingTypes, setFilingTypes] = useState([]);
+  const [paymentInterval, setPaymentInterval] = useState(intervalFromFormik);
 
   useEffect(() => {
     if (filingTypes.length === 0) {
@@ -47,7 +47,10 @@ const PaymentOptionsForm = props => {
 
   return (
     <Formik
-      initialValues={{ paymentInterval: "", monthsToReport: {} }}
+      initialValues={{
+        paymentInterval: intervalFromFormik,
+        monthsToReport: monthsToReportFromFormik
+      }}
       onSubmit={values => {
         const { paymentInterval, monthsToReport } = values;
         const hasChange =
@@ -74,6 +77,7 @@ const PaymentOptionsForm = props => {
             <PaymentOptions
               filingTypes={filingTypes}
               handleOnChange={handleOnChange}
+              checkedValue={intervalFromFormik}
             />
             {paymentInterval && (
               <React.Fragment>
@@ -81,7 +85,7 @@ const PaymentOptionsForm = props => {
                   paymentInterval={paymentInterval}
                   filingTypes={filingTypes}
                   tabs={tabs}
-                  monthsToReport={monthsToReport}
+                  monthsToReport={monthsToReportFromFormik}
                 />
                 <ErrorMessage name="monthsToReport" />
               </React.Fragment>
