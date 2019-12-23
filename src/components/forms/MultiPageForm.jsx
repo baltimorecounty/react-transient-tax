@@ -13,6 +13,8 @@ const MultiPageForm = props => {
     setActiveStep(stepNumber);
   };
 
+  console.log(steps);
+
   return (
     <div className="tt_form">
       <TransientTaxTabs
@@ -31,7 +33,7 @@ const MultiPageForm = props => {
         {props => (
           <div onSubmit={props.handleSubmit}>
             {steps.map(step => {
-              const { stepNumber } = step;
+              const { id, stepNumber } = step;
               const isActiveStep = stepNumber === activeStep;
               const nextStep =
                 stepNumber < steps.length ? stepNumber + 1 : null;
@@ -40,7 +42,7 @@ const MultiPageForm = props => {
               const tabs = steps;
               return (
                 <Step
-                  key={stepNumber}
+                  key={id}
                   {...step}
                   stepList={stepList}
                   isLastStep={isLastStep}
