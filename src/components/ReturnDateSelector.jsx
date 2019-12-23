@@ -15,9 +15,8 @@ import { connect } from "formik";
 const ReturnInterval = props => {
   const { paymentInterval, filingTypes, formik } = props;
   const { setFieldValue } = formik;
-  const [months, setMonths] = useState({});
-  const [dueDate, setDueDate] = useState();
-  const [status, setStatus] = useState({});
+  const [returnInterval, setReturnInterval] = useState({});
+  const { months = {}, dueDate = "", status = {} } = returnInterval;
   const monthlyId = GetIdByDescription(filingTypes, "monthly");
   const isMonthly = parseInt(paymentInterval) === monthlyId;
   const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
@@ -55,16 +54,21 @@ const ReturnInterval = props => {
         };
       });
 
-      setFieldValue("monthlyData", monthlyData);
-
       const dueDate = GetFormattedDueDate(lastFilingMonth);
       const status = GetDueDateStatus(lastFilingMonth, new Date());
+      const { isLate, value } = status;
 
+      setFieldValue("monthlyData", monthlyData);
       setFieldValue("monthsToReport", newMonths);
+      setFieldValue("dueDate", dueDate);
+      setFieldValue("monthsLate", isLate ? value : 0);
+      setFieldValue("isReturnLate", isLate);
 
-      setStatus(status);
-      setDueDate(dueDate);
-      setMonths(newMonths);
+      setReturnInterval({
+        status,
+        dueDate,
+        months: newMonths
+      });
     }
   };
 
@@ -99,22 +103,10 @@ const ReturnInterval = props => {
     }
   };
 
+  /** Reset  */
   useEffect(() => {
-    setFieldValue("monthsToReport", months);
-  }, [months, setFieldValue]);
-
-  useEffect(() => {
-    setMonths({});
-    setDueDate();
-    setStatus({});
+    setReturnInterval({});
   }, [paymentInterval]);
-
-  useEffect(() => {
-    const { isLate, value } = status;
-    setFieldValue("dueDate", dueDate);
-    setFieldValue("monthsLate", isLate ? value : 0);
-    setFieldValue("isReturnLate", isLate);
-  }, [status, dueDate, setFieldValue]);
 
   return (
     <React.Fragment>
