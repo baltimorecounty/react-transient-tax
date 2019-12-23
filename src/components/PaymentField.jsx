@@ -22,11 +22,14 @@ const CustomInputComponent = ({
   );
 
   const handleChange = formattedNumber => {
-    const { valueAsNumber } = formattedNumber.target;
-    setValue(!valueAsNumber ? undefined : Math.abs(valueAsNumber));
+    /** IE 11 valueAsNumber does not work, so we have to use the string "value" from the target */
+    const { value, valueAsNumber } = formattedNumber.target;
+    const currencyValue = valueAsNumber || parseFloat(value);
+
+    setValue(!currencyValue ? undefined : Math.abs(currencyValue));
     setFieldValue(
       name,
-      !valueAsNumber ? 0 : isNegativeValue ? -valueAsNumber : valueAsNumber
+      !currencyValue ? 0 : isNegativeValue ? -currencyValue : currencyValue
     );
   };
 
