@@ -41,7 +41,7 @@ const PaymentOptionsForm = props => {
   const handleOnChange = onClick => {
     formik.setFieldValue("monthlyData", []);
     formik.setFieldValue("monthsToReport", {});
-    formik.setFieldValue(("exemptions", []));
+    formik.setFieldValue("exemptions", []);
     setPaymentInterval(onClick.currentTarget.value);
   };
 
