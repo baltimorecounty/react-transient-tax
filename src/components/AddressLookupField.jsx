@@ -13,7 +13,7 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const { name, value } = field;
-  const { label, minLength = 0 } = props;
+  const { label, minLength = 0, defaultValue } = props;
   const { setFieldValue, touched, errors } = form;
   const [Address, setItems] = useState([]);
   const [wasSelected, setWasSelected] = useState(false);
@@ -98,6 +98,7 @@ const CustomInputComponent = ({
         items={items}
         renderInput={props => (
           <DebouncedInput
+            defaultValue={defaultValue}
             className={toggleErrorClasses("tt_form-field input")}
             wasSelected={wasSelected}
             {...props}
