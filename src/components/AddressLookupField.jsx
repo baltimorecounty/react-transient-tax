@@ -2,6 +2,7 @@ import { Field, connect } from "formik";
 import React, { useState } from "react";
 
 import Autocomplete from "react-autocomplete";
+import DebouncedInput from "./AddressLookupDebouncedInput";
 import ErrorMessage from "./ErrorMessage";
 import { GetAddresses } from "../services/ApiService";
 import PropTypes from "prop-types";
@@ -15,6 +16,7 @@ const CustomInputComponent = ({
   const { label, minLength = 0 } = props;
   const { setFieldValue, touched, errors } = form;
   const [Address, setItems] = useState([]);
+  const [wasSelected, setWasSelected] = useState(false);
 
   const handleAddressChange = changeEvent => {
     const { value } = changeEvent.target;
@@ -30,13 +32,18 @@ const CustomInputComponent = ({
         });
     }
 
-    setFieldValue("businessAddress", value);
-    setFieldValue("businessAddressParts", {});
+    if (wasSelected) {
+      setWasSelected(false);
+    } else {
+      setFieldValue("businessAddress", value);
+      setFieldValue("businessAddressParts", {});
+    }
   };
 
   const handleAddressSelect = (value, item) => {
     setFieldValue("businessAddress", value);
     setFieldValue("businessAddressParts", item);
+    setWasSelected(true);
   };
 
   /**
@@ -86,11 +93,7 @@ const CustomInputComponent = ({
         id={name}
         items={items}
         renderInput={props => (
-          <input
-            type="text"
-            className={toggleErrorClasses("tt_form-field input")}
-            {...props}
-          />
+          <DebouncedInput {...props} wasSelected={wasSelected} />
         )}
         renderItem={(item, isHighlighted) => (
           <div
