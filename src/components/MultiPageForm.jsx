@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import { Formik } from "formik";
-import Step from "../Step";
-import TransientTaxTabs from "../TransientTaxTabs";
+import Step from "./Step";
+import TransientTaxTabs from "./TransientTaxTabs";
 
 const MultiPageForm = props => {
   const {
