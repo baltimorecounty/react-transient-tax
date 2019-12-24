@@ -1,11 +1,15 @@
-import React from "react";
 import { Field } from "formik";
 import { PaymentDirections } from "../common/Constants";
 import { RadioButton } from "../common/RadioButton";
+import React from "react";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
 
-const PaymentOptions = ({ filingTypes, handleOnChange }) => {
+const PaymentOptions = ({
+  filingTypes,
+  handleOnChange,
+  value: selectedValue
+}) => {
   return (
     <React.Fragment>
       <p className="tt_label">{PaymentLabel}</p>
@@ -18,6 +22,7 @@ const PaymentOptions = ({ filingTypes, handleOnChange }) => {
           id={`radioButton-${key}`}
           label={value}
           value={key}
+          checked={parseInt(selectedValue) === key}
         />
       ))}
       <p>{PaymentNote}</p>
