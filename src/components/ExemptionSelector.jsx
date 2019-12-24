@@ -35,7 +35,7 @@ const ExemptionSelector = props => {
 
   useEffect(() => {
     if (isFormDirty) {
-      setFormErrors(GetExemptionFormErrors(exemption,exemptionErrorCheck));
+      setFormErrors(GetExemptionFormErrors(exemption, exemptionErrorCheck));
     }
   }, [isFormDirty, exemption, exemptionErrorCheck]);
 
