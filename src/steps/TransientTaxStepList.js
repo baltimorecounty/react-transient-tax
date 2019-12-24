@@ -135,7 +135,11 @@ const steps = [
     label: "Step 2 - Payment Interval Selection",
     component: <PaymentOptionsForm />,
     onFormSubmission: onPaymentSelectionSubmission,
-    panelGroupId: 2
+    panelGroupId: 2,
+    initialValues: {
+      paymentInterval: "",
+      monthsToReport: {}
+    }
   }),
   new Step({
     id: "identification",
