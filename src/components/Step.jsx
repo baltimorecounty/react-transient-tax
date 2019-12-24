@@ -21,6 +21,7 @@ const Step = props => {
     data,
     history,
     panelGroupId,
+    initialValues = {},
     ...rest
   } = props;
 
@@ -85,6 +86,15 @@ const Step = props => {
     </button>
   );
 
+  const getInitialValues = values =>
+    Object.keys(values).reduce((acc, currentValue) => {
+      const newKey = {
+        [currentValue]: formik.values[currentValue] || values[currentValue]
+      };
+
+      return { ...acc, ...newKey };
+    }, {});
+
   const componentWithProps = {
     ...component,
     ...{
@@ -98,7 +108,8 @@ const Step = props => {
         formik,
         activeStep,
         data,
-        history
+        history,
+        initialValues: getInitialValues(initialValues)
       }
     }
   };
