@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 const AddressLookupDebouncedInput = React.forwardRef(
-  ({ value, onChange, wasSelected, ...rest }, ref) => {
+  ({ className, value, onChange, wasSelected, ...rest }, ref) => {
     const [event, setEvent] = useState({ target: { value: "" } });
     const [debouncedEvent] = useDebounce(event, 300);
 
@@ -26,11 +26,13 @@ const AddressLookupDebouncedInput = React.forwardRef(
     return (
       <input
         ref={ref}
+        className={className}
         onChange={changeEvent => {
           changeEvent.persist();
           setEvent(changeEvent);
         }}
         {...rest}
+        type="text"
         value={event.target.value}
       />
     );
