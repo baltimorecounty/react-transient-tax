@@ -37,7 +37,7 @@ const ExemptionSelector = props => {
     if (isFormDirty) {
       setFormErrors(GetExemptionFormErrors(exemption,exemptionErrorCheck));
     }
-  }, [isFormDirty, exemption,exemptionErrorCheck]);
+  }, [isFormDirty, exemption, exemptionErrorCheck]);
 
   const saveExemption = () => {
     const errors = GetExemptionFormErrors(exemption);
