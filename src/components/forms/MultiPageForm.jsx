@@ -18,6 +18,8 @@ const MultiPageForm = props => {
     setActiveStep(stepNumber);
   };
 
+  console.log(activeStepNumber);
+
   return (
     <div className="tt_form">
       <TransientTaxTabs
