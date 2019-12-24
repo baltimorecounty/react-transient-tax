@@ -14,6 +14,7 @@ const CustomInputComponent = ({
 }) => {
   const { name } = field;
   const { className, isNegativeValue, label } = props;
+  const month = props.date.getMonth();
   const { setFieldValue } = form;
   const [value, setValue] = useState();
   const cssClasses = classnames(
@@ -40,7 +41,7 @@ const CustomInputComponent = ({
         <div className="tt_currency-picker">
           <CurrencyInput
             isNegativeValue={isNegativeValue}
-            id={name}
+            id={`${name}-${month}`} 
             name={name}
             onChange={handleChange}
             value={value || ""}
