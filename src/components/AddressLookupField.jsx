@@ -32,6 +32,10 @@ const CustomInputComponent = ({
         });
     }
 
+    /**
+     * HACK - This ensures that our debounced input, knows the difference between when something is selected
+     * and when the value is just a change event. Otherwise we can't properly set the values.
+     */
     if (wasSelected) {
       setWasSelected(false);
     } else {
