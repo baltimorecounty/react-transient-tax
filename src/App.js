@@ -40,7 +40,7 @@ const App = () => (
         exact
         path="/"
         render={props => (
-          <MultiPageForm {...props} stepList={TransientTaxStepList} />
+          <MultiPageForm stepList={TransientTaxStepList} {...props} />
         )}
       />
       <Route
