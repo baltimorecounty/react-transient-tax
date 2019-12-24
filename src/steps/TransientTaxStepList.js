@@ -123,7 +123,12 @@ const steps = [
     id: "basic-information",
     label: "Business Information",
     component: <BasicInformationForm />,
-    panelGroupId: 1
+    panelGroupId: 1,
+    initialValues: {
+      businessName: "",
+      businessAddress: "",
+      businessAddressParts: {}
+    }
   }),
   new Step({
     id: "payment-selection",
