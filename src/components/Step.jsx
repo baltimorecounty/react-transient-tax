@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "formik";
 
 const Step = props => {
@@ -24,6 +25,12 @@ const Step = props => {
     initialValues = {},
     ...rest
   } = props;
+
+  const hasFormData = Object.keys(formik.values).length > 0;
+
+  if (!hasFormData && stepNumber > 1) {
+    return <Redirect to="/steps/1" />;
+  }
 
   const handleNextClick = () => {
     onNextClick(nextStep);
