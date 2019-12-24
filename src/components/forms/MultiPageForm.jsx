@@ -5,7 +5,12 @@ import Step from "../Step";
 import TransientTaxTabs from "../TransientTaxTabs";
 
 const MultiPageForm = props => {
-  const { history, stepList } = props;
+  const {
+    history,
+    stepList,
+    match: { params = {} }
+  } = props;
+  const { activeStepNumber = 1 } = params;
   const { steps = [], panelGroups = [] } = stepList;
   const [activeStep, setActiveStep] = useState(1);
 

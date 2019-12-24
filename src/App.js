@@ -41,7 +41,7 @@ const App = () => (
       </Route>
       <Route
         exact
-        path="/steps/:activePanel"
+        path="/steps/:activeStepNumber"
         render={props => (
           <MultiPageForm stepList={TransientTaxStepList} {...props} />
         )}
