@@ -1,7 +1,7 @@
 import "react-datepicker/dist/react-datepicker.css";
 import "./App.scss";
 
-import { Route, HashRouter as Router } from "react-router-dom";
+import { Redirect, Route, HashRouter as Router } from "react-router-dom";
 
 import { Config } from "@baltimorecounty/javascript-utilities";
 import ConfirmationPage from "./pages/ConfirmationPage";
@@ -36,9 +36,12 @@ setConfig(configValues);
 const App = () => (
   <div className="tt_app">
     <Router>
+      <Route exact path="/">
+        <Redirect to="/steps/1" />
+      </Route>
       <Route
         exact
-        path="/"
+        path="/steps/:activePanel"
         render={props => (
           <MultiPageForm stepList={TransientTaxStepList} {...props} />
         )}
