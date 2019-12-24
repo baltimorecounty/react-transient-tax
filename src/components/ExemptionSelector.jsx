@@ -16,6 +16,7 @@ const ExemptionSelector = props => {
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
   const [exemption, setExemption] = useState(exemptionFromProps);
+  const [exemptionErrorCheck, setExemptionErrorCheck]= useState(true);
 
   useEffect(() => {
     if (exemptionTypes.length === 0) {
@@ -34,13 +35,13 @@ const ExemptionSelector = props => {
 
   useEffect(() => {
     if (isFormDirty) {
-      setFormErrors(GetExemptionFormErrors(exemption));
+      setFormErrors(GetExemptionFormErrors(exemption,exemptionErrorCheck));
     }
-  }, [isFormDirty, exemption]);
+  }, [isFormDirty, exemption,exemptionErrorCheck]);
 
   const saveExemption = () => {
     const errors = GetExemptionFormErrors(exemption);
-
+    setExemptionErrorCheck(true);
     if (errors.length === 0) {
       onExemptionSave(exemption);
       resetSelector();
@@ -51,6 +52,7 @@ const ExemptionSelector = props => {
 
   const handleExemptionTypeChange = ({ type, label }) => {
     setIsFormDirty(true);
+    setExemptionErrorCheck(false);
     setExemption({
       ...exemption,
       ...{ type, label }
@@ -59,6 +61,7 @@ const ExemptionSelector = props => {
 
   const handleExemptionDateChange = ({ fromDate, toDate }) => {
     setIsFormDirty(true);
+    setExemptionErrorCheck(true);
     setExemption({
       ...exemption,
       ...{ fromDate, toDate }
