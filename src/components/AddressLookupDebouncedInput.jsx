@@ -34,6 +34,7 @@ const AddressLookupDebouncedInput = React.forwardRef(
         {...rest}
         type="text"
         value={event.target.value}
+        style={{ marginBottom: "0" }}
       />
     );
   }
