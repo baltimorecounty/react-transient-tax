@@ -9,7 +9,7 @@ import Field from "../Field";
 import { VerifyAddress } from "../../services/ApiService";
 
 const BasicInformationForm = props => {
-  const { nextButton, prevButton, onValidSubmission } = props;
+  const { nextButton, prevButton, onValidSubmission, initialValues } = props;
 
   const [isValidAddressMessage, setIsValidAddressMessage] = useState("");
   const [isValidatingAddress, setIsValidatingAddress] = useState(false);
@@ -27,11 +27,7 @@ const BasicInformationForm = props => {
 
   return (
     <Formik
-      initialValues={{
-        businessName: "",
-        businessAddress: "",
-        businessAddressParts: {}
-      }}
+      initialValues={initialValues}
       onSubmit={async values => {
         const { businessAddress, businessAddressParts } = values;
         const shouldGeocode = Object.keys(businessAddressParts).length === 0;
@@ -71,6 +67,7 @@ const BasicInformationForm = props => {
               name="businessAddress"
               label="Business Address"
               minLength={3}
+              defaultValue={initialValues.businessAddress}
             />
             {isValidAddressMessage && (
               <BasicErrorMessage message={isValidAddressMessage} />
