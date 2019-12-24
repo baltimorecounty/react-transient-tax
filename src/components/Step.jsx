@@ -29,6 +29,7 @@ const Step = props => {
   };
 
   const handlePrevClick = () => {
+    history.push(`/steps/${prevStep}`);
     onPrevClick(prevStep);
   };
 
@@ -48,6 +49,7 @@ const Step = props => {
     }
     formik.setValues({ ...formik.values, ...values });
     onNextClick(nextStep);
+    history.push(`/steps/${nextStep}`);
   };
 
   const nextButtonStyle = stepNumber === 1 ? { marginLeft: "auto" } : {};
