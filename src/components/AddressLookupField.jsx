@@ -97,7 +97,11 @@ const CustomInputComponent = ({
         id={name}
         items={items}
         renderInput={props => (
-          <DebouncedInput {...props} wasSelected={wasSelected} />
+          <DebouncedInput
+            className={toggleErrorClasses("tt_form-field input")}
+            wasSelected={wasSelected}
+            {...props}
+          />
         )}
         renderItem={(item, isHighlighted) => (
           <div
