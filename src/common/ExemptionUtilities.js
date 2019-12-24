@@ -2,11 +2,11 @@
  * Quick Solution for Validating Exemption Errors Outside of Formik
  * @param {object} exemption object representation of an exemption
  */
-const GetExemptionFormErrors = (exemption, exemptionErrorCheck=true) => {
+const GetExemptionFormErrors = (exemption, exemptionErrorCheck = true) => {
   const activeFormErrors = [];
   const { fromDate, toDate, type } = exemption;
 
-  if (exemptionErrorCheck){
+  if (exemptionErrorCheck) {
     if (!type) {
       activeFormErrors.push({ key: "type", error: "Exemption Type Required" });
     }
@@ -16,14 +16,11 @@ const GetExemptionFormErrors = (exemption, exemptionErrorCheck=true) => {
     if (!toDate) {
       activeFormErrors.push({ key: "toDate", error: "To Date Required" });
     }
-  }
-  else{
+  } else {
     if (!type) {
       activeFormErrors.push({ key: "type", error: "Exemption Type Required" });
     }
   }
-
-  
   return activeFormErrors;
 };
 
