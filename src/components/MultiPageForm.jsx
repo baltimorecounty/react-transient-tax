@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import Step from "./Step";
 import TransientTaxTabs from "./TransientTaxTabs";
+import { useEffect } from "react";
 
 const MultiPageForm = props => {
   const {
@@ -11,21 +12,41 @@ const MultiPageForm = props => {
     match: { params = {} }
   } = props;
   const { activeStepNumber = 1 } = params;
+  const currentFormNumber = parseInt(activeStepNumber);
   const { steps = [], panelGroups = [] } = stepList;
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState({});
+  const [activeStepDetails, setActiveStepDetails] = useState({});
+
+  useEffect(() => {
+    const { steps } = stepList;
+    const currentStep = steps.find(x => x.stepNumber === currentFormNumber);
+    const { id, stepNumber } = currentStep;
+    const isActiveStep = stepNumber === currentFormNumber;
+    const nextStep = stepNumber < steps.length ? stepNumber + 1 : null;
+    const prevStep = stepNumber === 1 ? null : stepNumber - 1;
+    const isLastStep = stepNumber === steps.length;
+
+    setActiveStep(currentStep);
+    setActiveStepDetails({
+      id,
+      stepNumber,
+      isActiveStep,
+      nextStep,
+      prevStep,
+      isLastStep
+    });
+  }, [currentFormNumber, stepList]);
 
   const handleNavClick = stepNumber => {
     setActiveStep(stepNumber);
   };
-
-  console.log(activeStepNumber);
 
   return (
     <div className="tt_form">
       <TransientTaxTabs
         panelGroups={panelGroups}
         tabs={steps}
-        activeStep={activeStep}
+        activeStep={currentFormNumber}
       />
       <Formik
         initialValues={{}}
@@ -35,35 +56,35 @@ const MultiPageForm = props => {
           }, 1000);
         }}
       >
-        {props => (
-          <div onSubmit={props.handleSubmit}>
-            {steps.map(step => {
-              const { id, stepNumber } = step;
-              const isActiveStep = stepNumber === activeStep;
-              const nextStep =
-                stepNumber < steps.length ? stepNumber + 1 : null;
-              const prevStep = stepNumber === 1 ? null : stepNumber - 1;
-              const isLastStep = stepNumber === steps.length;
-              const tabs = steps;
-              return (
+        {props => {
+          const { id } = activeStep;
+          const {
+            isLastStep,
+            nextStep,
+            prevStep,
+            isActiveStep
+          } = activeStepDetails;
+          return (
+            <div onSubmit={props.handleSubmit}>
+              {id && (
                 <Step
                   key={id}
-                  {...step}
+                  {...activeStep}
                   stepList={stepList}
                   isLastStep={isLastStep}
                   onNextClick={handleNavClick}
                   onPrevClick={handleNavClick}
                   nextStep={nextStep}
                   prevStep={prevStep}
-                  tabs={tabs}
-                  activeStep={activeStep}
+                  tabs={steps}
+                  activeStep={currentFormNumber}
                   history={history}
                   style={{ display: isActiveStep ? "block" : "none" }}
                 />
-              );
-            })}
-          </div>
-        )}
+              )}
+            </div>
+          );
+        }}
       </Formik>
     </div>
   );
