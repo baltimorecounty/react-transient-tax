@@ -6,7 +6,7 @@ import { Redirect, Route, HashRouter as Router } from "react-router-dom";
 import { Config } from "@baltimorecounty/javascript-utilities";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import ErrorPage from "./pages/ErrorPage";
-import MultiPageForm from "./components/forms/MultiPageForm";
+import MultiPageForm from "./components/MultiPageForm";
 import React from "react";
 import TransientTaxStepList from "./steps/TransientTaxStepList";
 
