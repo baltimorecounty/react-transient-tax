@@ -1,4 +1,4 @@
-import { GetFormattedDueDate, GetDueDateStatus } from "./DatesUtilities";
+import { GetDueDateStatus, GetFormattedDueDate } from "./DatesUtilities";
 
 describe("Get Formatted Due Date", () => {
   test("should return the proper due date on a normal year", () => {
@@ -23,13 +23,15 @@ describe("Get Due Date Status", () => {
       new Date("August 1, 2019"),
       new Date("October 1, 2019")
     );
-    expect(actual).toEqual({
-      isLate: true,
-      value: 1,
-      dateType: "month",
-      label: "Past Due",
-      message: "1 month"
-    });
+    expect(actual).toEqual(
+      expect.objectContaining({
+        isLate: true,
+        value: 1,
+        dateType: "month",
+        label: "Past Due",
+        message: "1 month"
+      })
+    );
   });
 
   test("should past due status, when the date of filing is at then end of a month with 30 days", () => {
@@ -37,13 +39,15 @@ describe("Get Due Date Status", () => {
       new Date("August 1, 2019"),
       new Date("November 30, 2019")
     );
-    expect(actual).toEqual({
-      isLate: true,
-      value: 2,
-      dateType: "month",
-      label: "Past Due",
-      message: "2 months"
-    });
+    expect(actual).toEqual(
+      expect.objectContaining({
+        isLate: true,
+        value: 2,
+        dateType: "month",
+        label: "Past Due",
+        message: "2 months"
+      })
+    );
   });
 
   test("should past due status, when the date of filing is at then end of a month with 31 days", () => {
@@ -51,13 +55,15 @@ describe("Get Due Date Status", () => {
       new Date("August 1, 2019"),
       new Date("December 31, 2019")
     );
-    expect(actual).toEqual({
-      isLate: true,
-      value: 3,
-      dateType: "month",
-      label: "Past Due",
-      message: "3 months"
-    });
+    expect(actual).toEqual(
+      expect.objectContaining({
+        isLate: true,
+        value: 3,
+        dateType: "month",
+        label: "Past Due",
+        message: "3 months"
+      })
+    );
   });
 
   test("should days remaining status, when the date of filing is before than the due date", () => {
@@ -65,13 +71,15 @@ describe("Get Due Date Status", () => {
       new Date("July 1, 2019"),
       new Date("August 15, 2019")
     );
-    expect(actual).toEqual({
-      isLate: false,
-      value: 16,
-      dateType: "day",
-      label: "Days remaining until due",
-      message: "16 days"
-    });
+    expect(actual).toEqual(
+      expect.objectContaining({
+        isLate: false,
+        value: 16,
+        dateType: "day",
+        label: "Days remaining until due",
+        message: "16 days"
+      })
+    );
   });
 
   test("should days remaining status, when the date of filing is before than the due date by 1 day", () => {
@@ -79,12 +87,14 @@ describe("Get Due Date Status", () => {
       new Date("July 1, 2019"),
       new Date("August 30, 2019")
     );
-    expect(actual).toEqual({
-      isLate: false,
-      value: 1,
-      dateType: "day",
-      label: "Days remaining until due",
-      message: "1 day"
-    });
+    expect(actual).toEqual(
+      expect.objectContaining({
+        isLate: false,
+        value: 1,
+        dateType: "day",
+        label: "Days remaining until due",
+        message: "1 day"
+      })
+    );
   });
 });
