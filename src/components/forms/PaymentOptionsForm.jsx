@@ -71,8 +71,6 @@ const PaymentOptionsForm = props => {
       {props => {
         const { setFieldValue } = props;
 
-        console.log(props.values);
-
         const handleOnChange = onClick => {
           setFieldValue("monthsToReport", {});
           setFieldValue("returnStatus", {});
