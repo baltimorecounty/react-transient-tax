@@ -47,7 +47,11 @@ const PaymentOptionsForm = props => {
 
   return (
     <Formik
-      initialValues={{ paymentInterval: "", monthsToReport: {} }}
+      initialValues={{
+        paymentInterval: "",
+        monthsToReport: {},
+        returnStatus: {}
+      }}
       onSubmit={values => {
         const { paymentInterval, monthsToReport } = values;
         const hasChange =
