@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { format } from "date-fns";
-import ReturnSummary from "../components/ReturnSummary";
+
+import Address from "../components/Address";
 import { BudgetAndFinanceOfficeAddress } from "../common/Constants";
 import { ErrorPath } from "../common/ErrorUtility";
-import Address from "../components/Address";
-import { GetTransientTaxReturn } from "../services/ApiService";
 import { GetReturnSummaryValues } from "../data/TaxReturnMapper";
+import { GetTransientTaxReturn } from "../services/ApiService";
+import ReturnSummary from "../components/ReturnSummary";
+import { format } from "date-fns";
 
 const {
   Organization,
@@ -20,7 +21,7 @@ const ConfirmationForm = props => {
   const {
     returnTypeDescription,
     dateSubmitted: formDateSubmitted,
-    formattedDueDate
+    dueDate
   } = taxReturn;
   const taxReturnValues = GetReturnSummaryValues(taxReturn);
   const { dateSubmitted = formDateSubmitted } = taxReturn;
@@ -64,7 +65,7 @@ const ConfirmationForm = props => {
             header={"Transient Occupancy Tax Return Details:"}
             values={taxReturnValues}
             dateSubmitted={formattedDateSubmitted}
-            dueDate={formattedDueDate}
+            dueDate={dueDate}
             returnType={returnTypeDescription}
           />
           <Address
