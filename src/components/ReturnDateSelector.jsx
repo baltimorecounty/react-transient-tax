@@ -1,170 +1,107 @@
 import {
   GetDueDateStatus,
-  GetFormatedDateTime,
-  GetFormattedDueDate
+  GetFormatedDateTime
 } from "../common/DatesUtilities";
 import React, { useEffect, useState } from "react";
 
 import DatePicker from "react-datepicker";
+import { Field } from "formik";
 import { GetIdByDescription } from "../common/LookupUtilities";
-import { Labels } from "../common/Constants";
 import PropTypes from "prop-types";
+import ReturnStatus from "./ReturnStatus";
 import { addMonths } from "date-fns";
-import { connect } from "formik";
 
-const ReturnDateSelector = props => {
-  const { paymentInterval, filingTypes, formik } = props;
-  const { setFieldValue } = formik;
-  const [months, setMonths] = useState({});
-  const [dueDate, setDueDate] = useState();
-  const [status, setStatus] = useState({});
-  const monthlyId = GetIdByDescription(filingTypes, "monthly");
-  const isMonthly = parseInt(paymentInterval) === monthlyId;
-  const monthsToSelect = new Array(isMonthly ? 1 : 3).fill(
-    null
-  ); /** 3 months per quarter */
-  const startDate = new Date();
+const ReturnDateSelector = ({
+  field, // { name, value, onChange, onBlur }
+  form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  ...props
+}) => {
+  const {
+    id,
+    paymentInterval,
+    filingTypes,
+    monthsToReport = {},
+    returnStatus: statusFromProps = {}
+  } = props;
+  const [months, setMonths] = useState(monthsToReport);
+  const [returnStatus, setReturnStatus] = useState(statusFromProps);
+  const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
+  const isQuarterly = parseInt(paymentInterval) === quarterlyId;
+  const hasStatus = Object.keys(returnStatus).length > 0;
 
   /**
    * Handle any of the month / year selection changes
    * @param {date} date js date object for selected month and
-   * @param {number} monthIndex tells us which month the
    */
-  const handleDateChange = (date, monthIndex) => {
-    if (date !== null) {
-      const newMonths = { ...months };
-      const isFirstMonthInQuarter = monthIndex === 0;
-      let lastFilingMonth = date;
-      newMonths[monthIndex] = date;
+  const handleDateChange = date => {
+    let newMonths = { 0: date };
+    // If this is a quarterly report, assume the next two months but leave them editable
+    if (isQuarterly) {
+      const nextMonth = addMonths(date, 1);
+      const finalMonthInQuarter = addMonths(date, 2);
 
-      // If this is a quarterly report, assume the next two months but leave them editable
-      if (!isMonthly && isFirstMonthInQuarter) {
-        const nextMonth = addMonths(date, 1);
-        const finalMonthInQuarter = addMonths(date, 2);
-
-        newMonths[1] = nextMonth;
-        newMonths[2] = finalMonthInQuarter;
-        lastFilingMonth = finalMonthInQuarter;
-      }
-
-      const monthlyData = Object.keys(newMonths).map(monthKey => {
-        const date = newMonths[monthKey];
-        return {
-          month: date.getMonth() + 1,
-          year: date.getFullYear()
-        };
-      });
-
-      setFieldValue("monthlyData", monthlyData);
-
-      const dueDate = GetFormattedDueDate(lastFilingMonth);
-      const status = GetDueDateStatus(lastFilingMonth, new Date());
-
-      setFieldValue("monthsToReport", newMonths);
-
-      setStatus(status);
-      setDueDate(dueDate);
-      setMonths(newMonths);
+      newMonths[1] = nextMonth;
+      newMonths[2] = finalMonthInQuarter;
     }
+
+    setMonths({ ...newMonths });
+    setFieldValue("monthsToReport", { ...newMonths });
   };
 
-  /**
-   * Gets a friendly label for each month
-   * @param {number} monthIndex zero based representation of which month in the sequence it is
-   */
-  const getMonthLabel = monthIndex => {
-    if (isMonthly) {
-      return "Month";
-    }
-    switch (monthIndex) {
-      case 0: {
-        return "1st Month";
-      }
-      case 1: {
-        return "2nd Month";
-      }
-      case 2: {
-        return "3rd Month";
-      }
-      default: {
-        return;
-      }
-    }
-  };
-
-  const getMonth = monthIndex => {
-    if (Object.entries(months).length > 0) {
-      const month = months[monthIndex];
-      return month ? GetFormatedDateTime(new Date(month), "MM/yyyy") : "";
-    }
-  };
-
+  /** Get Information About the Status based on the Month(s) Selected */
   useEffect(() => {
-    setFieldValue("monthsToReport", months);
+    const isIntervalSelected = Object.keys(months).length > 0;
+    if (isIntervalSelected) {
+      const lastFilingMonth = months[Object.keys(months).length - 1];
+      const returnStatus = GetDueDateStatus(lastFilingMonth, new Date());
+
+      setReturnStatus(returnStatus);
+      setFieldValue("returnStatus", { ...returnStatus });
+    }
   }, [months, setFieldValue]);
 
+  /**
+   * Reset date selection if the payment interval changes.
+   * This needs to happen in this component and the parent form to reset validation.
+   */
   useEffect(() => {
     setMonths({});
-    setDueDate();
-    setStatus({});
-  }, [paymentInterval]);
-
-  useEffect(() => {
-    const { isLate, value } = status;
-    setFieldValue("dueDate", dueDate);
-    setFieldValue("monthsLate", isLate ? value : 0);
-    setFieldValue("isReturnLate", isLate);
-  }, [status, dueDate, setFieldValue]);
+    setFieldValue("monthsToReport", {});
+    setFieldValue("returnStatus", {});
+  }, [paymentInterval, setFieldValue]);
 
   return (
-    <React.Fragment>
-      <div>
-        <label htmlFor="month-date-picker-0">
-          Month{isMonthly ? "" : "s"} for Return
+    <div className="tt_return-date-selector">
+      <div className="tt_form-field">
+        <label htmlFor={id}>
+          Select{" "}
+          {isQuarterly
+            ? "1st Month of the quarter for your return"
+            : " the month of your return"}
         </label>
-        <div className="tt_month-pickers">
-          {monthsToSelect.map((month, monthIndex) => {
-            const id = `month-date-picker-${monthIndex}`;
-            return (
-              <div className="tt_month-picker" key={monthIndex}>
-                {Object.entries(months).length > 0 || monthIndex === 0 ? (
-                  <label htmlFor={id}>{getMonthLabel(monthIndex)}</label>
-                ) : null}
-                {monthIndex === 0 ? (
-                  <DatePicker
-                    id={id}
-                    selected={months[monthIndex]}
-                    onChange={date => handleDateChange(date, monthIndex)}
-                    startDate={startDate}
-                    dateFormat="MM/yyyy"
-                    monthsToReport={months}
-                    showMonthYearPicker
-                  />
-                ) : (
-                  <p>{getMonth(monthIndex)}</p>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <DatePicker
+          id={id}
+          selected={months[0]}
+          onChange={handleDateChange}
+          startDate={new Date()}
+          dateFormat="MM/yyyy"
+          monthsToReport={months}
+          showMonthYearPicker
+        />
       </div>
-      {dueDate && status.label && (
-        <div className="tt_form-group">
-          <p>
-            <span className="emphasize-text">{Labels.DueDate}</span>: {dueDate}
-          </p>
-          <p>
-            {status.label === Labels.PastDue && (
-              <i
-                className="fas fa-exclamation-circle tt_past-due-icon"
-                aria-hidden="true"
-              ></i>
-            )}
-            <span>{status.label}</span>: {status.message}
-          </p>
-        </div>
-      )}
-    </React.Fragment>
+      {isQuarterly &&
+        Object.keys(months)
+          .filter(key => key > 0)
+          .map((monthKey, monthIndex) => (
+            <div key={monthKey} className="tt_form-group">
+              <p className="tt_label">
+                {monthIndex === 0 ? "2nd Month" : "3rd Month"}
+              </p>
+              <p>{GetFormatedDateTime(months[monthKey], "MM/yyyy")}</p>
+            </div>
+          ))}
+      {hasStatus && <ReturnStatus {...returnStatus} />}
+    </div>
   );
 };
 
@@ -173,4 +110,8 @@ ReturnDateSelector.propTypes = {
   paymentInterval: PropTypes.string
 };
 
-export default connect(ReturnDateSelector);
+const ReturnDateSelectorField = props => (
+  <Field component={ReturnDateSelector} {...props} />
+);
+
+export default ReturnDateSelectorField;
