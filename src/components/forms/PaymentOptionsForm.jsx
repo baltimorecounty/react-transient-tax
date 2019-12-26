@@ -78,6 +78,7 @@ const PaymentOptionsForm = props => {
             {paymentInterval && (
               <React.Fragment>
                 <ReturnDateSelector
+                  id="payment-options-date-selector"
                   paymentInterval={paymentInterval}
                   filingTypes={filingTypes}
                   tabs={tabs}
