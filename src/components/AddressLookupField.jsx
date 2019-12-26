@@ -1,9 +1,9 @@
-import { Field, connect } from "formik";
 import React, { useState } from "react";
 
 import AddressLookupDebouncedInput from "./AddressLookupDebouncedInput";
 import Autocomplete from "react-autocomplete";
 import ErrorMessage from "./ErrorMessage";
+import { Field } from "formik";
 import { GetAddresses } from "../services/ApiService";
 import PropTypes from "prop-types";
 
@@ -147,4 +147,4 @@ AddressLookupField.propTypes = {
   minLength: PropTypes.number
 };
 
-export default connect(AddressLookupField);
+export default AddressLookupField;
