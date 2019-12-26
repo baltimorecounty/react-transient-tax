@@ -91,6 +91,11 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
       },
       data: {
         date
+      },
+      initialValues: {
+        grossRentalCollected: 0,
+        governmentExemptRentalCollected: 0,
+        nonTransientRentalCollected: 0
       }
     });
 
