@@ -9,7 +9,6 @@ const Step = props => {
     label,
     component,
     onNextClick,
-    onPrevClick,
     stepNumber,
     nextStep,
     prevStep,
@@ -38,7 +37,6 @@ const Step = props => {
 
   const handlePrevClick = () => {
     history.push(`/steps/${prevStep}`);
-    onPrevClick(prevStep);
   };
 
   /**
