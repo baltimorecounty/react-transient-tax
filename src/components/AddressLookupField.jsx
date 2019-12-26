@@ -1,8 +1,8 @@
 import { Field, connect } from "formik";
 import React, { useState } from "react";
 
+import AddressLookupDebouncedInput from "./AddressLookupDebouncedInput";
 import Autocomplete from "react-autocomplete";
-import DebouncedInput from "./AddressLookupDebouncedInput";
 import ErrorMessage from "./ErrorMessage";
 import { GetAddresses } from "../services/ApiService";
 import PropTypes from "prop-types";
@@ -97,7 +97,7 @@ const CustomInputComponent = ({
         id={name}
         items={items}
         renderInput={props => (
-          <DebouncedInput
+          <AddressLookupDebouncedInput
             defaultValue={defaultValue}
             className={toggleErrorClasses("tt_form-field input")}
             wasSelected={wasSelected}
