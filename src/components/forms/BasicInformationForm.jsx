@@ -19,8 +19,9 @@ const BasicInformationForm = props => {
     setIsValidatingAddress(true);
     try {
       const response = await VerifyAddress(addressValue);
+      const { Address: { AddressId = 0 } = {} } = response;
 
-      return response.AddressId;
+      return AddressId;
     } catch (ex) {
       return null;
     }
