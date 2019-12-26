@@ -38,7 +38,10 @@ const onPaymentFormSubmission = ({
       id: exemptionStepId,
       label: `Exemption Certificate`,
       component: <ExemptionCertificateForm />,
-      panelGroupId: 2
+      panelGroupId: 2,
+      initialValues: {
+        exemptions: []
+      }
     });
 
     const doesExemptionPanelExist = stepList.steps.find(

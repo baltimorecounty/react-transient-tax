@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
+import { AddOrUpdate } from "../common/ArrayUtilities";
 import ExemptionSelector from "./ExemptionSelector";
 import ExemptionsList from "./ExemptionList";
-import { AddOrUpdate } from "../common/ArrayUtilities";
-import { SaveExemption } from "../services/ApiService";
 import { Field } from "formik";
 import { Messages } from "../common/Constants";
+import { SaveExemption } from "../services/ApiService";
 
 const ExemptionCertificate = ({
   field, // { name, value, onChange, onBlur }
@@ -12,8 +13,9 @@ const ExemptionCertificate = ({
   ...props
 }) => {
   const { setFieldValue } = form;
+  const { exemptions: exemptionsFromProps = [] } = props;
   const [exemption, setExemption] = useState({});
-  const [exemptions, setExemptions] = useState([]);
+  const [exemptions, setExemptions] = useState(exemptionsFromProps);
   const [isSelectorFormDirty, setIsSelectorFormDirty] = useState(0);
 
   useEffect(() => {

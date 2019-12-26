@@ -58,7 +58,6 @@ const ReturnDateSelector = ({
 
   /** Get Information About the Status based on the Month(s) Selected */
   useEffect(() => {
-    // console.log("months updated");
     const isIntervalSelected = Object.keys(months).length > 0;
     if (isIntervalSelected) {
       const lastFilingMonth = months[Object.keys(months).length - 1];
@@ -76,7 +75,6 @@ const ReturnDateSelector = ({
    * This needs to happen in this component and the parent form to reset validation.
    */
   useEffect(() => {
-    // console.log("interval reset");
     setMonths({});
     setFieldValue("monthsToReport", {});
     setFieldValue("returnStatus", {});

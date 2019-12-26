@@ -78,8 +78,6 @@ const PaymentOptionsForm = props => {
           resetFormValues();
         };
 
-        console.log(initialValues.monthsToReport);
-
         return (
           <Form>
             <PromptIfDirty />
