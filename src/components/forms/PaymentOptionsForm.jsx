@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
-import PaymentOptions from "../PaymentOptions";
+import PaymentOptions from "../PaymentOptionsField";
 import ReturnDateSelector from "../ReturnDateSelectorField";
 
 const PaymentOptionsForm = props => {
