@@ -10,18 +10,21 @@ import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
 
 const IdentificationForm = props => {
-  const { nextButton, prevButton, onValidSubmission, formik } = props;
+  const {
+    nextButton,
+    prevButton,
+    onValidSubmission,
+    formik,
+    initialValues
+  } = props;
   const { monthlyData } = formik.values;
   const showTradeAlias = HasAtLeast1Exemption(monthlyData);
 
+  console.log(initialValues);
+
   return (
     <Formik
-      initialValues={{
-        tradeAlias: "",
-        email: "",
-        nameOfSubmitter: "",
-        titleOfSubmitter: ""
-      }}
+      initialValues={initialValues}
       onSubmit={values => {
         onValidSubmission(values);
       }}

@@ -154,7 +154,13 @@ const steps = [
     id: "identification",
     label: "Step 7 - Identification",
     component: <IdentificationForm />,
-    panelGroupId: 3
+    panelGroupId: 3,
+    initialValues: {
+      tradeAlias: "",
+      email: "",
+      nameOfSubmitter: "",
+      titleOfSubmitter: ""
+    }
   }),
   new Step({
     id: "review",
