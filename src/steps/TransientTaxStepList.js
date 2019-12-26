@@ -138,7 +138,8 @@ const steps = [
     panelGroupId: 2,
     initialValues: {
       paymentInterval: "",
-      monthsToReport: {}
+      monthsToReport: {},
+      returnStatus: {}
     }
   }),
   new Step({

@@ -20,10 +20,10 @@ const ReturnDateSelector = ({
     id,
     paymentInterval,
     filingTypes,
-    monthsToReport = {},
+    monthsToReport: monthsFromProps = {},
     returnStatus: statusFromProps = {}
   } = props;
-  const [months, setMonths] = useState(monthsToReport);
+  const [months, setMonths] = useState(monthsFromProps);
   const [returnStatus, setReturnStatus] = useState(statusFromProps);
   const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
   const isQuarterly = parseInt(paymentInterval) === quarterlyId;
@@ -45,17 +45,18 @@ const ReturnDateSelector = ({
     }
 
     setMonths({ ...newMonths });
-    setFieldValue("monthsToReport", { ...newMonths });
   };
 
   /** Get Information About the Status based on the Month(s) Selected */
   useEffect(() => {
+    // console.log("months updated");
     const isIntervalSelected = Object.keys(months).length > 0;
     if (isIntervalSelected) {
       const lastFilingMonth = months[Object.keys(months).length - 1];
       const returnStatus = GetDueDateStatus(lastFilingMonth, new Date());
 
       setReturnStatus(returnStatus);
+      setFieldValue("monthsToReport", { ...months });
       setFieldValue("returnStatus", { ...returnStatus });
     }
   }, [months, setFieldValue]);
@@ -65,9 +66,8 @@ const ReturnDateSelector = ({
    * This needs to happen in this component and the parent form to reset validation.
    */
   useEffect(() => {
+    // console.log("interval reset");
     setMonths({});
-    setFieldValue("monthsToReport", {});
-    setFieldValue("returnStatus", {});
   }, [paymentInterval, setFieldValue]);
 
   return (
@@ -81,7 +81,7 @@ const ReturnDateSelector = ({
         </label>
         <DatePicker
           id={id}
-          selected={months[0]}
+          selected={months[0] || monthsFromProps[0]}
           onChange={handleDateChange}
           startDate={new Date()}
           dateFormat="MM/yyyy"

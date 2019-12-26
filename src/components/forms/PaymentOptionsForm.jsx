@@ -14,7 +14,6 @@ const PaymentOptionsForm = props => {
     nextButton,
     prevButton,
     onValidSubmission,
-    monthsToReport,
     history,
     formik,
     initialValues
@@ -38,13 +37,6 @@ const PaymentOptionsForm = props => {
     }
   }, [filingTypes, history]);
 
-  const handleOnChange = onClick => {
-    formik.setFieldValue("monthlyData", []);
-    formik.setFieldValue("monthsToReport", {});
-    formik.setFieldValue("exemptions", []);
-    setPaymentInterval(onClick.currentTarget.value);
-  };
-
   return (
     <Formik
       initialValues={initialValues}
@@ -67,33 +59,47 @@ const PaymentOptionsForm = props => {
         )
       })}
     >
-      {props => (
-        <Form>
-          <div className="tt_form-section">
-            <ErrorMessage name="paymentInterval" component="div" />
-            <PaymentOptions
-              filingTypes={filingTypes}
-              handleOnChange={handleOnChange}
-              value={paymentInterval || initialValues.paymentInterval}
-            />
-            {(paymentInterval || initialValues.paymentInterval) && (
-              <React.Fragment>
-                <ReturnDateSelector
-                  id="payment-options-date-selector"
-                  paymentInterval={paymentInterval}
-                  filingTypes={filingTypes}
-                  monthsToReport={initialValues.monthsToReport}
-                />
-                <ErrorMessage name="monthsToReport" />
-              </React.Fragment>
-            )}
-          </div>
-          <div className="tt_form-controls">
-            {prevButton}
-            {nextButton}
-          </div>
-        </Form>
-      )}
+      {setFieldValue => {
+        console.log(props);
+
+        const handleOnChange = onClick => {
+          console.log("got here to reset form");
+          setFieldValue("monthlyData", []);
+          setFieldValue("monthsToReport", {});
+          setFieldValue("returnStatus", {});
+          setFieldValue("exemptions", []);
+          setPaymentInterval(onClick.currentTarget.value);
+        };
+
+        return (
+          <Form>
+            <div className="tt_form-section">
+              <ErrorMessage name="paymentInterval" component="div" />
+              <PaymentOptions
+                filingTypes={filingTypes}
+                handleOnChange={handleOnChange}
+                value={paymentInterval || initialValues.paymentInterval}
+              />
+              {(paymentInterval || initialValues.paymentInterval) && (
+                <React.Fragment>
+                  <ReturnDateSelector
+                    id="payment-options-date-selector"
+                    paymentInterval={paymentInterval}
+                    filingTypes={filingTypes}
+                    monthsToReport={initialValues.monthsToReport}
+                    returnStatus={initialValues.returnStatus}
+                  />
+                  <ErrorMessage name="monthsToReport" />
+                </React.Fragment>
+              )}
+            </div>
+            <div className="tt_form-controls">
+              {prevButton}
+              {nextButton}
+            </div>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
