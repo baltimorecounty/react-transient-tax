@@ -7,6 +7,7 @@ import { AddOrUpdate } from "../../common/ArrayUtilities";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import PaymentField from "../../components/PaymentField";
 import PaymentTotal from "../PaymentTotal";
+import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
 
 const MonthlyPaymentForm = props => {
@@ -76,6 +77,7 @@ const MonthlyPaymentForm = props => {
 
         return (
           <Form>
+            <PromptIfDirty />
             <div className="tt_form-section">
               <PaymentField
                 name="grossRentalCollected"

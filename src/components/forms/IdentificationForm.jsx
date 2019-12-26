@@ -6,6 +6,7 @@ import Field from "../Field";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import InformationModal from "../InformationModal";
+import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
 
 const IdentificationForm = props => {
@@ -38,6 +39,7 @@ const IdentificationForm = props => {
     >
       {props => (
         <Form>
+          <PromptIfDirty />
           <div className="tt_form-section tt_identification-section">
             <div className="tt_date-group float-right">
               <div className="tt_month-pickers">

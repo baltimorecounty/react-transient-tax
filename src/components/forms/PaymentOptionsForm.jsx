@@ -7,6 +7,7 @@ import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import PaymentOptions from "../PaymentOptions";
+import PromptIfDirty from "../PromptIfDirty";
 import ReturnDateSelector from "../ReturnDateSelectorField";
 
 const PaymentOptionsForm = props => {
@@ -81,6 +82,7 @@ const PaymentOptionsForm = props => {
 
         return (
           <Form>
+            <PromptIfDirty />
             <div className="tt_form-section">
               <ErrorMessage name="paymentInterval" component="div" />
               <PaymentOptions

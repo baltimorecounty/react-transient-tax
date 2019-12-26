@@ -5,6 +5,7 @@ import { Form, Formik } from "formik";
 import ErrorMessage from "../ErrorMessage";
 import ExemptionCertificateField from "../ExemptionCertificateField";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
+import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
 
 const ExemptionCertificateForm = props => {
@@ -33,6 +34,7 @@ const ExemptionCertificateForm = props => {
     >
       {props => (
         <Form>
+          <PromptIfDirty />
           <div className="form-1">
             <ExemptionCertificateField />
             <ErrorMessage name="exemptions" />

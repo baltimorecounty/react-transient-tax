@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import AddressLookupField from "../../components/AddressLookupField";
 import BasicErrorMessage from "../BasicErrorMessage";
 import Field from "../Field";
+import PromptIfDirty from "../PromptIfDirty";
 import { VerifyAddress } from "../../services/ApiService";
 
 const BasicInformationForm = props => {
@@ -55,6 +56,7 @@ const BasicInformationForm = props => {
     >
       {props => (
         <Form>
+          <PromptIfDirty />
           <div className="tt_form-section">
             <Field
               id="businessName"
