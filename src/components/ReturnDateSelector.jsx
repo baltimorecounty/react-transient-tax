@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import { addMonths } from "date-fns";
 import { connect } from "formik";
 
-const ReturnInterval = props => {
+const ReturnDateSelector = props => {
   const { paymentInterval, filingTypes, formik } = props;
   const { setFieldValue } = formik;
   const [months, setMonths] = useState({});
@@ -168,9 +168,9 @@ const ReturnInterval = props => {
   );
 };
 
-ReturnInterval.propTypes = {
+ReturnDateSelector.propTypes = {
   /** 'monthly' or 'quarterly' which allows us to control the ui accordingly  */
   paymentInterval: PropTypes.string
 };
 
-export default connect(ReturnInterval);
+export default connect(ReturnDateSelector);
