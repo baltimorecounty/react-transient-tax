@@ -8,7 +8,7 @@ import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import PaymentOptions from "../PaymentOptions";
 import PromptIfDirty from "../PromptIfDirty";
-import ReturnDateSelector from "../ReturnDateSelectorField";
+import ReturnDateSelectorField from "../ReturnDateSelectorField";
 
 const PaymentOptionsForm = props => {
   const {
@@ -71,6 +71,8 @@ const PaymentOptionsForm = props => {
       {props => {
         const { setFieldValue } = props;
 
+        console.log(props.values);
+
         const handleOnChange = onClick => {
           setFieldValue("monthsToReport", {});
           setFieldValue("returnStatus", {});
@@ -90,12 +92,11 @@ const PaymentOptionsForm = props => {
               />
               {(paymentInterval || initialValues.paymentInterval) && (
                 <React.Fragment>
-                  <ReturnDateSelector
+                  <ReturnDateSelectorField
                     id="payment-options-date-selector"
                     paymentInterval={paymentInterval}
                     filingTypes={filingTypes}
-                    monthsToReport={initialValues.monthsToReport}
-                    returnStatus={initialValues.returnStatus}
+                    value={initialValues.monthsToReport}
                   />
                   <ErrorMessage name="monthsToReport" />
                 </React.Fragment>

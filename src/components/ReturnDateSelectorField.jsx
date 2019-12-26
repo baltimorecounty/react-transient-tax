@@ -1,24 +1,12 @@
-import {
-  GetDueDateStatus,
-  GetFormatedDateTime
-} from "../common/DatesUtilities";
-import React, { useEffect, useState } from "react";
-
 import DatePicker from "react-datepicker";
 import { Field } from "formik";
+import { GetFormatedDateTime } from "../common/DatesUtilities";
 import { GetIdByDescription } from "../common/LookupUtilities";
 import PropTypes from "prop-types";
+import React from "react";
 import ReturnStatus from "./ReturnStatus";
 import { addMonths } from "date-fns";
-
-const buildMonthlyData = months =>
-  Object.keys(months).map(monthKey => {
-    const date = months[monthKey];
-    return {
-      month: date.getMonth() + 1,
-      year: date.getFullYear()
-    };
-  });
+import useReturnInterval from "./hooks/useReturnInterval";
 
 const ReturnDateSelector = ({
   field, // { name, value, onChange, onBlur }
@@ -29,11 +17,13 @@ const ReturnDateSelector = ({
     id,
     paymentInterval,
     filingTypes,
-    monthsToReport: monthsFromProps = {},
-    returnStatus: statusFromProps = {}
+    value: monthsFromProps = {}
   } = props;
-  const [months, setMonths] = useState(monthsFromProps);
-  const [returnStatus, setReturnStatus] = useState(statusFromProps);
+  const [{ months, returnStatus }, setMonths] = useReturnInterval({
+    paymentInterval,
+    monthsFromProps,
+    setFieldValue
+  });
   const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
   const isQuarterly = parseInt(paymentInterval) === quarterlyId;
   const hasStatus = Object.keys(returnStatus).length > 0;
@@ -55,31 +45,6 @@ const ReturnDateSelector = ({
 
     setMonths({ ...newMonths });
   };
-
-  /** Get Information About the Status based on the Month(s) Selected */
-  useEffect(() => {
-    const isIntervalSelected = Object.keys(months).length > 0;
-    if (isIntervalSelected) {
-      const lastFilingMonth = months[Object.keys(months).length - 1];
-      const returnStatus = GetDueDateStatus(lastFilingMonth, new Date());
-
-      setReturnStatus(returnStatus);
-      setFieldValue("monthsToReport", { ...months });
-      setFieldValue("returnStatus", { ...returnStatus });
-      setFieldValue("monthlyData", buildMonthlyData(months));
-    }
-  }, [months, setFieldValue]);
-
-  /**
-   * Reset date selection if the payment interval changes.
-   * This needs to happen in this component and the parent form to reset validation.
-   */
-  useEffect(() => {
-    setMonths({});
-    setFieldValue("monthsToReport", {});
-    setFieldValue("returnStatus", {});
-    setFieldValue("monthlyData", {});
-  }, [paymentInterval, setFieldValue]);
 
   return (
     <div className="tt_return-date-selector">
