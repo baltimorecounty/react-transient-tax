@@ -1,3 +1,4 @@
+import { DateTypes, Labels } from "./Constants";
 import {
   addMonths,
   differenceInDays,
@@ -7,7 +8,7 @@ import {
   startOfDay,
   startOfMonth
 } from "date-fns";
-import { Labels, DateTypes } from "./Constants";
+
 const DefaultDateFormat = "MMMM d, yyyy";
 
 /**
@@ -54,6 +55,7 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
 
   if (dateDifference > 0) {
     return {
+      dueDate,
       isLate: false,
       value: dateDifference,
       dateType: DateTypes.Day,
@@ -71,6 +73,7 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
   );
 
   return {
+    dueDate,
     isLate: true,
     value: monthDifference,
     dateType: DateTypes.Month,

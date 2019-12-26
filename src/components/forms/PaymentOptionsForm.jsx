@@ -7,7 +7,7 @@ import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import PaymentOptions from "../PaymentOptions";
-import ReturnDateSelector from "../ReturnDateSelector";
+import ReturnDateSelector from "../ReturnDateSelectorField";
 
 const PaymentOptionsForm = props => {
   const {
@@ -79,6 +79,7 @@ const PaymentOptionsForm = props => {
             {(paymentInterval || initialValues.paymentInterval) && (
               <React.Fragment>
                 <ReturnDateSelector
+                  id="payment-options-date-selector"
                   paymentInterval={paymentInterval}
                   filingTypes={filingTypes}
                   monthsToReport={initialValues.monthsToReport}
