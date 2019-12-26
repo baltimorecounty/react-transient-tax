@@ -37,6 +37,14 @@ const PaymentOptionsForm = props => {
     }
   }, [filingTypes, history]);
 
+  /** Reset these values, as they do not apply when interval changes */
+  const resetFormValues = () => {
+    formik.setFieldValue("monthlyData", []);
+    formik.setFieldValue("exemptions", []);
+    formik.setFieldValue("monthsToReport", {});
+    formik.setFieldValue("returnStatus", {});
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -59,17 +67,17 @@ const PaymentOptionsForm = props => {
         )
       })}
     >
-      {setFieldValue => {
-        console.log(props);
+      {props => {
+        const { setFieldValue } = props;
 
         const handleOnChange = onClick => {
-          console.log("got here to reset form");
-          setFieldValue("monthlyData", []);
           setFieldValue("monthsToReport", {});
           setFieldValue("returnStatus", {});
-          setFieldValue("exemptions", []);
           setPaymentInterval(onClick.currentTarget.value);
+          resetFormValues();
         };
+
+        console.log(initialValues.monthsToReport);
 
         return (
           <Form>
