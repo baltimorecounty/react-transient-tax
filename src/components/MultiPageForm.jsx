@@ -73,7 +73,6 @@ const MultiPageForm = props => {
                   stepList={stepList}
                   isLastStep={isLastStep}
                   onNextClick={handleNavClick}
-                  onPrevClick={handleNavClick}
                   nextStep={nextStep}
                   prevStep={prevStep}
                   tabs={steps}
