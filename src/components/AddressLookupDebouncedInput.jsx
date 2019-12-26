@@ -3,19 +3,16 @@ import React, { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 const AddressLookupDebouncedInput = React.forwardRef(
-  ({ className, value, onChange, wasSelected, defaultValue, ...rest }, ref) => {
-    const [event, setEvent] = useState({ target: { value: "" } });
+  (
+    { className, value, onChange, wasSelected, defaultValue = "", ...rest },
+    ref
+  ) => {
+    const [event, setEvent] = useState({ target: { value: defaultValue } });
     const [debouncedEvent] = useDebounce(event, 300);
 
     useEffect(() => {
       onChange(debouncedEvent);
     }, [onChange, debouncedEvent]);
-
-    useEffect(() => {
-      if (defaultValue) {
-        setEvent({ target: { value: defaultValue } });
-      }
-    }, [defaultValue]);
 
     /**
      * HACK - We weren't able to set the value when the input was selected.
