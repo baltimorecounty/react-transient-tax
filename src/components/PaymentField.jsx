@@ -13,10 +13,10 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const { name } = field;
-  const { className, isNegativeValue, label } = props;
+  const { className, isNegativeValue, label, value: valueFromProps } = props;
   const month = props.date.getMonth();
   const { setFieldValue } = form;
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(valueFromProps);
   const cssClasses = classnames(
     "tt_form-group flex-end total input",
     className
@@ -41,7 +41,7 @@ const CustomInputComponent = ({
         <div className="tt_currency-picker">
           <CurrencyInput
             isNegativeValue={isNegativeValue}
-            id={`${name}-${month}`} 
+            id={`${name}-${month}`}
             name={name}
             onChange={handleChange}
             value={value || ""}
