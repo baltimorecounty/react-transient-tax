@@ -9,7 +9,8 @@ import { GetExemptionTypes } from "../services/ApiService";
 const ExemptionSelector = props => {
   const {
     exemption: exemptionFromProps = {},
-    onExemptionSave = () => {}
+    onExemptionSave = () => {},
+    form
   } = props;
   const [isLoading, setIsLoading] = useState(true);
   const [exemptionTypes, setExemptionTypes] = useState([]);
@@ -17,7 +18,10 @@ const ExemptionSelector = props => {
   const [formErrors, setFormErrors] = useState([]);
   const [exemption, setExemption] = useState(exemptionFromProps);
   const [exemptionErrorCheck, setExemptionErrorCheck]= useState(true);
-
+ // console.log('------------------------');
+ //console.log('form:ExemptionSelector:');
+ ///console.log(form);
+ //console.log('---------------------');
   useEffect(() => {
     if (exemptionTypes.length === 0) {
       GetExemptionTypes()
@@ -57,6 +61,7 @@ const ExemptionSelector = props => {
       ...exemption,
       ...{ type, label }
     });
+    
   };
 
   const handleExemptionDateChange = ({ fromDate, toDate }) => {
@@ -66,6 +71,11 @@ const ExemptionSelector = props => {
       ...exemption,
       ...{ fromDate, toDate }
     });
+    props.form.setFieldValue("fromDate", fromDate);
+    props.form.setFieldValue("toDate", toDate);
+    console.log('fromDate:touched:');
+    console.log( props.form.touched.fromDate);
+  //  console.log('toDate:touched:' + props.form.touched.);
   };
 
   const resetSelector = () => {

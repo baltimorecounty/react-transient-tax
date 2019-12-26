@@ -10,7 +10,7 @@ import React from "react";
 const ExemptionCertificateForm = props => {
   const { nextButton, prevButton, onValidSubmission, formik } = props;
   const { monthlyData = [] } = formik.values;
-
+//console.log(formik);
   return (
     <Formik
       initialValues={{ exemptions: [] }}
@@ -34,7 +34,7 @@ const ExemptionCertificateForm = props => {
       {props => (
         <Form>
           <div className="form-1">
-            <ExemptionCertificateField />
+            <ExemptionCertificateField formikProps={formik}/>
             <ErrorMessage name="exemptions" />
           </div>
           <div className="tt_form-controls">

@@ -7,6 +7,7 @@ import AddressLookupField from "../../components/AddressLookupField";
 import BasicErrorMessage from "../BasicErrorMessage";
 import Field from "../Field";
 import { VerifyAddress } from "../../services/ApiService";
+import ErrorMessage from "../ErrorMessage";
 
 const BasicInformationForm = props => {
   const { nextButton, prevButton, onValidSubmission } = props;
@@ -24,7 +25,10 @@ const BasicInformationForm = props => {
       return null;
     }
   };
+ // const {  touched } = props.formik;
 
+console.log('businessName:touched:' + props.formik.touched['businessName']);
+console.log(props.formik);
   return (
     <Formik
       initialValues={{

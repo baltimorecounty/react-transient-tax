@@ -44,7 +44,7 @@ const PaymentOptionsForm = props => {
     formik.setFieldValue("exemptions", []);
     setPaymentInterval(onClick.currentTarget.value);
   };
-
+ 
   return (
     <Formik
       initialValues={{ paymentInterval: "", monthsToReport: {} }}

@@ -22,6 +22,7 @@ const DateRangeSelector = props => {
   }, [props]);
 
   const handleFromDateChange = date => {
+  //  formik.setFieldValue("isExemptionFormDirty", false);
     setFromDate(date);
 
     handleChange({

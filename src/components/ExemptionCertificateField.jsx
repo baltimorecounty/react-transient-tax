@@ -9,8 +9,16 @@ import { Messages } from "../common/Constants";
 const ExemptionCertificate = ({
   field, // { name, value, onChange, onBlur }
   form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  formikProps,
   ...props
 }) => {
+
+  // console.log('formik in -- ExemptionCertificate:' );
+  formikProps.errors.email = "this is a test";
+  console.log('---formikProps--Start--');
+  console.log('businessName:touched:' + formikProps.touched.businessName);
+  console.log( formikProps );
+  console.log('---formikProps--End----');
   const { setFieldValue } = form;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
@@ -53,6 +61,7 @@ const ExemptionCertificate = ({
       <ExemptionSelector
         exemption={exemption}
         onExemptionSave={saveExemption}
+        form= {form}
       />
       {exemptions.length > 0 && (
         <ExemptionsList
