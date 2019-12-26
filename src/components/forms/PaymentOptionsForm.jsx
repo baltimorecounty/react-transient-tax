@@ -7,7 +7,7 @@ import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import PaymentOptions from "../PaymentOptions";
-import ReturnDateSelector from "../ReturnDateSelector";
+import ReturnDateSelector from "../ReturnDateSelectorField";
 
 const PaymentOptionsForm = props => {
   const {
