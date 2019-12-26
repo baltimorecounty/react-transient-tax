@@ -11,6 +11,15 @@ import PropTypes from "prop-types";
 import ReturnStatus from "./ReturnStatus";
 import { addMonths } from "date-fns";
 
+const buildMonthlyData = months =>
+  Object.keys(months).map(monthKey => {
+    const date = months[monthKey];
+    return {
+      month: date.getMonth() + 1,
+      year: date.getFullYear()
+    };
+  });
+
 const ReturnDateSelector = ({
   field, // { name, value, onChange, onBlur }
   form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
@@ -57,6 +66,7 @@ const ReturnDateSelector = ({
 
       setReturnStatus(returnStatus);
       setFieldValue("returnStatus", { ...returnStatus });
+      setFieldValue("monthlyData", buildMonthlyData(months));
     }
   }, [months, setFieldValue]);
 
@@ -68,6 +78,7 @@ const ReturnDateSelector = ({
     setMonths({});
     setFieldValue("monthsToReport", {});
     setFieldValue("returnStatus", {});
+    setFieldValue("monthlyData", {});
   }, [paymentInterval, setFieldValue]);
 
   return (
