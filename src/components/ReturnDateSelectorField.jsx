@@ -19,7 +19,7 @@ const ReturnDateSelector = ({
     filingTypes,
     value: monthsFromProps = {}
   } = props;
-  const [{ months, returnStatus }, setMonths] = useReturnInterval({
+  const [{ months, returnStatus }, setInterval] = useReturnInterval({
     paymentInterval,
     monthsFromProps,
     setFieldValue
@@ -43,7 +43,7 @@ const ReturnDateSelector = ({
       newMonths[2] = finalMonthInQuarter;
     }
 
-    setMonths({ ...newMonths });
+    setInterval({ ...newMonths });
   };
 
   return (
