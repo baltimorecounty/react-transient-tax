@@ -13,9 +13,12 @@ const RadioButtonList = ({
 
   const handleChange = changeEvent => {
     const { value } = changeEvent.target;
-    setFieldValue(name, value);
-    onChange(value);
+    const paymentInterval = parseInt(value);
+    setFieldValue(name, paymentInterval);
+    onChange(paymentInterval);
   };
+
+  console.log(value, typeof value);
 
   return (
     <div className="tt_formik-field">
@@ -31,7 +34,7 @@ const RadioButtonList = ({
           label={Description}
           value={Id}
           onChange={handleChange}
-          defaultChecked={value === Id.toString()}
+          defaultChecked={value === Id}
         />
       ))}
       <ErrorMessage name="paymentInterval" />
