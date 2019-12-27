@@ -31,10 +31,6 @@ const Step = props => {
     return <Redirect to="/steps/1" />;
   }
 
-  const handleNextClick = () => {
-    onNextClick(nextStep);
-  };
-
   const handlePrevClick = () => {
     history.push(`/steps/${prevStep}`);
   };
@@ -59,22 +55,12 @@ const Step = props => {
   };
 
   const nextButtonStyle = stepNumber === 1 ? { marginLeft: "auto" } : {};
-
   const nextButton =
     nextStep && !isLastStep && isForm && !isHidden ? (
       <button type="submit" className="next seButton" style={nextButtonStyle}>
         Next
       </button>
-    ) : (
-      <button
-        type="text"
-        onClick={handleNextClick}
-        style={nextButtonStyle}
-        className="seButton"
-      >
-        Next
-      </button>
-    );
+    ) : null;
   const prevButton = prevStep && (
     <button
       onClick={handlePrevClick}

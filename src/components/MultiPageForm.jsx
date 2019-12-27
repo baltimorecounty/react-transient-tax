@@ -37,10 +37,6 @@ const MultiPageForm = props => {
     });
   }, [currentFormNumber, stepList]);
 
-  const handleNavClick = stepNumber => {
-    setActiveStep(stepNumber);
-  };
-
   return (
     <div className="tt_form">
       <TransientTaxTabs
@@ -72,8 +68,6 @@ const MultiPageForm = props => {
                   {...activeStep}
                   stepList={stepList}
                   isLastStep={isLastStep}
-                  onNextClick={handleNavClick}
-                  onPrevClick={handleNavClick}
                   nextStep={nextStep}
                   prevStep={prevStep}
                   tabs={steps}
