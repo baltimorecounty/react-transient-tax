@@ -146,4 +146,4 @@ AddressLookupField.propTypes = {
   minLength: PropTypes.number
 };
 
-export default connect(AddressLookupField);
+export default AddressLookupField;
