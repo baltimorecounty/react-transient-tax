@@ -5,7 +5,7 @@ import { RadioButton } from "../common/RadioButton";
 import React from "react";
 
 const RadioButtonList = ({
-  field: { name }, // { name, value, onChange, onBlur }
+  field: { name, value }, // { name, value, onChange, onBlur }
   form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
@@ -31,6 +31,7 @@ const RadioButtonList = ({
           label={Description}
           value={Id}
           onChange={handleChange}
+          defaultChecked={value === Id.toString()}
         />
       ))}
       <ErrorMessage name="paymentInterval" />
