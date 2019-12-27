@@ -70,7 +70,6 @@ const PaymentOptionsForm = props => {
       {({ values }) => (
         <Form>
           <div className="tt_form-section">
-            <ErrorMessage name="paymentInterval" component="div" />
             <RadioButtonListField
               name="paymentInterval"
               items={filingTypes}

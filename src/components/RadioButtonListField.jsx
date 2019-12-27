@@ -1,3 +1,4 @@
+import ErrorMessage from "./ErrorMessage";
 import { Field } from "formik";
 import PropTypes from "prop-types";
 import { RadioButton } from "../common/RadioButton";
@@ -32,6 +33,7 @@ const PaymentOptions = ({
           onChange={handleChange}
         />
       ))}
+      <ErrorMessage name="paymentInterval" />
       {note && <p className="tt_note">{note}</p>}
     </React.Fragment>
   );
