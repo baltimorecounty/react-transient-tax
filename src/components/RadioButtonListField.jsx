@@ -3,14 +3,12 @@ import { PaymentDirections } from "../common/Constants";
 import { RadioButton } from "../common/RadioButton";
 import React from "react";
 
-const { PaymentLabel, PaymentNote } = PaymentDirections;
-
 const PaymentOptions = ({
   field: { name }, // { name, value, onChange, onBlur }
   form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { filingTypes = {}, onChange = () => {} } = props;
+  const { items = [], onChange = () => {} } = props;
 
   const handleChange = changeEvent => {
     const { value } = changeEvent.target;
@@ -23,7 +21,7 @@ const PaymentOptions = ({
       <label htmlFor={name} className="tt_label">
         {PaymentLabel}
       </label>
-      {filingTypes.map(({ Id: key, Description: value }) => (
+      {items.map(({ Id: key, Description: value }) => (
         <Field
           key={key}
           component={RadioButton}
