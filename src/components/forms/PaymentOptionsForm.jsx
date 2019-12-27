@@ -57,9 +57,9 @@ const PaymentOptionsForm = props => {
         onValidSubmission(values, hasChange);
       }}
       validationSchema={Yup.object({
-        paymentInterval: Yup.string()
-          .transform(value => (!value ? null : value))
-          .required("Required"),
+        paymentInterval: Yup.string().required(
+          "A payment interval must be selected before you proceed."
+        ),
         monthsToReport: Yup.mixed().test(
           "has-months",
           "A date must be selected before you can proceed.",
