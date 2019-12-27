@@ -18,8 +18,6 @@ const RadioButtonList = ({
     onChange(paymentInterval);
   };
 
-  console.log(value, typeof value);
-
   return (
     <div className="tt_formik-field">
       <label htmlFor={name} className="tt_label">
