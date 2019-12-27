@@ -41,14 +41,12 @@ const PaymentOptionsForm = props => {
   }, [filingTypes, history]);
 
   /** Reset these values, as they do not apply when interval changes */
-  const resetFormValues = () => {
+  const resetGlobalFormValues = () => {
     formik.setFieldValue("monthlyData", []);
     formik.setFieldValue("exemptions", []);
     formik.setFieldValue("monthsToReport", {});
     formik.setFieldValue("returnStatus", {});
   };
-
-  console.log("initial values", initialValues);
 
   return (
     <Formik
@@ -62,7 +60,7 @@ const PaymentOptionsForm = props => {
         onValidSubmission(values, hasChange);
       }}
       validationSchema={Yup.object({
-        paymentInterval: Yup.string().required(
+        paymentInterval: Yup.number().required(
           "A payment interval must be selected before you proceed."
         ),
         monthsToReport: Yup.mixed().test(
@@ -75,10 +73,10 @@ const PaymentOptionsForm = props => {
       {({ values, setFieldValue }) => {
         const { paymentInterval } = values;
 
-        const handlePaymentIntervalChange = onClick => {
+        const handlePaymentIntervalChange = () => {
           setFieldValue("monthsToReport", {});
           setFieldValue("returnStatus", {});
-          resetFormValues();
+          resetGlobalFormValues();
         };
 
         return (
@@ -95,10 +93,10 @@ const PaymentOptionsForm = props => {
               {paymentInterval && (
                 <React.Fragment>
                   <ReturnDateSelectorField
+                    name="monthsToReport"
                     id="payment-options-date-selector"
                     paymentInterval={paymentInterval}
                     filingTypes={filingTypes}
-                    // value={initialValues.monthsToReport}
                   />
                   <ErrorMessage name="monthsToReport" />
                 </React.Fragment>
