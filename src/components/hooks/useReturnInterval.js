@@ -21,26 +21,11 @@ const buildMonthlyData = months =>
  * @param {object} requiredData Fields we need to use to manage this very specific hook
  */
 const useReturnInterval = ({
-  paymentInterval,
   monthsFromProps = {},
   setFieldValue = () => {}
 }) => {
   const [months, setMonths] = useState(monthsFromProps);
   const [returnStatus, setReturnStatus] = useState({});
-
-  /**
-   * Reset date selection if the payment interval changes.
-   * This needs to happen in this component and the parent form to reset validation.
-   * Order matters here when
-   */
-  useEffect(() => {
-    if (Object.keys(monthsFromProps).length === 0) {
-      setMonths({});
-      setFieldValue("monthsToReport", {});
-      setFieldValue("returnStatus", {});
-      setFieldValue("monthlyData", {});
-    }
-  }, [paymentInterval, monthsFromProps, setFieldValue]);
 
   /** Get Information About the Status based on the Month(s) Selected */
   useEffect(() => {
