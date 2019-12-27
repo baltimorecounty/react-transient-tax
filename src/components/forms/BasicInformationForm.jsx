@@ -45,7 +45,9 @@ const BasicInformationForm = props => {
       }}
       validationSchema={Yup.object({
         businessName: Yup.string().required("Required"),
-        businessAddress: Yup.string().required("Required")
+        businessAddress: Yup.string().required(
+          "A valid Baltimore County address is required"
+        )
       })}
     >
       {props => (
@@ -63,7 +65,6 @@ const BasicInformationForm = props => {
               name="businessAddress"
               label="Business Address"
               minLength={3}
-              defaultValue={initialValues.businessAddress}
             />
             {isValidAddressMessage && (
               <BasicErrorMessage message={isValidAddressMessage} />
