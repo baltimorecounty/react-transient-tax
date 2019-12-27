@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
-import PaymentOptionsField from "../PaymentOptionsField";
+import RadioButtonListField from "../RadioButtonListField";
 import ReturnDateSelector from "../ReturnDateSelector";
 
 const PaymentOptionsForm = props => {
@@ -68,7 +68,7 @@ const PaymentOptionsForm = props => {
         <Form>
           <div className="tt_form-section">
             <ErrorMessage name="paymentInterval" component="div" />
-            <PaymentOptionsField
+            <RadioButtonListField
               name="paymentInterval"
               filingTypes={filingTypes}
               onChange={handlePaymentIntervalChange}
