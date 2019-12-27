@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
-import PaymentOptions from "../PaymentOptions";
+import PaymentOptionsField from "../PaymentOptionsField";
 import ReturnDateSelector from "../ReturnDateSelector";
 
 const PaymentOptionsForm = props => {
@@ -15,12 +15,10 @@ const PaymentOptionsForm = props => {
     prevButton,
     onValidSubmission,
     tabs,
-    monthsToReport,
     history,
     formik
   } = props;
   const [filingTypes, setFilingTypes] = useState([]);
-  const [paymentInterval, setPaymentInterval] = useState();
   const {
     paymentInterval: intervalFromFormik,
     monthsToReport: monthsToReportFromFormik
@@ -38,11 +36,10 @@ const PaymentOptionsForm = props => {
     }
   }, [filingTypes, history]);
 
-  const handleOnChange = onClick => {
+  const handlePaymentIntervalChange = () => {
     formik.setFieldValue("monthlyData", []);
     formik.setFieldValue("monthsToReport", {});
     formik.setFieldValue("exemptions", []);
-    setPaymentInterval(onClick.currentTarget.value);
   };
 
   return (
@@ -67,21 +64,22 @@ const PaymentOptionsForm = props => {
         )
       })}
     >
-      {props => (
+      {({ values }) => (
         <Form>
           <div className="tt_form-section">
             <ErrorMessage name="paymentInterval" component="div" />
-            <PaymentOptions
+            <PaymentOptionsField
+              name="paymentInterval"
               filingTypes={filingTypes}
-              handleOnChange={handleOnChange}
+              onChange={handlePaymentIntervalChange}
             />
-            {paymentInterval && (
+            {values.paymentInterval && (
               <React.Fragment>
                 <ReturnDateSelector
-                  paymentInterval={paymentInterval}
+                  paymentInterval={values.paymentInterval}
                   filingTypes={filingTypes}
                   tabs={tabs}
-                  monthsToReport={monthsToReport}
+                  monthsToReport={monthsToReportFromFormik}
                 />
                 <ErrorMessage name="monthsToReport" />
               </React.Fragment>
