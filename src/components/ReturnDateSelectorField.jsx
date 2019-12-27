@@ -10,18 +10,13 @@ import useReturnInterval from "./hooks/useReturnInterval";
 
 const ReturnDateSelector = ({
   field, // { name, value, onChange, onBlur }
-  form: { setFieldValue, dirty }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  form: { setFieldValue, dirty, values }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const {
-    id,
-    paymentInterval,
-    filingTypes,
-    value: monthsFromProps = {}
-  } = props;
+  const { monthsToReport } = values;
+  const { id, paymentInterval, filingTypes } = props;
   const [{ months, returnStatus }, setInterval] = useReturnInterval({
-    paymentInterval,
-    monthsFromProps,
+    monthsToReport,
     setFieldValue
   });
   const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
@@ -58,7 +53,7 @@ const ReturnDateSelector = ({
         <p>Is Dirty: {dirty.toString()}</p>
         <DatePicker
           id={id}
-          selected={months[0] || monthsFromProps[0]}
+          selected={months[0] || monthsToReport[0]}
           onChange={handleDateChange}
           startDate={new Date()}
           dateFormat="MM/yyyy"
@@ -84,7 +79,7 @@ const ReturnDateSelector = ({
 
 ReturnDateSelector.propTypes = {
   /** 'monthly' or 'quarterly' which allows us to control the ui accordingly  */
-  paymentInterval: PropTypes.string
+  paymentInterval: PropTypes.number
 };
 
 const ReturnDateSelectorField = props => (
