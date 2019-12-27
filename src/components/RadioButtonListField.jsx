@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { RadioButton } from "../common/RadioButton";
 import React from "react";
 
-const PaymentOptions = ({
+const RadioButtonList = ({
   field: { name }, // { name, value, onChange, onBlur }
   form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
@@ -39,11 +39,11 @@ const PaymentOptions = ({
   );
 };
 
-const PaymentOptionsField = props => (
-  <Field component={PaymentOptions} {...props} />
+const RadioButtonListField = props => (
+  <Field component={RadioButtonList} {...props} />
 );
 
-PaymentOptionsField.propTypes = {
+RadioButtonListField.propTypes = {
   /** Unique name to group the radio buttons. */
   name: PropTypes.string.isRequired,
   /** Label to describe the different radio buttons */
@@ -54,4 +54,4 @@ PaymentOptionsField.propTypes = {
   onChange: PropTypes.func
 };
 
-export default PaymentOptionsField;
+export default RadioButtonListField;
