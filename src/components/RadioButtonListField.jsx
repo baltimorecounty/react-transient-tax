@@ -18,7 +18,7 @@ const PaymentOptions = ({
   };
 
   return (
-    <React.Fragment>
+    <div className="tt_formik-field">
       <label htmlFor={name} className="tt_label">
         {label}
       </label>
@@ -35,7 +35,7 @@ const PaymentOptions = ({
       ))}
       <ErrorMessage name="paymentInterval" />
       {note && <p className="tt_note">{note}</p>}
-    </React.Fragment>
+    </div>
   );
 };
 
