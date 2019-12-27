@@ -6,8 +6,11 @@ import React, { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
+import { PaymentDirections } from "../../common/Constants";
 import RadioButtonListField from "../RadioButtonListField";
 import ReturnDateSelector from "../ReturnDateSelector";
+
+const { PaymentLabel, PaymentNote } = PaymentDirections;
 
 const PaymentOptionsForm = props => {
   const {
@@ -70,8 +73,10 @@ const PaymentOptionsForm = props => {
             <ErrorMessage name="paymentInterval" component="div" />
             <RadioButtonListField
               name="paymentInterval"
-              filingTypes={filingTypes}
+              items={filingTypes}
               onChange={handlePaymentIntervalChange}
+              label={PaymentLabel}
+              note={PaymentNote}
             />
             {values.paymentInterval && (
               <React.Fragment>

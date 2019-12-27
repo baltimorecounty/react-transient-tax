@@ -1,5 +1,4 @@
 import { Field } from "formik";
-import { PaymentDirections } from "../common/Constants";
 import { RadioButton } from "../common/RadioButton";
 import React from "react";
 
@@ -8,7 +7,7 @@ const PaymentOptions = ({
   form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { items = [], onChange = () => {} } = props;
+  const { items = [], label, note, onChange = () => {} } = props;
 
   const handleChange = changeEvent => {
     const { value } = changeEvent.target;
@@ -19,7 +18,7 @@ const PaymentOptions = ({
   return (
     <React.Fragment>
       <label htmlFor={name} className="tt_label">
-        {PaymentLabel}
+        {label}
       </label>
       {items.map(({ Id: key, Description: value }) => (
         <Field
@@ -32,7 +31,7 @@ const PaymentOptions = ({
           onChange={handleChange}
         />
       ))}
-      <p>{PaymentNote}</p>
+      {note && <p className="tt_note">{note}</p>}
     </React.Fragment>
   );
 };
