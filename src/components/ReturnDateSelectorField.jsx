@@ -10,7 +10,7 @@ import useReturnInterval from "./hooks/useReturnInterval";
 
 const ReturnDateSelector = ({
   field, // { name, value, onChange, onBlur }
-  form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  form: { setFieldValue, dirty }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
   const {
@@ -55,6 +55,7 @@ const ReturnDateSelector = ({
             ? "1st Month of the quarter for your return"
             : " the month of your return"}
         </label>
+        <p>Is Dirty: {dirty.toString()}</p>
         <DatePicker
           id={id}
           selected={months[0] || monthsFromProps[0]}

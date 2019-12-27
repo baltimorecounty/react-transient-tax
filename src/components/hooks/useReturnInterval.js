@@ -34,11 +34,13 @@ const useReturnInterval = ({
    * Order matters here when
    */
   useEffect(() => {
-    setMonths({});
-    setFieldValue("monthsToReport", {});
-    setFieldValue("returnStatus", {});
-    setFieldValue("monthlyData", {});
-  }, [paymentInterval, setFieldValue]);
+    if (Object.keys(monthsFromProps).length === 0) {
+      setMonths({});
+      setFieldValue("monthsToReport", {});
+      setFieldValue("returnStatus", {});
+      setFieldValue("monthlyData", {});
+    }
+  }, [paymentInterval, monthsFromProps, setFieldValue]);
 
   /** Get Information About the Status based on the Month(s) Selected */
   useEffect(() => {

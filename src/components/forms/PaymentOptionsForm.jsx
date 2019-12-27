@@ -48,6 +48,8 @@ const PaymentOptionsForm = props => {
     formik.setFieldValue("returnStatus", {});
   };
 
+  console.log("initial values", initialValues);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -70,9 +72,8 @@ const PaymentOptionsForm = props => {
         )
       })}
     >
-      {({ values }) => {
+      {({ values, setFieldValue }) => {
         const { paymentInterval } = values;
-        const { setFieldValue } = props;
 
         const handlePaymentIntervalChange = onClick => {
           setFieldValue("monthsToReport", {});
@@ -97,7 +98,7 @@ const PaymentOptionsForm = props => {
                     id="payment-options-date-selector"
                     paymentInterval={paymentInterval}
                     filingTypes={filingTypes}
-                    value={initialValues.monthsToReport}
+                    // value={initialValues.monthsToReport}
                   />
                   <ErrorMessage name="monthsToReport" />
                 </React.Fragment>

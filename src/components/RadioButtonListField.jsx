@@ -49,7 +49,7 @@ RadioButtonListField.propTypes = {
   /** Label to describe the different radio buttons */
   label: PropTypes.string.isRequired,
   /** List of objects that contain an Id, Description. Id will be the value, Description will be the label */
-  item: PropTypes.array.isRequired,
+  items: PropTypes.array.isRequired,
   /** Function that passes back the value of the checked input. */
   onChange: PropTypes.func
 };

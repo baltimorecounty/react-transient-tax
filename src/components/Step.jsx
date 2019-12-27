@@ -8,7 +8,6 @@ const Step = props => {
     isForm = true,
     label,
     component,
-    onNextClick,
     stepNumber,
     nextStep,
     prevStep,
@@ -50,7 +49,6 @@ const Step = props => {
       );
     }
     formik.setValues({ ...formik.values, ...values });
-    onNextClick(nextStep);
     history.push(`/steps/${nextStep}`);
   };
 
