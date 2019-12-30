@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import {
   CalculateInterest,
   CalculatePenalty,
@@ -9,7 +8,9 @@ import {
   GetFormatedDateTime,
   GetFormattedDueDate
 } from "../common/DatesUtilities";
+
 import { FormatCurrency } from "../common/FormatUtilities";
+import { format } from "date-fns";
 
 const dateFormat = "MMMM yyyy";
 const sumReducer = (accumulator, currentValue) => accumulator + currentValue;
@@ -70,11 +71,12 @@ const getDateInformation = ({
   const monthOfReturn = isMonthly ? 0 : 2;
   const dueDate = monthlyData.length
     ? new Date(
-      monthlyData[monthOfReturn].month +
-      "/01/" +
-      monthlyData[monthOfReturn].year
-    )
+        monthlyData[monthOfReturn].month +
+          "/01/" +
+          monthlyData[monthOfReturn].year
+      )
     : "";
+
   const formattedDueDate = dueDate ? GetFormattedDueDate(dueDate) : "";
   const { isLate, value: monthsLate } = dueDate
     ? GetDueDateStatus(dueDate, new Date(DateSubmitted))

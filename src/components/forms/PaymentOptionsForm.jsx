@@ -7,7 +7,7 @@ import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import PaymentOptions from "../PaymentOptions";
-import ReturnDateSelector from "../ReturnDateSelector";
+import ReturnDateSelector from "../ReturnDateSelectorField";
 
 const PaymentOptionsForm = props => {
   const {
@@ -47,7 +47,11 @@ const PaymentOptionsForm = props => {
 
   return (
     <Formik
-      initialValues={{ paymentInterval: "", monthsToReport: {} }}
+      initialValues={{
+        paymentInterval: "",
+        monthsToReport: {},
+        returnStatus: {}
+      }}
       onSubmit={values => {
         const { paymentInterval, monthsToReport } = values;
         const hasChange =
@@ -78,6 +82,7 @@ const PaymentOptionsForm = props => {
             {paymentInterval && (
               <React.Fragment>
                 <ReturnDateSelector
+                  id="payment-options-date-selector"
                   paymentInterval={paymentInterval}
                   filingTypes={filingTypes}
                   tabs={tabs}
