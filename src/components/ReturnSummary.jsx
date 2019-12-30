@@ -96,7 +96,7 @@ ReturnSummary.propTypes = {
   /** Date of return submission */
   dateSubmitted: PropTypes.string,
   /** Payment Interval as denoted by its id, used to look up the friendly value */
-  paymentInterval: PropTypes.string
+  paymentInterval: PropTypes.number
 };
 
 export default ReturnSummary;
