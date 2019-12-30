@@ -38,6 +38,7 @@ const useReturnInterval = ({
       setFieldValue("monthsToReport", { ...months });
       setFieldValue("returnStatus", { ...returnStatus });
       setFieldValue("monthlyData", buildMonthlyData(months));
+      setFieldValue("monthsLate", returnStatus.value);
     }
   }, [months, setFieldValue]);
 
