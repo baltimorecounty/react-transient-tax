@@ -52,8 +52,8 @@ const ExemptionCertificate = ({
     setFieldValue("isExemptionFormDirty", false);
     setExemption({ ...exemptionToEdit });
     setIsSelectorFormDirty(exemptionToEdit.id);
-   form.setFieldTouched("fromDate",true);
-     form.setFieldTouched("toDate",true);
+   //form.setFieldTouched("fromDate",true);
+    // form.setFieldTouched("toDate",true);
 
   };
 
