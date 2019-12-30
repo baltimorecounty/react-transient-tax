@@ -93,10 +93,10 @@ const PaymentOptionsForm = props => {
               {paymentInterval && (
                 <React.Fragment>
                   <ReturnDateSelectorField
-                    name="monthsToReport"
                     id="payment-options-date-selector"
-                    paymentInterval={paymentInterval}
+                    paymentInterval={values.paymentInterval}
                     filingTypes={filingTypes}
+                    monthsToReport={monthsToReportFromFormik}
                   />
                   <ErrorMessage name="monthsToReport" />
                 </React.Fragment>
