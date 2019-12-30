@@ -1,13 +1,22 @@
 import { AddOrUpdate } from "./ArrayUtilities";
 
+global.console = { warn: jest.fn(), error: jest.fn() };
+
 describe("AddOrUpdate", () => {
   const items = [
     { id: 1, value: 1 },
     { id: 2, value: 2 }
   ];
 
-  test("should do nothing if passed nothing", () => {
-    AddOrUpdate();
+  test("should warn the user if no callback is provided", () => {
+    AddOrUpdate([], {});
+    expect(console.warn).toBeCalled();
+  });
+
+  test("should log error and return original array if the user doesn't provide a item to add or update", () => {
+    const actual = AddOrUpdate([...items]);
+    expect(console.error).toBeCalled();
+    expect(actual).toEqual(items);
   });
 
   test("should update an existing item", () => {
