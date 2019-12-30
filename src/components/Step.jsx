@@ -30,8 +30,14 @@ const Step = props => {
     return <Redirect to="/steps/1" />;
   }
 
+  const getStepId = stepNumber =>
+    (
+      stepList.steps.find(x => x.stepNumber === stepNumber).id ||
+      "basic-information"
+    ).toLowerCase();
+
   const handlePrevClick = () => {
-    history.push(`/steps/${prevStep}`);
+    history.push(`/steps/${getStepId(prevStep)}`);
   };
 
   /**
@@ -49,7 +55,7 @@ const Step = props => {
       );
     }
     formik.setValues({ ...formik.values, ...values });
-    history.push(`/steps/${nextStep}`);
+    history.push(`/steps/${getStepId(nextStep)}`);
   };
 
   const nextButtonStyle = stepNumber === 1 ? { marginLeft: "auto" } : {};
