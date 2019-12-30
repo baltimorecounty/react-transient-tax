@@ -6,23 +6,10 @@
  * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
  * @return {Array} new array of with the added or updated item
  */
-const AddOrUpdate = (items = [], savedItem, callback) => {
-  if (!savedItem) {
-    console.error(
-      "You must specify an item in order to add / update your list."
-    );
-    return items;
-  }
-
-  if (!callback) {
-    console.warn(
-      "If you do not specify a callback function the record will always be added."
-    );
-    callback = () => false; // set default value
-  }
-
+const AddOrUpdate = (items = [], savedItem = {}, callback = () => false) => {
   const arr = [...items];
   const existingIndex = arr.findIndex(callback);
+  const hasSavedItem = Object.keys(savedItem).length > 0;
 
   // Replace Existing Item
   if (existingIndex > -1) {
@@ -31,7 +18,7 @@ const AddOrUpdate = (items = [], savedItem, callback) => {
   }
 
   // Add New Item
-  return [...arr, savedItem];
+  return hasSavedItem ? [...arr, savedItem] : arr;
 };
 
 export { AddOrUpdate };

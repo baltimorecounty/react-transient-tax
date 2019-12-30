@@ -8,15 +8,9 @@ describe("AddOrUpdate", () => {
     { id: 2, value: 2 }
   ];
 
-  test("should warn the user if no callback is provided", () => {
-    AddOrUpdate([], {});
-    expect(console.warn).toBeCalled();
-  });
-
-  test("should log error and return original array if the user doesn't provide a item to add or update", () => {
-    const actual = AddOrUpdate([...items]);
-    expect(console.error).toBeCalled();
-    expect(actual).toEqual(items);
+  test("should fail gracefully", () => {
+    const actual = AddOrUpdate();
+    expect(actual).toEqual([]);
   });
 
   test("should update an existing item", () => {
