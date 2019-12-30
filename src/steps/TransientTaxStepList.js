@@ -140,7 +140,7 @@ const steps = [
   }),
   new Step({
     id: "payment-selection",
-    label: "Step 2 - Payment Interval Selection",
+    label: "Payment Interval Selection",
     component: <PaymentOptionsForm />,
     onFormSubmission: onPaymentSelectionSubmission,
     panelGroupId: 2,
@@ -152,7 +152,7 @@ const steps = [
   }),
   new Step({
     id: "identification",
-    label: "Step 7 - Identification",
+    label: "Identification",
     component: <IdentificationForm />,
     panelGroupId: 3,
     initialValues: {
@@ -164,7 +164,7 @@ const steps = [
   }),
   new Step({
     id: "review",
-    label: "Step 8 - Review",
+    label: "Review",
     component: <ReviewFormPanel />,
     isForm: false,
     panelGroupId: 4
