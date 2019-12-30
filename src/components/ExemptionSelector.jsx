@@ -15,26 +15,25 @@ const ExemptionSelector = props => {
   } = props;
   const fromDateVal= form.values.fromDate;
   const toDateVal= form.values.toDate;
-  console.log("isExemptionFormDirty", form.values.isExemptionFormDirty);
-  console.log('fromDateVal:touched' + form.touched.fromDate );
-  console.log('toDateVal:touched' + form.touched.toDate);
+
   const [isLoading, setIsLoading] = useState(true);
   const [exemptionTypes, setExemptionTypes] = useState([]);
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
   const [exemption, setExemption] = useState(exemptionFromProps);
-  const [exemptionErrorCheck, setExemptionErrorCheck] = useState(true);
-  const [isFromDateDirty, setIsFromDateDirty] = useState(
-    !form.values.isExemptionFormDirty ? false : true
-  );
-  const [isToDateDirty, setIsToDateDirty] = useState(
-    !form.values.isExemptionFormDirty ? false : true
-  );
-  console.log("---------form---------------");
+  const isExemptionFormDirtyVal = form.values.isExemptionFormDirty;
+  let [isFromDateDirty, setIsFromDateDirty] = useState(false);
+  
+  let [isToDateDirty, setIsToDateDirty] = useState( false);
+
+  useEffect(() => {
+    setIsFromDateDirty( ( isExemptionFormDirtyVal===false )  ? true : false);
+  }, [ setIsFromDateDirty, isExemptionFormDirtyVal]);
  
-  console.log("isFromDateDirty:" + isFromDateDirty);
-  console.log("isToDateDirty:" + isToDateDirty);
-  console.log("--------form-------------");
+  useEffect(() => {
+    setIsToDateDirty( ( isExemptionFormDirtyVal===false )  ? true : false);
+  }, [setIsToDateDirty, isExemptionFormDirtyVal]);
+
   useEffect(() => {
     if (exemptionTypes.length === 0) {
       GetExemptionTypes()
@@ -57,14 +56,12 @@ const ExemptionSelector = props => {
           exemption,
           isFromDateDirty,
           isToDateDirty,
-          exemptionErrorCheck
         )
       );
     }
   }, [
     isFormDirty,
     exemption,
-    exemptionErrorCheck,
     isFromDateDirty,
     isToDateDirty
   ]);
@@ -75,8 +72,6 @@ const ExemptionSelector = props => {
       isFromDateDirty,
       isToDateDirty
     );
-    setExemptionErrorCheck(true);
-    console.log("error --length:" + errors.length);
     if (
       errors.length === 0 &&
       isFromDateDirty === true &&
@@ -86,8 +81,7 @@ const ExemptionSelector = props => {
       resetSelector();
       props.form.setFieldValue("fromDate", "");
       props.form.setFieldValue("toDate", "");
-     // setIsFromDateDirty(false);
-      //setIsToDateDirty(false); 
+
     form.setFieldTouched("toDate",false);
     } else {
       setFormErrors(errors);
@@ -96,7 +90,6 @@ const ExemptionSelector = props => {
 
   const handleExemptionTypeChange = ({ type, label }) => {
     setIsFormDirty(true);
-    setExemptionErrorCheck(false);
     setExemption({
       ...exemption,
       ...{ type, label }
@@ -105,7 +98,6 @@ const ExemptionSelector = props => {
 
   const handleExemptionDateChange = ({ fromDate, toDate, fromOrTo }) => {
     setIsFormDirty(true);
-    setExemptionErrorCheck(true);
     setExemption({
       ...exemption,
       ...{ fromDate, toDate }
@@ -122,15 +114,10 @@ const ExemptionSelector = props => {
       setIsToDateDirty(true);
     }
 
-    //  console.log('fromDate:touched:');
-    // console.log( props.form.touched.fromDate);
-    //  console.log('toDate:touched:' + props.form.touched.);
+
   };
 
   const resetSelector = () => {
-    //  props.form.setFieldTouched("fromDate",false);
-    //props.form.setFieldTouched("toDate",false);
-
     setIsFormDirty(false);
     setExemption({});
   };
