@@ -31,8 +31,7 @@ const ReviewFormPanel = props => {
         dueDate={dueDate}
         paymentInterval={paymentInterval}
       />
-      <p>{Labels.InterestDisclaimer</p>
-      <p>{Labels.LegalNote}</p>
+      <label>{Labels.LegalNote}</label>
       {!isSubmitting && (
         <div className="tt_form-controls">
           {prevButton}
