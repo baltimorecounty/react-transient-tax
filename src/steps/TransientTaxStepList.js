@@ -110,19 +110,19 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
 const panelGroups = [
   {
     id: 1,
-    label: "Step 1 - Business Information"
+    label: "Business Information"
   },
   {
     id: 2,
-    label: "Step 2 - Tax Return Forms"
+    label: "Tax Return Forms"
   },
   {
     id: 3,
-    label: "Step 3 - Additional Information"
+    label: "Additional Information"
   },
   {
     id: 4,
-    label: "Step 4 - Review & Submit"
+    label: "Review & Submit"
   }
 ];
 
