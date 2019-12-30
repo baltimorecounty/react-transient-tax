@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { AddOrUpdate } from "../common/ArrayUtilities";
 import ExemptionSelector from "./ExemptionSelector";
-import ExemptionsList from "./ExemptionList";
 import { Field } from "formik";
 import { Messages } from "../common/Constants";
 import { SaveExemption } from "../services/ApiService";
@@ -13,18 +12,9 @@ const ExemptionCertificate = ({
   ...props
 }) => {
   const { setFieldValue } = form;
-  const { exemptions: exemptionsFromProps = [] } = props;
+  const { handleSave, exemptions: exemptionsFromProps = [] } = props;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState(exemptionsFromProps);
-  const [isSelectorFormDirty, setIsSelectorFormDirty] = useState(0);
-
-  useEffect(() => {
-    setFieldValue("exemptions", exemptions);
-  }, [exemptions, setFieldValue]);
-
-  useEffect(() => {
-    setIsSelectorFormDirty(0);
-  }, [setIsSelectorFormDirty]);
 
   const saveExemption = exemption => {
     const savedExemption = SaveExemption(exemption);
@@ -33,20 +23,8 @@ const ExemptionCertificate = ({
       savedExemption,
       item => item.id === savedExemption.id
     );
-    setFieldValue("isExemptionFormDirty", true);
     setExemptions(updatedExemptions);
-    setIsSelectorFormDirty(0);
-  };
-
-  const editExemption = exemptionToEdit => {
-    setFieldValue("isExemptionFormDirty", false);
-    setExemption({ ...exemptionToEdit });
-    setIsSelectorFormDirty(exemptionToEdit.id);
-  };
-
-  const removeExemption = exemptionId => {
-    setExemptions(exemptions.filter(exemption => exemption.id !== exemptionId));
-    setExemption({});
+    handleSave(updatedExemptions);
   };
 
   return (
@@ -56,14 +34,6 @@ const ExemptionCertificate = ({
         exemption={exemption}
         onExemptionSave={saveExemption}
       />
-      {exemptions.length > 0 && (
-        <ExemptionsList
-          exemptions={exemptions}
-          isSelectorFormDirty={isSelectorFormDirty}
-          handleEditClick={editExemption}
-          handleRemoveClick={removeExemption}
-        />
-      )}
       <p>{Messages.ExemptionCertificate.Qualification}</p>
     </div>
   );

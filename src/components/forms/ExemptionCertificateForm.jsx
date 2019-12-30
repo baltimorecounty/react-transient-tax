@@ -1,12 +1,13 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import React, { useState } from "react";
 
 import ErrorMessage from "../ErrorMessage";
 import ExemptionCertificateField from "../ExemptionCertificateField";
+import ExemptionsList from "../ExemptionList";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import PromptIfDirty from "../PromptIfDirty";
-import React from "react";
 
 const ExemptionCertificateForm = props => {
   const {
@@ -17,12 +18,21 @@ const ExemptionCertificateForm = props => {
     initialValues
   } = props;
   const { monthlyData = [] } = formik.values;
-  const { exemptions = [] } = initialValues;
+  const { exemptions: initialExemptions = [] } = initialValues;
+  const [exemptions, setExemptions] = useState(initialExemptions);
+
+  const editExemption = exemptionToEdit => {
+    // setExemption({ ...exemptionToEdit });
+  };
+
+  const removeExemption = exemptionId => {
+    setExemptions(exemptions.filter(exemption => exemption.id !== exemptionId));
+  };
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={values => {
+      onSubmit={(values, formikBag) => {
         onValidSubmission(values);
       }}
       validationSchema={Yup.object({
@@ -39,19 +49,38 @@ const ExemptionCertificateForm = props => {
         )
       })}
     >
-      {props => (
-        <Form>
-          <PromptIfDirty />
-          <div className="form-1">
-            <ExemptionCertificateField exemptions={exemptions} />
-            <ErrorMessage name="exemptions" />
-          </div>
-          <div className="tt_form-controls">
-            {prevButton}
-            {nextButton}
-          </div>
-        </Form>
-      )}
+      {props => {
+        const { setFieldValue } = props;
+
+        const handleExemptionSave = updatedExemptions => {
+          setExemptions(updatedExemptions);
+          setFieldValue("exemptions", updatedExemptions);
+        };
+
+        return (
+          <Form>
+            <PromptIfDirty />
+            <div className="form-1">
+              <ExemptionCertificateField
+                exemptions={exemptions}
+                handleSave={handleExemptionSave}
+              />
+              {exemptions.length > 0 && (
+                <ExemptionsList
+                  exemptions={exemptions}
+                  handleEditClick={editExemption}
+                  handleRemoveClick={removeExemption}
+                />
+              )}
+              <ErrorMessage name="exemptions" />
+            </div>
+            <div className="tt_form-controls">
+              {prevButton}
+              {nextButton}
+            </div>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
