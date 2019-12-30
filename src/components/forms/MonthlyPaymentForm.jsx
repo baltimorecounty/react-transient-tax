@@ -50,7 +50,8 @@ const MonthlyPaymentForm = props => {
       })}
     >
       {props => {
-        const { values } = props;
+        const { values, errors = {}, touched  } = props;
+        console.log(props);
         const {
           grossRentalCollected,
           nonTransientRentalCollected,

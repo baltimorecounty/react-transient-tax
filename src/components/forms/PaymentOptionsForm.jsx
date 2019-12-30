@@ -67,7 +67,10 @@ const PaymentOptionsForm = props => {
         )
       })}
     >
-      {props => (
+      {props => {
+        const { errors = {}, touched } = props;
+     //   console.log(props);
+        return(
         <Form>
           <div className="tt_form-section">
             <ErrorMessage name="paymentInterval" component="div" />
@@ -92,7 +95,7 @@ const PaymentOptionsForm = props => {
             {nextButton}
           </div>
         </Form>
-      )}
+      )}}
     </Formik>
   );
 };

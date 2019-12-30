@@ -5,6 +5,7 @@ import { addDays } from "date-fns";
 
 const DateRangeSelector = props => {
   const {
+    formikProps,
     name,
     fromDate: fromDateFromProps,
     toDate: toDateFromProps,
@@ -12,31 +13,38 @@ const DateRangeSelector = props => {
   } = props;
   const [fromDate, setFromDate] = useState(fromDateFromProps);
   const [toDate, setToDate] = useState(toDateFromProps);
-  const fromDateId = `date-from-selector-${name}`;
-  const toDateId = `date-to-selector-${name}`;
-
+  //const fromDateId = `date-from-selector-${name}`;
+  //const toDateId = `date-to-selector-${name}`;
+  const fromDateId = `fromDate`;
+  const toDateId = `toDate`;
   useEffect(() => {
     const { fromDate, toDate } = props;
     setFromDate(fromDate);
     setToDate(toDate);
   }, [props]);
 
+//const handleFromDateBlur=()=>{
+ // formikProps.setFieldTouched(fromDateId,true);
+ // console.log('--handleFromDateBlur---');
+//};
+
   const handleFromDateChange = date => {
   //  formik.setFieldValue("isExemptionFormDirty", false);
     setFromDate(date);
-
     handleChange({
       fromDate: date,
-      toDate
+      toDate,
+      fromOrTo:1
     });
   };
 
   const handleToDateChange = date => {
     setToDate(date);
-
+    console.log('--handleToDateChange---');
     handleChange({
       fromDate,
-      toDate: date
+      toDate: date,
+      fromOrTo:2
     });
   };
 

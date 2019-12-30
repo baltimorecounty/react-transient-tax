@@ -27,8 +27,8 @@ const BasicInformationForm = props => {
   };
  // const {  touched } = props.formik;
 
-console.log('businessName:touched:' + props.formik.touched['businessName']);
-console.log(props.formik);
+
+
   return (
     <Formik
       initialValues={{
@@ -61,7 +61,11 @@ console.log(props.formik);
         businessAddress: Yup.mixed().required("Required")
       })}
     >
-      {props => (
+      {props => {
+        const { errors = {}, touched } = props;
+       // console.log('businessName:touched:' + touched['businessName']);
+      // console.log(props);
+        return(
         <Form>
           <div className="tt_form-section">
             <Field
@@ -86,9 +90,11 @@ console.log(props.formik);
             {nextButton}
           </div>
         </Form>
-      )}
+        )
+      }
+      }
     </Formik>
-  );
+      );
 };
 
 export default BasicInformationForm;

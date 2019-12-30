@@ -14,11 +14,11 @@ const ExemptionCertificate = ({
 }) => {
 
   // console.log('formik in -- ExemptionCertificate:' );
-  formikProps.errors.email = "this is a test";
-  console.log('---formikProps--Start--');
-  console.log('businessName:touched:' + formikProps.touched.businessName);
-  console.log( formikProps );
-  console.log('---formikProps--End----');
+ // formikProps.errors.email = "this is a test";
+ // console.log('---formikProps--Start--');
+ // console.log('businessName:touched:' + formikProps.touched.businessName);
+ // console.log( formikProps );
+ // console.log('---formikProps--End----');
   const { setFieldValue } = form;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState([]);
@@ -42,12 +42,19 @@ const ExemptionCertificate = ({
     setFieldValue("isExemptionFormDirty", true);
     setExemptions(updatedExemptions);
     setIsSelectorFormDirty(0);
+   // setFieldValue("fromDate", "");
+    //setFieldValue("toDate", "");
+    //form.setFieldTouched("fromDate",false);
+    //form.setFieldTouched("toDate",false);
   };
 
   const editExemption = exemptionToEdit => {
     setFieldValue("isExemptionFormDirty", false);
     setExemption({ ...exemptionToEdit });
     setIsSelectorFormDirty(exemptionToEdit.id);
+   form.setFieldTouched("fromDate",true);
+     form.setFieldTouched("toDate",true);
+
   };
 
   const removeExemption = exemptionId => {
@@ -55,13 +62,23 @@ const ExemptionCertificate = ({
     setExemption({});
   };
 
+  const fromDate = form.values.fromDate;
+    const toDate = form.values.toDate;
+  console.log('++++++++++++');
+    console.log(form);
+    console.log('fromDate:' + form.values.fromDate);
+    console.log('toDate:' + form.values.toDate);
+    console.log('++++++++++++');
+    
   return (
+  
     <div className="tt_form-section">
       <p>{Messages.ExemptionCertificate.Certification}</p>
       <ExemptionSelector
         exemption={exemption}
         onExemptionSave={saveExemption}
         form= {form}
+        formikProps={formikProps}
       />
       {exemptions.length > 0 && (
         <ExemptionsList
@@ -78,6 +95,7 @@ const ExemptionCertificate = ({
 
 const ExemptionCertificateField = props => (
   <Field component={ExemptionCertificate} {...props} />
+  
 );
 
 export default ExemptionCertificateField;

@@ -13,7 +13,9 @@ const ExemptionCertificateForm = props => {
 //console.log(formik);
   return (
     <Formik
-      initialValues={{ exemptions: [] }}
+      initialValues={{ exemptions: [] , 
+        fromDate:"",
+        toDate:""}}
       onSubmit={values => {
         onValidSubmission(values);
       }}
@@ -31,7 +33,10 @@ const ExemptionCertificateForm = props => {
         )
       })}
     >
-      {props => (
+      {props => {
+        const { errors = {}, touched } = props;
+        console.log(props);
+        return(
         <Form>
           <div className="form-1">
             <ExemptionCertificateField formikProps={formik}/>
@@ -42,7 +47,7 @@ const ExemptionCertificateForm = props => {
             {nextButton}
           </div>
         </Form>
-      )}
+        )}}
     </Formik>
   );
 };
