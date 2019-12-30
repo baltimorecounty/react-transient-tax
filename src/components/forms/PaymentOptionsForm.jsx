@@ -6,8 +6,11 @@ import React, { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
-import PaymentOptions from "../PaymentOptions";
-import ReturnDateSelector from "../ReturnDateSelectorField";
+import { PaymentDirections } from "../../common/Constants";
+import RadioButtonListField from "../RadioButtonListField";
+import ReturnDateSelectorField from "../ReturnDateSelectorField";
+
+const { PaymentLabel, PaymentNote } = PaymentDirections;
 
 const PaymentOptionsForm = props => {
   const {
@@ -15,12 +18,10 @@ const PaymentOptionsForm = props => {
     prevButton,
     onValidSubmission,
     tabs,
-    monthsToReport,
     history,
     formik
   } = props;
   const [filingTypes, setFilingTypes] = useState([]);
-  const [paymentInterval, setPaymentInterval] = useState();
   const {
     paymentInterval: intervalFromFormik,
     monthsToReport: monthsToReportFromFormik
@@ -38,11 +39,10 @@ const PaymentOptionsForm = props => {
     }
   }, [filingTypes, history]);
 
-  const handleOnChange = onClick => {
+  const handlePaymentIntervalChange = () => {
     formik.setFieldValue("monthlyData", []);
     formik.setFieldValue("monthsToReport", {});
     formik.setFieldValue("exemptions", []);
-    setPaymentInterval(onClick.currentTarget.value);
   };
 
   return (
@@ -61,9 +61,9 @@ const PaymentOptionsForm = props => {
         onValidSubmission(values, hasChange);
       }}
       validationSchema={Yup.object({
-        paymentInterval: Yup.string()
-          .transform(value => (!value ? null : value))
-          .required("Required"),
+        paymentInterval: Yup.string().required(
+          "A payment interval must be selected before you proceed."
+        ),
         monthsToReport: Yup.mixed().test(
           "has-months",
           "A date must be selected before you can proceed.",
@@ -71,22 +71,24 @@ const PaymentOptionsForm = props => {
         )
       })}
     >
-      {props => (
+      {({ values }) => (
         <Form>
           <div className="tt_form-section">
-            <ErrorMessage name="paymentInterval" component="div" />
-            <PaymentOptions
-              filingTypes={filingTypes}
-              handleOnChange={handleOnChange}
+            <RadioButtonListField
+              name="paymentInterval"
+              items={filingTypes}
+              onChange={handlePaymentIntervalChange}
+              label={PaymentLabel}
+              note={PaymentNote}
             />
-            {paymentInterval && (
+            {values.paymentInterval && (
               <React.Fragment>
-                <ReturnDateSelector
+                <ReturnDateSelectorField
                   id="payment-options-date-selector"
-                  paymentInterval={paymentInterval}
+                  paymentInterval={values.paymentInterval}
                   filingTypes={filingTypes}
                   tabs={tabs}
-                  monthsToReport={monthsToReport}
+                  monthsToReport={monthsToReportFromFormik}
                 />
                 <ErrorMessage name="monthsToReport" />
               </React.Fragment>
