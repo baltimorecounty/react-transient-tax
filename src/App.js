@@ -37,11 +37,11 @@ const App = () => (
   <div className="tt_app">
     <Router>
       <Route exact path="/">
-        <Redirect to="/steps/1" />
+        <Redirect to="/steps/basic-information" />
       </Route>
       <Route
         exact
-        path="/steps/:activeStepNumber"
+        path="/steps/:stepId"
         render={props => (
           <MultiPageForm stepList={TransientTaxStepList} {...props} />
         )}
