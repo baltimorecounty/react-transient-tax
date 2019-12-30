@@ -6,7 +6,7 @@
  * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
  * @return {Array} new array of with the added or updated item
  */
-const AddOrUpdate = (items = [], savedItem, callback) => {
+const AddOrUpdate = (items = [], savedItem = {}, callback = () => {}) => {
   const arr = [...items];
   const existingIndex = arr.findIndex(callback);
 
