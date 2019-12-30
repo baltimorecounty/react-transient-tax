@@ -38,7 +38,10 @@ const onPaymentFormSubmission = ({
       id: exemptionStepId,
       label: `Exemption Certificate`,
       component: <ExemptionCertificateForm />,
-      panelGroupId: 2
+      panelGroupId: 2,
+      initialValues: {
+        exemptions: []
+      }
     });
 
     const doesExemptionPanelExist = stepList.steps.find(
@@ -91,6 +94,11 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
       },
       data: {
         date
+      },
+      initialValues: {
+        grossRentalCollected: 0,
+        governmentExemptRentalCollected: 0,
+        nonTransientRentalCollected: 0
       }
     });
 
@@ -102,19 +110,19 @@ const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
 const panelGroups = [
   {
     id: 1,
-    label: "Step 1 - Business Information"
+    label: "Business Information"
   },
   {
     id: 2,
-    label: "Step 2 - Tax Return Forms"
+    label: "Tax Return Forms"
   },
   {
     id: 3,
-    label: "Step 3 - Additional Information"
+    label: "Additional Information"
   },
   {
     id: 4,
-    label: "Step 4 - Review & Submit"
+    label: "Review & Submit"
   }
 ];
 
@@ -123,24 +131,40 @@ const steps = [
     id: "basic-information",
     label: "Business Information",
     component: <BasicInformationForm />,
-    panelGroupId: 1
+    panelGroupId: 1,
+    initialValues: {
+      businessName: "",
+      businessAddress: "",
+      businessAddressParts: {}
+    }
   }),
   new Step({
     id: "payment-selection",
-    label: "Step 2 - Payment Interval Selection",
+    label: "Payment Interval Selection",
     component: <PaymentOptionsForm />,
     onFormSubmission: onPaymentSelectionSubmission,
-    panelGroupId: 2
+    panelGroupId: 2,
+    initialValues: {
+      paymentInterval: "",
+      monthsToReport: {},
+      returnStatus: {}
+    }
   }),
   new Step({
     id: "identification",
-    label: "Step 7 - Identification",
+    label: "Identification",
     component: <IdentificationForm />,
-    panelGroupId: 3
+    panelGroupId: 3,
+    initialValues: {
+      tradeAlias: "",
+      email: "",
+      nameOfSubmitter: "",
+      titleOfSubmitter: ""
+    }
   }),
   new Step({
     id: "review",
-    label: "Step 8 - Review",
+    label: "Review",
     component: <ReviewFormPanel />,
     isForm: false,
     panelGroupId: 4

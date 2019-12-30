@@ -3,8 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 
 const AddressLookupDebouncedInput = React.forwardRef(
-  ({ className, value, onChange, wasSelected, ...rest }, ref) => {
-    const [event, setEvent] = useState({ target: { value: "" } });
+  (
+    { className, value, onChange, wasSelected, defaultValue = "", ...rest },
+    ref
+  ) => {
+    const [event, setEvent] = useState({ target: { value: defaultValue } });
     const [debouncedEvent] = useDebounce(event, 300);
 
     useEffect(() => {

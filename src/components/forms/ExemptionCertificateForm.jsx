@@ -5,15 +5,23 @@ import { Form, Formik } from "formik";
 import ErrorMessage from "../ErrorMessage";
 import ExemptionCertificateField from "../ExemptionCertificateField";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
+import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
 
 const ExemptionCertificateForm = props => {
-  const { nextButton, prevButton, onValidSubmission, formik } = props;
+  const {
+    nextButton,
+    prevButton,
+    onValidSubmission,
+    formik,
+    initialValues
+  } = props;
   const { monthlyData = [] } = formik.values;
+  const { exemptions = [] } = initialValues;
 
   return (
     <Formik
-      initialValues={{ exemptions: [] }}
+      initialValues={initialValues}
       onSubmit={values => {
         onValidSubmission(values);
       }}
@@ -33,8 +41,9 @@ const ExemptionCertificateForm = props => {
     >
       {props => (
         <Form>
+          <PromptIfDirty />
           <div className="form-1">
-            <ExemptionCertificateField />
+            <ExemptionCertificateField exemptions={exemptions} />
             <ErrorMessage name="exemptions" />
           </div>
           <div className="tt_form-controls">

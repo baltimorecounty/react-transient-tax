@@ -6,20 +6,19 @@ import React, { useState } from "react";
 import AddressLookupField from "../../components/AddressLookupField";
 import BasicErrorMessage from "../BasicErrorMessage";
 import Field from "../Field";
+import PromptIfDirty from "../PromptIfDirty";
 import { VerifyAddress } from "../../services/ApiService";
 
 const BasicInformationForm = props => {
-  const { nextButton, prevButton, onValidSubmission } = props;
-
+  const { nextButton, prevButton, onValidSubmission, initialValues } = props;
   const [isValidAddressMessage, setIsValidAddressMessage] = useState("");
-  const [isValidatingAddress, setIsValidatingAddress] = useState(false);
 
   const ValidateAddress = async addressValue => {
-    setIsValidatingAddress(true);
     try {
       const response = await VerifyAddress(addressValue);
+      const { Address: { AddressId = 0 } = {} } = response;
 
-      return response.AddressId;
+      return AddressId;
     } catch (ex) {
       return null;
     }
@@ -27,12 +26,9 @@ const BasicInformationForm = props => {
 
   return (
     <Formik
-      initialValues={{
-        businessName: "",
-        businessAddress: "",
-        businessAddressParts: {}
-      }}
+      initialValues={initialValues}
       onSubmit={async values => {
+        setIsValidAddressMessage("");
         const { businessAddress, businessAddressParts } = values;
         const shouldGeocode = Object.keys(businessAddressParts).length === 0;
         const addressId = shouldGeocode
@@ -40,25 +36,23 @@ const BasicInformationForm = props => {
           : businessAddressParts.id;
 
         if (addressId) {
-          setIsValidAddressMessage("");
           onValidSubmission(values);
         } else {
           setIsValidAddressMessage(
             "Please enter a valid Baltimore County address."
           );
         }
-
-        setIsValidatingAddress(false);
       }}
       validationSchema={Yup.object({
-        businessName: Yup.string()
-          .transform(value => (!value ? null : value))
-          .required("Required"),
-        businessAddress: Yup.mixed().required("Required")
+        businessName: Yup.string().required("Required"),
+        businessAddress: Yup.string().required(
+          "A valid Baltimore County address is required"
+        )
       })}
     >
       {props => (
         <Form>
+          <PromptIfDirty />
           <div className="tt_form-section">
             <Field
               id="businessName"
@@ -75,7 +69,7 @@ const BasicInformationForm = props => {
             {isValidAddressMessage && (
               <BasicErrorMessage message={isValidAddressMessage} />
             )}
-            {isValidatingAddress ? <p>Validating address...</p> : null}
+            {props.isSubmitting ? <p>Validating address...</p> : null}
           </div>
           <div className="tt_form-controls">
             {prevButton}

@@ -7,7 +7,8 @@ import ErrorMessage from "../ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import { PaymentDirections } from "../../common/Constants";
-import RadioButtonListField from "../RadioButtonListField";
+import PromptIfDirty from "../PromptIfDirty";
+import RadioButtonListField from "../../components/RadioButtonListField";
 import ReturnDateSelectorField from "../ReturnDateSelectorField";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
@@ -17,9 +18,9 @@ const PaymentOptionsForm = props => {
     nextButton,
     prevButton,
     onValidSubmission,
-    tabs,
     history,
-    formik
+    formik,
+    initialValues
   } = props;
   const [filingTypes, setFilingTypes] = useState([]);
   const {
@@ -39,19 +40,17 @@ const PaymentOptionsForm = props => {
     }
   }, [filingTypes, history]);
 
-  const handlePaymentIntervalChange = () => {
+  /** Reset these values, as they do not apply when interval changes */
+  const resetGlobalFormValues = () => {
     formik.setFieldValue("monthlyData", []);
-    formik.setFieldValue("monthsToReport", {});
     formik.setFieldValue("exemptions", []);
+    formik.setFieldValue("monthsToReport", {});
+    formik.setFieldValue("returnStatus", {});
   };
 
   return (
     <Formik
-      initialValues={{
-        paymentInterval: "",
-        monthsToReport: {},
-        returnStatus: {}
-      }}
+      initialValues={initialValues}
       onSubmit={values => {
         const { paymentInterval, monthsToReport } = values;
         const hasChange =
@@ -61,7 +60,7 @@ const PaymentOptionsForm = props => {
         onValidSubmission(values, hasChange);
       }}
       validationSchema={Yup.object({
-        paymentInterval: Yup.string().required(
+        paymentInterval: Yup.number().required(
           "A payment interval must be selected before you proceed."
         ),
         monthsToReport: Yup.mixed().test(
@@ -71,35 +70,45 @@ const PaymentOptionsForm = props => {
         )
       })}
     >
-      {({ values }) => (
-        <Form>
-          <div className="tt_form-section">
-            <RadioButtonListField
-              name="paymentInterval"
-              items={filingTypes}
-              onChange={handlePaymentIntervalChange}
-              label={PaymentLabel}
-              note={PaymentNote}
-            />
-            {values.paymentInterval && (
-              <React.Fragment>
-                <ReturnDateSelectorField
-                  id="payment-options-date-selector"
-                  paymentInterval={values.paymentInterval}
-                  filingTypes={filingTypes}
-                  tabs={tabs}
-                  monthsToReport={monthsToReportFromFormik}
-                />
-                <ErrorMessage name="monthsToReport" />
-              </React.Fragment>
-            )}
-          </div>
-          <div className="tt_form-controls">
-            {prevButton}
-            {nextButton}
-          </div>
-        </Form>
-      )}
+      {({ values, setFieldValue }) => {
+        const { paymentInterval } = values;
+
+        const handlePaymentIntervalChange = () => {
+          setFieldValue("monthsToReport", {});
+          setFieldValue("returnStatus", {});
+          resetGlobalFormValues();
+        };
+
+        return (
+          <Form>
+            <PromptIfDirty />
+            <div className="tt_form-section">
+              <RadioButtonListField
+                name="paymentInterval"
+                items={filingTypes}
+                onChange={handlePaymentIntervalChange}
+                label={PaymentLabel}
+                note={PaymentNote}
+              />
+              {paymentInterval && (
+                <React.Fragment>
+                  <ReturnDateSelectorField
+                    id="payment-options-date-selector"
+                    paymentInterval={values.paymentInterval}
+                    filingTypes={filingTypes}
+                    monthsToReport={monthsToReportFromFormik}
+                  />
+                  <ErrorMessage name="monthsToReport" />
+                </React.Fragment>
+              )}
+            </div>
+            <div className="tt_form-controls">
+              {prevButton}
+              {nextButton}
+            </div>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };

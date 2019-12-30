@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "formik";
 
 const Step = props => {
@@ -7,8 +8,6 @@ const Step = props => {
     isForm = true,
     label,
     component,
-    onNextClick,
-    onPrevClick,
     stepNumber,
     nextStep,
     prevStep,
@@ -21,15 +20,24 @@ const Step = props => {
     data,
     history,
     panelGroupId,
+    initialValues = {},
     ...rest
   } = props;
 
-  const handleNextClick = () => {
-    onNextClick(nextStep);
-  };
+  const hasFormData = Object.keys(formik.values).length > 0;
+
+  if (!hasFormData && stepNumber > 1) {
+    return <Redirect to="/steps/1" />;
+  }
+
+  const getStepId = stepNumber =>
+    (
+      stepList.steps.find(x => x.stepNumber === stepNumber).id ||
+      "basic-information"
+    ).toLowerCase();
 
   const handlePrevClick = () => {
-    onPrevClick(prevStep);
+    history.push(`/steps/${getStepId(prevStep)}`);
   };
 
   /**
@@ -47,26 +55,16 @@ const Step = props => {
       );
     }
     formik.setValues({ ...formik.values, ...values });
-    onNextClick(nextStep);
+    history.push(`/steps/${getStepId(nextStep)}`);
   };
 
   const nextButtonStyle = stepNumber === 1 ? { marginLeft: "auto" } : {};
-
   const nextButton =
     nextStep && !isLastStep && isForm && !isHidden ? (
       <button type="submit" className="next seButton" style={nextButtonStyle}>
         Next
       </button>
-    ) : (
-      <button
-        type="text"
-        onClick={handleNextClick}
-        style={nextButtonStyle}
-        className="seButton"
-      >
-        Next
-      </button>
-    );
+    ) : null;
   const prevButton = prevStep && (
     <button
       onClick={handlePrevClick}
@@ -83,6 +81,15 @@ const Step = props => {
     </button>
   );
 
+  const getInitialValues = values =>
+    Object.keys(values).reduce((acc, currentValue) => {
+      const newKey = {
+        [currentValue]: formik.values[currentValue] || values[currentValue]
+      };
+
+      return { ...acc, ...newKey };
+    }, {});
+
   const componentWithProps = {
     ...component,
     ...{
@@ -96,7 +103,8 @@ const Step = props => {
         formik,
         activeStep,
         data,
-        history
+        history,
+        initialValues: getInitialValues(initialValues)
       }
     }
   };

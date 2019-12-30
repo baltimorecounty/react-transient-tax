@@ -6,21 +6,23 @@ import Field from "../Field";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import InformationModal from "../InformationModal";
+import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
 
 const IdentificationForm = props => {
-  const { nextButton, prevButton, onValidSubmission, formik } = props;
+  const {
+    nextButton,
+    prevButton,
+    onValidSubmission,
+    formik,
+    initialValues
+  } = props;
   const { monthlyData } = formik.values;
   const showTradeAlias = HasAtLeast1Exemption(monthlyData);
 
   return (
     <Formik
-      initialValues={{
-        tradeAlias: "",
-        email: "",
-        nameOfSubmitter: "",
-        titleOfSubmitter: ""
-      }}
+      initialValues={initialValues}
       onSubmit={values => {
         onValidSubmission(values);
       }}
@@ -38,6 +40,7 @@ const IdentificationForm = props => {
     >
       {props => (
         <Form>
+          <PromptIfDirty />
           <div className="tt_form-section tt_identification-section">
             <div className="tt_date-group float-right">
               <div className="tt_month-pickers">

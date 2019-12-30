@@ -1,24 +1,30 @@
 import React, { useState } from "react";
 
+import AddressLookupDebouncedInput from "./AddressLookupDebouncedInput";
 import Autocomplete from "react-autocomplete";
-import DebouncedInput from "./AddressLookupDebouncedInput";
 import ErrorMessage from "./ErrorMessage";
 import { Field } from "formik";
 import { GetAddresses } from "../services/ApiService";
 import PropTypes from "prop-types";
 
 const CustomInputComponent = ({
-  field, // { name, value, onChange, onBlur }
-  form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  field: { name, value }, // { name, value, onChange, onBlur }
+  form: { setFieldValue, touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { name, value } = field;
+  const [isMounted, setIsMounted] = useState(false);
   const { label, minLength = 0 } = props;
-  const { setFieldValue, touched, errors } = form;
   const [Address, setItems] = useState([]);
   const [wasSelected, setWasSelected] = useState(false);
 
   const handleAddressChange = changeEvent => {
+    /** HACK - Ensure Address is not triggered on first re-render,
+     * so we can populate initial values, without setting the from to dirty. */
+    if (!isMounted) {
+      setIsMounted(true);
+      return;
+    }
+
     const { value } = changeEvent.target;
     const shouldTriggerLookup = value && value.length > minLength;
 
@@ -65,9 +71,7 @@ const CustomInputComponent = ({
       .join(" ");
 
   const toggleErrorClasses = classes =>
-    touched[field.name] && errors[field.name]
-      ? "tt_form-field tt_has-errors"
-      : classes;
+    touched[name] && errors[name] ? "tt_form-field tt_has-errors" : classes;
 
   const items = Address.map((item, index) => ({
     id: item.AddressId,
@@ -97,7 +101,8 @@ const CustomInputComponent = ({
         id={name}
         items={items}
         renderInput={props => (
-          <DebouncedInput
+          <AddressLookupDebouncedInput
+            defaultValue={value}
             className={toggleErrorClasses("tt_form-field input")}
             wasSelected={wasSelected}
             {...props}
@@ -127,10 +132,7 @@ const CustomInputComponent = ({
       >
         {props.children}
       </Autocomplete>
-
-      {touched[field.name] && errors[field.name] && (
-        <ErrorMessage name="businessAddress" component="div" />
-      )}
+      <ErrorMessage name={name} />
     </div>
   );
 };
