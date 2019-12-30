@@ -16,7 +16,7 @@ const CustomInputComponent = ({
   const { className, isNegativeValue, label, value: valueFromProps } = props;
   const month = props.date.getMonth();
   const { setFieldValue } = form;
-  const [value, setValue] = useState(valueFromProps);
+  const [value, setValue] = useState(Math.abs(valueFromProps));
   const cssClasses = classnames(
     "tt_form-group flex-end total input",
     className
