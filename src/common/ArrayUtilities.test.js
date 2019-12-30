@@ -6,6 +6,10 @@ describe("AddOrUpdate", () => {
     { id: 2, value: 2 }
   ];
 
+  test("should do nothing if passed nothing", () => {
+    AddOrUpdate();
+  });
+
   test("should update an existing item", () => {
     const existingObject = { id: 1, value: 2 };
     const actual = AddOrUpdate(
