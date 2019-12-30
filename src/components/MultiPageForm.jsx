@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-
 import { Formik } from "formik";
+import React from "react";
 import Step from "./Step";
 import TransientTaxTabs from "./TransientTaxTabs";
-import { useEffect } from "react";
 
 const MultiPageForm = props => {
   const {
@@ -11,38 +9,33 @@ const MultiPageForm = props => {
     stepList,
     match: { params = {} }
   } = props;
-  const { activeStepNumber = 1 } = params;
-  const currentFormNumber = parseInt(activeStepNumber);
+  const { stepId = "basic-information" } = params;
   const { steps = [], panelGroups = [] } = stepList;
-  const [activeStep, setActiveStep] = useState({});
-  const [activeStepDetails, setActiveStepDetails] = useState({});
-
-  useEffect(() => {
-    const { steps } = stepList;
-    const currentStep = steps.find(x => x.stepNumber === currentFormNumber);
-    const { id, stepNumber } = currentStep;
-    const isActiveStep = stepNumber === currentFormNumber;
-    const nextStep = stepNumber < steps.length ? stepNumber + 1 : null;
-    const prevStep = stepNumber === 1 ? null : stepNumber - 1;
-    const isLastStep = stepNumber === steps.length;
-
-    setActiveStep(currentStep);
-    setActiveStepDetails({
-      id,
-      stepNumber,
-      isActiveStep,
-      nextStep,
-      prevStep,
-      isLastStep
-    });
-  }, [currentFormNumber, stepList]);
+  const currentStepIndex = steps.findIndex(
+    x => x.id.toLowerCase() === stepId.toLowerCase()
+  );
+  const currentStep = steps[currentStepIndex];
+  const { id, stepNumber } = currentStep;
+  const isActiveStep = id.toLowerCase() === stepId.toLowerCase();
+  const nextStep = stepNumber < steps.length ? stepNumber + 1 : null;
+  const prevStep = stepNumber === 1 ? null : stepNumber - 1;
+  const isLastStep = stepNumber === steps.length;
+  const activeStep = currentStep;
+  const activeStepDetails = {
+    id,
+    stepNumber,
+    isActiveStep,
+    nextStep,
+    prevStep,
+    isLastStep
+  };
 
   return (
     <div className="tt_form">
       <TransientTaxTabs
         panelGroups={panelGroups}
         tabs={steps}
-        activeStep={currentFormNumber}
+        activeStep={activeStep.stepNumber}
       />
       <Formik
         initialValues={{}}
@@ -71,7 +64,7 @@ const MultiPageForm = props => {
                   nextStep={nextStep}
                   prevStep={prevStep}
                   tabs={steps}
-                  activeStep={currentFormNumber}
+                  activeStep={activeStep.stepNumber}
                   history={history}
                   style={{ display: isActiveStep ? "block" : "none" }}
                 />
