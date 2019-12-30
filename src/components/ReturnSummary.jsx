@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+
 import { GetFilingTypes } from "../services/ApiService";
+import { GetFormatedDateTime } from "../common/DatesUtilities";
+import PropTypes from "prop-types";
 
 const ReturnSummary = props => {
   const {
@@ -37,9 +39,11 @@ const ReturnSummary = props => {
           <strong>Date Submitted</strong>: {dateSubmitted}
         </p>
       )}
-      <p>
-        <strong>Due Date</strong>: {dueDate}
-      </p>
+      {dueDate && (
+        <p>
+          <strong>Due Date</strong>: {GetFormatedDateTime(dueDate)}
+        </p>
+      )}
       <table align="left" cellPadding="1" cellSpacing="1" id="BACO_table">
         <tbody>
           {values.map((item, itemIndex) => (
@@ -86,7 +90,7 @@ ReturnSummary.propTypes = {
   /**  A list of key / value pairs with summaries data by month */
   values: PropTypes.array,
   /** Due date of the return */
-  dueDate: PropTypes.string,
+  dueDate: PropTypes.instanceOf(Date),
   /** String return type for the return (Monthly or Quarterly) */
   returnType: PropTypes.string,
   /** Date of return submission */

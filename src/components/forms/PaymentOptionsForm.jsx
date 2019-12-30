@@ -8,7 +8,7 @@ import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import { PaymentDirections } from "../../common/Constants";
 import RadioButtonListField from "../RadioButtonListField";
-import ReturnDateSelector from "../ReturnDateSelector";
+import ReturnDateSelectorField from "../ReturnDateSelectorField";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
 
@@ -47,7 +47,11 @@ const PaymentOptionsForm = props => {
 
   return (
     <Formik
-      initialValues={{ paymentInterval: "", monthsToReport: {} }}
+      initialValues={{
+        paymentInterval: "",
+        monthsToReport: {},
+        returnStatus: {}
+      }}
       onSubmit={values => {
         const { paymentInterval, monthsToReport } = values;
         const hasChange =
@@ -79,7 +83,8 @@ const PaymentOptionsForm = props => {
             />
             {values.paymentInterval && (
               <React.Fragment>
-                <ReturnDateSelector
+                <ReturnDateSelectorField
+                  id="payment-options-date-selector"
                   paymentInterval={values.paymentInterval}
                   filingTypes={filingTypes}
                   tabs={tabs}

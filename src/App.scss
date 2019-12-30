@@ -87,12 +87,11 @@ input[type="text"] {
   }
 }
 
-.tt_subtotal {
-  label,
-  input,
-  span {
-    font-weight: 600;
-  }
+.tt_label,
+.tt_subtotal label,
+.tt_subtotal span,
+.tt_subtotal input {
+  font-weight: 600;
 }
 
 .tt_subtotal-item {
