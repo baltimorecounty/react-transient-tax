@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Field } from "formik";
-import { RadioButton } from "../common/RadioButton";
+
 import DateRangeSelector from "./DateRangeSelector";
-import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
+import { Field } from "formik";
 import { FormHints } from "../common/Constants";
+import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
 import { GetExemptionTypes } from "../services/ApiService";
+import { RadioButton } from "../common/RadioButton";
 
 const ExemptionSelector = props => {
   const {
@@ -81,7 +82,7 @@ const ExemptionSelector = props => {
           ))}
         </ul>
       )}
-      {exemptionTypes.map(exemptionType => {
+      {exemptionTypes.map((exemptionType, index) => {
         const { Id: type, Description: label } = exemptionType;
         const hint =
           label.toLowerCase() === "non-transient" ? FormHints.NonTransient : "";
@@ -101,6 +102,7 @@ const ExemptionSelector = props => {
             value={type}
             onChange={handleChange}
             checked={exemption.type === type}
+            autoFocus={index === 0}
           />
         );
       })}
