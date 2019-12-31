@@ -28,6 +28,10 @@ const ReturnDateSelector = ({
    * @param {date} date js date object for selected month and
    */
   const handleDateChange = date => {
+    if (!date) {
+      return {};
+    }
+
     let newMonths = { 0: date };
     // If this is a quarterly report, assume the next two months but leave them editable
     if (isQuarterly) {
