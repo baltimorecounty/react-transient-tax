@@ -5,15 +5,15 @@ import { addDays } from "date-fns";
 
 const DateRangeSelector = props => {
   const {
-    name,
     fromDate: fromDateFromProps,
     toDate: toDateFromProps,
-    handleChange = () => {}
+    handleChange = () => {},
+    onClick = () => {}
   } = props;
   const [fromDate, setFromDate] = useState(fromDateFromProps);
   const [toDate, setToDate] = useState(toDateFromProps);
-  const fromDateId = `date-from-selector-${name}`;
-  const toDateId = `date-to-selector-${name}`;
+  const fromDateId = `fromDate`;
+  const toDateId = `toDate`;
 
   useEffect(() => {
     const { fromDate, toDate } = props;
@@ -48,6 +48,7 @@ const DateRangeSelector = props => {
           name={fromDateId}
           selected={fromDate}
           onChange={handleFromDateChange}
+          onClickOutside={() => onClick(null, fromDateId)}
           selectsStart
         />
       </div>
@@ -61,6 +62,7 @@ const DateRangeSelector = props => {
           minDate={addDays(fromDate, 1)}
           selectsEnd
           startDate={fromDate}
+          onClickOutside={() => onClick(null, toDateId)}
         />
       </div>
     </div>
