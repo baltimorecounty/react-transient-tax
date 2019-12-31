@@ -56,6 +56,7 @@ const IdentificationForm = props => {
                   name="tradeAlias"
                   type="text"
                   label="Trade Alias"
+                  autoFocus
                 />
               ) : null}
               <Field
@@ -69,6 +70,7 @@ const IdentificationForm = props => {
                     content="We collect this information in order to keep record of who will be submitting the payment."
                   />
                 }
+                autoFocus={!showTradeAlias}
               />
               <Field
                 id="titleOfSubmitter"
