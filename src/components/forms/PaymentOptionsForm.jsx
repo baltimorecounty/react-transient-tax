@@ -89,6 +89,7 @@ const PaymentOptionsForm = props => {
                 onChange={handlePaymentIntervalChange}
                 label={PaymentLabel}
                 note={PaymentNote}
+                autoFocus
               />
               {paymentInterval && (
                 <React.Fragment>
