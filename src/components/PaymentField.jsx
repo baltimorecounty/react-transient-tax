@@ -13,7 +13,13 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const { name } = field;
-  const { className, isNegativeValue, label, value: valueFromProps } = props;
+  const {
+    autoFocus,
+    className,
+    isNegativeValue,
+    label,
+    value: valueFromProps
+  } = props;
   const month = props.date.getMonth();
   const { setFieldValue } = form;
   const [value, setValue] = useState(Math.abs(valueFromProps));
@@ -45,6 +51,7 @@ const CustomInputComponent = ({
             name={name}
             onChange={handleChange}
             value={value || ""}
+            autoFocus={autoFocus}
           />
           <ErrorMessage name={name} />
         </div>

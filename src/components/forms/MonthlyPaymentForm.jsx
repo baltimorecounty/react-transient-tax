@@ -88,6 +88,7 @@ const MonthlyPaymentForm = props => {
                 label={Labels.GrossOccupancy}
                 date={date}
                 value={grossRentalCollected}
+                autoFocus
               />
             </div>
             <div className="tt_form-section">
