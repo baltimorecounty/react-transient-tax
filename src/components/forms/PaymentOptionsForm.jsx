@@ -9,7 +9,7 @@ import { GetFilingTypes } from "../../services/ApiService";
 import { PaymentDirections } from "../../common/Constants";
 import PromptIfDirty from "../PromptIfDirty";
 import RadioButtonListField from "../../components/formik/RadioButtonListField";
-import ReturnDateSelectorField from "../ReturnDateSelectorField";
+import ReturnDateSelectorField from "../formik/ReturnDateSelectorField";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
 
