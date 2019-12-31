@@ -59,6 +59,7 @@ const BasicInformationForm = props => {
               name="businessName"
               type="text"
               label="Business Name"
+              autoFocus
             />
             <AddressLookupField
               id="businessAddress"
