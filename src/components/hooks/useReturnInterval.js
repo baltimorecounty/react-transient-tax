@@ -33,11 +33,13 @@ const useReturnInterval = ({
     if (isIntervalSelected) {
       const lastFilingMonth = months[Object.keys(months).length - 1];
       const returnStatus = GetDueDateStatus(lastFilingMonth, new Date());
+      const { value, isLate } = returnStatus;
 
       setReturnStatus(returnStatus);
       setFieldValue("monthsToReport", { ...months });
       setFieldValue("returnStatus", { ...returnStatus });
       setFieldValue("monthlyData", buildMonthlyData(months));
+      setFieldValue("monthsLate", isLate ? value : 0);
     }
   }, [months, setFieldValue]);
 
