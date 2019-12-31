@@ -1,10 +1,17 @@
 import { AddOrUpdate } from "./ArrayUtilities";
 
+global.console = { warn: jest.fn(), error: jest.fn() };
+
 describe("AddOrUpdate", () => {
   const items = [
     { id: 1, value: 1 },
     { id: 2, value: 2 }
   ];
+
+  test("should fail gracefully", () => {
+    const actual = AddOrUpdate();
+    expect(actual).toEqual([]);
+  });
 
   test("should update an existing item", () => {
     const existingObject = { id: 1, value: 2 };
