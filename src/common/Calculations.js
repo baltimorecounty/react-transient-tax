@@ -26,16 +26,27 @@ const CalculatePenalty = (
  * Calculate tax collected based on net Room Rental Collections and the current Transient Tax Rate
  * @param {number} netRoomRentalCollections
  */
-const CalculateTaxCollected = netRoomRentalCollections =>
-  netRoomRentalCollections * RatesAndFees.TransientTaxRate;
+const CalculateTaxCollected = (
+  netRoomRentalCollections,
+  taxRate = RatesAndFees.TransientTaxRate
+) => netRoomRentalCollections * taxRate;
 
 /**
  * Get a list of calculations based on given Transient Tax Data
  * @param {object} fields the required input fields to calculate totals for transient tax. Fields are grouped by their form name.
  * @param {number} monthsLate number of months tardy on payment, this will determine if penalty and interest is charged
+ * @param {number} taxRate rate as decimal
+ * @param {number} interestRate rate as decimal
+ * @param {number} penaltyRate rate as decimal
  * @returns {object} an object containing all the desired totals
  */
-const GetCalculatedTotals = (fields = {}, monthsLate = 0) => {
+const GetCalculatedTotals = (
+  fields = {},
+  monthsLate = 0,
+  taxRate = RatesAndFees.TransientTaxRate,
+  interestRate = RatesAndFees.InterestRate,
+  penaltyRate = RatesAndFees.PenaltyRate
+) => {
   const {
     grossRentalCollected,
     nonTransientRentalCollected,
@@ -45,15 +56,22 @@ const GetCalculatedTotals = (fields = {}, monthsLate = 0) => {
   const totalExemptions =
     nonTransientRentalCollected + governmentExemptRentalCollected;
   const netRoomRentalCollections = totalExemptions + grossRentalCollected;
-  const transientTaxCollected = CalculateTaxCollected(netRoomRentalCollections);
+  const transientTaxCollected = CalculateTaxCollected(
+    netRoomRentalCollections,
+    taxRate
+  );
 
   let transientInterest = 0;
   let transientPenalty = 0;
   let totalInterestAndPenalties = 0;
 
   if (monthsLate) {
-    transientInterest = CalculateInterest(transientTaxCollected, monthsLate);
-    transientPenalty = CalculatePenalty(transientTaxCollected);
+    transientInterest = CalculateInterest(
+      transientTaxCollected,
+      monthsLate,
+      interestRate
+    );
+    transientPenalty = CalculatePenalty(transientTaxCollected, penaltyRate);
     totalInterestAndPenalties = transientInterest + transientPenalty;
   }
 
