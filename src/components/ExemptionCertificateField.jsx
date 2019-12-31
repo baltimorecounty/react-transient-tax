@@ -12,9 +12,15 @@ const ExemptionCertificate = ({
   ...props
 }) => {
   const { setFieldValue } = form;
-  const { handleSave, exemptions: exemptionsFromProps = [] } = props;
-  const [exemption, setExemption] = useState({});
+  const {
+    handleSave,
+    exemptions: exemptionsFromProps = [],
+    exemption: exemptionFromProps
+  } = props;
+  const [exemption, setExemption] = useState(exemptionFromProps);
   const [exemptions, setExemptions] = useState(exemptionsFromProps);
+
+  console.log(exemptionFromProps, "test");
 
   const saveExemption = exemption => {
     const savedExemption = SaveExemption(exemption);

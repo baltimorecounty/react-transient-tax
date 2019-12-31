@@ -51,6 +51,8 @@ const GetCalculatedTotals = (fields = {}, monthsLate = 0) => {
   let transientPenalty = 0;
   let totalInterestAndPenalties = 0;
 
+  console.log("monghts late", monthsLate);
+
   if (monthsLate) {
     transientInterest = CalculateInterest(transientTaxCollected, monthsLate);
     transientPenalty = CalculatePenalty(transientTaxCollected);

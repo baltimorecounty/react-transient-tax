@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Field } from "formik";
-import { RadioButton } from "../common/RadioButton";
+
 import DateRangeSelector from "./DateRangeSelector";
-import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
+import { Field } from "formik";
 import { FormHints } from "../common/Constants";
+import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
 import { GetExemptionTypes } from "../services/ApiService";
+import { RadioButton } from "../common/RadioButton";
 
 const ExemptionSelector = props => {
   const {
@@ -17,20 +18,7 @@ const ExemptionSelector = props => {
   const [formErrors, setFormErrors] = useState([]);
   const [exemption, setExemption] = useState(exemptionFromProps);
 
-  useEffect(() => {
-    if (exemptionTypes.length === 0) {
-      GetExemptionTypes()
-        .then(exemptionTypes => {
-          setExemptionTypes(exemptionTypes);
-          setIsLoading(false);
-        })
-        .catch(error => props.history.push("/error", { ...error }));
-    }
-  }, [exemptionTypes, props]);
-
-  useEffect(() => {
-    setExemption(exemptionFromProps);
-  }, [exemptionFromProps]);
+  console.log(exemption, "should be loaded from edit");
 
   useEffect(() => {
     if (isFormDirty) {

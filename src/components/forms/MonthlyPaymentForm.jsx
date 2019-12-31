@@ -56,11 +56,12 @@ const MonthlyPaymentForm = props => {
     >
       {props => {
         const { values } = props;
+
         const {
           grossRentalCollected,
           nonTransientRentalCollected,
           governmentExemptRentalCollected
-        } = values;
+        } = values || initialValues;
 
         const {
           totalExemptions,
@@ -77,6 +78,16 @@ const MonthlyPaymentForm = props => {
             governmentExemptRentalCollected
           },
           monthsLate
+        );
+
+        console.log(
+          totalExemptions,
+          netRoomRentalCollections,
+          transientTaxCollected,
+          transientInterest,
+          transientPenalty,
+          totalInterestAndPenalties,
+          monthlyTaxRemitted
         );
 
         return (

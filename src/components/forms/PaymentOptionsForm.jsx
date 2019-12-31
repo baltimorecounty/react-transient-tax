@@ -8,7 +8,7 @@ import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import { PaymentDirections } from "../../common/Constants";
 import PromptIfDirty from "../PromptIfDirty";
-import RadioButtonListField from "../../components/RadioButtonListField";
+import RadioButtonListField from "../fields/RadioButtonListField";
 import ReturnDateSelectorField from "../ReturnDateSelectorField";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;
