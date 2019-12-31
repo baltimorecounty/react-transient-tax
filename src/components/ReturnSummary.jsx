@@ -15,8 +15,6 @@ const ReturnSummary = props => {
   } = props;
   const [filingType, setFilingType] = useState(returnType);
 
-  console.log(values);
-
   useEffect(() => {
     GetFilingTypes().then(filingTypes => {
       if (paymentInterval) {

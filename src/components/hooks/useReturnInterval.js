@@ -34,7 +34,7 @@ const useReturnInterval = ({
       const lastFilingMonth = months[Object.keys(months).length - 1];
       const returnStatus = GetDueDateStatus(lastFilingMonth, new Date());
       const { value, isLate } = returnStatus;
-      console.log(returnStatus);
+
       setReturnStatus(returnStatus);
       setFieldValue("monthsToReport", { ...months });
       setFieldValue("returnStatus", { ...returnStatus });
