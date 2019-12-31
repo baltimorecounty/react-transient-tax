@@ -7,7 +7,10 @@ const GetExemptionFormErrors = exemption => {
   const { fromDate, toDate, type } = exemption;
 
   if (!type) {
-    activeFormErrors.push({ key: "type", error: "Exemption Type Required" });
+    activeFormErrors.push({
+      key: "exemptionType",
+      error: "Exemption Type Required"
+    });
   }
 
   if (!fromDate) {
