@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Field } from "formik";
-import { RadioButton } from "../common/RadioButton";
+
+import BasicErrorMessage from "./BasicErrorMessage";
 import DateRangeSelector from "./DateRangeSelector";
-import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
+import { Field } from "formik";
 import { FormHints } from "../common/Constants";
+import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
 import { GetExemptionTypes } from "../services/ApiService";
+import { RadioButton } from "../common/RadioButton";
 
 const ExemptionSelector = props => {
   const {
@@ -13,8 +15,11 @@ const ExemptionSelector = props => {
   } = props;
   const [isLoading, setIsLoading] = useState(true);
   const [exemptionTypes, setExemptionTypes] = useState([]);
+  const [touched, setTouched] = useState({});
   const [isFormDirty, setIsFormDirty] = useState(false);
-  const [formErrors, setFormErrors] = useState([]);
+  const [formErrors, setFormErrors] = useState(
+    GetExemptionFormErrors(exemptionFromProps)
+  );
   const [exemption, setExemption] = useState(exemptionFromProps);
 
   useEffect(() => {
@@ -39,6 +44,12 @@ const ExemptionSelector = props => {
   }, [isFormDirty, exemption]);
 
   const saveExemption = () => {
+    /** Ensure validation messages are shown */
+    setTouched({
+      exemptionType: true,
+      toDate: true,
+      fromDate: true
+    });
     const errors = GetExemptionFormErrors(exemption);
 
     if (errors.length === 0) {
@@ -65,22 +76,23 @@ const ExemptionSelector = props => {
     });
   };
 
+  const handleFieldClick = (clickEvent, name) => {
+    setExemption({
+      ...exemption
+    });
+    setTouched({ ...touched, [name || clickEvent.target.name]: true });
+  };
+
   const resetSelector = () => {
     setIsFormDirty(false);
     setExemption({});
+    setTouched({});
   };
 
   return isLoading ? (
     <p>Loading Exemption Form...</p>
   ) : (
     <div className="tt_exemption-selector">
-      {formErrors.length > 0 && (
-        <ul className="tt_error-list">
-          {formErrors.map(({ key, error }) => (
-            <li key={key}>{error}</li>
-          ))}
-        </ul>
-      )}
       {exemptionTypes.map(exemptionType => {
         const { Id: type, Description: label } = exemptionType;
         const hint =
@@ -101,14 +113,26 @@ const ExemptionSelector = props => {
             value={type}
             onChange={handleChange}
             checked={exemption.type === type}
+            onClick={handleFieldClick}
           />
         );
       })}
+      {touched.exemptionType &&
+        formErrors.some(({ key }) => key === "exemptionType") && (
+          <BasicErrorMessage message="Exemption Type is required." />
+        )}
       <DateRangeSelector
         fromDate={exemption.fromDate}
         toDate={exemption.toDate}
         handleChange={handleExemptionDateChange}
+        onClick={handleFieldClick}
       />
+      {(touched.fromDate || touched.toDate) &&
+        formErrors.some(
+          ({ key }) => key === "fromDate" || key === "toDate"
+        ) && (
+          <BasicErrorMessage message="To and From Date are required to submit an exemption." />
+        )}
       <button onClick={saveExemption} type="button">
         {exemption.id ? "Update" : "Add"}
       </button>
