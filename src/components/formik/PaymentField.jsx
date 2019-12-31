@@ -1,9 +1,9 @@
 import { Field, connect } from "formik";
 import React, { useState } from "react";
 
-import CurrencyInput from "./CurrencyInput";
+import CurrencyInput from "../CurrencyInput";
 import ErrorMessage from "./ErrorMessage";
-import PaymentLabel from "./PaymentLabel";
+import PaymentLabel from "../PaymentLabel";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 

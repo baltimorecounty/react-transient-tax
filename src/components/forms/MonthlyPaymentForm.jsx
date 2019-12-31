@@ -5,7 +5,7 @@ import { Labels, LabelsWithNotes } from "../../common/Constants";
 
 import { AddOrUpdate } from "../../common/ArrayUtilities";
 import { GetCalculatedTotals } from "../../common/Calculations";
-import PaymentField from "../../components/PaymentField";
+import PaymentField from "../../components/formik/PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import PromptIfDirty from "../PromptIfDirty";
 import React from "react";

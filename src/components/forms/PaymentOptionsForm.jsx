@@ -3,12 +3,12 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from "../formik/ErrorMessage";
 import { ErrorPath } from "../../common/ErrorUtility";
 import { GetFilingTypes } from "../../services/ApiService";
 import { PaymentDirections } from "../../common/Constants";
 import PromptIfDirty from "../PromptIfDirty";
-import RadioButtonListField from "../../components/RadioButtonListField";
+import RadioButtonListField from "../../components/formik/RadioButtonListField";
 import ReturnDateSelectorField from "../ReturnDateSelectorField";
 
 const { PaymentLabel, PaymentNote } = PaymentDirections;

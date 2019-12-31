@@ -2,8 +2,8 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
-import ErrorMessage from "../ErrorMessage";
-import ExemptionCertificateField from "../ExemptionCertificateField";
+import ErrorMessage from "../formik/ErrorMessage";
+import ExemptionCertificateField from "../formik/ExemptionCertificateField";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
