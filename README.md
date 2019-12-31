@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/baltimorecounty/react-transient-tax/badge.svg?branch=add-code-coverage)](https://coveralls.io/github/baltimorecounty/react-transient-tax?branch=add-code-coverage)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

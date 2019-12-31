@@ -56,6 +56,12 @@ const IdentificationForm = props => {
                   name="tradeAlias"
                   type="text"
                   label="Trade Alias"
+                  infoComponent={
+                    <InformationModal
+                      title="Trade Alias"
+                      content="Trade Alias is an optional field that..."
+                    />
+                  }
                 />
               ) : null}
               <Field
@@ -66,7 +72,7 @@ const IdentificationForm = props => {
                 infoComponent={
                   <InformationModal
                     title="Return Submitted By"
-                    content="We collect this information in order to keep record of who will be submitting the payment."
+                    content="We need to associate a name with a business in the case we have any follow up questions on the return."
                   />
                 }
               />
@@ -78,7 +84,7 @@ const IdentificationForm = props => {
                 infoComponent={
                   <InformationModal
                     title="Title of Submitter"
-                    content="We collect this information to determine how the submitter is affiliated with the business."
+                    content="We need to associate a title with the person who submitted the return in the case we have any follow up questions on the return."
                   />
                 }
               />
