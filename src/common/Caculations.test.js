@@ -21,6 +21,11 @@ describe("Penalty Calculation", () => {
     const actual = CalculatePenalty(100);
     expect(actual).toEqual(10);
   });
+
+  test("should return the proper penalty based on the manually specified penalty fee", () => {
+    const actual = CalculatePenalty(100, 0.095);
+    expect(actual).toEqual(9.5);
+  });
 });
 
 describe("Get Calculated Totals", () => {
