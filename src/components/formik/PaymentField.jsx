@@ -1,28 +1,21 @@
 import { Field, connect } from "formik";
 import React, { useState } from "react";
 
-import CurrencyInput from "./CurrencyInput";
+import CurrencyInput from "../CurrencyInput";
 import ErrorMessage from "./ErrorMessage";
-import PaymentLabel from "./PaymentLabel";
+import PaymentLabel from "../PaymentLabel";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
 const CustomInputComponent = ({
-  field, // { name, value, onChange, onBlur }
+  field: { name, value: formValue }, // { name, value, onChange, onBlur }
   form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { name } = field;
-  const {
-    autoFocus,
-    className,
-    isNegativeValue,
-    label,
-    value: valueFromProps
-  } = props;
+  const { className, isNegativeValue, label, autoFocus } = props;
   const month = props.date.getMonth();
   const { setFieldValue } = form;
-  const [value, setValue] = useState(Math.abs(valueFromProps));
+  const [value, setValue] = useState(Math.abs(formValue));
   const cssClasses = classnames(
     "tt_form-group flex-end total input",
     className

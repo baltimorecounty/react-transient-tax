@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
-import Field from "../Field";
+import Field from "../formik/Field";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import InformationModal from "../InformationModal";

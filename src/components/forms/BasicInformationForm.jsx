@@ -3,9 +3,9 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 
-import AddressLookupField from "../../components/AddressLookupField";
+import AddressLookupField from "../../components/formik/AddressLookupField";
 import BasicErrorMessage from "../BasicErrorMessage";
-import Field from "../Field";
+import Field from "../formik/Field";
 import PromptIfDirty from "../PromptIfDirty";
 import { VerifyAddress } from "../../services/ApiService";
 

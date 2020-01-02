@@ -5,7 +5,7 @@ import { Labels, LabelsWithNotes } from "../../common/Constants";
 
 import { AddOrUpdate } from "../../common/ArrayUtilities";
 import { GetCalculatedTotals } from "../../common/Calculations";
-import PaymentField from "../../components/PaymentField";
+import PaymentField from "../../components/formik/PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
@@ -87,7 +87,6 @@ const MonthlyPaymentForm = props => {
                 name="grossRentalCollected"
                 label={Labels.GrossOccupancy}
                 date={date}
-                value={grossRentalCollected}
                 autoFocus
               />
             </div>
@@ -99,7 +98,6 @@ const MonthlyPaymentForm = props => {
                 label={LabelsWithNotes.NonTransientsRentalCollected}
                 date={date}
                 className="tt_subtotal-item"
-                value={nonTransientRentalCollected}
               />
               <PaymentField
                 isNegativeValue={true}
@@ -107,7 +105,6 @@ const MonthlyPaymentForm = props => {
                 label={Labels.ExemptionOption2}
                 date={date}
                 className="tt_subtotal-item"
-                value={governmentExemptRentalCollected}
               />
               <PaymentTotal
                 name="exemptionTotal"
