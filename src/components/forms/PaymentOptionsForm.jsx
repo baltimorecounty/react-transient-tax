@@ -27,14 +27,6 @@ const PaymentOptionsForm = props => {
     monthsToReport: monthsToReportFromFormik
   } = formik.values;
 
-  /** Reset these values, as they do not apply when interval changes */
-  const resetGlobalFormValues = () => {
-    formik.setFieldValue("monthlyData", []);
-    formik.setFieldValue("exemptions", []);
-    formik.setFieldValue("monthsToReport", {});
-    formik.setFieldValue("returnStatus", {});
-  };
-
   return (
     <Formik
       initialValues={initialValues}
@@ -60,12 +52,6 @@ const PaymentOptionsForm = props => {
       {({ values, setFieldValue }) => {
         const { paymentInterval } = values;
 
-        const handlePaymentIntervalChange = () => {
-          setFieldValue("monthsToReport", {});
-          setFieldValue("returnStatus", {});
-          resetGlobalFormValues();
-        };
-
         return (
           <Form>
             <PromptIfDirty />
@@ -73,7 +59,6 @@ const PaymentOptionsForm = props => {
               <RadioButtonListField
                 name="paymentInterval"
                 items={filingTypes}
-                onChange={handlePaymentIntervalChange}
                 label={PaymentLabel}
                 note={PaymentNote}
               />
@@ -82,7 +67,6 @@ const PaymentOptionsForm = props => {
                   <ReturnDateSelectorField
                     name="monthsToReport"
                     id="payment-options-date-selector"
-                    paymentInterval={values.paymentInterval}
                     filingTypes={filingTypes}
                   />
                   <ErrorMessage name="monthsToReport" />

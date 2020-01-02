@@ -16,11 +16,11 @@ const ReturnDateSelector = ({
   field: { name, value: formValue = {} }, // { name, value, onChange, onBlur }
   form: {
     setFieldValue,
-    values: { returnStatus: formReturnStatus = {} }
+    values: { returnStatus: formReturnStatus = {}, paymentInterval }
   }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { id, paymentInterval, filingTypes } = props;
+  const { id, filingTypes } = props;
   const [months, setMonths] = useState(formValue);
   const [returnStatus, setReturnStatus] = useState(formReturnStatus);
   const [dateInputValue, setDateInputValue] = useState(months[0] || null);
