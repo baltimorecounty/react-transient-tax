@@ -49,6 +49,7 @@ const DateRangeSelector = props => {
           selected={fromDate}
           onChange={handleFromDateChange}
           onClickOutside={() => onClick(null, fromDateId)}
+          maxDate={addDays(toDate, -1)}
           selectsStart
         />
       </div>
