@@ -1,9 +1,10 @@
+import React, { useState } from "react";
+
 import DatePicker from "react-datepicker";
 import { Field } from "formik";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { GetIdByDescription } from "../../common/LookupUtilities";
 import PropTypes from "prop-types";
-import React from "react";
 import ReturnStatus from "../ReturnStatus";
 import { addMonths } from "date-fns";
 import useReturnInterval from "../hooks/useReturnInterval";
@@ -13,12 +14,14 @@ const ReturnDateSelector = ({
   form: { setFieldValue, values }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { monthsToReport } = values;
+  const { monthsToReport = {} } = values;
   const { id, paymentInterval, filingTypes } = props;
+
   const [{ months, returnStatus }, setInterval] = useReturnInterval({
     monthsToReport,
     setFieldValue
   });
+  const [dateInputValue, setDateInputValue] = useState(months[0] || null);
   const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
   const isQuarterly = parseInt(paymentInterval) === quarterlyId;
   const hasStatus = Object.keys(returnStatus).length > 0;
@@ -28,6 +31,7 @@ const ReturnDateSelector = ({
    * @param {date} date js date object for selected month and
    */
   const handleDateChange = date => {
+    setDateInputValue(date);
     if (!date) {
       return {};
     }
@@ -56,7 +60,7 @@ const ReturnDateSelector = ({
         </label>
         <DatePicker
           id={id}
-          selected={months[0] || monthsToReport[0]}
+          selected={dateInputValue}
           onChange={handleDateChange}
           startDate={new Date()}
           dateFormat="MM/yyyy"
