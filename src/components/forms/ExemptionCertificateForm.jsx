@@ -23,7 +23,10 @@ const ExemptionCertificateForm = props => {
     <Formik
       initialValues={initialValues}
       onSubmit={values => {
-        onValidSubmission(values);
+        const { isExemptionFormDirty } = values;
+        if ( isExemptionFormDirty || isExemptionFormDirty === undefined ) {
+          onValidSubmission(values);
+        }
       }}
       validationSchema={Yup.object({
         exemptions: Yup.array().when(
