@@ -12,11 +12,11 @@ import PropTypes from "prop-types";
 import ReturnStatus from "../ReturnStatus";
 
 const ReturnDateSelector = ({
-  field: { name, value: months = {} }, // { name, value, onChange, onBlur }
-  form: {
-    setFieldValue,
-    values: { returnStatus = {}, intervalDate = months[0] }
-  }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  field: {
+    name,
+    value: { months = {}, returnStatus = {}, intervalDate = "" }
+  }, // { name, value, onChange, onBlur }
+  form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
   const { id, isQuarterly } = props;
@@ -30,9 +30,11 @@ const ReturnDateSelector = ({
     const newMonths = { ...GetMonths(date, isQuarterly) };
     const newReturnStatus = { ...GetStatus(newMonths) };
 
-    setFieldValue("intervalDate", date);
-    setFieldValue(name, newMonths);
-    setFieldValue("returnStatus", newReturnStatus);
+    setFieldValue(name, {
+      months: newMonths,
+      returnStatus: newReturnStatus,
+      intervalDate: date
+    });
   };
 
   return (

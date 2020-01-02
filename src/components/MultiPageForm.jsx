@@ -62,8 +62,6 @@ const MultiPageForm = props => {
             isActiveStep
           } = activeStepDetails;
 
-          console.log("rendering form");
-
           if (currentStepIndex !== 0 && hasNoValues) {
             return <Redirect to="/steps/basic-information" />;
           }

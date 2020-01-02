@@ -35,17 +35,18 @@ const PaymentOptionsForm = props => {
     <Formik
       initialValues={initialValues}
       onSubmit={values => {
-        const { paymentInterval, monthsToReport } = values;
+        const {
+          paymentInterval,
+          monthsToReport: { months }
+        } = values;
         const hasChange =
           paymentInterval !== intervalFromFormik ||
-          monthsToReport !== monthsToReportFromFormik;
+          months !== monthsToReportFromFormik;
 
         if (hasChange) {
           formik.setFieldValue(
             "monthlyData",
-            Object.keys(monthsToReport).length > 0
-              ? BuildMonthlyData(monthsToReport)
-              : {}
+            Object.keys(months).length > 0 ? BuildMonthlyData(months) : {}
           );
         }
 
@@ -58,15 +59,20 @@ const PaymentOptionsForm = props => {
         monthsToReport: Yup.mixed().test(
           "has-months",
           "A date must be selected before you can proceed.",
-          value => console.log(value) || Object.keys(value).length > 0
+          value => Object.keys(value).length > 0
         )
       })}
     >
-      {({ values, setFieldValue }) => {
+      {({ values, setValues }) => {
         const { paymentInterval } = values;
         const isQuarterly = paymentInterval === quarterlyId;
 
-        console.log(values.monthsToReport);
+        const handlePaymentIntervalChange = () => {
+          //   setValues({
+          //     monthsToReport: {},
+          //     returnStatus: {}
+          //   });
+        };
 
         return (
           <Form>
@@ -77,6 +83,7 @@ const PaymentOptionsForm = props => {
                 items={filingTypes}
                 label={PaymentLabel}
                 note={PaymentNote}
+                onChange={handlePaymentIntervalChange}
               />
               {paymentInterval && (
                 <React.Fragment>

@@ -24,7 +24,8 @@ const MonthlyPaymentForm = props => {
 
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
-  const { value: monthsLate = 0 } = formik.values.returnStatus;
+  const { returnStatus: { value: monthsLate = 0 } = {} } =
+    formik.values.monthsToReport || {};
   const existingValues = getExistingValues(
     formik.values.monthlyData,
     data => data.year === year && data.month === month
