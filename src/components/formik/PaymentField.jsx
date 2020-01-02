@@ -8,15 +8,14 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 
 const CustomInputComponent = ({
-  field, // { name, value, onChange, onBlur }
+  field: { name, value: formValue }, // { name, value, onChange, onBlur }
   form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { name } = field;
-  const { className, isNegativeValue, label, value: valueFromProps } = props;
+  const { className, isNegativeValue, label } = props;
   const month = props.date.getMonth();
   const { setFieldValue } = form;
-  const [value, setValue] = useState(Math.abs(valueFromProps));
+  const [value, setValue] = useState(Math.abs(formValue));
   const cssClasses = classnames(
     "tt_form-group flex-end total input",
     className
