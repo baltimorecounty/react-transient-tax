@@ -1,7 +1,9 @@
 import {
   CalculateInterest,
   CalculatePenalty,
-  CalculateTaxCollected
+  CalculateTaxCollected,
+  GetTotalsForMonth,
+  SumTotals
 } from "../common/Calculations";
 import {
   GetDueDateStatus,
@@ -13,47 +15,6 @@ import { FormatCurrency } from "../common/FormatUtilities";
 import { format } from "date-fns";
 
 const dateFormat = "MMMM yyyy";
-const sumReducer = (accumulator, currentValue) => accumulator + currentValue;
-
-/**
- * Get totals for a month for any number of fields available in the monthly data object
- * @param {array} monthlyData list of objects that contain monthly data
- * @param {array} keys list of keys you wish to use to calculate total
- */
-const getTotalsForMonth = (monthlyData = [], keys = []) => {
-  const monthlyTotals = monthlyData.map(data => {
-    let sum = 0;
-    keys.forEach(key => {
-      sum += data[key] || 0;
-    });
-    return sum;
-  });
-  const shouldAddTotal = monthlyData.length === 3;
-
-  if (shouldAddTotal) {
-    monthlyTotals.push(monthlyTotals.reduce(sumReducer));
-  }
-
-  return monthlyTotals;
-};
-
-/**
- * Sum any number of arrays at each index
- * @param {array} arrays list of arrays that contain numbers
- * Ex. [0, 1] and [1, 2] would return [1, 3]
- * See https://stackoverflow.com/questions/24094466/javascript-sum-two-arrays-in-single-iteration
- * @returns {array} totals for the summed arrays
- */
-const sumTotals = (totals = []) => {
-  const maxNumberOfItems = totals.reduce(
-    (max, xs) => Math.max(max, xs.length),
-    0
-  );
-  const result = Array.from({ length: maxNumberOfItems });
-  return result.map((_, i) =>
-    totals.map(xs => xs[i] || 0).reduce((sum, x) => sum + x, 0)
-  );
-};
 
 /**
  * Gets required date information from a tax return
@@ -181,16 +142,16 @@ const MapResponseDataForTaxReturn = taxReturn => {
     monthsSubmitted.push("Total");
   }
 
-  const occupancyTaxCollected = getTotalsForMonth(monthlyData, [
+  const occupancyTaxCollected = GetTotalsForMonth(monthlyData, [
     "grossRentalCollected"
   ]);
 
-  const exemptions = getTotalsForMonth(monthlyData, [
+  const exemptions = GetTotalsForMonth(monthlyData, [
     "governmentExemptRentalCollected",
     "nonTransientRentalCollected"
   ]);
 
-  const netRoomRentals = sumTotals([occupancyTaxCollected, exemptions]);
+  const netRoomRentals = SumTotals([occupancyTaxCollected, exemptions]);
 
   const taxCollected = netRoomRentals.map(CalculateTaxCollected);
 
@@ -202,7 +163,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
     isLate ? CalculatePenalty(tax) : 0
   );
 
-  const taxRemitted = sumTotals([
+  const taxRemitted = SumTotals([
     taxCollected,
     interestCollected,
     penaltiesCollected
