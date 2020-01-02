@@ -11,7 +11,10 @@ const ReviewFormPanel = props => {
   const { submitButton, prevButton, history, formik } = props;
 
   const { values } = formik;
-  const { returnStatus: { dueDate } = {}, paymentInterval } = values;
+  const {
+    returnStatus: { dueDate } = {},
+    paymentInterval
+  } = values.monthsToReport;
 
   const handleSubmit = () => {
     setIsSubmitting(true);

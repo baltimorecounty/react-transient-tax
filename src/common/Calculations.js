@@ -35,7 +35,7 @@ const CalculateTaxCollected = netRoomRentalCollections =>
  * @param {number} monthsLate number of months tardy on payment, this will determine if penalty and interest is charged
  * @returns {object} an object containing all the desired totals
  */
-const GetCalculatedTotals = (fields = {}, monthsLate = 0) => {
+const GetCalculatedTotals = (fields = {}, monthsLate = 0, isLate) => {
   const {
     grossRentalCollected,
     nonTransientRentalCollected,
@@ -51,7 +51,7 @@ const GetCalculatedTotals = (fields = {}, monthsLate = 0) => {
   let transientPenalty = 0;
   let totalInterestAndPenalties = 0;
 
-  if (monthsLate) {
+  if (isLate) {
     transientInterest = CalculateInterest(transientTaxCollected, monthsLate);
     transientPenalty = CalculatePenalty(transientTaxCollected);
     totalInterestAndPenalties = transientInterest + transientPenalty;

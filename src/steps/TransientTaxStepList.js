@@ -70,12 +70,15 @@ const removeExistingPaymentFormSteps = stepList => {
  * @param {StepList} stepList
  * @param {object} currentFormValues formik values for the current step form
  */
-const onPaymentSelectionSubmission = (stepList, { monthsToReport }) => {
+const onPaymentSelectionSubmission = (
+  stepList,
+  { monthsToReport: { months = {} } }
+) => {
   removeExistingPaymentFormSteps(stepList);
 
   let stepToInsertAfter = "payment-selection";
-  Object.keys(monthsToReport).forEach((monthKey, monthIndex) => {
-    const date = monthsToReport[monthKey];
+  Object.keys(months).forEach((monthKey, monthIndex) => {
+    const date = months[monthKey];
     const friendlyDate = format(date, "MMMM yyyy");
     const id = `payment-form-${friendlyDate.replace(/\s/g, "")}`;
     const step = new Step({
@@ -146,8 +149,11 @@ const steps = [
     panelGroupId: 2,
     initialValues: {
       paymentInterval: "",
-      monthsToReport: {},
-      returnStatus: {}
+      monthsToReport: {
+        months: {},
+        returnStatus: {},
+        intervalDate: ""
+      }
     }
   }),
   new Step({
