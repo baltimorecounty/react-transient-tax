@@ -63,15 +63,20 @@ const PaymentOptionsForm = props => {
         )
       })}
     >
-      {({ values, setValues }) => {
+      {({ values, setFieldValue }) => {
         const { paymentInterval } = values;
         const isQuarterly = paymentInterval === quarterlyId;
 
-        const handlePaymentIntervalChange = () => {
-          //   setValues({
-          //     monthsToReport: {},
-          //     returnStatus: {}
-          //   });
+        const handleIntervalChange = () => {
+          setFieldValue(
+            "monthsToReport",
+            {
+              months: {},
+              returnStatus: {},
+              intervalDate: null
+            },
+            false
+          );
         };
 
         return (
@@ -83,7 +88,7 @@ const PaymentOptionsForm = props => {
                 items={filingTypes}
                 label={PaymentLabel}
                 note={PaymentNote}
-                onChange={handlePaymentIntervalChange}
+                onChange={handleIntervalChange}
               />
               {paymentInterval && (
                 <React.Fragment>
