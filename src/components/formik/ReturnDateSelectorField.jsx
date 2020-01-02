@@ -69,8 +69,10 @@ const ReturnDateSelector = ({
 };
 
 ReturnDateSelector.propTypes = {
-  /** 'monthly' or 'quarterly' which allows us to control the ui accordingly  */
-  paymentInterval: PropTypes.number
+  /** unique id to identify the field */
+  id: PropTypes.string,
+  /** tell us if the interval is quarterly which allows us to control the ui accordingly  */
+  isQuarterly: PropTypes.bool
 };
 
 const ReturnDateSelectorField = props => (
