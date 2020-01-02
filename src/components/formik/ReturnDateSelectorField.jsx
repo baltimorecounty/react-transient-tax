@@ -15,12 +15,11 @@ const ReturnDateSelector = ({
   field: { name, value: months = {} }, // { name, value, onChange, onBlur }
   form: {
     setFieldValue,
-    values: { returnStatus = {} }
+    values: { returnStatus = {}, intervalDate = months[0] }
   }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
   const { id, isQuarterly } = props;
-  const [dateInputValue, setDateInputValue] = useState(months[0] || null);
   const hasStatus = Object.keys(returnStatus).length > 0;
 
   /**
@@ -28,11 +27,10 @@ const ReturnDateSelector = ({
    * @param {date} date js date object for selected month and
    */
   const handleDateChange = date => {
-    setDateInputValue(date);
-
     const newMonths = { ...GetMonths(date, isQuarterly) };
     const newReturnStatus = { ...GetStatus(newMonths) };
 
+    setFieldValue("intervalDate", date);
     setFieldValue(name, newMonths);
     setFieldValue("returnStatus", newReturnStatus);
   };
@@ -49,7 +47,7 @@ const ReturnDateSelector = ({
         <DatePicker
           name={name}
           id={id}
-          selected={dateInputValue}
+          selected={intervalDate}
           onChange={handleDateChange}
           startDate={months[0] || new Date()}
           dateFormat="MM/yyyy"

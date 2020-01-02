@@ -58,13 +58,15 @@ const PaymentOptionsForm = props => {
         monthsToReport: Yup.mixed().test(
           "has-months",
           "A date must be selected before you can proceed.",
-          value => Object.keys(value).length > 0
+          value => console.log(value) || Object.keys(value).length > 0
         )
       })}
     >
       {({ values, setFieldValue }) => {
         const { paymentInterval } = values;
         const isQuarterly = paymentInterval === quarterlyId;
+
+        console.log(values.monthsToReport);
 
         return (
           <Form>
