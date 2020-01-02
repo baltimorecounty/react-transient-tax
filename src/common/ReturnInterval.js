@@ -22,6 +22,10 @@ const BuildMonthlyData = (months = {}) =>
  * @returns if quarterly an object with 3 properties, if monthly an object with one property
  */
 const GetMonths = (date, isQuarterly) => {
+  if (!date) {
+    return {};
+  }
+
   let newMonths = { 0: date };
   // If this is a quarterly report, assume the next two months but leave them editable
   if (isQuarterly) {

@@ -1,6 +1,12 @@
 import { GetMonths } from "./ReturnInterval";
 
 describe("GetMonths", () => {
+  test("should return any empty object if not date is specified", () => {
+    const actual = GetMonths(null, false);
+
+    expect(actual).toEqual({});
+  });
+
   test("should return the object with one property if a monthly submission", () => {
     const date = new Date(2019, 1, 1);
     const actual = GetMonths(date, false);
