@@ -1,14 +1,10 @@
-import {
-  BuildMonthlyData,
-  GetMonths,
-  GetStatus
-} from "../../common/ReturnInterval";
-import React, { useState } from "react";
+import { GetMonths, GetStatus } from "../../common/ReturnInterval";
 
 import DatePicker from "react-datepicker";
 import { Field } from "formik";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import PropTypes from "prop-types";
+import React from "react";
 import ReturnStatus from "../ReturnStatus";
 
 const ReturnDateSelector = ({
