@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
+import { BuildMonthlyData } from "../../common/ReturnInterval";
 import ErrorMessage from "../formik/ErrorMessage";
 import { GetIdByDescription } from "../../common/LookupUtilities";
 import { PaymentDirections } from "../../common/Constants";
@@ -38,6 +39,15 @@ const PaymentOptionsForm = props => {
         const hasChange =
           paymentInterval !== intervalFromFormik ||
           monthsToReport !== monthsToReportFromFormik;
+
+        if (hasChange) {
+          formik.setFieldValue(
+            "monthlyData",
+            Object.keys(monthsToReport).length > 0
+              ? BuildMonthlyData(monthsToReport)
+              : {}
+          );
+        }
 
         onValidSubmission(values, hasChange);
       }}
