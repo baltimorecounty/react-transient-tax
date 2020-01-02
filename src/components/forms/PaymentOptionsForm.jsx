@@ -59,7 +59,7 @@ const PaymentOptionsForm = props => {
         monthsToReport: Yup.mixed().test(
           "has-months",
           "A date must be selected before you can proceed.",
-          value => Object.keys(value).length > 0
+          ({ months = {} }) => Object.keys(months).length > 0
         )
       })}
     >
