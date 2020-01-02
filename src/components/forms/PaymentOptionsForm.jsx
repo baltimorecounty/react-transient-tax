@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 
 import ErrorMessage from "../formik/ErrorMessage";
+import { GetIdByDescription } from "../../common/LookupUtilities";
 import { PaymentDirections } from "../../common/Constants";
 import PromptIfDirty from "../PromptIfDirty";
 import RadioButtonListField from "../../components/formik/RadioButtonListField";
@@ -14,6 +15,8 @@ const { PaymentLabel, PaymentNote } = PaymentDirections;
 
 const PaymentOptionsForm = props => {
   const filingTypes = useFilingTypes();
+  const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
+
   const {
     nextButton,
     prevButton,
@@ -51,6 +54,7 @@ const PaymentOptionsForm = props => {
     >
       {({ values, setFieldValue }) => {
         const { paymentInterval } = values;
+        const isQuarterly = paymentInterval === quarterlyId;
 
         return (
           <Form>
@@ -67,7 +71,7 @@ const PaymentOptionsForm = props => {
                   <ReturnDateSelectorField
                     name="monthsToReport"
                     id="payment-options-date-selector"
-                    filingTypes={filingTypes}
+                    isQuarterly={isQuarterly}
                   />
                   <ErrorMessage name="monthsToReport" />
                 </React.Fragment>

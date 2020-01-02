@@ -8,7 +8,6 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Field } from "formik";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
-import { GetIdByDescription } from "../../common/LookupUtilities";
 import PropTypes from "prop-types";
 import ReturnStatus from "../ReturnStatus";
 
@@ -20,12 +19,10 @@ const ReturnDateSelector = ({
   }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { id, filingTypes } = props;
+  const { id, isQuarterly } = props;
   const [months, setMonths] = useState(formValue);
   const [returnStatus, setReturnStatus] = useState(formReturnStatus);
   const [dateInputValue, setDateInputValue] = useState(months[0] || null);
-  const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
-  const isQuarterly = parseInt(paymentInterval) === quarterlyId;
   const hasStatus = Object.keys(returnStatus).length > 0;
 
   /**
