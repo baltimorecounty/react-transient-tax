@@ -42,9 +42,10 @@ const getDateInformation = ({
   const { isLate, value: monthsLate } = dueDate
     ? GetDueDateStatus(dueDate, new Date(DateSubmitted))
     : {};
+
   const monthsSubmitted = monthlyData.map(
     ({ month = 0, year = 0 }) =>
-      `${format(new Date(year, month, 1), dateFormat)}`
+      `${format(new Date(year, month - 1, 1), dateFormat)}`
   );
 
   return {
