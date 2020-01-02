@@ -44,7 +44,7 @@ const GetMonths = (date, isQuarterly) => {
  * @param {object} months if quarterly an object with 3 properties, if monthly an object with one property
  * @returns an object with import information about the months provided
  */
-const GetStatus = months => {
+const GetStatus = (months = {}) => {
   const isIntervalSelected = Object.keys(months).length > 0;
   if (isIntervalSelected) {
     const lastFilingMonth = months[Object.keys(months).length - 1];

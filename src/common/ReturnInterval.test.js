@@ -1,4 +1,4 @@
-import { GetMonths } from "./ReturnInterval";
+import { GetMonths, GetStatus } from "./ReturnInterval";
 
 describe("GetMonths", () => {
   test("should return any empty object if not date is specified", () => {
@@ -25,5 +25,12 @@ describe("GetMonths", () => {
       1: new Date(2019, 2, 1),
       2: new Date(2019, 3, 1)
     });
+  });
+});
+
+describe("GetStatus", () => {
+  test("should return an empty object if not months are specified", () => {
+    const actual = GetStatus();
+    expect(actual).toEqual({});
   });
 });
