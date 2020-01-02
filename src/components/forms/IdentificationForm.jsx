@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
-import Field from "../Field";
+import Field from "../formik/Field";
 import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import InformationModal from "../InformationModal";
@@ -56,12 +56,7 @@ const IdentificationForm = props => {
                   name="tradeAlias"
                   type="text"
                   label="Trade Alias"
-                  infoComponent={
-                    <InformationModal
-                      title="Trade Alias"
-                      content="Trade Alias is an optional field that..."
-                    />
-                  }
+                  autoFocus
                 />
               ) : null}
               <Field
@@ -75,6 +70,7 @@ const IdentificationForm = props => {
                     content="We need to associate a name with a business in the case we have any follow up questions on the return."
                   />
                 }
+                autoFocus={!showTradeAlias}
               />
               <Field
                 id="titleOfSubmitter"

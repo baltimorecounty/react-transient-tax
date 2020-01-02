@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import AddressLookupDebouncedInput from "./AddressLookupDebouncedInput";
+import AddressLookupDebouncedInput from "../AddressLookupDebouncedInput";
 import Autocomplete from "react-autocomplete";
 import ErrorMessage from "./ErrorMessage";
 import { Field } from "formik";
-import { GetAddresses } from "../services/ApiService";
+import { GetAddresses } from "../../services/ApiService";
 import PropTypes from "prop-types";
 
 const CustomInputComponent = ({
@@ -13,11 +13,12 @@ const CustomInputComponent = ({
   ...props
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const { label, minLength = 0 } = props;
+  const { label, minLength = 0, onChange = () => {} } = props;
   const [Address, setItems] = useState([]);
   const [wasSelected, setWasSelected] = useState(false);
 
   const handleAddressChange = changeEvent => {
+    onChange(changeEvent);
     /** HACK - Ensure Address is not triggered on first re-render,
      * so we can populate initial values, without setting the from to dirty. */
     if (!isMounted) {

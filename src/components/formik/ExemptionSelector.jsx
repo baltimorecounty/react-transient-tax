@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import BasicErrorMessage from "./BasicErrorMessage";
+import BasicErrorMessage from "../BasicErrorMessage";
 import DateRangeSelector from "./DateRangeSelector";
 import { Field } from "formik";
-import { FormHints } from "../common/Constants";
-import { GetExemptionFormErrors } from "../common/ExemptionUtilities";
-import { GetExemptionTypes } from "../services/ApiService";
-import { RadioButton } from "../common/RadioButton";
+import { FormHints } from "../../common/Constants";
+import { GetExemptionFormErrors } from "../../common/ExemptionUtilities";
+import { GetExemptionTypes } from "../../services/ApiService";
+import { RadioButton } from "../../common/RadioButton";
 
 const ExemptionSelector = props => {
   const {
@@ -93,7 +93,7 @@ const ExemptionSelector = props => {
     <p>Loading Exemption Form...</p>
   ) : (
     <div className="tt_exemption-selector">
-      {exemptionTypes.map(exemptionType => {
+      {exemptionTypes.map((exemptionType, index) => {
         const { Id: type, Description: label } = exemptionType;
         const hint =
           label.toLowerCase() === "non-transient" ? FormHints.NonTransient : "";
@@ -113,6 +113,7 @@ const ExemptionSelector = props => {
             value={type}
             onChange={handleChange}
             checked={exemption.type === type}
+            autoFocus={index === 0}
             onClick={handleFieldClick}
           />
         );

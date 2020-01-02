@@ -1,7 +1,8 @@
 import {
   CalculateInterest,
   CalculatePenalty,
-  GetCalculatedTotals
+  GetCalculatedTotals,
+  SumTotals
 } from "./Calculations";
 
 describe("Interest Calculation", () => {
@@ -131,5 +132,12 @@ describe("Get Calculated Totals", () => {
     expect(transientPenalty).toBeCloseTo(0.95, 5);
     expect(totalInterestAndPenalties).toEqual(1.71);
     expect(monthlyTaxRemitted).toEqual(11.21);
+  });
+});
+
+describe("Sum Totals", () => {
+  test("should be precise to two digits ", () => {
+    const actual = SumTotals([[9.5], [0.9500000000000001], [0.665]]);
+    expect(actual).toEqual([11.12]);
   });
 });

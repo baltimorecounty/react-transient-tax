@@ -5,7 +5,7 @@ import { Labels, LabelsWithNotes } from "../../common/Constants";
 
 import { AddOrUpdate } from "../../common/ArrayUtilities";
 import { GetCalculatedTotals } from "../../common/Calculations";
-import PaymentField from "../../components/PaymentField";
+import PaymentField from "../../components/formik/PaymentField";
 import PaymentTotal from "../PaymentTotal";
 import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
@@ -24,7 +24,9 @@ const MonthlyPaymentForm = props => {
 
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
-  const { monthsLate = 0 } = formik.values;
+  const { returnStatus: { isLate, value: monthsLate = 0 } = {} } =
+    formik.values.monthsToReport || {};
+
   const existingValues = getExistingValues(
     formik.values.monthlyData,
     data => data.year === year && data.month === month
@@ -76,7 +78,8 @@ const MonthlyPaymentForm = props => {
             nonTransientRentalCollected,
             governmentExemptRentalCollected
           },
-          monthsLate
+          monthsLate,
+          isLate
         );
 
         return (
@@ -87,7 +90,7 @@ const MonthlyPaymentForm = props => {
                 name="grossRentalCollected"
                 label={Labels.GrossOccupancy}
                 date={date}
-                value={grossRentalCollected}
+                autoFocus
               />
             </div>
             <div className="tt_form-section">
@@ -98,7 +101,6 @@ const MonthlyPaymentForm = props => {
                 label={LabelsWithNotes.NonTransientsRentalCollected}
                 date={date}
                 className="tt_subtotal-item"
-                value={nonTransientRentalCollected}
               />
               <PaymentField
                 isNegativeValue={true}
@@ -106,7 +108,6 @@ const MonthlyPaymentForm = props => {
                 label={Labels.ExemptionOption2}
                 date={date}
                 className="tt_subtotal-item"
-                value={governmentExemptRentalCollected}
               />
               <PaymentTotal
                 name="exemptionTotal"

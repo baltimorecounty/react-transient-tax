@@ -88,9 +88,55 @@ const GetCalculatedTotals = (
   };
 };
 
+const sumReducer = (accumulator, currentValue) => accumulator + currentValue;
+
+/**
+ * Get totals for a month for any number of fields available in the monthly data object
+ * @param {array} monthlyData list of objects that contain monthly data
+ * @param {array} keys list of keys you wish to use to calculate total
+ */
+const GetTotalsForMonth = (monthlyData = [], keys = []) => {
+  const monthlyTotals = monthlyData.map(data => {
+    let sum = 0;
+    keys.forEach(key => {
+      sum += data[key] || 0;
+    });
+    return sum;
+  });
+  const shouldAddTotal = monthlyData.length === 3;
+
+  if (shouldAddTotal) {
+    monthlyTotals.push(monthlyTotals.reduce(sumReducer));
+  }
+
+  return monthlyTotals;
+};
+
+/**
+ * Sum any number of arrays at each index
+ * @param {array} arrays list of arrays that contain numbers
+ * Ex. [0, 1] and [1, 2] would return [1, 3]
+ * See https://stackoverflow.com/questions/24094466/javascript-sum-two-arrays-in-single-iteration
+ * @returns {array} totals for the summed arrays
+ */
+const SumTotals = (totals = []) => {
+  const maxNumberOfItems = totals.reduce(
+    (max, xs) => Math.max(max, xs.length),
+    0
+  );
+  const result = Array.from({ length: maxNumberOfItems });
+  return result.map((_, i) =>
+    totals
+      .map(xs => xs[i] || 0)
+      .reduce((sum, x) => sum + Math.round(x * 100) / 100, 0)
+  );
+};
+
 export {
   CalculateInterest,
   CalculatePenalty,
   CalculateTaxCollected,
-  GetCalculatedTotals
+  GetCalculatedTotals,
+  GetTotalsForMonth,
+  SumTotals
 };

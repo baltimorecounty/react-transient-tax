@@ -3,9 +3,9 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 
-import AddressLookupField from "../../components/AddressLookupField";
+import AddressLookupField from "../../components/formik/AddressLookupField";
 import BasicErrorMessage from "../BasicErrorMessage";
-import Field from "../Field";
+import Field from "../formik/Field";
 import PromptIfDirty from "../PromptIfDirty";
 import { VerifyAddress } from "../../services/ApiService";
 
@@ -22,6 +22,10 @@ const BasicInformationForm = props => {
     } catch (ex) {
       return null;
     }
+  };
+
+  const handleAddressChange = () => {
+    setIsValidAddressMessage("");
   };
 
   return (
@@ -59,12 +63,14 @@ const BasicInformationForm = props => {
               name="businessName"
               type="text"
               label="Business Name"
+              autoFocus
             />
             <AddressLookupField
               id="businessAddress"
               name="businessAddress"
               label="Business Address"
               minLength={3}
+              onChange={handleAddressChange}
             />
             {isValidAddressMessage && (
               <BasicErrorMessage message={isValidAddressMessage} />

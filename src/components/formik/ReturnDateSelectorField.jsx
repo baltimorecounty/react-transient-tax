@@ -1,26 +1,21 @@
+import { GetMonths, GetStatus } from "../../common/ReturnInterval";
+
 import DatePicker from "react-datepicker";
 import { Field } from "formik";
-import { GetFormatedDateTime } from "../common/DatesUtilities";
-import { GetIdByDescription } from "../common/LookupUtilities";
+import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import PropTypes from "prop-types";
 import React from "react";
-import ReturnStatus from "./ReturnStatus";
-import { addMonths } from "date-fns";
-import useReturnInterval from "./hooks/useReturnInterval";
+import ReturnStatus from "../ReturnStatus";
 
 const ReturnDateSelector = ({
-  field, // { name, value, onChange, onBlur }
-  form: { setFieldValue, values }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  field: {
+    name,
+    value: { months = {}, returnStatus = {}, intervalDate = months[0] || null }
+  }, // { name, value, onChange, onBlur }
+  form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { monthsToReport } = values;
-  const { id, paymentInterval, filingTypes } = props;
-  const [{ months, returnStatus }, setInterval] = useReturnInterval({
-    monthsToReport,
-    setFieldValue
-  });
-  const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
-  const isQuarterly = parseInt(paymentInterval) === quarterlyId;
+  const { id, isQuarterly } = props;
   const hasStatus = Object.keys(returnStatus).length > 0;
 
   /**
@@ -28,17 +23,14 @@ const ReturnDateSelector = ({
    * @param {date} date js date object for selected month and
    */
   const handleDateChange = date => {
-    let newMonths = { 0: date };
-    // If this is a quarterly report, assume the next two months but leave them editable
-    if (isQuarterly) {
-      const nextMonth = addMonths(date, 1);
-      const finalMonthInQuarter = addMonths(date, 2);
+    const newMonths = { ...GetMonths(date, isQuarterly) };
+    const newReturnStatus = { ...GetStatus(newMonths) };
 
-      newMonths[1] = nextMonth;
-      newMonths[2] = finalMonthInQuarter;
-    }
-
-    setInterval({ ...newMonths });
+    setFieldValue(name, {
+      months: newMonths,
+      returnStatus: newReturnStatus,
+      intervalDate: date
+    });
   };
 
   return (
@@ -51,12 +43,12 @@ const ReturnDateSelector = ({
             : " the month of your return"}
         </label>
         <DatePicker
+          name={name}
           id={id}
-          selected={months[0] || monthsToReport[0]}
+          selected={intervalDate}
           onChange={handleDateChange}
-          startDate={new Date()}
+          startDate={months[0] || new Date()}
           dateFormat="MM/yyyy"
-          monthsToReport={months}
           showMonthYearPicker
         />
       </div>
@@ -77,8 +69,10 @@ const ReturnDateSelector = ({
 };
 
 ReturnDateSelector.propTypes = {
-  /** 'monthly' or 'quarterly' which allows us to control the ui accordingly  */
-  paymentInterval: PropTypes.number
+  /** unique id to identify the field */
+  id: PropTypes.string,
+  /** tell us if the interval is quarterly which allows us to control the ui accordingly  */
+  isQuarterly: PropTypes.bool
 };
 
 const ReturnDateSelectorField = props => (
