@@ -35,7 +35,6 @@ const ReturnDateSelector = ({
     const newMonths = { ...GetMonths(date, isQuarterly) };
     const hasMonths = Object.keys(newMonths).length > 0;
     const newReturnStatus = { ...GetStatus(newMonths) };
-    const { isLate, value } = newReturnStatus;
 
     setMonths(newMonths);
     setReturnStatus(newReturnStatus);
@@ -43,7 +42,6 @@ const ReturnDateSelector = ({
     setFieldValue(name, newMonths);
     setFieldValue("returnStatus", newReturnStatus);
     setFieldValue("monthlyData", hasMonths ? BuildMonthlyData(newMonths) : {});
-    setFieldValue("monthsLate", hasMonths ? (isLate ? value : 0) : null);
   };
 
   return (
