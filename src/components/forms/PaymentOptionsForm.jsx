@@ -43,14 +43,10 @@ const PaymentOptionsForm = props => {
           paymentInterval !== intervalFromFormik ||
           months !== monthsToReportFromFormik;
 
-        if (hasChange) {
-          formik.setFieldValue(
-            "monthlyData",
-            Object.keys(months).length > 0 ? BuildMonthlyData(months) : {}
-          );
-        }
+        const monthlyData =
+          Object.keys(months).length > 0 ? BuildMonthlyData(months) : {};
 
-        onValidSubmission(values, hasChange);
+        onValidSubmission({ ...values, ...{ monthlyData } }, hasChange);
       }}
       validationSchema={Yup.object({
         paymentInterval: Yup.number().required(
