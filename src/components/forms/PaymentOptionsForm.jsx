@@ -1,13 +1,12 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
 
 import ErrorMessage from "../formik/ErrorMessage";
-import { ErrorPath } from "../../common/ErrorUtility";
 import { PaymentDirections } from "../../common/Constants";
 import PromptIfDirty from "../PromptIfDirty";
 import RadioButtonListField from "../../components/formik/RadioButtonListField";
+import React from "react";
 import ReturnDateSelectorField from "../formik/ReturnDateSelectorField";
 import useFilingTypes from "../hooks/useFilingTypes";
 
@@ -19,7 +18,6 @@ const PaymentOptionsForm = props => {
     nextButton,
     prevButton,
     onValidSubmission,
-    history,
     formik,
     initialValues
   } = props;
@@ -82,6 +80,7 @@ const PaymentOptionsForm = props => {
               {paymentInterval && (
                 <React.Fragment>
                   <ReturnDateSelectorField
+                    name="monthsToReport"
                     id="payment-options-date-selector"
                     paymentInterval={values.paymentInterval}
                     filingTypes={filingTypes}
