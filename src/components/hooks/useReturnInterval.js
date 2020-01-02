@@ -21,10 +21,10 @@ const buildMonthlyData = months =>
  * @param {object} requiredData Fields we need to use to manage this very specific hook
  */
 const useReturnInterval = ({
-  monthsFromProps = {},
+  monthsToReport = {},
   setFieldValue = () => {}
 }) => {
-  const [months, setMonths] = useState(monthsFromProps);
+  const [months, setMonths] = useState(monthsToReport);
   const [returnStatus, setReturnStatus] = useState({});
 
   /** Get Information About the Status based on the Month(s) Selected */
