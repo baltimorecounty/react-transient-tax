@@ -14,7 +14,7 @@ import ReturnStatus from "../ReturnStatus";
 const ReturnDateSelector = ({
   field: {
     name,
-    value: { months = {}, returnStatus = {}, intervalDate = "" }
+    value: { months = {}, returnStatus = {}, intervalDate = months[0] || null }
   }, // { name, value, onChange, onBlur }
   form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
