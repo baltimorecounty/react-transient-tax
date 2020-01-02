@@ -87,7 +87,6 @@ const MonthlyPaymentForm = props => {
                 name="grossRentalCollected"
                 label={Labels.GrossOccupancy}
                 date={date}
-                value={grossRentalCollected}
               />
             </div>
             <div className="tt_form-section">
@@ -98,7 +97,6 @@ const MonthlyPaymentForm = props => {
                 label={LabelsWithNotes.NonTransientsRentalCollected}
                 date={date}
                 className="tt_subtotal-item"
-                value={nonTransientRentalCollected}
               />
               <PaymentField
                 isNegativeValue={true}
@@ -106,7 +104,6 @@ const MonthlyPaymentForm = props => {
                 label={Labels.ExemptionOption2}
                 date={date}
                 className="tt_subtotal-item"
-                value={governmentExemptRentalCollected}
               />
               <PaymentTotal
                 name="exemptionTotal"
