@@ -35,9 +35,9 @@ const ReturnDateSelector = ({
   const handleDateChange = date => {
     setDateInputValue(date);
 
-    const newMonths = date ? { ...GetMonths(date, isQuarterly) } : {};
+    const newMonths = { ...GetMonths(date, isQuarterly) };
     const hasMonths = Object.keys(newMonths).length > 0;
-    const newReturnStatus = hasMonths ? { ...GetStatus(newMonths) } : {};
+    const newReturnStatus = { ...GetStatus(newMonths) };
     const { isLate, value } = newReturnStatus;
 
     setMonths(newMonths);
