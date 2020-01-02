@@ -9,7 +9,7 @@ const RadioButtonList = ({
   form: { setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { items = [], label, note, onChange = () => {} } = props;
+  const { autoFocus, items = [], label, note, onChange = () => {} } = props;
 
   const handleChange = changeEvent => {
     const { value } = changeEvent.target;
@@ -23,7 +23,7 @@ const RadioButtonList = ({
       <label htmlFor={name} className="tt_label">
         {label}
       </label>
-      {items.map(({ Id, Description }) => (
+      {items.map(({ Id, Description }, index) => (
         <Field
           key={Id}
           component={RadioButton}
@@ -33,6 +33,7 @@ const RadioButtonList = ({
           value={Id}
           onChange={handleChange}
           defaultChecked={value === Id}
+          autoFocus={index === 0 && autoFocus}
         />
       ))}
       <ErrorMessage name="paymentInterval" />
