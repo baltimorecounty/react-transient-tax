@@ -33,7 +33,8 @@ const ReturnDateSelector = ({
   const handleDateChange = date => {
     setDateInputValue(date);
     if (!date) {
-      return {};
+      setInterval({});
+      return;
     }
 
     let newMonths = { 0: date };
