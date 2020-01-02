@@ -1,3 +1,8 @@
+import {
+  BuildMonthlyData,
+  GetMonths,
+  GetStatus
+} from "../../common/ReturnInterval";
 import React, { useState } from "react";
 
 import DatePicker from "react-datepicker";
@@ -6,21 +11,18 @@ import { GetFormatedDateTime } from "../../common/DatesUtilities";
 import { GetIdByDescription } from "../../common/LookupUtilities";
 import PropTypes from "prop-types";
 import ReturnStatus from "../ReturnStatus";
-import { addMonths } from "date-fns";
-import useReturnInterval from "../hooks/useReturnInterval";
 
 const ReturnDateSelector = ({
-  field, // { name, value, onChange, onBlur }
-  form: { setFieldValue, values }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  field: { name, value: formValue = {} }, // { name, value, onChange, onBlur }
+  form: {
+    setFieldValue,
+    values: { returnStatus: formReturnStatus = {} }
+  }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
-  const { monthsToReport = {} } = values;
   const { id, paymentInterval, filingTypes } = props;
-
-  const [{ months, returnStatus }, setInterval] = useReturnInterval({
-    monthsToReport,
-    setFieldValue
-  });
+  const [months, setMonths] = useState(formValue);
+  const [returnStatus, setReturnStatus] = useState(formReturnStatus);
   const [dateInputValue, setDateInputValue] = useState(months[0] || null);
   const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
   const isQuarterly = parseInt(paymentInterval) === quarterlyId;
@@ -32,22 +34,19 @@ const ReturnDateSelector = ({
    */
   const handleDateChange = date => {
     setDateInputValue(date);
-    if (!date) {
-      setInterval({});
-      return;
-    }
 
-    let newMonths = { 0: date };
-    // If this is a quarterly report, assume the next two months but leave them editable
-    if (isQuarterly) {
-      const nextMonth = addMonths(date, 1);
-      const finalMonthInQuarter = addMonths(date, 2);
+    const newMonths = date ? { ...GetMonths(date, isQuarterly) } : {};
+    const hasMonths = Object.keys(newMonths).length > 0;
+    const newReturnStatus = hasMonths ? { ...GetStatus(newMonths) } : {};
+    const { isLate, value } = newReturnStatus;
 
-      newMonths[1] = nextMonth;
-      newMonths[2] = finalMonthInQuarter;
-    }
+    setMonths(newMonths);
+    setReturnStatus(newReturnStatus);
 
-    setInterval({ ...newMonths });
+    setFieldValue(name, newMonths);
+    setFieldValue("returnStatus", newReturnStatus);
+    setFieldValue("monthlyData", hasMonths ? BuildMonthlyData(newMonths) : {});
+    setFieldValue("monthsLate", hasMonths ? (isLate ? value : 0) : null);
   };
 
   return (
@@ -60,12 +59,12 @@ const ReturnDateSelector = ({
             : " the month of your return"}
         </label>
         <DatePicker
+          name={name}
           id={id}
           selected={dateInputValue}
           onChange={handleDateChange}
-          startDate={new Date()}
+          startDate={months[0] || new Date()}
           dateFormat="MM/yyyy"
-          monthsToReport={months}
           showMonthYearPicker
         />
       </div>
