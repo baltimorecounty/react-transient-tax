@@ -24,6 +24,10 @@ const BasicInformationForm = props => {
     }
   };
 
+  const handleAddressChange = () => {
+    setIsValidAddressMessage("");
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -66,6 +70,7 @@ const BasicInformationForm = props => {
               name="businessAddress"
               label="Business Address"
               minLength={3}
+              onChange={handleAddressChange}
             />
             {isValidAddressMessage && (
               <BasicErrorMessage message={isValidAddressMessage} />
