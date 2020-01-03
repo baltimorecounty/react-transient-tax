@@ -63,7 +63,7 @@ const LabelsWithNotes = {
   },
   TaxCollected: {
     label: "Tax Collected",
-    note: ` (Net Room Rental * Transient Occupancy Tax - ${FormatPercentage(
+    note: ` (Net Room Rental * Transient Occupancy Tax @ ${FormatPercentage(
       RatesAndFees.TransientTaxRate
     )})`
   },
