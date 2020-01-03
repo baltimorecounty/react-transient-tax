@@ -13,7 +13,7 @@ const ExemptionCertificate = ({
   ...props
 }) => {
   const { setFieldValue } = form;
-  const { exemptions: exemptionsFromProps = [] } = props;
+  const { exemptions: exemptionsFromProps = [], monthlyData = [] } = props;
   const [exemption, setExemption] = useState({});
   const [exemptions, setExemptions] = useState(exemptionsFromProps);
   const [isSelectorFormDirty, setIsSelectorFormDirty] = useState(0);
@@ -55,6 +55,7 @@ const ExemptionCertificate = ({
       <ExemptionSelector
         exemption={exemption}
         onExemptionSave={saveExemption}
+        monthlyData={monthlyData}
       />
       {exemptions.length > 0 && (
         <ExemptionsList
