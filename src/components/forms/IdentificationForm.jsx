@@ -67,7 +67,7 @@ const IdentificationForm = props => {
                 infoComponent={
                   <InformationModal
                     title="Return Submitted By"
-                    content="We need to associate a name with a business in the case we have any follow up questions on the return."
+                    content="We collect this information in order to keep record of who will be submitting the payment."
                   />
                 }
                 autoFocus={!showTradeAlias}
@@ -80,7 +80,7 @@ const IdentificationForm = props => {
                 infoComponent={
                   <InformationModal
                     title="Title of Submitter"
-                    content="We need to associate a title with the person who submitted the return in the case we have any follow up questions on the return."
+                    content="We collect this information to determine how the submitter is affiliated with the business."
                   />
                 }
               />
@@ -92,7 +92,7 @@ const IdentificationForm = props => {
                 infoComponent={
                   <InformationModal
                     title="Email"
-                    content="We will send you a confirmation number that you will bring when you pay the form in person."
+                    content="We will send a confirmation number to the email address you provide. Please bring this confirmation number with you when you submit your payment in person."
                   />
                 }
               />
