@@ -82,10 +82,35 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
   };
 };
 
+const hasExemption = ({
+  governmentExemptRentalCollected = 0,
+  nonTransientRentalCollected = 0
+}) => governmentExemptRentalCollected + nonTransientRentalCollected < 0;
+
+/**
+ * Gets the minimum date
+ * @param {*} monthlyData
+ */
+const GetMinExemptionStartDate = (monthlyData = []) => {
+  const { month, year } = monthlyData.find(hasExemption);
+  return new Date(year, month - 1, 1);
+};
+
+/**
+ *
+ * @param {*} monthlyData
+ */
+const GetMaxExemptionEndDate = (monthlyData = []) => {
+  const { month, year } = monthlyData.filter(hasExemption).pop();
+  return endOfMonth(new Date(year, month - 1, 1));
+};
+
 export {
   DefaultDateFormat,
   GetDueDate,
   GetFormattedDueDate,
   GetDueDateStatus,
-  GetFormatedDateTime
+  GetFormatedDateTime,
+  GetMinExemptionStartDate,
+  GetMaxExemptionEndDate
 };
