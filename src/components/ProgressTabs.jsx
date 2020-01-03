@@ -1,4 +1,5 @@
 import React from "react";
+import classnames from "classnames";
 
 const ProgressTabs = props => {
   const { panelGroups = [], tabs, activeStep } = props;
@@ -9,13 +10,17 @@ const ProgressTabs = props => {
     tabs.find(step => step.stepNumber === activeStepId);
 
   return (
-    <div className="bc-citysourced-reporter">
-      <ol className="bc-citysourced-reporter-steps">
+    <div className="bc_progress-tabs_container">
+      <ol className="bc_progress-tabs">
         {itemsToMap.map(item => {
           const step = hasPanelGroups ? getStepByPanelGroup(activeStep) : item;
           const isActiveOrCompletedItem = hasPanelGroups
             ? step.panelGroupId >= item.id
             : step.stepNumber <= activeStep;
+          const cssClasses = classnames(
+            "bc_progress-tabs_tab",
+            isActiveOrCompletedItem ? "highlight" : ""
+          );
 
           return (
             <li
@@ -23,7 +28,7 @@ const ProgressTabs = props => {
               style={{
                 display: step.isHidden ? "none" : "block"
               }}
-              className={isActiveOrCompletedItem ? "highlight" : ""}
+              className={cssClasses}
             >
               {item.label}
             </li>
