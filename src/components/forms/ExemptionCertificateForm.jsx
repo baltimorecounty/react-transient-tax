@@ -1,11 +1,10 @@
 import * as Yup from "yup";
-
 import { Form, Formik } from "formik";
-
 import ErrorMessage from "../formik/ErrorMessage";
 import ExemptionCertificateField from "../formik/ExemptionCertificateField";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
 import PromptIfDirty from "../PromptIfDirty";
+import  PromptIfUpdating  from "../PromptIfUpdating";
 import React from "react";
 
 const ExemptionCertificateForm = props => {
@@ -23,10 +22,7 @@ const ExemptionCertificateForm = props => {
     <Formik
       initialValues={initialValues}
       onSubmit={values => {
-        const { isExemptionFormDirty } = values;
-        if ( isExemptionFormDirty || isExemptionFormDirty === undefined ) {
           onValidSubmission(values);
-        }
       }}
       validationSchema={Yup.object({
         exemptions: Yup.array().when(
@@ -45,6 +41,7 @@ const ExemptionCertificateForm = props => {
       {props => (
         <Form>
           <PromptIfDirty />
+          <PromptIfUpdating/>
           <div className="form-1">
             <ExemptionCertificateField exemptions={exemptions} />
             <ErrorMessage name="exemptions" />
