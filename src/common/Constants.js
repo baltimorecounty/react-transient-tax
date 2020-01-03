@@ -12,7 +12,7 @@ const FormHints = {
 const PaymentDirections = {
   PaymentLabel: "Do you file your return....",
   PaymentNote:
-    "Note: Must select the interval in which you have selected previously unless it's a new year."
+    "Note: Must select the interval which you selected previously unless it's a new year."
 };
 const BudgetAndFinanceOfficeAddress = {
   Organization: "BALTIMORE COUNTY MARYLAND",
