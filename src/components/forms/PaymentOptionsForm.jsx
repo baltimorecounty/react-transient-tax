@@ -64,6 +64,7 @@ const PaymentOptionsForm = props => {
         const isQuarterly = paymentInterval === quarterlyId;
 
         const handleIntervalChange = () => {
+          setFieldValue("exemptions", [], false);
           setFieldValue(
             "monthsToReport",
             {
