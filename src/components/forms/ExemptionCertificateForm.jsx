@@ -1,7 +1,5 @@
 import * as Yup from "yup";
-
 import { Form, Formik } from "formik";
-
 import ErrorMessage from "../formik/ErrorMessage";
 import ExemptionCertificateField from "../formik/ExemptionCertificateField";
 import { HasAtLeast1Exemption } from "../../common/ExemptionUtilities";
@@ -23,7 +21,7 @@ const ExemptionCertificateForm = props => {
     <Formik
       initialValues={initialValues}
       onSubmit={values => {
-        onValidSubmission(values);
+          onValidSubmission(values);
       }}
       validationSchema={Yup.object({
         exemptions: Yup.array().when(
