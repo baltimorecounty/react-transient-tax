@@ -12,7 +12,7 @@ const FormHints = {
 const PaymentDirections = {
   PaymentLabel: "Do you file your return....",
   PaymentNote:
-    "Note: Must select the interval in which you have selected previously unless it's a new year."
+    "Note: Must select the interval which you selected previously unless it's a new year."
 };
 const BudgetAndFinanceOfficeAddress = {
   Organization: "BALTIMORE COUNTY MARYLAND",
@@ -52,8 +52,8 @@ const Labels = {
 
 const LabelsWithNotes = {
   NonTransientsRentalCollected: {
-    label: "Room Rental Collection from Not Transients",
-    note: " (Accommodations from more than 90 days)"
+    label: "Room Rental Collections from Non Transients",
+    note: " (Accommodations for more than 90 days)"
   },
   TaxInterest: {
     label: "Interest",
@@ -63,7 +63,7 @@ const LabelsWithNotes = {
   },
   TaxCollected: {
     label: "Tax Collected",
-    note: ` (Net Room Rental * Transient Occupancy Tax - ${FormatPercentage(
+    note: ` (Net Room Rental * Transient Occupancy Tax @ ${FormatPercentage(
       RatesAndFees.TransientTaxRate
     )})`
   },

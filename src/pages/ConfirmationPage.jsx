@@ -26,7 +26,7 @@ const ConfirmationForm = props => {
   const taxReturnValues = GetReturnSummaryValues(taxReturn);
   const { dateSubmitted = formDateSubmitted } = taxReturn;
   const formattedDateSubmitted = dateSubmitted
-    ? format(new Date(dateSubmitted), "MMMM dd yyyy")
+    ? format(new Date(dateSubmitted), "MMMM dd, yyyy")
     : "";
 
   useEffect(() => {
