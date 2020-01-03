@@ -43,7 +43,10 @@ const ExemptionCertificateForm = props => {
         <Form>
           <PromptIfDirty />
           <div className="form-1">
-            <ExemptionCertificateField exemptions={exemptions} />
+            <ExemptionCertificateField
+              exemptions={exemptions}
+              monthlyData={monthlyData}
+            />
             <ErrorMessage name="exemptions" />
           </div>
           <div className="tt_form-controls">

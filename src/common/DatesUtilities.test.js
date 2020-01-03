@@ -1,4 +1,9 @@
-import { GetDueDateStatus, GetFormattedDueDate } from "./DatesUtilities";
+import {
+  GetDueDateStatus,
+  GetFormattedDueDate,
+  GetMaxExemptionEndDate,
+  GetMinExemptionStartDate
+} from "./DatesUtilities";
 
 describe("Get Formatted Due Date", () => {
   test("should return the proper due date on a normal year", () => {
@@ -96,5 +101,61 @@ describe("Get Due Date Status", () => {
         message: "1 day"
       })
     );
+  });
+});
+
+describe("Get Min Date", () => {
+  test("should return the first month with an exemption", () => {
+    const actual = GetMinExemptionStartDate([
+      {
+        month: 10,
+        year: 2019,
+        governmentExemptRentalCollected: 0,
+        nonTransientRentalCollected: 0
+      },
+      {
+        month: 11,
+        year: 2019,
+        governmentExemptRentalCollected: -1,
+        nonTransientRentalCollected: 0
+      },
+      {
+        month: 12,
+        year: 2019,
+        governmentExemptRentalCollected: 0,
+        nonTransientRentalCollected: -10
+      }
+    ]);
+
+    expect(actual).toEqual(new Date(2019, 10, 1)); // November 1, 2019
+  });
+});
+
+describe("Get Max Date", () => {
+  test("should return the last month with an exemption", () => {
+    const actual = GetMaxExemptionEndDate([
+      {
+        month: 10,
+        year: 2019,
+        governmentExemptRentalCollected: 0,
+        nonTransientRentalCollected: 0
+      },
+      {
+        month: 11,
+        year: 2019,
+        governmentExemptRentalCollected: -1,
+        nonTransientRentalCollected: 0
+      },
+      {
+        month: 12,
+        year: 2019,
+        governmentExemptRentalCollected: 0,
+        nonTransientRentalCollected: -10
+      }
+    ]);
+
+    expect(actual.toLocaleDateString()).toEqual(
+      new Date(2019, 11, 31).toLocaleDateString()
+    ); // December 31, 2019
   });
 });
