@@ -1,6 +1,7 @@
 import React from "react";
+import classnames from "classnames";
 
-const TransientTaxTabs = props => {
+const ProgressTabs = props => {
   const { panelGroups = [], tabs, activeStep } = props;
   const hasPanelGroups = panelGroups.length > 0;
   const itemsToMap = hasPanelGroups ? panelGroups : tabs;
@@ -9,13 +10,17 @@ const TransientTaxTabs = props => {
     tabs.find(step => step.stepNumber === activeStepId);
 
   return (
-    <div className="bc-citysourced-reporter">
-      <ol className="bc-citysourced-reporter-steps">
+    <div className="bc_progress-tabs_container">
+      <ol className="bc_progress-tabs">
         {itemsToMap.map(item => {
           const step = hasPanelGroups ? getStepByPanelGroup(activeStep) : item;
           const isActiveOrCompletedItem = hasPanelGroups
             ? step.panelGroupId >= item.id
             : step.stepNumber <= activeStep;
+          const cssClasses = classnames(
+            "bc_progress-tabs_tab",
+            isActiveOrCompletedItem ? "highlight" : ""
+          );
 
           return (
             <li
@@ -23,7 +28,7 @@ const TransientTaxTabs = props => {
               style={{
                 display: step.isHidden ? "none" : "block"
               }}
-              className={isActiveOrCompletedItem ? "highlight" : ""}
+              className={cssClasses}
             >
               {item.label}
             </li>
@@ -34,4 +39,4 @@ const TransientTaxTabs = props => {
   );
 };
 
-export default TransientTaxTabs;
+export default ProgressTabs;

@@ -1,0 +1,102 @@
+$gold: #feb30c;
+
+.bc_progress-tabs {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.bc_progress-tabs_tab {
+  background-color: #ebebeb;
+  color: #444;
+  flex: 1 1 auto;
+  font-family: Patua One, sans-serif;
+  margin: 0 10px;
+  padding: 15px;
+  height: 40px;
+  line-height: 20px;
+  position: relative;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+
+  &:after,
+  &:before {
+    content: "";
+    height: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  &:before {
+    border-top: 35px solid #ebebeb;
+    border-bottom: 35px solid #ebebeb;
+    border-left: 15px solid transparent;
+    left: -15px;
+    top: 0;
+  }
+
+  &:after {
+    border-top: 35px solid transparent;
+    border-bottom: 35px solid transparent;
+    border-left: 15px solid #ebebeb;
+    right: -15px;
+    top: 0;
+  }
+
+  &:first-child {
+    margin-left: 0;
+
+    &:before {
+      border: none;
+    }
+  }
+
+  &:last-child {
+    list-style: none;
+    margin-right: 0;
+
+    &:after {
+      border: none;
+    }
+  }
+
+  &.highlight {
+    background-color: $gold;
+
+    &:before {
+      border-top-color: $gold;
+      border-bottom-color: $gold;
+    }
+
+    &:after {
+      border-left-color: $gold;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .bc_progress-tabs {
+    display: block;
+    padding-right: 1em;
+    list-style-type: decimal;
+    list-style-position: inside;
+  }
+
+  .bc_progress-tabs_tab {
+    display: list-item;
+    float: none;
+    height: auto;
+    line-height: 1.4em;
+    margin: 0 0 2px;
+    padding: 0.5em;
+    width: 100%;
+
+    br,
+    &:after,
+    &:before,
+    &:last-child {
+      display: none;
+    }
+  }
+}

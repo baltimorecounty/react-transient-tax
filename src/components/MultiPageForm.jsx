@@ -1,8 +1,8 @@
 import { Formik } from "formik";
+import ProgressTabs from "./ProgressTabs";
 import React from "react";
 import { Redirect } from "react-router-dom";
 import Step from "./Step";
-import TransientTaxTabs from "./TransientTaxTabs";
 
 const MultiPageForm = props => {
   const {
@@ -38,7 +38,7 @@ const MultiPageForm = props => {
 
   return (
     <div className="tt_form">
-      <TransientTaxTabs
+      <ProgressTabs
         panelGroups={panelGroups}
         tabs={steps}
         activeStep={activeStep.stepNumber}
