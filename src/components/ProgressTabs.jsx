@@ -1,6 +1,6 @@
 import React from "react";
 
-const TransientTaxTabs = props => {
+const ProgressTabs = props => {
   const { panelGroups = [], tabs, activeStep } = props;
   const hasPanelGroups = panelGroups.length > 0;
   const itemsToMap = hasPanelGroups ? panelGroups : tabs;
@@ -34,4 +34,4 @@ const TransientTaxTabs = props => {
   );
 };
 
-export default TransientTaxTabs;
+export default ProgressTabs;
