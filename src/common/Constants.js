@@ -52,8 +52,8 @@ const Labels = {
 
 const LabelsWithNotes = {
   NonTransientsRentalCollected: {
-    label: "Room Rental Collection from Not Transients",
-    note: " (Accommodations from more than 90 days)"
+    label: "Room Rental Collections from Non Transients",
+    note: " (Accommodations for more than 90 days)"
   },
   TaxInterest: {
     label: "Interest",
