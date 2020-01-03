@@ -65,6 +65,7 @@ const PaymentOptionsForm = props => {
 
         const handleIntervalChange = () => {
           setFieldValue("exemptions", [], false);
+          setFieldValue("monthlyData", []);
           setFieldValue(
             "monthsToReport",
             {
