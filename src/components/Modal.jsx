@@ -1,7 +1,7 @@
-import React from "react";
-import Modal from "react-bootstrap/Modal";
-import { Button } from "reactstrap";
 import "../bootstrap.css";
+
+import Modal from "react-bootstrap/Modal";
+import React from "react";
 
 const ModalDisplay = props => {
   const { title, content, onHide } = props;
@@ -20,9 +20,9 @@ const ModalDisplay = props => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={onHide}>
+          <button type="button" className="seButton" onClick={onHide}>
             Close
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </React.Fragment>
