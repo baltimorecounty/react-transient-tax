@@ -9,6 +9,7 @@ import { GetTransientTaxReturn } from "../services/ApiService";
 import { Redirect } from "react-router-dom";
 import ReturnSummary from "../components/ReturnSummary";
 import { format } from "date-fns";
+import useHasNetworkError from "../components/hooks/useHasNetworkError";
 
 const {
   Organization,
@@ -17,6 +18,8 @@ const {
   Street
 } = BudgetAndFinanceOfficeAddress;
 const ConfirmationForm = ({ match = {} }) => {
+  const { hasNetworkError } = useHasNetworkError();
+  const [hasConfirmationError, setHasConfirmationError] = useState(false);
   const confirmationNumber = GetQueryParam(match, "confirmationNumber") || 0;
   const [taxReturn, setTaxReturn] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -38,9 +41,13 @@ const ConfirmationForm = ({ match = {} }) => {
         setIsLoading(false);
       })
       .catch(() => {
-        return <Redirect path="/error/network" />;
+        setHasConfirmationError(true);
       });
   }, [confirmationNumber]);
+
+  if (hasNetworkError || hasConfirmationError) {
+    return <Redirect to="/error/network" />;
+  }
 
   return (
     <div>
