@@ -1,12 +1,10 @@
 import * as Yup from "yup";
 
-import { Form, Formik } from "formik";
-
 import { BuildMonthlyData } from "../../common/ReturnInterval";
 import ErrorMessage from "../formik/ErrorMessage";
+import FormikSubForm from "./FormikSubForm";
 import { GetIdByDescription } from "../../common/LookupUtilities";
 import { PaymentDirections } from "../../common/Constants";
-import PromptIfDirty from "../PromptIfDirty";
 import RadioButtonListField from "../../components/formik/RadioButtonListField";
 import React from "react";
 import ReturnDateSelectorField from "../formik/ReturnDateSelectorField";
@@ -18,13 +16,7 @@ const PaymentOptionsForm = props => {
   const filingTypes = useFilingTypes();
   const quarterlyId = GetIdByDescription(filingTypes, "quarterly");
 
-  const {
-    nextButton,
-    prevButton,
-    onValidSubmission,
-    formik,
-    initialValues
-  } = props;
+  const { onValidSubmission, formik } = props;
 
   const {
     paymentInterval: intervalFromFormik,
@@ -32,8 +24,7 @@ const PaymentOptionsForm = props => {
   } = formik.values;
 
   return (
-    <Formik
-      initialValues={initialValues}
+    <FormikSubForm
       onSubmit={values => {
         const {
           paymentInterval,
@@ -58,6 +49,7 @@ const PaymentOptionsForm = props => {
           ({ months = {} }) => Object.keys(months).length > 0
         )
       })}
+      {...props}
     >
       {({ values, setFieldValue }) => {
         const { paymentInterval } = values;
@@ -78,36 +70,29 @@ const PaymentOptionsForm = props => {
         };
 
         return (
-          <Form>
-            <PromptIfDirty />
-            <div className="tt_form-section">
-              <RadioButtonListField
-                name="paymentInterval"
-                items={filingTypes}
-                label={PaymentLabel}
-                note={PaymentNote}
-                onChange={handleIntervalChange}
-                autoFocus
-              />
-              {paymentInterval && (
-                <React.Fragment>
-                  <ReturnDateSelectorField
-                    name="monthsToReport"
-                    id="payment-options-date-selector"
-                    isQuarterly={isQuarterly}
-                  />
-                  <ErrorMessage name="monthsToReport" />
-                </React.Fragment>
-              )}
-            </div>
-            <div className="tt_form-controls">
-              {prevButton}
-              {nextButton}
-            </div>
-          </Form>
+          <div className="tt_form-section">
+            <RadioButtonListField
+              name="paymentInterval"
+              items={filingTypes}
+              label={PaymentLabel}
+              note={PaymentNote}
+              onChange={handleIntervalChange}
+              autoFocus
+            />
+            {paymentInterval && (
+              <React.Fragment>
+                <ReturnDateSelectorField
+                  name="monthsToReport"
+                  id="payment-options-date-selector"
+                  isQuarterly={isQuarterly}
+                />
+                <ErrorMessage name="monthsToReport" />
+              </React.Fragment>
+            )}
+          </div>
         );
       }}
-    </Formik>
+    </FormikSubForm>
   );
 };
 
