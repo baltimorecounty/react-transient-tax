@@ -52,7 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/react": "^9.4.0",
     "axios-mock-adapter": "^1.17.0",
     "coveralls": "^3.0.9",
     "gh-pages": "^2.1.1"
