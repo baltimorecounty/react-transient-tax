@@ -3,6 +3,7 @@ import ProgressTabs from "./ProgressTabs";
 import React from "react";
 import { Redirect } from "react-router-dom";
 import Step from "./Step";
+import useHasNetworkError from "./hooks/useHasNetworkError";
 
 const MultiPageForm = props => {
   const {
@@ -15,6 +16,11 @@ const MultiPageForm = props => {
   const currentStepIndex = steps.findIndex(
     x => x.id.toLowerCase() === stepId.toLowerCase()
   );
+  const { hasNetworkError, isLoading } = useHasNetworkError();
+
+  if (hasNetworkError) {
+    return <Redirect to="/error/network" />;
+  }
 
   if (currentStepIndex === -1) {
     return <Redirect to="/steps/basic-information" />;
@@ -36,7 +42,9 @@ const MultiPageForm = props => {
     isLastStep
   };
 
-  return (
+  return isLoading ? (
+    <p>Loading Form...</p>
+  ) : (
     <div className="tt_form">
       <ProgressTabs
         panelGroups={panelGroups}

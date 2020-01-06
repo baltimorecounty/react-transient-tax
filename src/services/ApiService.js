@@ -1,12 +1,23 @@
-import axios from "axios";
 import {
-  MapTaxReturnToServerModel,
-  MapResponseDataForTaxReturn
+  MapResponseDataForTaxReturn,
+  MapTaxReturnToServerModel
 } from "../data/TaxReturnMapper";
+
 import { Config } from "@baltimorecounty/javascript-utilities";
+import axios from "axios";
+
 const { getValue } = Config;
 
 let exemptionId = 0;
+
+/**
+ * Determines if api is up or not
+ * @returns true if the api is available
+ */
+const GetStatus = () =>
+  axios
+    .get(`${getValue("apiRoot")}/status`)
+    .then(({ status }) => status === 200);
 
 /**
  * Get a lookup value for a given endpoint
@@ -88,5 +99,6 @@ export {
   GetFilingTypes,
   SaveExemption,
   VerifyAddress,
+  GetStatus,
   SaveReturn
 };

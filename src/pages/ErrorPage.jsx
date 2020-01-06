@@ -1,23 +1,10 @@
 import React from "react";
 
-const ErrorPage = props => {
-  const { errorType = 0 } = props.match.params;
-
-  const getErrorMessage = errorType => {
-    switch (errorType) {
-      case "invalidconfirmation": {
-        return "This is an incorrect confirmation number";
-      }
-      case "network": {
-        return "The server is not responding please contact magic people for assistance";
-      }
-      default: {
-        return "Something went wrong";
-      }
-    }
-  };
-
-  return <p>{getErrorMessage(errorType)}</p>;
-};
+const ErrorPage = ({ heading, message }) => (
+  <div className="tt_error_container">
+    <h2>{heading}</h2>
+    <p>{message}</p>
+  </div>
+);
 
 export default ErrorPage;

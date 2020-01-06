@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import Address from "../components/Address";
 import { BudgetAndFinanceOfficeAddress } from "../common/Constants";
-import { ErrorPath } from "../common/ErrorUtility";
+import { GetQueryParam } from "../common/Routing";
 import { GetReturnSummaryValues } from "../data/TaxReturnMapper";
 import { GetTransientTaxReturn } from "../services/ApiService";
+import { Redirect } from "react-router-dom";
 import ReturnSummary from "../components/ReturnSummary";
 import { format } from "date-fns";
+import useHasNetworkError from "../components/hooks/useHasNetworkError";
 
 const {
   Organization,
@@ -14,8 +16,10 @@ const {
   City,
   Street
 } = BudgetAndFinanceOfficeAddress;
-const ConfirmationForm = props => {
-  const { confirmationNumber = 0 } = props.match.params;
+const ConfirmationForm = ({ match = {} }) => {
+  const { hasNetworkError } = useHasNetworkError();
+  const [hasConfirmationError, setHasConfirmationError] = useState(false);
+  const confirmationNumber = GetQueryParam(match, "confirmationNumber") || 0;
   const [taxReturn, setTaxReturn] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const {
@@ -35,10 +39,14 @@ const ConfirmationForm = props => {
         setTaxReturn(response || {});
         setIsLoading(false);
       })
-      .catch(error => {
-        props.history.push(ErrorPath(error), { ...error });
+      .catch(() => {
+        setHasConfirmationError(true);
       });
-  }, [confirmationNumber, props.history]);
+  }, [confirmationNumber]);
+
+  if (hasNetworkError || hasConfirmationError) {
+    return <Redirect to="/error/network" />;
+  }
 
   return (
     <div>
