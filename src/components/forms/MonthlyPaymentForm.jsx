@@ -1,13 +1,12 @@
 import * as Yup from "yup";
 
-import { Form, Formik } from "formik";
 import { Labels, LabelsWithNotes } from "../../common/Constants";
 
 import { AddOrUpdate } from "../../common/ArrayUtilities";
+import FormikSubForm from "./FormikSubForm";
 import { GetCalculatedTotals } from "../../common/Calculations";
 import PaymentField from "../../components/formik/PaymentField";
 import PaymentTotal from "../PaymentTotal";
-import PromptIfDirty from "../PromptIfDirty";
 import React from "react";
 
 const getExistingValues = (data = [], filter = () => {}) => data.find(filter);
@@ -15,8 +14,6 @@ const getExistingValues = (data = [], filter = () => {}) => data.find(filter);
 const MonthlyPaymentForm = props => {
   const {
     initialValues: initialValuesFromProps,
-    nextButton,
-    prevButton,
     onValidSubmission,
     formik,
     data: { date }
@@ -24,7 +21,7 @@ const MonthlyPaymentForm = props => {
 
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
-  const { returnStatus: { isLate, value: monthsLate = 0 } = {} } =
+  const { returnStatus: { value: monthsLate = 0 } = {} } =
     formik.values.monthsToReport || {};
 
   const existingValues = getExistingValues(
@@ -34,7 +31,7 @@ const MonthlyPaymentForm = props => {
   const initialValues = { ...initialValuesFromProps, ...existingValues };
 
   return (
-    <Formik
+    <FormikSubForm
       initialValues={initialValues}
       onSubmit={values => {
         const { monthlyData: existingMonthlyData = [] } = formik.values;
@@ -55,9 +52,10 @@ const MonthlyPaymentForm = props => {
           .min(0.01, "Specify an amount for gross occupancy.")
           .required("Required")
       })}
+      {...props}
     >
-      {props => {
-        const { values } = props;
+      {formikProps => {
+        const { values } = formikProps;
         const {
           grossRentalCollected,
           nonTransientRentalCollected,
@@ -78,13 +76,11 @@ const MonthlyPaymentForm = props => {
             nonTransientRentalCollected,
             governmentExemptRentalCollected
           },
-          monthsLate,
-          isLate
+          monthsLate
         );
 
         return (
-          <Form>
-            <PromptIfDirty />
+          <React.Fragment>
             <div className="tt_form-section">
               <PaymentField
                 name="grossRentalCollected"
@@ -161,14 +157,10 @@ const MonthlyPaymentForm = props => {
               <span className="tt_label">Note</span>:{" "}
               {Labels.InterestDisclaimer}
             </p>
-            <div className="tt_form-controls">
-              {prevButton}
-              {nextButton}
-            </div>
-          </Form>
+          </React.Fragment>
         );
       }}
-    </Formik>
+    </FormikSubForm>
   );
 };
 
