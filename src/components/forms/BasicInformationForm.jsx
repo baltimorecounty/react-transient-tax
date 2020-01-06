@@ -1,16 +1,14 @@
 import * as Yup from "yup";
 
-import { Form, Formik } from "formik";
 import React, { useState } from "react";
 
 import AddressLookupField from "../../components/formik/AddressLookupField";
 import BasicErrorMessage from "../BasicErrorMessage";
 import Field from "../formik/Field";
-import PromptIfDirty from "../PromptIfDirty";
+import FormikSubForm from "./FormikSubForm";
 import { VerifyAddress } from "../../services/ApiService";
 
 const BasicInformationForm = props => {
-  const { nextButton, prevButton, onValidSubmission, initialValues } = props;
   const [isValidAddressMessage, setIsValidAddressMessage] = useState("");
 
   const ValidateAddress = async addressValue => {
@@ -29,8 +27,7 @@ const BasicInformationForm = props => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
+    <FormikSubForm
       onSubmit={async values => {
         setIsValidAddressMessage("");
         const { businessAddress, businessAddressParts } = values;
@@ -40,7 +37,7 @@ const BasicInformationForm = props => {
           : businessAddressParts.id;
 
         if (addressId) {
-          onValidSubmission(values);
+          props.onValidSubmission(values);
         } else {
           setIsValidAddressMessage(
             "Please enter a valid Baltimore County address."
@@ -53,37 +50,31 @@ const BasicInformationForm = props => {
           "A valid Baltimore County address is required"
         )
       })}
+      {...props}
     >
-      {props => (
-        <Form>
-          <PromptIfDirty />
-          <div className="tt_form-section">
-            <Field
-              id="businessName"
-              name="businessName"
-              type="text"
-              label="Business Name"
-              autoFocus
-            />
-            <AddressLookupField
-              id="businessAddress"
-              name="businessAddress"
-              label="Business Address"
-              minLength={3}
-              onChange={handleAddressChange}
-            />
-            {isValidAddressMessage && (
-              <BasicErrorMessage message={isValidAddressMessage} />
-            )}
-            {props.isSubmitting ? <p>Validating address...</p> : null}
-          </div>
-          <div className="tt_form-controls">
-            {prevButton}
-            {nextButton}
-          </div>
-        </Form>
+      {formikBag => (
+        <div className="tt_form-section">
+          <Field
+            id="businessName"
+            name="businessName"
+            type="text"
+            label="Business Name"
+            autoFocus
+          />
+          <AddressLookupField
+            id="businessAddress"
+            name="businessAddress"
+            label="Business Address"
+            minLength={3}
+            onChange={handleAddressChange}
+          />
+          {isValidAddressMessage && (
+            <BasicErrorMessage message={isValidAddressMessage} />
+          )}
+          {formikBag.isSubmitting ? <p>Validating address...</p> : null}
+        </div>
       )}
-    </Formik>
+    </FormikSubForm>
   );
 };
 
