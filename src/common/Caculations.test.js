@@ -45,7 +45,13 @@ describe("Get Calculated Totals", () => {
       transientPenalty,
       totalInterestAndPenalties,
       monthlyTaxRemitted
-    } = GetCalculatedTotals(fields, 0, 0.095, 0.01, 0.1);
+    } = GetCalculatedTotals({
+      fields,
+      monthsLate: 0,
+      taxRate: 0.095,
+      interestRate: 0.01,
+      penaltyRate: 0.1
+    });
 
     expect(totalExemptions).toEqual(0);
     expect(netRoomRentalCollections).toEqual(100);
@@ -71,7 +77,13 @@ describe("Get Calculated Totals", () => {
       transientPenalty,
       totalInterestAndPenalties,
       monthlyTaxRemitted
-    } = GetCalculatedTotals(fields, 8, 0.095, 0.01, 0.1);
+    } = GetCalculatedTotals({
+      fields,
+      monthsLate: 8,
+      taxRate: 0.095,
+      interestRate: 0.01,
+      penaltyRate: 0.1
+    });
 
     expect(totalExemptions).toEqual(0);
     expect(netRoomRentalCollections).toEqual(100);
@@ -97,7 +109,13 @@ describe("Get Calculated Totals", () => {
       transientPenalty,
       totalInterestAndPenalties,
       monthlyTaxRemitted
-    } = GetCalculatedTotals(fields, 0, 0.095, 0.01, 0.1);
+    } = GetCalculatedTotals({
+      fields,
+      monthsLate: 0,
+      taxRate: 0.095,
+      interestRate: 0.01,
+      penaltyRate: 0.1
+    });
 
     expect(totalExemptions).toEqual(-20);
     expect(netRoomRentalCollections).toEqual(100);
@@ -123,7 +141,13 @@ describe("Get Calculated Totals", () => {
       transientPenalty,
       totalInterestAndPenalties,
       monthlyTaxRemitted
-    } = GetCalculatedTotals(fields, 8, 0.095, 0.01, 0.1);
+    } = GetCalculatedTotals({
+      fields,
+      monthsLate: 8,
+      taxRate: 0.095,
+      interestRate: 0.01,
+      penaltyRate: 0.1
+    });
 
     expect(totalExemptions).toEqual(-20);
     expect(netRoomRentalCollections).toEqual(100);

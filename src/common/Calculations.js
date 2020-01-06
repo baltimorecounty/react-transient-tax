@@ -40,13 +40,13 @@ const CalculateTaxCollected = (
  * @param {number} penaltyRate rate as decimal
  * @returns {object} an object containing all the desired totals
  */
-const GetCalculatedTotals = (
+const GetCalculatedTotals = ({
   fields = {},
   monthsLate = 0,
   taxRate = RatesAndFees.TransientTaxRate,
   interestRate = RatesAndFees.InterestRate,
   penaltyRate = RatesAndFees.PenaltyRate
-) => {
+}) => {
   const {
     grossRentalCollected,
     nonTransientRentalCollected,

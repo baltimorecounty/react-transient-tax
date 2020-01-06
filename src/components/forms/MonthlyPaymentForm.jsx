@@ -72,14 +72,14 @@ const MonthlyPaymentForm = props => {
           transientPenalty,
           totalInterestAndPenalties,
           monthlyTaxRemitted
-        } = GetCalculatedTotals(
-          {
+        } = GetCalculatedTotals({
+          fields: {
             grossRentalCollected,
             nonTransientRentalCollected,
             governmentExemptRentalCollected
           },
           monthsLate
-        );
+        });
 
         return (
           <Form>
