@@ -24,8 +24,8 @@ const FormikSubForm = props => {
           <PromptIfDirty />
           {children(props)}
           <div className="tt_form-controls">
-            {nextButton}
             {prevButton}
+            {nextButton}
           </div>
         </Form>
       )}
