@@ -103,6 +103,7 @@ const CustomInputComponent = ({
         items={items}
         renderInput={props => (
           <AddressLookupDebouncedInput
+            id={name}
             defaultValue={value}
             className={toggleErrorClasses("tt_form-field input")}
             wasSelected={wasSelected}

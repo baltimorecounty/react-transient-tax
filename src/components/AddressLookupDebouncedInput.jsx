@@ -4,7 +4,15 @@ import { useDebounce } from "use-debounce";
 
 const AddressLookupDebouncedInput = React.forwardRef(
   (
-    { className, value, onChange, wasSelected, defaultValue = "", ...rest },
+    {
+      name,
+      className,
+      value,
+      onChange,
+      wasSelected,
+      defaultValue = "",
+      ...rest
+    },
     ref
   ) => {
     const [event, setEvent] = useState({ target: { value: defaultValue } });
@@ -29,6 +37,7 @@ const AddressLookupDebouncedInput = React.forwardRef(
     return (
       <input
         ref={ref}
+        id={name}
         className={className}
         onChange={changeEvent => {
           changeEvent.persist();
