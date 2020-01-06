@@ -1,23 +1,17 @@
+import { GetError } from "../common/ErrorUtility";
+import { GetQueryParam } from "../common/Routing";
 import React from "react";
 
-const ErrorPage = props => {
-  const { errorType = 0 } = props.match.params;
+const ErrorPage = ({ match = {} }) => {
+  const errorType = GetQueryParam(match, "errorType");
+  const { heading, message } = GetError(errorType);
 
-  const getErrorMessage = errorType => {
-    switch (errorType) {
-      case "invalidconfirmation": {
-        return "This is an incorrect confirmation number";
-      }
-      case "network": {
-        return "The server is not responding please contact magic people for assistance";
-      }
-      default: {
-        return "Something went wrong";
-      }
-    }
-  };
-
-  return <p>{getErrorMessage(errorType)}</p>;
+  return (
+    <div className="tt_error_container">
+      <h2>{heading}</h2>
+      <p>{message}</p>
+    </div>
+  );
 };
 
 export default ErrorPage;
