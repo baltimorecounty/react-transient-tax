@@ -6,6 +6,8 @@ import { Redirect, Route, HashRouter as Router } from "react-router-dom";
 import { Config } from "@baltimorecounty/javascript-utilities";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import ErrorPage from "./pages/ErrorPage";
+import { GetError } from "./common/ErrorUtility";
+import { GetQueryParam } from "./common/Routing";
 import MultiPageForm from "./components/MultiPageForm";
 import React from "react";
 import TransientTaxStepList from "./steps/TransientTaxStepList";
@@ -51,7 +53,15 @@ const App = () => (
         path="/confirmation/:confirmationNumber"
         component={ConfirmationPage}
       />
-      <Route exact path="/error/:errorType" component={ErrorPage} />
+      <Route
+        exact
+        path="/error/:errorType"
+        render={({ match = {} }) => {
+          const errorType = GetQueryParam(match, "errorType");
+          const { heading, message } = GetError(errorType);
+          return <ErrorPage heading={heading} message={message} />;
+        }}
+      />
     </Router>
   </div>
 );
