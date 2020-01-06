@@ -11,7 +11,7 @@ const GetError = (errorType = "") => {
       return {
         heading: "Invalid Confirmation Number",
         message:
-          "You have provided an invalid confirmation number. Please try submitting your Transient Occupancy Tax Return again. "
+          "The confirmation number provided in the url is invalid. Please double check your confirmation email for the link to your Transient Tax Return details."
       };
     }
     default: {
