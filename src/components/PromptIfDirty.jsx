@@ -4,7 +4,7 @@ import { useFormikContext } from "formik";
 
 const PromptIfDirty = props => {
   const formik = useFormikContext();
-  const { isExemptionFormDirty } = formik.values;
+  const { values: { isExemptionFormDirty } = {} } = formik;
   return (
     <React.Fragment>
       <Prompt
