@@ -54,6 +54,7 @@ const DateRangeSelector = props => {
           maxDate={maxDate}
           selectsStart
           startDate={minDate}
+          value={fromDate}
         />
       </div>
       <div>
@@ -68,6 +69,7 @@ const DateRangeSelector = props => {
           selectsEnd
           startDate={fromDate}
           onClickOutside={() => onClick(null, toDateId)}
+          value={toDate}
         />
       </div>
     </div>
