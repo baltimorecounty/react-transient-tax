@@ -6,6 +6,7 @@ import {
   SumTotals
 } from "../common/Calculations";
 import {
+  GetDueDate,
   GetDueDateStatus,
   GetFormatedDateTime,
   GetFormattedDueDate
@@ -31,10 +32,12 @@ const getDateInformation = ({
   const isMonthly = Object.keys(monthlyData).length === 1;
   const monthOfReturn = isMonthly ? 0 : 2;
   const dueDate = monthlyData.length
-    ? new Date(
-        monthlyData[monthOfReturn].month +
-          "/01/" +
-          monthlyData[monthOfReturn].year
+    ? GetDueDate(
+        new Date(
+          monthlyData[monthOfReturn].month +
+            "/01/" +
+            monthlyData[monthOfReturn].year
+        )
       )
     : "";
 
