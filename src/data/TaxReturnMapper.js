@@ -154,7 +154,9 @@ const MapResponseDataForTaxReturn = taxReturn => {
 
   const netRoomRentals = SumTotals([occupancyTaxCollected, exemptions]);
 
-  const taxCollected = netRoomRentals.map(CalculateTaxCollected);
+  const taxCollected = netRoomRentals.map(netRoomRental =>
+    CalculateTaxCollected(netRoomRental)
+  );
 
   const interestCollected = taxCollected.map(tax =>
     isLate ? CalculateInterest(tax, monthsLate) : 0
