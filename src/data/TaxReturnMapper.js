@@ -154,8 +154,6 @@ const MapResponseDataForTaxReturn = taxReturn => {
 
   const netRoomRentals = SumTotals([occupancyTaxCollected, exemptions]);
 
-  console.log(netRoomRentals);
-
   const taxCollected = netRoomRentals.map(netRoomRental =>
     CalculateTaxCollected(netRoomRental)
   );
