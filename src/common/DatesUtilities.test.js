@@ -102,6 +102,19 @@ describe("Get Due Date Status", () => {
       })
     );
   });
+
+  test("should days remaining status, when the date of filing is before than the due date by 1 day", () => {
+    const actual = GetDueDateStatus(
+      new Date("November 30, 2019"),
+      new Date("2020-01-08T14:36:04")
+    );
+    expect(actual).toEqual(
+      expect.objectContaining({
+        isLate: true,
+        value: 1
+      })
+    );
+  });
 });
 
 describe("Get Min Date", () => {

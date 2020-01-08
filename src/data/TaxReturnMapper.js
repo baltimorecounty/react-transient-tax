@@ -27,23 +27,24 @@ const getDateInformation = ({
   monthlyData = []
 }) => {
   const dateSubmitted = DateSubmitted
-    ? GetFormatedDateTime(new Date(DateSubmitted), "MMMM dd yyyy")
-    : "";
-  const isMonthly = Object.keys(monthlyData).length === 1;
-  const monthOfReturn = isMonthly ? 0 : 2;
-  const dueDate = monthlyData.length
-    ? GetDueDate(
-        new Date(
-          monthlyData[monthOfReturn].month +
-            "/01/" +
-            monthlyData[monthOfReturn].year
-        )
-      )
+    ? GetFormatedDateTime(new Date(DateSubmitted), "MMMM dd, yyyy")
     : "";
 
-  const formattedDueDate = dueDate ? GetFormattedDueDate(dueDate) : "";
+  const isMonthly = Object.keys(monthlyData).length === 1;
+  const monthOfReturn = isMonthly ? 0 : 2;
+  const startOfLastMonthInPayment = new Date(
+    monthlyData[monthOfReturn].month + "/01/" + monthlyData[monthOfReturn].year
+  );
+
+  const dueDate = monthlyData.length
+    ? GetDueDate(startOfLastMonthInPayment)
+    : "";
+
+  const formattedDueDate = dueDate
+    ? GetFormattedDueDate(startOfLastMonthInPayment)
+    : "";
   const { isLate, value: monthsLate } = dueDate
-    ? GetDueDateStatus(dueDate, new Date(DateSubmitted))
+    ? GetDueDateStatus(startOfLastMonthInPayment, new Date(DateSubmitted))
     : {};
 
   const monthsSubmitted = monthlyData.map(
@@ -126,7 +127,7 @@ const GetReturnSummaryValues = taxReturnValues => {
  * Maps Transient Tax Form Data to the confirmation page
  * @param {object} taxReturn tax return form data model
  */
-const MapResponseDataForTaxReturn = taxReturn => {
+const MapResponseDataForTaxReturn = (taxReturn, isServerData = false) => {
   const { monthlyData = [] } = taxReturn;
   const formattedResponse = { ...taxReturn };
   const {
@@ -134,13 +135,10 @@ const MapResponseDataForTaxReturn = taxReturn => {
     isMonthly,
     dueDate,
     formattedDueDate,
-    monthsSubmitted
+    monthsSubmitted,
+    isLate,
+    monthsLate
   } = getDateInformation(taxReturn);
-  const {
-    monthsToReport: {
-      returnStatus: { isLate, value: monthsLate = 0 } = {}
-    } = {}
-  } = taxReturn;
 
   /** Get Formatted Date Submitted */
   formattedResponse.DateSubmitted = dateSubmitted;
@@ -163,6 +161,8 @@ const MapResponseDataForTaxReturn = taxReturn => {
   const taxCollected = netRoomRentals.map(netRoomRental =>
     CalculateTaxCollected(netRoomRental)
   );
+
+  monthlyData.map(({ interestRemitted }) => interestRemitted);
 
   const interestCollected = taxCollected.map(tax =>
     isLate ? CalculateInterest(tax, monthsLate) : 0
