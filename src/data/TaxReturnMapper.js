@@ -32,19 +32,19 @@ const getDateInformation = ({
 
   const isMonthly = Object.keys(monthlyData).length === 1;
   const monthOfReturn = isMonthly ? 0 : 2;
-  const startOfLastMonthInPayment = new Date(
+  const startOfLastMonthForReturn = new Date(
     monthlyData[monthOfReturn].month + "/01/" + monthlyData[monthOfReturn].year
   );
 
   const dueDate = monthlyData.length
-    ? GetDueDate(startOfLastMonthInPayment)
+    ? GetDueDate(startOfLastMonthForReturn)
     : "";
 
   const formattedDueDate = dueDate
-    ? GetFormattedDueDate(startOfLastMonthInPayment)
+    ? GetFormattedDueDate(startOfLastMonthForReturn)
     : "";
   const { isLate, value: monthsLate } = dueDate
-    ? GetDueDateStatus(startOfLastMonthInPayment, new Date(DateSubmitted))
+    ? GetDueDateStatus(startOfLastMonthForReturn, new Date(DateSubmitted))
     : {};
 
   const monthsSubmitted = monthlyData.map(
