@@ -134,10 +134,13 @@ const MapResponseDataForTaxReturn = taxReturn => {
     isMonthly,
     dueDate,
     formattedDueDate,
-    isLate,
-    monthsLate,
     monthsSubmitted
   } = getDateInformation(taxReturn);
+  const {
+    monthsToReport: {
+      returnStatus: { isLate, value: monthsLate = 0 } = {}
+    } = {}
+  } = taxReturn;
 
   /** Get Formatted Date Submitted */
   formattedResponse.DateSubmitted = dateSubmitted;
