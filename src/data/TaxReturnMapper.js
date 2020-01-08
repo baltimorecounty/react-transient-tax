@@ -127,7 +127,7 @@ const GetReturnSummaryValues = taxReturnValues => {
  * Maps Transient Tax Form Data to the confirmation page
  * @param {object} taxReturn tax return form data model
  */
-const MapResponseDataForTaxReturn = (taxReturn, isServerData = false) => {
+const MapResponseDataForTaxReturn = taxReturn => {
   const { monthlyData = [] } = taxReturn;
   const formattedResponse = { ...taxReturn };
   const {
@@ -161,8 +161,6 @@ const MapResponseDataForTaxReturn = (taxReturn, isServerData = false) => {
   const taxCollected = netRoomRentals.map(netRoomRental =>
     CalculateTaxCollected(netRoomRental)
   );
-
-  monthlyData.map(({ interestRemitted }) => interestRemitted);
 
   const interestCollected = taxCollected.map(tax =>
     isLate ? CalculateInterest(tax, monthsLate) : 0
