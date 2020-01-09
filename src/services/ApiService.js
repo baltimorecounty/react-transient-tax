@@ -49,7 +49,7 @@ const GetTransientTaxReturn = confirmationNumber =>
       )}/transientTax/return?confirmationnumber=${confirmationNumber}`
     )
     .then(({ status, data }) =>
-      status === 200 ? MapResponseDataForTaxReturn(data) : []
+      status === 200 ? MapResponseDataForTaxReturn(data, true) : []
     );
 
 /**
