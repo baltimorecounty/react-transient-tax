@@ -124,6 +124,12 @@ const GetReturnSummaryValues = taxReturnValues => {
 };
 
 /**
+ * Return the negative for a given number, positive or negative
+ * @param {number} num
+ */
+const toNegativeValue = num => Math.abs(num) * -1;
+
+/**
  * Maps Transient Tax Form Data to the confirmation page
  * @param {object} taxReturn tax return form data model
  */
@@ -154,7 +160,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
   const exemptions = GetTotalsForMonth(monthlyData, [
     "governmentExemptRentalCollected",
     "nonTransientRentalCollected"
-  ]);
+  ]).map(toNegativeValue);
 
   const netRoomRentals = SumTotals([occupancyTaxCollected, exemptions]);
 
