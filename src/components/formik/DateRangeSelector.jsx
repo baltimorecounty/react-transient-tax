@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import DatePicker from "react-datepicker";
+import { addDays } from "date-fns";
 
 const DateRangeSelector = props => {
   const {
     fromDate: fromDateFromProps,
     toDate: toDateFromProps,
     handleChange = () => {},
-    onClick = () => {},
-    minDate = new Date(),
-    maxDate = new Date()
+    onClick = () => {}
   } = props;
   const [fromDate, setFromDate] = useState(fromDateFromProps);
   const [toDate, setToDate] = useState(toDateFromProps);
@@ -50,10 +49,8 @@ const DateRangeSelector = props => {
           selected={fromDate}
           onChange={handleFromDateChange}
           onClickOutside={() => onClick(null, fromDateId)}
-          minDate={minDate}
-          maxDate={maxDate}
+          maxDate={addDays(toDate, -1)}
           selectsStart
-          startDate={minDate}
           value={fromDate}
         />
       </div>
@@ -64,8 +61,7 @@ const DateRangeSelector = props => {
           name={toDateId}
           selected={toDate}
           onChange={handleToDateChange}
-          minDate={minDate}
-          maxDate={maxDate}
+          minDate={addDays(fromDate, 1)}
           selectsEnd
           startDate={fromDate}
           onClickOutside={() => onClick(null, toDateId)}

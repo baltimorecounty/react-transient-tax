@@ -1,7 +1,3 @@
-import {
-  GetMaxExemptionEndDate,
-  GetMinExemptionStartDate
-} from "../../common/DatesUtilities";
 import React, { useEffect, useState } from "react";
 
 import BasicErrorMessage from "../BasicErrorMessage";
@@ -15,8 +11,7 @@ import { RadioButton } from "../../common/RadioButton";
 const ExemptionSelector = props => {
   const {
     exemption: exemptionFromProps = {},
-    onExemptionSave = () => {},
-    monthlyData = []
+    onExemptionSave = () => {}
   } = props;
   const [isLoading, setIsLoading] = useState(true);
   const [exemptionTypes, setExemptionTypes] = useState([]);
@@ -26,8 +21,6 @@ const ExemptionSelector = props => {
     GetExemptionFormErrors(exemptionFromProps)
   );
   const [exemption, setExemption] = useState(exemptionFromProps);
-  const minDate = GetMinExemptionStartDate(monthlyData);
-  const maxDate = GetMaxExemptionEndDate(monthlyData);
 
   useEffect(() => {
     if (exemptionTypes.length === 0) {
@@ -134,8 +127,6 @@ const ExemptionSelector = props => {
         toDate={exemption.toDate}
         handleChange={handleExemptionDateChange}
         onClick={handleFieldClick}
-        minDate={minDate}
-        maxDate={maxDate}
       />
       {(touched.fromDate || touched.toDate) &&
         formErrors.some(
