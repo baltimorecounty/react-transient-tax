@@ -21,6 +21,15 @@ const GetExemptionFormErrors = exemption => {
     activeFormErrors.push({ key: "toDate", error: "To Date Required" });
   }
 
+  if (fromDate && toDate) {
+    if (parseInt(fromDate.getTime()) > parseInt(toDate.getTime())) {
+      activeFormErrors.push({
+        key: "badDateRange",
+        error: "To Date must come after from date"
+      });
+    }
+  }
+
   return activeFormErrors;
 };
 

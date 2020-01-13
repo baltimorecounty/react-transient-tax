@@ -8,8 +8,7 @@ const DateRangeSelector = props => {
     toDate: toDateFromProps,
     handleChange = () => {},
     onClick = () => {},
-    minDate = new Date(),
-    maxDate = new Date()
+    minDate = new Date()
   } = props;
   const [fromDate, setFromDate] = useState(fromDateFromProps);
   const [toDate, setToDate] = useState(toDateFromProps);
@@ -50,8 +49,6 @@ const DateRangeSelector = props => {
           selected={fromDate}
           onChange={handleFromDateChange}
           onClickOutside={() => onClick(null, fromDateId)}
-          minDate={minDate}
-          maxDate={maxDate}
           selectsStart
           startDate={minDate}
           value={fromDate}
@@ -64,8 +61,6 @@ const DateRangeSelector = props => {
           name={toDateId}
           selected={toDate}
           onChange={handleToDateChange}
-          minDate={minDate}
-          maxDate={maxDate}
           selectsEnd
           startDate={fromDate}
           onClickOutside={() => onClick(null, toDateId)}
