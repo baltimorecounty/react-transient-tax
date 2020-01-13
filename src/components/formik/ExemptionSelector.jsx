@@ -131,11 +131,13 @@ const ExemptionSelector = props => {
       {(touched.fromDate || touched.toDate) &&
         formErrors.some(
           ({ key }) => key === "toDate" || key === "fromDate"
-        ) && <BasicErrorMessage message="To Date and From Date are Required" />}
+        ) && (
+          <BasicErrorMessage message="To and From Date are required to submit an exemption." />
+        )}
       {touched.fromDate &&
         touched.toDate &&
         formErrors.some(({ key }) => key === "badDateRange") && (
-          <BasicErrorMessage message="To Date must come after From Date" />
+          <BasicErrorMessage message="To Date must come after From Date." />
         )}
       <button onClick={saveExemption} type="button">
         {exemption.id ? "Update" : "Add"}
