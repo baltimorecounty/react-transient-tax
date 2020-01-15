@@ -34,6 +34,10 @@ const ConfirmationForm = ({ match = {} }) => {
     ? format(new Date(dateSubmitted), "MMMM dd, yyyy")
     : "";
 
+  const confirmationNumberToDisplay = confirmationNumber
+    .split("-")
+    .reverse()[0];
+
   useEffect(() => {
     GetTransientTaxReturn(confirmationNumber)
       .then(response => {
@@ -59,11 +63,11 @@ const ConfirmationForm = ({ match = {} }) => {
             <span>Your Baltimore County Transient Occupancy Tax Return</span>
           </h1>
           <h2>Transient Tax Return Submitted</h2>
-          <h3>Confirmation Number: {confirmationNumber}</h3>
+          <h3>Confirmation Number: {confirmationNumberToDisplay}</h3>
           <p>
             You have successfully completed the Baltimore County Transient
             Occupancy Tax Return. Your confirmation number for this return is{" "}
-            <strong>{confirmationNumber}</strong>.
+            <strong>{confirmationNumberToDisplay}</strong>.
           </p>
           <p>
             Please present this number to the appropriate Budget and Finance
