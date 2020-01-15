@@ -25,7 +25,8 @@ const ConfirmationForm = ({ match = {} }) => {
   const {
     returnTypeDescription,
     dateSubmitted: formDateSubmitted,
-    dueDate
+    dueDate,
+    businessName
   } = taxReturn;
   const taxReturnValues = GetReturnSummaryValues(taxReturn);
   const { dateSubmitted = formDateSubmitted } = taxReturn;
@@ -70,6 +71,7 @@ const ConfirmationForm = ({ match = {} }) => {
             Occupancy Tax Return.
           </p>
           <ReturnSummary
+            businessName={businessName}
             header={"Transient Occupancy Tax Return Details:"}
             values={taxReturnValues}
             dateSubmitted={formattedDateSubmitted}
