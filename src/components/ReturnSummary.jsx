@@ -11,7 +11,8 @@ const ReturnSummary = props => {
     dueDate,
     returnType,
     dateSubmitted,
-    paymentInterval
+    paymentInterval,
+    businessName
   } = props;
   const [filingType, setFilingType] = useState(returnType);
 
@@ -29,6 +30,11 @@ const ReturnSummary = props => {
   return (
     <div>
       <h3>{header}</h3>
+      {businessName && (
+        <p>
+          <strong>Business Name</strong>: {businessName}
+        </p>
+      )}
       {filingType && (
         <p>
           <strong>Your Payment Plan</strong>: {filingType}
