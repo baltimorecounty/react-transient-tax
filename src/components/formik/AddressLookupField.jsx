@@ -51,12 +51,10 @@ const CustomInputComponent = ({
     }
   };
 
-  const handleAddressSelect = (value, item, test) => {
+  const handleAddressSelect = (value, item) => {
     setFieldValue("businessAddress", value);
     setFieldValue("address", item);
     setWasSelected(true);
-
-    console.log(value, item, test);
   };
 
   /**
