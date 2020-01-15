@@ -33,11 +33,11 @@ const BasicInformationForm = props => {
       initialValues={initialValues}
       onSubmit={async values => {
         setIsValidAddressMessage("");
-        const { businessAddress, businessAddressParts } = values;
-        const shouldGeocode = Object.keys(businessAddressParts).length === 0;
+        const { businessAddress, address } = values;
+        const shouldGeocode = Object.keys(address).length === 0;
         const addressId = shouldGeocode
           ? await ValidateAddress(businessAddress)
-          : businessAddressParts.id;
+          : address.AddressId;
 
         if (addressId) {
           onValidSubmission(values);

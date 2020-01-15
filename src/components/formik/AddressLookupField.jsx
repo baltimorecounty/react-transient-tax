@@ -47,14 +47,16 @@ const CustomInputComponent = ({
       setWasSelected(false);
     } else {
       setFieldValue("businessAddress", value);
-      setFieldValue("businessAddressParts", {});
+      setFieldValue("address", {});
     }
   };
 
-  const handleAddressSelect = (value, item) => {
+  const handleAddressSelect = (value, item, test) => {
     setFieldValue("businessAddress", value);
-    setFieldValue("businessAddressParts", item);
+    setFieldValue("address", item);
     setWasSelected(true);
+
+    console.log(value, item, test);
   };
 
   /**
@@ -74,15 +76,17 @@ const CustomInputComponent = ({
   const toggleErrorClasses = classes =>
     touched[name] && errors[name] ? "tt_form-field tt_has-errors" : classes;
 
-  const items = Address.map((item, index) => ({
-    id: item.AddressId,
-    label: `${UpperCaseFirstLetter(item.StreetAddress)} ${UpperCaseFirstLetter(
-      item.City
-    )} ${item.Zip}`,
-    street: item.StreetAddress,
-    city: item.City,
-    zip: item.Zip
-  }));
+  const items = Address.map(
+    ({ label, StreetAddress, City, Zip, ...rest }, index) => ({
+      label: `${UpperCaseFirstLetter(StreetAddress)} ${UpperCaseFirstLetter(
+        City
+      )} ${Zip}`,
+      street: StreetAddress,
+      city: City,
+      zip: Zip,
+      ...rest
+    })
+  );
 
   return (
     <div className="tt_form-field">

@@ -59,7 +59,9 @@ const GetAddresses = location =>
   axios
 
     .get(`${getValue("apiRoot")}/gis/addressLookup/${location}`)
-    .then(({ status, data }) => (status === 200 ? data : []));
+    .then(({ status, data }) =>
+      status === 200 ? console.log(data) || data : []
+    );
 
 /**
  * Verifies if address is in GIS database

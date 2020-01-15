@@ -138,7 +138,7 @@ const steps = [
     initialValues: {
       businessName: "",
       businessAddress: "",
-      businessAddressParts: {}
+      address: {}
     }
   }),
   new Step({
