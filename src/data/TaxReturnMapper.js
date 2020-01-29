@@ -128,6 +128,7 @@ const GetReturnSummaryValues = taxReturnValues => {
  * @param {number} num
  */
 const toNegativeValue = num => Math.abs(num) * -1;
+const sumReducer = (accumulator, currentValue) => accumulator + currentValue;
 
 /**
  * Maps Transient Tax Form Data to the confirmation page
@@ -145,7 +146,6 @@ const MapResponseDataForTaxReturn = taxReturn => {
     isLate,
     monthsLate
   } = getDateInformation(taxReturn);
-
   /** Get Formatted Date Submitted */
   formattedResponse.DateSubmitted = dateSubmitted;
 
@@ -175,6 +175,17 @@ const MapResponseDataForTaxReturn = taxReturn => {
   const penaltiesCollected = taxCollected.map(tax =>
     isLate ? CalculatePenalty(tax) : 0
   );
+
+  const shouldAddTotal = monthlyData.length === 3;
+
+  if (shouldAddTotal) {
+    occupancyTaxCollected.push(occupancyTaxCollected.reduce(sumReducer, 0));
+    exemptions.push(exemptions.reduce(sumReducer, 0));
+    taxCollected.push(taxCollected.reduce(sumReducer, 0));
+    netRoomRentals.push(netRoomRentals.reduce(sumReducer, 0));
+    interestCollected.push(interestCollected.reduce(sumReducer, 0));
+    penaltiesCollected.push(penaltiesCollected.reduce(sumReducer, 0));
+  }
 
   const taxRemitted = SumTotals([
     taxCollected,

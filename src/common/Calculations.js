@@ -90,8 +90,6 @@ const GetCalculatedTotals = ({
   };
 };
 
-const sumReducer = (accumulator, currentValue) => accumulator + currentValue;
-
 /**
  * Get totals for a month for any number of fields available in the monthly data object
  * @param {array} monthlyData list of objects that contain monthly data
@@ -105,12 +103,6 @@ const GetTotalsForMonth = (monthlyData = [], keys = []) => {
     });
     return sum;
   });
-  const shouldAddTotal = monthlyData.length === 3;
-
-  if (shouldAddTotal) {
-    monthlyTotals.push(monthlyTotals.reduce(sumReducer));
-  }
-
   return monthlyTotals;
 };
 
