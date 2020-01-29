@@ -1,5 +1,7 @@
 import { RatesAndFees } from "./Constants";
 
+const roundCurrency = value => Math.round(value * 100) / 100;
+
 /**
  * Calculate the interest based on tax collected and the number of months late.
  * @param {number} taxCollected dollar amount to base the interest off
@@ -10,7 +12,7 @@ const CalculateInterest = (
   taxCollected,
   numberOfMonthsLate,
   interestRate = RatesAndFees.InterestRate
-) => taxCollected * numberOfMonthsLate * interestRate;
+) => roundCurrency(taxCollected * numberOfMonthsLate * interestRate);
 
 /**
  * Calculate the penalty fee based on tax collected.
@@ -20,7 +22,7 @@ const CalculateInterest = (
 const CalculatePenalty = (
   taxCollected,
   penaltyRate = RatesAndFees.PenaltyRate
-) => taxCollected * penaltyRate;
+) => roundCurrency(taxCollected * penaltyRate);
 
 /**
  * Calculate tax collected based on net Room Rental Collections and the current Transient Tax Rate
@@ -29,7 +31,7 @@ const CalculatePenalty = (
 const CalculateTaxCollected = (
   netRoomRentalCollections,
   taxRate = RatesAndFees.TransientTaxRate
-) => netRoomRentalCollections * taxRate;
+) => roundCurrency(netRoomRentalCollections * taxRate);
 
 /**
  * Get a list of calculations based on given Transient Tax Data
@@ -126,9 +128,7 @@ const SumTotals = (totals = []) => {
   );
   const result = Array.from({ length: maxNumberOfItems });
   return result.map((_, i) =>
-    totals
-      .map(xs => xs[i] || 0)
-      .reduce((sum, x) => sum + Math.round(x * 100) / 100, 0)
+    totals.map(xs => xs[i] || 0).reduce((sum, x) => sum + roundCurrency(x), 0)
   );
 };
 
