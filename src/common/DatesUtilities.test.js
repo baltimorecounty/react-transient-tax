@@ -2,7 +2,8 @@ import {
   GetDueDateStatus,
   GetFormattedDueDate,
   GetMaxExemptionEndDate,
-  GetMinExemptionStartDate
+  GetMinExemptionStartDate,
+  isDateInRange
 } from "./DatesUtilities";
 
 describe("Get Formatted Due Date", () => {
@@ -157,5 +158,17 @@ describe("Get Max Date", () => {
     expect(actual.toLocaleDateString()).toEqual(
       new Date(2019, 11, 31).toLocaleDateString()
     ); // December 31, 2019
+  });
+});
+
+describe("isDateInRange", () => {
+  test("should return true if the difference in days for the to and from date is greater than 90 days", () => {
+    const actual = isDateInRange(new Date(2020, 0, 1), new Date(2020, 5, 1)); // Jan 1 to June 1
+    expect(actual).toEqual(true);
+  });
+
+  test("should return false if the difference in days for the to and from date is less than 90 days", () => {
+    const actual = isDateInRange(new Date(2020, 0, 1), new Date(2020, 1, 1)); // Jan 1 to Feb 1
+    expect(actual).toEqual(false);
   });
 });
