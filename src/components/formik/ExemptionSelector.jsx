@@ -22,7 +22,9 @@ const ExemptionSelector = props => {
     GetExemptionFormErrors(exemptionFromProps)
   );
   const [exemption, setExemption] = useState(exemptionFromProps);
-
+  const nonTransientExemptionType = exemptionTypes.find(
+    x => x.Description === "Non-Transient"
+  );
   useEffect(() => {
     if (exemptionTypes.length === 0) {
       GetExemptionTypes()
@@ -64,7 +66,9 @@ const ExemptionSelector = props => {
   };
 
   const checkNonTransientDateCondition = (type, fromDate, toDate) =>
-    type === 1 && fromDate && toDate ? IsDateInRange(fromDate, toDate) : false;
+    type === nonTransientExemptionType.Id && fromDate && toDate
+      ? IsDateInRange(fromDate, toDate)
+      : false;
 
   const handleExemptionTypeChange = ({ type, label }) => {
     let { fromDate, toDate } = exemption;
