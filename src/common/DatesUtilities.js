@@ -104,22 +104,8 @@ const GetMaxExemptionEndDate = (monthlyData = []) => {
   const { month, year } = monthlyData.filter(hasExemption).pop();
   return endOfMonth(new Date(year, month - 1, 1));
 };
-const isDateInRange = (fromDate, toDate) => {
-  var one_day = 1000 * 60 * 60 * 24;
-
-  // Convert both dates to milliseconds
-  var date1_ms = fromDate.getTime();
-  var date2_ms = toDate.getTime();
-
-  // Calculate the difference in milliseconds
-  var difference_ms = date2_ms - date1_ms;
-
-  // Convert back to days and return
-  let totalDays = Math.round(difference_ms / one_day);
-
-  let isDaysValid = totalDays >= 90 ? true : false;
-  return isDaysValid;
-};
+const IsDateInRange = (fromDate, toDate) =>
+  differenceInDays(toDate, fromDate) >= 90 ? true : false;
 
 export {
   DefaultDateFormat,
@@ -129,5 +115,5 @@ export {
   GetFormatedDateTime,
   GetMinExemptionStartDate,
   GetMaxExemptionEndDate,
-  isDateInRange
+  IsDateInRange
 };
