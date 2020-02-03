@@ -7,7 +7,7 @@ import { FormHints } from "../../common/Constants";
 import { GetExemptionFormErrors } from "../../common/ExemptionUtilities";
 import { GetExemptionTypes } from "../../services/ApiService";
 import { RadioButton } from "../../common/RadioButton";
-import { IsDateInRange } from "../../common/DatesUtilities";
+import { IsDateRangeAtLeast90Days } from "../../common/DatesUtilities";
 
 const ExemptionSelector = props => {
   const {
@@ -67,7 +67,7 @@ const ExemptionSelector = props => {
 
   const checkNonTransientDateCondition = (type, fromDate, toDate) =>
     type === nonTransientExemptionType.Id && fromDate && toDate
-      ? IsDateInRange(fromDate, toDate)
+      ? IsDateRangeAtLeast90Days(fromDate, toDate)
       : false;
 
   const handleExemptionTypeChange = ({ type, label }) => {
