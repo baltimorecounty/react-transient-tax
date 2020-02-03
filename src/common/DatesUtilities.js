@@ -105,7 +105,7 @@ const GetMaxExemptionEndDate = (monthlyData = []) => {
   return endOfMonth(new Date(year, month - 1, 1));
 };
 const IsDateInRange = (fromDate, toDate) =>
-  differenceInDays(toDate, fromDate) >= 90 ? true : false;
+  differenceInDays(toDate, fromDate) >= 90;
 
 export {
   DefaultDateFormat,
