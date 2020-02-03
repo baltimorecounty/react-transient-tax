@@ -9,7 +9,7 @@ const ExemptionListItem = props => {
     handleRemoveClick,
     isSelectorFormDirty
   } = props;
-  const { id, type, label, fromDate, toDate } = exemption;
+  const { id, type, label, fromDate, toDate, isDaysValid } = exemption;
 
   const editItem = () => {
     handleEditClick({
@@ -17,7 +17,8 @@ const ExemptionListItem = props => {
       type,
       label,
       fromDate,
-      toDate
+      toDate,
+      isDaysValid
     });
   };
 
