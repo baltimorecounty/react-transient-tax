@@ -4,7 +4,7 @@
  */
 const GetExemptionFormErrors = exemption => {
   const activeFormErrors = [];
-  const { fromDate, toDate, type } = exemption;
+  const { fromDate, toDate, type, isDateRangeAtLeast90days } = exemption;
 
   if (!type) {
     activeFormErrors.push({
@@ -19,6 +19,13 @@ const GetExemptionFormErrors = exemption => {
 
   if (!toDate) {
     activeFormErrors.push({ key: "toDate", error: "To Date Required" });
+  }
+
+  if (type === 1 && fromDate && toDate && !isDateRangeAtLeast90days) {
+    activeFormErrors.push({
+      key: "isDateRangeAtLeast90days",
+      error: "Data range must be at least 90 consecutive days"
+    });
   }
 
   return activeFormErrors;

@@ -104,6 +104,8 @@ const GetMaxExemptionEndDate = (monthlyData = []) => {
   const { month, year } = monthlyData.filter(hasExemption).pop();
   return endOfMonth(new Date(year, month - 1, 1));
 };
+const IsDateRangeAtLeast90Days = (fromDate, toDate) =>
+  differenceInDays(toDate, fromDate) >= 90;
 
 export {
   DefaultDateFormat,
@@ -112,5 +114,6 @@ export {
   GetDueDateStatus,
   GetFormatedDateTime,
   GetMinExemptionStartDate,
-  GetMaxExemptionEndDate
+  GetMaxExemptionEndDate,
+  IsDateRangeAtLeast90Days
 };

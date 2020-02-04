@@ -6,7 +6,7 @@ const DateTypes = {
 };
 
 const FormHints = {
-  NonTransient: "Sleeping accommodations from 90 consecutive days"
+  NonTransient: "Sleeping accommodations for 90 consecutive days"
 };
 
 const PaymentDirections = {
