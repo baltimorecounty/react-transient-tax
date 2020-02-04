@@ -71,9 +71,9 @@ const ExemptionSelector = props => {
       : false;
 
   const handleExemptionTypeChange = ({ type, label }) => {
-    let { fromDate, toDate } = exemption;
+    const { fromDate, toDate } = exemption;
     setIsFormDirty(true);
-    let isDateRangeAtLeast90days = checkNonTransientDateCondition(
+    const isDateRangeAtLeast90days = checkNonTransientDateCondition(
       type,
       fromDate,
       toDate
@@ -85,17 +85,10 @@ const ExemptionSelector = props => {
   };
 
   const handleExemptionDateChange = ({ fromDate, toDate }) => {
-    let isDateRangeAtLeast90days = true;
-    let type = Object.values(exemption).length > 0 ? exemption.type : undefined;
+    const type = Object.values(exemption).length > 0 ? exemption.type : null;
     setIsFormDirty(true);
-
-    if (type !== undefined) {
-      isDateRangeAtLeast90days = checkNonTransientDateCondition(
-        type,
-        fromDate,
-        toDate
-      );
-    }
+    const isDateRangeAtLeast90days =
+      !type || checkNonTransientDateCondition(type, fromDate, toDate);
     setExemption({
       ...exemption,
       ...{ fromDate, toDate, isDateRangeAtLeast90days }
