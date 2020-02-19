@@ -6,7 +6,10 @@ import {
   endOfMonth,
   format,
   startOfDay,
-  startOfMonth
+  startOfMonth,
+  getYear,
+  getMonth,
+  getDate
 } from "date-fns";
 
 const DefaultDateFormat = "MMMM d, yyyy";
@@ -105,7 +108,7 @@ const GetMaxExemptionEndDate = (monthlyData = []) => {
   return endOfMonth(new Date(year, month - 1, 1));
 };
 const IsDateRangeAtLeast90Days = (fromDate, toDate) =>
-  differenceInDays(toDate, fromDate) >= 90;
+  differenceInDays(new Date(getYear(toDate),getMonth(toDate) + 1,getDate(toDate)), new Date(getYear(fromDate),getMonth(fromDate) + 1,getDate(fromDate))) >= 90;
 
 export {
   DefaultDateFormat,
