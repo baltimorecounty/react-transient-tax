@@ -104,8 +104,12 @@ const GetMaxExemptionEndDate = (monthlyData = []) => {
   const { month, year } = monthlyData.filter(hasExemption).pop();
   return endOfMonth(new Date(year, month - 1, 1));
 };
-const IsDateRangeAtLeast90Days = (fromDate, toDate) =>
-  differenceInDays(toDate, fromDate) >= 90;
+ /**
+   * differenceInDays does not account for full days. Exmaple: jan 1 2019 to jan 31 2019 returns 30 days
+   */
+const IsDateRangeAtLeast90Days = (fromDate, toDate) => {
+  return differenceInDays(toDate, fromDate) + 1 >= 90;
+};
 
 export {
   DefaultDateFormat,
