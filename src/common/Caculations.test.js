@@ -50,7 +50,8 @@ describe("Get Calculated Totals", () => {
       monthsLate: 0,
       taxRate: 0.095,
       interestRate: 0.01,
-      penaltyRate: 0.1
+      penaltyRate: 0.1,
+      addingOneTimePenalty: true
     });
 
     expect(totalExemptions).toEqual(0);
@@ -82,16 +83,17 @@ describe("Get Calculated Totals", () => {
       monthsLate: 8,
       taxRate: 0.095,
       interestRate: 0.01,
-      penaltyRate: 0.1
+      penaltyRate: 0.1,
+      addingOneTimePenalty: true
     });
 
     expect(totalExemptions).toEqual(0);
     expect(netRoomRentalCollections).toEqual(100);
     expect(transientTaxCollected).toEqual(9.5);
-    expect(transientInterest).toEqual(0.76);
-    expect(transientPenalty).toBeCloseTo(0.95, 5);
-    expect(totalInterestAndPenalties).toEqual(1.71);
-    expect(monthlyTaxRemitted).toEqual(11.21);
+    expect(transientInterest).toEqual(8);
+    expect(transientPenalty).toBeCloseTo(10, 5);
+    expect(totalInterestAndPenalties).toEqual(18);
+    expect(monthlyTaxRemitted).toEqual(27.5);
   });
 
   test("should get the proper totals for a return with with exemptions and paid before past due.", () => {
@@ -114,7 +116,8 @@ describe("Get Calculated Totals", () => {
       monthsLate: 0,
       taxRate: 0.095,
       interestRate: 0.01,
-      penaltyRate: 0.1
+      penaltyRate: 0.1,
+      addingOneTimePenalty: true
     });
 
     expect(totalExemptions).toEqual(-20);
@@ -146,16 +149,17 @@ describe("Get Calculated Totals", () => {
       monthsLate: 8,
       taxRate: 0.095,
       interestRate: 0.01,
-      penaltyRate: 0.1
+      penaltyRate: 0.1,
+      addingOneTimePenalty: true
     });
 
     expect(totalExemptions).toEqual(-20);
     expect(netRoomRentalCollections).toEqual(100);
     expect(transientTaxCollected).toEqual(9.5);
-    expect(transientInterest).toEqual(0.76);
-    expect(transientPenalty).toBeCloseTo(0.95, 5);
-    expect(totalInterestAndPenalties).toEqual(1.71);
-    expect(monthlyTaxRemitted).toEqual(11.21);
+    expect(transientInterest).toEqual(9.6);
+    expect(transientPenalty).toBeCloseTo(12, 5);
+    expect(totalInterestAndPenalties).toEqual(21.6);
+    expect(monthlyTaxRemitted).toEqual(31.1);
   });
 });
 
