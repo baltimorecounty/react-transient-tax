@@ -47,7 +47,8 @@ const GetCalculatedTotals = ({
   monthsLate = 0,
   taxRate = RatesAndFees.TransientTaxRate,
   interestRate = RatesAndFees.InterestRate,
-  penaltyRate = RatesAndFees.PenaltyRate
+  penaltyRate = RatesAndFees.PenaltyRate,
+  addingOneTimePenalty
 }) => {
   const {
     grossRentalCollected,
@@ -63,19 +64,16 @@ const GetCalculatedTotals = ({
     taxRate
   );
 
-  let transientInterest = 0;
-  let transientPenalty = 0;
-  let totalInterestAndPenalties = 0;
-
-  if (monthsLate) {
-    transientInterest = CalculateInterest(
-      transientTaxCollected,
-      monthsLate,
-      interestRate
-    );
-    transientPenalty = CalculatePenalty(transientTaxCollected, penaltyRate);
-    totalInterestAndPenalties = transientInterest + transientPenalty;
-  }
+  let transientInterest = monthsLate
+    ? CalculateInterest(grossRentalCollected, monthsLate, interestRate)
+    : 0;
+  let transientPenalty =
+    addingOneTimePenalty && monthsLate >= 2
+      ? CalculatePenalty(grossRentalCollected, penaltyRate)
+      : 0;
+  let totalInterestAndPenalties = monthsLate
+    ? transientInterest + transientPenalty
+    : 0;
 
   const monthlyTaxRemitted = transientTaxCollected + totalInterestAndPenalties;
 

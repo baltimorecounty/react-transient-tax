@@ -1,3 +1,4 @@
+import { RatesAndFees } from "../common/Constants";
 import {
   CalculateInterest,
   CalculatePenalty,
@@ -146,6 +147,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
     isLate,
     monthsLate
   } = getDateInformation(taxReturn);
+  const { penaltyRate } = RatesAndFees.PenaltyRate;
   /** Get Formatted Date Submitted */
   formattedResponse.DateSubmitted = dateSubmitted;
 
@@ -168,12 +170,13 @@ const MapResponseDataForTaxReturn = taxReturn => {
     CalculateTaxCollected(netRoomRental)
   );
 
-  const interestCollected = taxCollected.map(tax =>
-    isLate ? CalculateInterest(tax, monthsLate) : 0
+  const interestCollected = netRoomRentals.map(netRoomRental =>
+    isLate ? CalculateInterest(netRoomRental, monthsLate) : 0
   );
-
-  const penaltiesCollected = taxCollected.map(tax =>
-    isLate ? CalculatePenalty(tax) : 0
+  const penaltiesCollected = netRoomRentals.map((netRoomRental, index) =>
+    isLate && monthsLate >= 2 && index === 0
+      ? CalculatePenalty(netRoomRental, penaltyRate)
+      : 0
   );
 
   const shouldAddTotal = monthlyData.length === 3;

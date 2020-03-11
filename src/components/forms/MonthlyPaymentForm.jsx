@@ -32,7 +32,11 @@ const MonthlyPaymentForm = props => {
     data => data.year === year && data.month === month
   );
   const initialValues = { ...initialValuesFromProps, ...existingValues };
-
+  const { monthlyData } = formik.values;
+  const isMonthly = Object.keys(monthlyData).length === 1;
+  const addingOneTimePenalty = !isMonthly
+    ? !monthlyData[0].grossRentalCollected
+    : true;
   return (
     <Formik
       initialValues={initialValues}
@@ -78,7 +82,8 @@ const MonthlyPaymentForm = props => {
             nonTransientRentalCollected,
             governmentExemptRentalCollected
           },
-          monthsLate: isLate ? monthsLate : 0
+          monthsLate: isLate ? monthsLate : 0,
+          addingOneTimePenalty
         });
 
         return (
