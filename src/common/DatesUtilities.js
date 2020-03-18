@@ -52,8 +52,7 @@ const GetDueDateStatus = (filingForDate, dateOfFilingDate) => {
   const dueDate = startOfDay(GetDueDate(filingForDate));
   const startDateOfFilingDate = startOfDay(dateOfFilingDate);
   const dateDifference = differenceInDays(dueDate, startDateOfFilingDate);
-
-  if (dateDifference > 0) {
+  if (dateDifference >= 0) {
     return {
       dueDate,
       isLate: false,
@@ -104,9 +103,9 @@ const GetMaxExemptionEndDate = (monthlyData = []) => {
   const { month, year } = monthlyData.filter(hasExemption).pop();
   return endOfMonth(new Date(year, month - 1, 1));
 };
- /**
-   * differenceInDays does not account for full days. Exmaple: jan 1 2019 to jan 31 2019 returns 30 days
-   */
+/**
+ * differenceInDays does not account for full days. Exmaple: jan 1 2019 to jan 31 2019 returns 30 days
+ */
 const IsDateRangeAtLeast90Days = (fromDate, toDate) => {
   return differenceInDays(toDate, fromDate) + 1 >= 90;
 };
