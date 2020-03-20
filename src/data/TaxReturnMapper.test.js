@@ -1,5 +1,4 @@
 import { MapTaxReturnToServerModel } from "./TaxReturnMapper";
-
 const monthFormData = {
   accountNumber: "123ABC",
   address: "test",
