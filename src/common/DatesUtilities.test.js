@@ -88,22 +88,39 @@ describe("Get Due Date Status", () => {
     );
   });
 
-  test("should days remaining status, when the date of filing is before than the due date by 1 day", () => {
+  test("should days remaining status, when the date of filing is equal to the due date", () => {
     const actual = GetDueDateStatus(
-      new Date("July 1, 2019"),
-      new Date("August 30, 2019")
+      new Date("Dec 1, 2019"),
+      new Date("Jan 31, 2020")
     );
     expect(actual).toEqual(
       expect.objectContaining({
         isLate: false,
-        value: 1,
+        value: 0,
         dateType: "day",
         label: "Days remaining until due",
-        message: "1 day"
+        message: "0 days"
       })
     );
   });
 });
+test("should days remaining status, when the date of filing is before than the due date by 1 day", () => {
+  const actual = GetDueDateStatus(
+    new Date("July 1, 2019"),
+    new Date("August 30, 2019")
+  );
+  expect(actual).toEqual(
+    expect.objectContaining({
+      isLate: false,
+      value: 1,
+      dateType: "day",
+      label: "Days remaining until due",
+      message: "1 day"
+    })
+  );
+});
+
+
 
 describe("Get Min Date", () => {
   test("should return the first month with an exemption", () => {
