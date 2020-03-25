@@ -167,7 +167,6 @@ const MapResponseDataForTaxReturn = taxReturn => {
   const taxCollected = netRoomRentals.map(netRoomRental =>
     CalculateTaxCollected(netRoomRental)
   );
-
   const interestCollected = taxCollected.map(tax =>
     isLate ? CalculateInterest(tax, monthsLate) : 0
   );

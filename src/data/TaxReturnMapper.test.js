@@ -1,4 +1,7 @@
-import { MapTaxReturnToServerModel } from "./TaxReturnMapper";
+import {
+  MapTaxReturnToServerModel,
+  MapResponseDataForTaxReturn
+} from "./TaxReturnMapper";
 const monthFormData = {
   accountNumber: "123ABC",
   address: "test",
@@ -17,6 +20,27 @@ const monthFormData = {
   isReturnLate: true,
   monthsLate: 8,
   monthsToReport: { 0: new Date(2019, 0, 1) },
+  nameOfSubmitter: "test",
+  paymentInterval: "2",
+  titleOfSubmitter: "test"
+};
+const monthFormDataPassDue = {
+  accountNumber: "123ABC",
+  address: "test",
+  businessName: "test",
+  email: "test@aol.com",
+  monthlyData: [
+    {
+      month: 1,
+      year: 2020,
+      grossRentalCollected: 1000,
+      governmentExemptRentalCollected: 0,
+      nonTransientRentalCollected: 0
+    }
+  ],
+  exemptions: [],
+  isReturnLate: true,
+  monthsLate: 1,
   nameOfSubmitter: "test",
   paymentInterval: "2",
   titleOfSubmitter: "test"
@@ -71,7 +95,15 @@ const exemption = {
   type: 2
 };
 
-describe("MapTaxReturnToServerModel", () => {
+describe("MapResponseDataForTaxReturn", () => {
+  test("should get the proper penaltiesCollected for a return with out exemptions and paid after one month past due.", () => {
+    const { taxCollected, penaltiesCollected } = MapResponseDataForTaxReturn(
+      monthFormDataPassDue
+    );
+    expect(taxCollected[0]).toEqual(95);
+    expect(penaltiesCollected[0]).toEqual(0);
+  });
+
   test("should map form data for a month to the server model without exemptions", () => {
     const actual = MapTaxReturnToServerModel(monthFormData);
     expect(actual).toEqual(
