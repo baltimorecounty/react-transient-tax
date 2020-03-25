@@ -173,7 +173,7 @@ const MapResponseDataForTaxReturn = taxReturn => {
   );
 
   const penaltiesCollected = taxCollected.map(tax =>
-    isLate ? CalculatePenalty(tax) : 0
+    isLate && monthsLate >= 2 ? CalculatePenalty(tax) : 0
   );
 
   const shouldAddTotal = monthlyData.length === 3;

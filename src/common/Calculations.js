@@ -73,7 +73,10 @@ const GetCalculatedTotals = ({
       monthsLate,
       interestRate
     );
-    transientPenalty = CalculatePenalty(transientTaxCollected, penaltyRate);
+    transientPenalty =
+      monthsLate >= 2
+        ? CalculatePenalty(transientTaxCollected, penaltyRate)
+        : 0;
     totalInterestAndPenalties = transientInterest + transientPenalty;
   }
 
