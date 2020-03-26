@@ -167,13 +167,12 @@ const MapResponseDataForTaxReturn = taxReturn => {
   const taxCollected = netRoomRentals.map(netRoomRental =>
     CalculateTaxCollected(netRoomRental)
   );
-
   const interestCollected = taxCollected.map(tax =>
     isLate ? CalculateInterest(tax, monthsLate) : 0
   );
 
   const penaltiesCollected = taxCollected.map(tax =>
-    isLate ? CalculatePenalty(tax) : 0
+    isLate && monthsLate >= 2 ? CalculatePenalty(tax) : 0
   );
 
   const shouldAddTotal = monthlyData.length === 3;

@@ -1,4 +1,7 @@
-import { MapTaxReturnToServerModel } from "./TaxReturnMapper";
+import {
+  MapTaxReturnToServerModel,
+  MapResponseDataForTaxReturn
+} from "./TaxReturnMapper";
 const monthFormData = {
   accountNumber: "123ABC",
   address: "test",
@@ -21,6 +24,49 @@ const monthFormData = {
   paymentInterval: "2",
   titleOfSubmitter: "test"
 };
+const monthFormDataPassDue = {
+  accountNumber: "123ABC",
+  address: "test",
+  businessName: "test",
+  email: "test@aol.com",
+  monthlyData: [
+    {
+      month: 1,
+      year: 2020,
+      grossRentalCollected: 1000,
+      governmentExemptRentalCollected: 0,
+      nonTransientRentalCollected: 0
+    }
+  ],
+  exemptions: [],
+  isReturnLate: true,
+  monthsLate: 1,
+  nameOfSubmitter: "test",
+  paymentInterval: "2",
+  titleOfSubmitter: "test"
+};
+const monthFormDataPassDueMoreThanOneMonth = {
+  accountNumber: "123ABC",
+  address: "test",
+  businessName: "test",
+  email: "test@aol.com",
+  monthlyData: [
+    {
+      month: 6,
+      year: 2019,
+      grossRentalCollected: 1000,
+      governmentExemptRentalCollected: 0,
+      nonTransientRentalCollected: 0
+    }
+  ],
+  exemptions: [],
+  isReturnLate: true,
+  monthsLate: 8,
+  nameOfSubmitter: "test",
+  paymentInterval: "2",
+  titleOfSubmitter: "test"
+};
+
 
 const quarterlyFormData = {
   accountNumber: "123ABC",
@@ -71,7 +117,32 @@ const exemption = {
   type: 2
 };
 
-describe("MapTaxReturnToServerModel", () => {
+describe("MapResponseDataForTaxReturn", () => {
+  test("should get the proper penaltiesCollected for a return with out exemptions and paid after one month past due.", () => {
+    const { taxCollected, penaltiesCollected } = MapResponseDataForTaxReturn(
+      monthFormDataPassDue
+    );
+    taxCollected.map(item => (
+    expect(item).toEqual(95)
+    ));
+    penaltiesCollected.map(item => (
+      expect(item).toEqual(0)
+      ));
+  });
+
+  describe("MapResponseDataForTaxReturn", () => {
+    test("should get the proper penaltiesCollected for a return with out exemptions and paid after more than one month past due.", () => {
+      const { taxCollected, penaltiesCollected } = MapResponseDataForTaxReturn(
+        monthFormDataPassDueMoreThanOneMonth
+      );
+      taxCollected.map(item => (
+      expect(item).toEqual(95)
+      ));
+      penaltiesCollected.map(item => (
+        expect(item).toEqual(9.5)
+        ));
+    });
+
   test("should map form data for a month to the server model without exemptions", () => {
     const actual = MapTaxReturnToServerModel(monthFormData);
     expect(actual).toEqual(
@@ -175,4 +246,5 @@ describe("MapTaxReturnToServerModel", () => {
       })
     );
   });
+});
 });

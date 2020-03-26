@@ -61,7 +61,40 @@ describe("Get Calculated Totals", () => {
     expect(totalInterestAndPenalties).toEqual(0);
     expect(monthlyTaxRemitted).toEqual(9.5);
   });
+  
+describe("Get Calculated Totals", () => {
+  test("should get the proper totals for a return with no exemptions with past due.", () => {
+    const fields = {
+      grossRentalCollected: 100,
+      nonTransientRentalCollected: 0,
+      governmentExemptRentalCollected: 0
+    };
 
+    const {
+      totalExemptions,
+      netRoomRentalCollections,
+      transientTaxCollected,
+      transientInterest,
+      transientPenalty,
+      totalInterestAndPenalties,
+      monthlyTaxRemitted
+    } = GetCalculatedTotals({
+      fields,
+      monthsLate: 1,
+      taxRate: 0.095,
+      interestRate: 0.01,
+      penaltyRate: 0.1
+    });
+
+    expect(totalExemptions).toEqual(0);
+    expect(netRoomRentalCollections).toEqual(100);
+    expect(transientTaxCollected).toEqual(9.5);
+    expect(transientInterest).toEqual(0.1);
+    expect(transientPenalty).toEqual(0);
+    expect(totalInterestAndPenalties).toEqual(0.1);
+    expect(monthlyTaxRemitted).toEqual(9.6);
+  });
+});
   test("should get the proper totals for a return with no exemptions and paid late.", () => {
     const fields = {
       grossRentalCollected: 100,
