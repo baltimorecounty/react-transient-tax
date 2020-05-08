@@ -16,7 +16,7 @@ const ExemptionCertificateForm = props => {
   } = props;
   const { monthlyData = [] } = formik.values;
   const { exemptions = [] } = initialValues;
-
+   console.log(monthlyData);
   return (
     <Formik
       initialValues={initialValues}
