@@ -36,6 +36,11 @@ const CalculateTaxCollected = (
 const ParseAmountToFloat = amount => {
   return parseFloat(amount.toString().replace(/,/g, ""));
 };
+const FormatNumber = n => {
+  // format number 1000000 to 1,234,567
+  console.log("n value:" + n);
+  return n.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 /**
  * Get a list of calculations based on given Transient Tax Data
@@ -62,15 +67,14 @@ const GetCalculatedTotals = ({
   // console.log(
   //   "grossRentalCollected--parsed:" + ParseAmountToFloat(grossRentalCollected)
   // );
-   console.log("nonTransientRentalCollected:" + nonTransientRentalCollected);
+  console.log("nonTransientRentalCollected:" + nonTransientRentalCollected);
   // console.log(
   //   "nonTransientRentalCollected--parsed:" +
   //     ParseAmountToFloat(nonTransientRentalCollected)
   // );
   const totalExemptions =
     nonTransientRentalCollected + governmentExemptRentalCollected;
-  const netRoomRentalCollections =
-    totalExemptions + grossRentalCollected;
+  const netRoomRentalCollections = totalExemptions + grossRentalCollected;
   const transientTaxCollected = CalculateTaxCollected(
     netRoomRentalCollections,
     taxRate
@@ -146,5 +150,6 @@ export {
   CalculateTaxCollected,
   GetCalculatedTotals,
   GetTotalsForMonth,
-  SumTotals
+  SumTotals,
+  FormatNumber
 };
