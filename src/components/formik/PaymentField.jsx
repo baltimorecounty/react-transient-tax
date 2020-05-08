@@ -65,7 +65,11 @@ const CustomInputComponent = ({
       setFieldValue(name, fieldValue);
     } else {
       value = formatNumber(value);
+      console.log("name--Value:" + name + "--" + value);
       setValue(value);
+      const { value1, valueAsNumber1 } = formattedNumber.target;
+      const currencyValue1 = valueAsNumber1 || parseFloat(value1);
+      console.log("currencyValue1:" + currencyValue1);
       setFieldValue(name, !value ? 0 : isNegativeValue ? -value : value);
     }
     // console.log("!value:" + !value);

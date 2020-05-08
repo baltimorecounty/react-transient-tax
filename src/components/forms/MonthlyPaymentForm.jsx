@@ -68,6 +68,7 @@ const MonthlyPaymentForm = props => {
       })} 
     >
       {props => {
+        console.log("prop --nonTransientRentalCollected:" + props.values.nonTransientRentalCollected);
         const { values } = props;
         const {
           grossRentalCollected,
