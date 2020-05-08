@@ -68,10 +68,9 @@ const GetCalculatedTotals = ({
   //     ParseAmountToFloat(nonTransientRentalCollected)
   // );
   const totalExemptions =
-    ParseAmountToFloat(nonTransientRentalCollected) +
-    ParseAmountToFloat(governmentExemptRentalCollected);
+    nonTransientRentalCollected + governmentExemptRentalCollected;
   const netRoomRentalCollections =
-    totalExemptions + ParseAmountToFloat(grossRentalCollected);
+    totalExemptions + grossRentalCollected;
   const transientTaxCollected = CalculateTaxCollected(
     netRoomRentalCollections,
     taxRate

@@ -12,21 +12,26 @@ const CustomInputComponent = ({
   form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
   ...props
 }) => {
+  const ParseAmountToFloat = amount => {
+    return parseFloat(amount.toString().replace(/,/g, ""));
+  };
+
+ 
   const { className, isNegativeValue, label, autoFocus } = props;
   const month = props.date.getMonth();
   const { setFieldValue } = form;
-  const [value, setValue] = useState(formValue); // useState(Math.abs(formValue));
+  const [value, setValue] = useState(Math.abs(formValue));
+  const [lengthValue, setLengthValue] = useState(Math.abs(formValue).length);
   const cssClasses = classnames(
     "tt_form-group flex-end total input",
     className
   );
-
   function formatNumber(n) {
     // format number 1000000 to 1,234,567
     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-
   const handleChange = formattedNumber => {
+    console.log("in handleChange");
     /** IE 11 valueAsNumber does not work, so we have to use the string "value" from the target */
     // const { value, valueAsNumber } = formattedNumber.target;
 
@@ -64,13 +69,17 @@ const CustomInputComponent = ({
       setValue(value);
       setFieldValue(name, fieldValue);
     } else {
-      value = formatNumber(value);
+     // value = formatNumber(value);
       console.log("name--Value:" + name + "--" + value);
       setValue(value);
-      const { value1, valueAsNumber1 } = formattedNumber.target;
-      const currencyValue1 = valueAsNumber1 || parseFloat(value1);
-      console.log("currencyValue1:" + currencyValue1);
-      setFieldValue(name, !value ? 0 : isNegativeValue ? -value : value);
+     // const { value1, valueAsNumber1 } = formattedNumber.target;
+      //const currencyValue1 = valueAsNumber1 || parseFloat(value1);
+      //console.log("currencyValue1:" + currencyValue1);
+      let parseAmount = ParseAmountToFloat(value);
+      setFieldValue(
+        name,
+        !value ? 0 : isNegativeValue ? -parseAmount : parseAmount
+      );
     }
     // console.log("!value:" + !value);
 
@@ -96,7 +105,9 @@ const CustomInputComponent = ({
   // } else {
   //   console.log("number is  less than  .08");
   // }
-
+  console.log("value:" + value);
+  console.log(value);
+  console.log("lengthValue" + lengthValue);
   return (
     <div className={cssClasses}>
       <PaymentLabel label={label} />
@@ -107,7 +118,7 @@ const CustomInputComponent = ({
             id={`${name}-${month}`}
             name={name}
             onChange={handleChange}
-            value={value || ""}
+            value={value.length > 0 ? formatNumber(value) :"" } //|| ""}
             autoFocus={autoFocus}
           />
           <ErrorMessage name={name} />

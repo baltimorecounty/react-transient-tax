@@ -56,7 +56,7 @@ const MonthlyPaymentForm = props => {
           .test(`test-name`, `Specify an amount for gross occupancy.`, function(
             value
           ) {
-            console.log("in test");
+            console.log("in test:" + value);
             return (value !== undefined
               ? Number(value.toString().replace(/,/g, ""))
               : 0) >= 0.01
@@ -68,6 +68,7 @@ const MonthlyPaymentForm = props => {
       })} 
     >
       {props => {
+        console.log("prop --grossRentalCollected:" + props.values.grossRentalCollected);
         console.log("prop --nonTransientRentalCollected:" + props.values.nonTransientRentalCollected);
         const { values } = props;
         const {
