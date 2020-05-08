@@ -6,7 +6,7 @@ import ErrorMessage from "./ErrorMessage";
 import PaymentLabel from "../PaymentLabel";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-
+import { FormatCurrency } from "../../common/FormatUtilities";
 const CustomInputComponent = ({
   field: { name, value: formValue }, // { name, value, onChange, onBlur }
   form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
@@ -15,23 +15,82 @@ const CustomInputComponent = ({
   const { className, isNegativeValue, label, autoFocus } = props;
   const month = props.date.getMonth();
   const { setFieldValue } = form;
-  const [value, setValue] = useState(Math.abs(formValue));
+  const [value, setValue] = useState(formValue); // useState(Math.abs(formValue));
   const cssClasses = classnames(
     "tt_form-group flex-end total input",
     className
   );
 
+  function formatNumber(n) {
+    // format number 1000000 to 1,234,567
+    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   const handleChange = formattedNumber => {
     /** IE 11 valueAsNumber does not work, so we have to use the string "value" from the target */
-    const { value, valueAsNumber } = formattedNumber.target;
-    const currencyValue = valueAsNumber || parseFloat(value);
+    // const { value, valueAsNumber } = formattedNumber.target;
 
-    setValue(!currencyValue ? undefined : Math.abs(currencyValue));
-    setFieldValue(
-      name,
-      !currencyValue ? 0 : isNegativeValue ? -currencyValue : currencyValue
-    );
+    var value = formattedNumber.target.value.trim();
+    var orgValue = formattedNumber.target.value.trim();
+    // const currencyValue = valueAsNumber || parseFloat(value);
+    //const currencyValue = FormatCurrency(currencyValue1);
+    console.log("orgValue:" + orgValue);
+    if (value === "" || value === "0") {
+      setValue("");
+      setFieldValue(name, "0");
+      return;
+    }
+    //original length
+    // console.log("original_length:" + value.length);
+
+    if (value.indexOf(".") >= 0) {
+      var decimal_pos = value.indexOf(".");
+      var left_side = value.substring(0, decimal_pos);
+      var right_side = value.substring(decimal_pos);
+      var fieldValue;
+      if (left_side.length > 0) {
+        value =
+          formatNumber(left_side) +
+          "." +
+          formatNumber(right_side).substring(0, 2);
+        fieldValue = !value ? 0 : isNegativeValue ? -value : value;
+      } else {
+        var rightSideLength = right_side.length;
+        var changeValue = "." + formatNumber(right_side).substring(0, 2);
+        fieldValue = rightSideLength === 1 ? 0 : changeValue;
+        value = rightSideLength === 1 ? value : changeValue;
+      }
+      setValue(value);
+      setFieldValue(name, fieldValue);
+    } else {
+      value = formatNumber(value);
+      setValue(value);
+      setFieldValue(name, !value ? 0 : isNegativeValue ? -orgValue : orgValue);
+    }
+    // console.log("!value:" + !value);
+
+    //  console.log('!currencyValue:' + !currencyValue);
+    //  console.log('Math.abs(currencyValue):' + currencyValue)
+
+    // setValue(!currencyValue ? undefined : Math.abs(currencyValue));
+    // setValue(!currencyValue ? undefined : currencyValue);
+    // setFieldValue(
+    //   name,
+    //   !currencyValue ? 0 : isNegativeValue ? -currencyValue : currencyValue
+    // );
   };
+  // console.log("value:" + value);
+
+  // var number =
+  //   value.toString().length > 0
+  //     ? Number(value.toString().replace(/,/g, ""))
+  //     : 0;
+  // var constnumber = 0.08;
+  // if (number >= constnumber) {
+  //   console.log("number is greater than .08");
+  // } else {
+  //   console.log("number is  less than  .08");
+  // }
 
   return (
     <div className={cssClasses}>
@@ -43,6 +102,7 @@ const CustomInputComponent = ({
             id={`${name}-${month}`}
             name={name}
             onChange={handleChange}
+            //   onBlur={handleBlur}
             value={value || ""}
             autoFocus={autoFocus}
           />

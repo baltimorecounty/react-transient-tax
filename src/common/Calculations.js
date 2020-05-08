@@ -54,10 +54,12 @@ const GetCalculatedTotals = ({
     nonTransientRentalCollected,
     governmentExemptRentalCollected
   } = fields;
-
+  //console.log( "grossRentalCollected:" + grossRentalCollected);
+  //console.log( "grossRentalCollected:" + grossRentalCollected.toString().replace(/,/g, ""));
   const totalExemptions =
     nonTransientRentalCollected + governmentExemptRentalCollected;
-  const netRoomRentalCollections = totalExemptions + grossRentalCollected;
+  const netRoomRentalCollections =
+    totalExemptions + parseFloat(grossRentalCollected.toString().replace(/,/g, ""));
   const transientTaxCollected = CalculateTaxCollected(
     netRoomRentalCollections,
     taxRate
@@ -102,7 +104,7 @@ const GetTotalsForMonth = (monthlyData = [], keys = []) => {
   const monthlyTotals = monthlyData.map(data => {
     let sum = 0;
     keys.forEach(key => {
-      sum += data[key] || 0;
+      sum += parseFloat(data[key].toString().replace(/,/g, "")) || 0;
     });
     return sum;
   });
