@@ -33,6 +33,10 @@ const CalculateTaxCollected = (
   taxRate = RatesAndFees.TransientTaxRate
 ) => roundCurrency(netRoomRentalCollections * taxRate);
 
+const ParseAmountToFloat =(amount)=>{
+  return  parseFloat(amount.toString().replace(/,/g, ""));
+}
+
 /**
  * Get a list of calculations based on given Transient Tax Data
  * @param {object} fields the required input fields to calculate totals for transient tax. Fields are grouped by their form name.
@@ -57,9 +61,9 @@ const GetCalculatedTotals = ({
   //console.log( "grossRentalCollected:" + grossRentalCollected);
   //console.log( "grossRentalCollected:" + grossRentalCollected.toString().replace(/,/g, ""));
   const totalExemptions =
-    nonTransientRentalCollected + governmentExemptRentalCollected;
+  ParseAmountToFloat(nonTransientRentalCollected) + ParseAmountToFloat(governmentExemptRentalCollected);
   const netRoomRentalCollections =
-    totalExemptions + parseFloat(grossRentalCollected.toString().replace(/,/g, ""));
+    totalExemptions + ParseAmountToFloat(grossRentalCollected);
   const transientTaxCollected = CalculateTaxCollected(
     netRoomRentalCollections,
     taxRate

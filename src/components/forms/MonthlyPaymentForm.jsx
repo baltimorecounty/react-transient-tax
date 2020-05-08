@@ -37,6 +37,7 @@ const MonthlyPaymentForm = props => {
     <Formik
       initialValues={initialValues}
       onSubmit={values => {
+      //  console.log("onSubmit");
         const { monthlyData: existingMonthlyData = [] } = formik.values;
         const monthlyData = AddOrUpdate(
           existingMonthlyData,
@@ -50,7 +51,7 @@ const MonthlyPaymentForm = props => {
 
         onValidSubmission({ monthlyData });
       }}
-      validationSchema={Yup.object({
+     validationSchema={Yup.object({
         grossRentalCollected: Yup.string()
           .test(`test-name`, `Specify an amount for gross occupancy.`, function(
             value
@@ -62,9 +63,9 @@ const MonthlyPaymentForm = props => {
               ? true
               : false;
           })
-          // .min(0.01, "Specify an amount for gross occupancy.")
+      
           .required("Required")
-      })}
+      })} 
     >
       {props => {
         const { values } = props;
@@ -90,7 +91,7 @@ const MonthlyPaymentForm = props => {
           },
           monthsLate: isLate ? monthsLate : 0
         });
-        console.log("MonthlyPaymentForm");
+    //    console.log("MonthlyPaymentForm");
         return (
           <Form>
             <PromptIfDirty />

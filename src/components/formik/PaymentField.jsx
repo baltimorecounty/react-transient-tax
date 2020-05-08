@@ -34,6 +34,7 @@ const CustomInputComponent = ({
     var orgValue = formattedNumber.target.value.trim();
     // const currencyValue = valueAsNumber || parseFloat(value);
     //const currencyValue = FormatCurrency(currencyValue1);
+
     console.log("orgValue:" + orgValue);
     if (value === "" || value === "0") {
       setValue("");
@@ -65,7 +66,7 @@ const CustomInputComponent = ({
     } else {
       value = formatNumber(value);
       setValue(value);
-      setFieldValue(name, !value ? 0 : isNegativeValue ? -orgValue : orgValue);
+      setFieldValue(name, !value ? 0 : isNegativeValue ? -value : value);
     }
     // console.log("!value:" + !value);
 
@@ -102,7 +103,6 @@ const CustomInputComponent = ({
             id={`${name}-${month}`}
             name={name}
             onChange={handleChange}
-            //   onBlur={handleBlur}
             value={value || ""}
             autoFocus={autoFocus}
           />
