@@ -57,9 +57,7 @@ const MonthlyPaymentForm = props => {
           ) {
             return (value !== undefined
               ? Number(value.toString().replace(/,/g, ""))
-              : 0) >= 0.01
-              ? true
-              : false;
+              : 0) >= 0.01;
           })
           .required("Required")
       })}
