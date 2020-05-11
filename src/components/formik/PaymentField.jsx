@@ -9,7 +9,7 @@ import classnames from "classnames";
 import {
   PreserveDecimalFormatNumber,
   FormattedAmount
-} from "../../common/Calculations";
+} from "../../common/FormatUtilities";
 const CustomInputComponent = ({
   field: { name, value: formValue }, // { name, value, onChange, onBlur }
   form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
