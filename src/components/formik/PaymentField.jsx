@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import {
   PreserveDecimalFormatNumber,
-  formattedAmount
+  FormattedAmount
 } from "../../common/Calculations";
 const CustomInputComponent = ({
   field: { name, value: formValue }, // { name, value, onChange, onBlur }
@@ -32,7 +32,7 @@ const CustomInputComponent = ({
     /** IE 11 valueAsNumber does not work, so we have to use the string "value" from the target */
     let value = formattedNumber.target.value.trim();
     let fieldValue;
-    [value, fieldValue] = formattedAmount(value, isNegativeValue);
+    [value, fieldValue] = FormattedAmount(value, isNegativeValue);
     setValue(value);
     setFieldValue(name, fieldValue);
   };

@@ -49,7 +49,7 @@ const PreserveDecimalFormatNumber = n => {
     ? n
     : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
-const formattedAmount = (value, isNegativeValue) => {
+const FormattedAmount = (value, isNegativeValue) => {
   let fieldValue = 0;
   if (value === "") {
     return [0, fieldValue];
@@ -192,5 +192,5 @@ export {
   GetTotalsForMonth,
   SumTotals,
   PreserveDecimalFormatNumber,
-  formattedAmount
+  FormattedAmount
 };
