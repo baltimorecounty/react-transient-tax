@@ -343,7 +343,8 @@ label.tt_has-errors {
     text-align: right;
     width: 180px;
 
-    input {
+    input,
+    input:focus {
       width: 155px; /*manually tested in browser, entering 100000000.00 as a max value */
     }
   }
