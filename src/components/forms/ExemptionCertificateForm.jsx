@@ -16,12 +16,11 @@ const ExemptionCertificateForm = props => {
   } = props;
   const { monthlyData = [] } = formik.values;
   const { exemptions = [] } = initialValues;
-   console.log(monthlyData);
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={values => {
-          onValidSubmission(values);
+        onValidSubmission(values);
       }}
       validationSchema={Yup.object({
         exemptions: Yup.array().when(
