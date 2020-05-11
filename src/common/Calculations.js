@@ -51,7 +51,7 @@ const PreserveDecimalFormatNumber = n => {
 };
 const FormattedAmount = (value, isNegativeValue) => {
   let fieldValue = 0;
-  if (value === "") {
+  if (value.trim() === "") {
     return [0, fieldValue];
   }
 
