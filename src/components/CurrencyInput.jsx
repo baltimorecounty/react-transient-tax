@@ -12,7 +12,7 @@ const CurrencyInput = props => {
        // name="currency-field"
         //id="currency-field"
       
-        data-type="currency"
+      //  data-type="currency"
         //placeholder="$1,000,000.00"
         {...rest}
       /> 
