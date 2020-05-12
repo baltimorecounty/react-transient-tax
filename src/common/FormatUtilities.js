@@ -27,20 +27,20 @@ const ParseAmountToFloat = amount => {
 };
 /**
  * Format string to currency format(1000000 to 1,234,567)
- * @param {string} n
+ * @param {string} value
  */
-const FormatNumber = n => {
-  return n
+const FormatNumber = value => {
+  return value
     .replace(/^0+/, "")
     .replace(/\D/g, "")
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 /**
  * preserve currency string format
- * @param {number} n
+ * @param {number} value
  */
-const PreserveDecimalFormatNumber = n => {
-  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const PreserveDecimalFormatNumber = value => {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 /**
