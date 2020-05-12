@@ -6,7 +6,10 @@ import ErrorMessage from "./ErrorMessage";
 import PaymentLabel from "../PaymentLabel";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-
+import {
+  PreserveDecimalFormatNumber,
+  FormattedAmount
+} from "../../common/FormatUtilities";
 const CustomInputComponent = ({
   field: { name, value: formValue }, // { name, value, onChange, onBlur }
   form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
@@ -15,7 +18,11 @@ const CustomInputComponent = ({
   const { className, isNegativeValue, label, autoFocus } = props;
   const month = props.date.getMonth();
   const { setFieldValue } = form;
-  const [value, setValue] = useState(Math.abs(formValue));
+  const [value, setValue] = useState(
+    formValue !== 0
+      ? PreserveDecimalFormatNumber(Math.abs(formValue))
+      : Math.abs(formValue)
+  );
   const cssClasses = classnames(
     "tt_form-group flex-end total input",
     className
@@ -23,14 +30,10 @@ const CustomInputComponent = ({
 
   const handleChange = formattedNumber => {
     /** IE 11 valueAsNumber does not work, so we have to use the string "value" from the target */
-    const { value, valueAsNumber } = formattedNumber.target;
-    const currencyValue = valueAsNumber || parseFloat(value);
 
-    setValue(!currencyValue ? undefined : Math.abs(currencyValue));
-    setFieldValue(
-      name,
-      !currencyValue ? 0 : isNegativeValue ? -currencyValue : currencyValue
-    );
+  const  [value, fieldValue] = FormattedAmount(formattedNumber.target.value, isNegativeValue);
+    setValue(value);
+    setFieldValue(name, fieldValue);
   };
 
   return (

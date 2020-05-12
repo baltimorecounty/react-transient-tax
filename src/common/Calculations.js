@@ -102,7 +102,7 @@ const GetTotalsForMonth = (monthlyData = [], keys = []) => {
   const monthlyTotals = monthlyData.map(data => {
     let sum = 0;
     keys.forEach(key => {
-      sum += data[key] || 0;
+      sum += parseFloat(data[key].toString().replace(/,/g, "")) || 0;
     });
     return sum;
   });

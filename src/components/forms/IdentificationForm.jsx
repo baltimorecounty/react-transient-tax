@@ -19,7 +19,6 @@ const IdentificationForm = props => {
   } = props;
   const { monthlyData } = formik.values;
   const showTradeAlias = HasAtLeast1Exemption(monthlyData);
-
   return (
     <Formik
       initialValues={initialValues}

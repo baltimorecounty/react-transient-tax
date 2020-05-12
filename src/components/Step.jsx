@@ -25,7 +25,6 @@ const Step = props => {
   } = props;
 
   const hasFormData = Object.keys(formik.values).length > 0;
-
   if (!hasFormData && stepNumber > 1) {
     return <Redirect to="/steps/1" />;
   }

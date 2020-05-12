@@ -126,7 +126,7 @@ describe("MapResponseDataForTaxReturn", () => {
     expect(item).toEqual(95)
     ));
     penaltiesCollected.map(item => (
-      expect(item).toEqual(0)
+      expect(item).toEqual(9.5)
       ));
   });
 

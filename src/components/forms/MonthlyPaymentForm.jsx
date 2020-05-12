@@ -51,8 +51,14 @@ const MonthlyPaymentForm = props => {
         onValidSubmission({ monthlyData });
       }}
       validationSchema={Yup.object({
-        grossRentalCollected: Yup.number()
-          .min(0.01, "Specify an amount for gross occupancy.")
+        grossRentalCollected: Yup.string()
+          .test(`test-name`, `Specify an amount for gross occupancy.`, function(
+            value
+          ) {
+            return (value !== undefined
+              ? Number(value.toString().replace(/,/g, ""))
+              : 0) >= 0.01;
+          })
           .required("Required")
       })}
     >
@@ -80,7 +86,6 @@ const MonthlyPaymentForm = props => {
           },
           monthsLate: isLate ? monthsLate : 0
         });
-
         return (
           <Form>
             <PromptIfDirty />
