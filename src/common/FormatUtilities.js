@@ -19,42 +19,43 @@ const FormatCurrency = dollarAmount => currencyFormatter.format(dollarAmount);
 const FormatPercentage = percentageAsDecimal => `${percentageAsDecimal * 100}%`;
 
 /**
- * Parse string to float
+ * Parse number to float
  * @param {string} amount
  */
 const ParseAmountToFloat = amount => {
-  return parseFloat(amount.toString().replace(/,/g, ""));
+  return parseFloat(amount.replace(/,/g, ""));
 };
 /**
- * Format enter amount to currency string
+ * Format string to currency format(1000000 to 1,234,567)
  * @param {string} n
  */
 const FormatNumber = n => {
-  // format number 1000000 to 1,234,567
   return n
-    .toString()
     .replace(/^0+/, "")
     .replace(/\D/g, "")
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 /**
- * preserve currency string with deciaml when previous button is clicked
- * @param {string} n
+ * preserve currency string format
+ * @param {number} n
  */
 const PreserveDecimalFormatNumber = n => {
-  return n.toString().indexOf(",") >= 0
-    ? n
-    : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 /**
- * Format value to curreny text format 
+ * Format value to curreny text format
  * @param {string} value
  * @param {boolean} isNegativeValue
  */
 const FormattedAmount = (value, isNegativeValue) => {
   let fieldValue = 0;
-  if (value.trim() === "") {
+  if (
+    !value
+      .trim()
+      .charAt(0)
+      .match(/^[1-9]\d*|\.$/)
+  ) {
     return [0, fieldValue];
   }
 
@@ -82,10 +83,8 @@ const FormattedAmount = (value, isNegativeValue) => {
           ? -ParseAmountToFloat(rightFormatedValue)
           : ParseAmountToFloat(rightFormatedValue);
     }
-
-    fieldValue = ParseAmountToFloat(fieldValue);
   } else {
-    value = value === 0 ? 0 : FormatNumber(value);
+    value = FormatNumber(value);
     fieldValue = isNegativeValue
       ? -ParseAmountToFloat(value)
       : ParseAmountToFloat(value);
@@ -97,5 +96,7 @@ export {
   FormatCurrency,
   FormatPercentage,
   PreserveDecimalFormatNumber,
-  FormattedAmount
+  FormattedAmount,
+  ParseAmountToFloat,
+  FormatNumber
 };
