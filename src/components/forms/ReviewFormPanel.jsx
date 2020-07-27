@@ -36,7 +36,7 @@ const ReviewFormPanel = props => {
 
   const mappedValues = MapResponseDataForTaxReturn(values);
   const taxReturnValues = GetReturnSummaryValues(mappedValues);
-
+console.log(values);
   return (
     <form onSubmit={handleSubmit}>
       <ReturnSummary

@@ -224,6 +224,7 @@ const MapExemptionsToServerModel = (exemptions = []) =>
  * @param {object} taxReturn transient tax form data
  */
 const MapTaxReturnToServerModel = taxReturn => {
+  console.log(taxReturn);
   const { exemptions, paymentInterval = 0 } = taxReturn;
   const mappedExemptions = MapExemptionsToServerModel(exemptions);
   return {
