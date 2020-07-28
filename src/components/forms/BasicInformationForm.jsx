@@ -32,7 +32,6 @@ const BasicInformationForm = props => {
     <Formik
       initialValues={initialValues}
       onSubmit={async values => {
-     
         setIsValidAddressMessage("");
         const { businessAddress, address } = values;
         const shouldGeocode = Object.keys(address).length === 0;
@@ -58,22 +57,20 @@ const BasicInformationForm = props => {
         <Form>
           <PromptIfDirty />
           <div className="tt_form-section">
-          <Field
-                  id="tradeAlias"
-                  name="tradeAlias"
-                  type="text"
-                  label="Trade Alias"
-                 // value={props.values.tradeAlias}
-                  autoFocus
-                />
-                <Field
-                  id="tradeAliasAddress"
-                  name="tradeAliasAddress"
-                  type="text"
-                  label="Trade Alias Address"
-                  //value={props.values.tradeAliasAddress}
-                  autoFocus
-                />
+            <Field
+              id="tradeAlias"
+              name="tradeAlias"
+              type="text"
+              label="Trade Alias"
+              autoFocus
+            />
+            <Field
+              id="tradeAliasAddress"
+              name="tradeAliasAddress"
+              type="text"
+              label="Trade Alias Address"
+              autoFocus
+            />
             <Field
               id="businessName"
               name="businessName"
