@@ -40,7 +40,8 @@ const onPaymentFormSubmission = ({
       component: <ExemptionCertificateForm />,
       panelGroupId: 2,
       initialValues: {
-        exemptions: []
+        exemptions: [],
+     
       }
     });
 
@@ -138,7 +139,9 @@ const steps = [
     initialValues: {
       businessName: "",
       businessAddress: "",
-      address: {}
+      address: {},
+      tradeAlias: "",
+      tradeAliasAddress: ""
     }
   }),
   new Step({
@@ -165,7 +168,8 @@ const steps = [
       tradeAlias: "",
       email: "",
       nameOfSubmitter: "",
-      titleOfSubmitter: ""
+      titleOfSubmitter: "",
+      tradeAliasAddress: ""
     }
   }),
   new Step({

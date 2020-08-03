@@ -38,7 +38,6 @@ const BasicInformationForm = props => {
         const addressId = shouldGeocode
           ? await ValidateAddress(businessAddress)
           : address.AddressId;
-
         if (addressId) {
           onValidSubmission(values);
         } else {
@@ -58,6 +57,20 @@ const BasicInformationForm = props => {
         <Form>
           <PromptIfDirty />
           <div className="tt_form-section">
+            <Field
+              id="tradeAlias"
+              name="tradeAlias"
+              type="text"
+              label="Trade Alias"
+              autoFocus
+            />
+            <Field
+              id="tradeAliasAddress"
+              name="tradeAliasAddress"
+              type="text"
+              label="Trade Alias Address"
+              autoFocus
+            />
             <Field
               id="businessName"
               name="businessName"
