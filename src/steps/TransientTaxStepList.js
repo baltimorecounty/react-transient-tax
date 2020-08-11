@@ -141,7 +141,9 @@ const steps = [
       businessAddress: "",
       address: {},
       tradeAlias: "",
-      tradeAliasAddress: ""
+      tradeAliasAddress: "",
+      TransactionDate:"",
+      TransactionNumber:""
     }
   }),
   new Step({
