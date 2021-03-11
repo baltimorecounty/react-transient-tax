@@ -15,6 +15,9 @@ const ReviewFormPanel = props => {
     returnStatus: { dueDate } = {},
     paymentInterval
   } = values.monthsToReport;
+
+  /** Fix for crypto in IE11 : https://stackoverflow.com/questions/44042816/what-is-wrong-with-crypto-getrandomvalues-in-internet-explorer-11 */
+  var crypto = window.crypto || window.msCrypto;
   /** Helper to generate a unique id for confirmation number */
   const generateConfirmationNumberId = () => {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
