@@ -175,7 +175,15 @@ input[type="text"] {
 .tt_app .error-message {
   color: #c51110;
   display: block;
-  font-size: 0.75em;
+  font-size: 0.85em;
+  margin-top: 0.5em;
+  font-weight: 700;
+}
+
+.IEmessage {
+  color: yellow;
+  display: block;
+  font-size: 0.85em;
   margin-top: 0.5em;
   font-weight: 700;
 }
