@@ -68,7 +68,7 @@ const Step = props => {
     <button
       onClick={handlePrevClick}
       type="button"
-      className="previous seButton"
+      className="previous seButton dg_button"
     >
       Previous
     </button>

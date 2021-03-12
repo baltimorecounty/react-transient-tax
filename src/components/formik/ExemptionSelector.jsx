@@ -9,10 +9,10 @@ import { GetExemptionTypes } from "../../services/ApiService";
 import { RadioButton } from "../../common/RadioButton";
 import { IsDateRangeAtLeast90Days } from "../../common/DatesUtilities";
 
-const ExemptionSelector = props => {
+const ExemptionSelector = (props) => {
   const {
     exemption: exemptionFromProps = {},
-    onExemptionSave = () => {}
+    onExemptionSave = () => {},
   } = props;
   const [isLoading, setIsLoading] = useState(true);
   const [exemptionTypes, setExemptionTypes] = useState([]);
@@ -23,16 +23,16 @@ const ExemptionSelector = props => {
   );
   const [exemption, setExemption] = useState(exemptionFromProps);
   const nonTransientExemptionType = exemptionTypes.find(
-    x => x.Description === "Non-Transient"
+    (x) => x.Description === "Non-Transient"
   );
   useEffect(() => {
     if (exemptionTypes.length === 0) {
       GetExemptionTypes()
-        .then(exemptionTypes => {
+        .then((exemptionTypes) => {
           setExemptionTypes(exemptionTypes);
           setIsLoading(false);
         })
-        .catch(error => props.history.push("/error", { ...error }));
+        .catch((error) => props.history.push("/error", { ...error }));
     }
   }, [exemptionTypes, props]);
 
@@ -52,7 +52,7 @@ const ExemptionSelector = props => {
       exemptionType: true,
       toDate: true,
       fromDate: true,
-      inRange: true
+      inRange: true,
     });
 
     const errors = GetExemptionFormErrors(exemption);
@@ -80,7 +80,7 @@ const ExemptionSelector = props => {
     );
     setExemption({
       ...exemption,
-      ...{ type, label, isDateRangeAtLeast90days }
+      ...{ type, label, isDateRangeAtLeast90days },
     });
   };
 
@@ -91,13 +91,13 @@ const ExemptionSelector = props => {
       !type || checkNonTransientDateCondition(type, fromDate, toDate);
     setExemption({
       ...exemption,
-      ...{ fromDate, toDate, isDateRangeAtLeast90days }
+      ...{ fromDate, toDate, isDateRangeAtLeast90days },
     });
   };
 
   const handleFieldClick = (clickEvent, name) => {
     setExemption({
-      ...exemption
+      ...exemption,
     });
     setTouched({ ...touched, [name || clickEvent.target.name]: true });
   };
@@ -157,7 +157,7 @@ const ExemptionSelector = props => {
         formErrors.some(({ key }) => key === "isDateRangeAtLeast90days") && (
           <BasicErrorMessage message="Data range must be at least 90 consecutive days." />
         )}
-      <button onClick={saveExemption} type="button">
+      <button onClick={saveExemption} type="button" className="dg_button">
         {exemption.id ? "Update" : "Add"}
       </button>
     </div>
