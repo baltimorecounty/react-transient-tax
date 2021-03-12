@@ -60,7 +60,7 @@ const Step = props => {
   const nextButtonStyle = stepNumber === 1 ? { marginLeft: "auto" } : {};
   const nextButton =
     nextStep && !isLastStep && isForm && !isHidden ? (
-      <button type="submit" className="next seButton" style={nextButtonStyle}>
+      <button type="submit" className="next seButton dg_button" style={nextButtonStyle}>
         Next
       </button>
     ) : null;
@@ -75,7 +75,7 @@ const Step = props => {
   );
 
   const submitButton = isLastStep && (
-    <button type="submit" className="seButton">
+    <button type="submit" className="seButton dg_button">
       Submit
     </button>
   );
