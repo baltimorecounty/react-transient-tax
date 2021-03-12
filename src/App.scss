@@ -1,0 +1,385 @@
+$red: #c51110;
+$default-spacing: 15px;
+$default-border: 1px solid #e0e0e0;
+
+.tt_app {
+  margin: $default-spacing;
+}
+
+.tt_field--radio {
+  input {
+    margin-right: $default-spacing / 2;
+  }
+}
+
+.tt_date-group {
+  display: flex;
+  justify-content: space-between;
+}
+.float-right {
+  float: right !important;
+}
+.tt_form-section {
+  border-bottom: $default-border;
+  padding: $default-spacing / 2;
+  margin-bottom: $default-spacing / 2;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.tt_form-group {
+  display: flex;
+  justify-content: space-between;
+  padding: $default-spacing 0;
+  border-bottom: $default-border;
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.tt_currency-pickers,
+.tt_month-pickers {
+  display: flex;
+}
+
+.tt_currency-picker,
+.tt_month-picker {
+  margin-left: $default-spacing;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  .react-datepicker__input-container::after {
+    font-family: "Font Awesome 5 Pro";
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    content: "\f073";
+  }
+
+  label {
+    display: block;
+  }
+}
+
+input[type="text"] {
+  padding: $default-spacing / 4;
+}
+
+.tt_month-picker input {
+  width: 150px;
+}
+
+.tt_currency-picker {
+  input,
+  .tt_total {
+    display: block;
+    min-width: 150px;
+    text-align: right;
+  }
+
+  .tt_total {
+    padding-right: 7.5px;
+  }
+}
+
+.tt_label,
+.tt_subtotal label,
+.tt_subtotal span,
+.tt_subtotal input {
+  font-weight: 600;
+}
+
+.tt_subtotal-item {
+  margin-left: $default-spacing;
+  label,
+  input,
+  span {
+    font-weight: 400;
+  }
+}
+
+.tt_section-total {
+  font-size: 18px;
+  label,
+  input,
+  span {
+    font-weight: 700;
+  }
+}
+
+.tt_identification-section {
+  border-bottom: none;
+}
+
+.tt_form-field {
+  margin-bottom: 15px;
+  max-width: 400px;
+  width: 100%;
+
+  input {
+    display: block;
+    width: 100%;
+  }
+}
+
+.tt_label {
+  margin-bottom: $default-spacing / 2;
+  font-weight: 700;
+}
+
+.tt_form-field__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  button {
+    padding-right: 0 !important;
+  }
+}
+
+.tt_label-with-help {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tt_past-due-icon {
+  color: $red;
+  margin-right: $default-spacing / 2;
+}
+
+.emphasize-text {
+  font-weight: bold;
+}
+
+.flex-end {
+  align-items: flex-end;
+}
+
+.tt_error-list {
+  color: red;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* copied from baltcogo this should be generic */
+.tt_app .error .error-message,
+.tt_app .error-message {
+  color: #c51110;
+  display: block;
+  font-size: 0.75em;
+  margin-top: 0.5em;
+  font-weight: 700;
+}
+
+input.tt_has-errors {
+  box-shadow: 0 0 3px #c51110;
+}
+
+label.tt_has-errors {
+  color: #c51110;
+}
+
+.tt_button--info {
+  background: none;
+  border: none;
+
+  color: #002280;
+  font-size: 14px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.react-datepicker__navigation {
+  width: 0 !important;
+}
+
+@import "./styles/components/progress-tabs";
+@import "./styles/components/currency-input";
+
+.tt_is-editing {
+  display: inline-block;
+  margin-left: $default-spacing / 2;
+}
+.tt-exemption {
+  &.tt-color {
+    background: yellow;
+  }
+}
+.is-highlighted {
+  background: #e0e0e0;
+}
+
+.address-input-wrapper {
+  position: relative;
+}
+
+.autocomplete-input {
+  padding-left: 30px !important; /* account for the search icon to the left of the input text*/
+}
+
+.autocomplete-option {
+  opacity: 1;
+  padding: 5px 10px;
+}
+
+.autocomplete-results {
+  background: white;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  opacity: 1 !important;
+  position: fixed;
+  z-index: 99999;
+}
+
+.tt_note {
+  font-size: 14px;
+  font-style: italic;
+
+  .tt_label {
+    font-weight: 700;
+  }
+}
+
+.tt_form-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tt_exemptions {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+
+  .tt_exemption {
+    background: white;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+  }
+}
+
+.tt_date-rage-selector {
+  margin: $default-spacing 0;
+  display: flex;
+  justify-content: flex-start;
+
+  label,
+  input {
+    margin-right: $default-spacing / 3;
+  }
+
+  input {
+    width: 110px !important; /* hack to override, overriding red-inside */
+  }
+}
+
+.modal .seButton {
+  background-color: #feb30b;
+  border: 1px solid #666;
+  /* border-radius: unset; */
+  color: #000;
+  cursor: pointer;
+  /* display: table; */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: 5px 0;
+
+  &:hover {
+    background-color: #e8d664;
+  }
+}
+
+/* OVERRIDES */
+#root {
+  button {
+    width: auto;
+  }
+
+  input[type="text"],
+  input[type="text"]:focus {
+    width: 100%;
+  }
+
+  .seButton {
+    margin: 5px 0;
+  }
+
+  .editButton {
+    margin-right: 10px;
+  }
+
+  fieldset {
+    padding: 0 20px 20px 20px;
+  }
+
+  .tt_input--currency {
+    text-align: right;
+    width: 180px;
+
+    input,
+    input:focus {
+      width: 155px; /*manually tested in browser, entering 100000000.00 as a max value */
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .tt_form-controls {
+      display: block;
+      padding: 10px 0;
+
+      .seButton {
+        margin-top: 0;
+        margin-bottom: 25px;
+      }
+    }
+
+    .tt_form-group.input {
+      display: block;
+
+      label {
+        margin-bottom: $default-spacing / 2;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tt_exemption {
+    button {
+      width: 100% !important; /*Override se*/
+    }
+    .editButton {
+      margin-bottom: $default-spacing;
+    }
+  }
+
+  .tt_button--info {
+    display: block;
+    padding-left: 0;
+    margin-bottom: $default-spacing / 2;
+  }
+
+  .tt_form-field__label {
+    display: block;
+  }
+
+  .tt_total-label_note {
+    display: none;
+  }
+}
