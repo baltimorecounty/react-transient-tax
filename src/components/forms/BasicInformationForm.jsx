@@ -2,12 +2,13 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-
+import { IEMessage } from "../../common/Constants";
 import AddressLookupField from "../../components/formik/AddressLookupField";
 import BasicErrorMessage from "../BasicErrorMessage";
 import Field from "../formik/Field";
 import PromptIfDirty from "../PromptIfDirty";
 import { VerifyAddress } from "../../services/ApiService";
+
 
 const BasicInformationForm = props => {
   const { nextButton, prevButton, onValidSubmission, initialValues } = props;
@@ -27,7 +28,22 @@ const BasicInformationForm = props => {
   const handleAddressChange = () => {
     setIsValidAddressMessage("");
   };
+  const ShowIEMessage = () => {
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
 
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv:11\./)) {
+      // If Internet Explorer, return true
+       //  change it to "true" after testing because i am testing in non IE browser
+      return true;
+    } // If another browser, return false
+    else {
+       //  change it to "false" after testing because i am testing in non IE browser
+      return false;
+    }
+  };
+  const isItIEBrowser = ShowIEMessage();
+  const { IEMessageLabel } = IEMessage;
   return (
     <Formik
       initialValues={initialValues}
@@ -57,6 +73,12 @@ const BasicInformationForm = props => {
         <Form>
           <PromptIfDirty />
           <div className="tt_form-section">
+            {isItIEBrowser && (
+              <div className="dg_alert status warning">
+                <span className="dg_alert__status">Warning</span>
+                <p>{IEMessageLabel} </p>
+              </div>
+            )}
             <Field
               id="tradeAlias"
               name="tradeAlias"

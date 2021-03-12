@@ -20,7 +20,7 @@ const ModalDisplay = props => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <button type="button" className="seButton" onClick={onHide}>
+          <button type="button" className="seButton dg_button" onClick={onHide}>
             Close
           </button>
         </Modal.Footer>

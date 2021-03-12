@@ -34,7 +34,7 @@ const ExemptionListItem = props => {
   };
 
   const isDisabled = isSelectorFormDirty === id;
-  const cssClasses = "editButton";
+  const cssClasses = "editButton dg_button";
   const cssExemptionClasses = `tt_exemption ${!isDisabled ? "" : "tt-color"}`;
   return (
     <li className={cssExemptionClasses}>
@@ -51,7 +51,7 @@ const ExemptionListItem = props => {
           ) : null)}
         {handleRemoveClick &&
           (!isDisabled ? (
-            <button type="button" className="removeButton" onClick={removeItem}>
+            <button type="button" className="removeButton dg_button" onClick={removeItem}>
               Remove
             </button>
           ) : null)}
