@@ -8,10 +8,10 @@ const DateTypes = {
 const FormHints = {
   NonTransient: "Sleeping accommodations for 90 consecutive days"
 };
-// const IEMessage = {
-//   IEMessageLabel:
-//     "Internet Explorer may not work correctly for this site. Please use Chrome or Edge for the best browsing experience"
-// };
+const IEMessage = {
+  IEMessageLabel:
+    "Internet Explorer may not work correctly for this site. Please use Chrome or Edge for the best browsing experience"
+};
 
 const PaymentDirections = {
   PaymentLabel: "Do you file your return....",
@@ -90,7 +90,7 @@ const Messages = {
 
 export {
   DateTypes,
-  // IEMessage,
+   IEMessage,
   FormHints,
   Labels,
   LabelsWithNotes,
