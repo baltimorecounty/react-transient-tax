@@ -180,19 +180,6 @@ input[type="text"] {
   font-weight: 700;
 }
 
-// .IEmessage {
-//   color: yellow;
-//   display: block;
-//   font-size: 0.85em;
-//   margin-top: 0.5em;
-//   font-weight: 700;
-// }
-// .dg_alert {
-//   color: #856404;
-//   background-color: #fff3cd;
-//   border-color: #ffeeba;
-// }
-
 input.tt_has-errors {
   box-shadow: 0 0 3px #c51110;
 }
@@ -423,8 +410,6 @@ $default-border-width: 2px;
 $border-width-small: 1px;
 $site-border-width: 10px;
 
-
-
 $default-heading-font: "Montserrat", sans-serif;
 $default-body-font: "Crimson Text", serif;
 $font-awesome-free: "Font Awesome 5 Free";
@@ -467,10 +452,7 @@ $margin-large: $base-spacing-unit * 6;
 $margin-small: $base-spacing-unit * 2;
 $margin-smallest: $base-spacing-unit;
 
-
-
 .dg_alert {
- 
   padding: $padding-large $default-padding;
   text-align: center;
 
@@ -509,8 +491,6 @@ $margin-smallest: $base-spacing-unit;
     text-transform: uppercase;
   }
 
-  
-
   &.status {
     border: $border-width-small solid $black;
     outline: $border-width-large solid transparent;
@@ -520,7 +500,6 @@ $margin-smallest: $base-spacing-unit;
       color: $white;
     }
 
-    
     &.warning {
       background: $warning-color;
       border-color: $black;
@@ -533,8 +512,6 @@ $margin-smallest: $base-spacing-unit;
         color: $pale-blue;
       }
     }
-
-    
   }
 }
 
@@ -545,4 +522,3 @@ $small-breakpoint: 576px;
     padding-bottom: $padding-small;
   }
 }
-
