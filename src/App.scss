@@ -237,7 +237,7 @@ label.tt_has-errors {
   background: white;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   opacity: 1 !important;
-  position: fixed;
+  top: auto !important;
   z-index: 99999;
 }
 
