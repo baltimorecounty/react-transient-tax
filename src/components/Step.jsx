@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "formik";
 
-const Step = props => {
+const Step = (props) => {
   const {
     isHidden = false,
     isForm = true,
@@ -29,9 +29,9 @@ const Step = props => {
     return <Redirect to="/steps/1" />;
   }
 
-  const getStepId = stepNumber =>
+  const getStepId = (stepNumber) =>
     (
-      stepList.steps.find(x => x.stepNumber === stepNumber).id ||
+      stepList.steps.find((x) => x.stepNumber === stepNumber).id ||
       "basic-information"
     ).toLowerCase();
 
@@ -60,7 +60,11 @@ const Step = props => {
   const nextButtonStyle = stepNumber === 1 ? { marginLeft: "auto" } : {};
   const nextButton =
     nextStep && !isLastStep && isForm && !isHidden ? (
-      <button type="submit" className="next seButton dg_button" style={nextButtonStyle}>
+      <button
+        type="submit"
+        className="next seButton dg_button"
+        style={nextButtonStyle}
+      >
         Next
       </button>
     ) : null;
@@ -80,10 +84,10 @@ const Step = props => {
     </button>
   );
 
-  const getInitialValues = values =>
+  const getInitialValues = (values) =>
     Object.keys(values).reduce((acc, currentValue) => {
       const newKey = {
-        [currentValue]: formik.values[currentValue] || values[currentValue]
+        [currentValue]: formik.values[currentValue] || values[currentValue],
       };
 
       return { ...acc, ...newKey };
@@ -103,14 +107,14 @@ const Step = props => {
         activeStep,
         data,
         history,
-        initialValues: getInitialValues(initialValues)
-      }
-    }
+        initialValues: getInitialValues(initialValues),
+      },
+    },
   };
 
   return (
-    <fieldset {...rest}>
-      <legend>{label}</legend>
+    <fieldset {...rest} className="dg_fieldset">
+      <legend className="dg_legend">{label}</legend>
       <div className="clearfix"></div>
       {componentWithProps}
     </fieldset>

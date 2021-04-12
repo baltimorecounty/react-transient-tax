@@ -2,7 +2,7 @@ import ErrorMessage from "./ErrorMessage";
 import { Field as FormikField } from "formik";
 import React from "react";
 
-const Field = props => {
+const Field = (props) => {
   const { autoFocus, name, type, id, label, infoComponent, ...rest } = props;
 
   return (
@@ -10,14 +10,17 @@ const Field = props => {
       {({
         field, // { name, value, onChange, onBlur }
         form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-        meta
+        meta,
       }) => {
-        const cssClasses = meta.error && meta.touched ? "tt_has-errors" : "";
+        const cssClasses =
+          meta.error && meta.touched
+            ? "dg_label-text tt_has-errors"
+            : "dg_label-text";
 
         return (
-          <div className="tt_form-field" {...rest}>
+          <div className="dg_form-field" {...rest}>
             {label && (
-              <div className="tt_form-field__label">
+              <div className="dg_label">
                 <label htmlFor={id} className={cssClasses}>
                   {label}
                 </label>

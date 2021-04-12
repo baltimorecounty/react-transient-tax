@@ -9,12 +9,11 @@ import Field from "../formik/Field";
 import PromptIfDirty from "../PromptIfDirty";
 import { VerifyAddress } from "../../services/ApiService";
 
-
-const BasicInformationForm = props => {
+const BasicInformationForm = (props) => {
   const { nextButton, prevButton, onValidSubmission, initialValues } = props;
   const [isValidAddressMessage, setIsValidAddressMessage] = useState("");
 
-  const ValidateAddress = async addressValue => {
+  const ValidateAddress = async (addressValue) => {
     try {
       const response = await VerifyAddress(addressValue);
       const { Address: { AddressId = 0 } = {} } = response;
@@ -34,11 +33,11 @@ const BasicInformationForm = props => {
 
     if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv:11\./)) {
       // If Internet Explorer, return true
-       //  change it to "true" after testing because i am testing in non IE browser
+      //  change it to "true" after testing because i am testing in non IE browser
       return true;
     } // If another browser, return false
     else {
-       //  change it to "false" after testing because i am testing in non IE browser
+      //  change it to "false" after testing because i am testing in non IE browser
       return false;
     }
   };
@@ -47,7 +46,7 @@ const BasicInformationForm = props => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={async values => {
+      onSubmit={async (values) => {
         setIsValidAddressMessage("");
         const { businessAddress, address } = values;
         const shouldGeocode = Object.keys(address).length === 0;
@@ -66,19 +65,20 @@ const BasicInformationForm = props => {
         businessName: Yup.string().required("Required"),
         businessAddress: Yup.string().required(
           "A valid Baltimore County address is required"
-        )
+        ),
       })}
     >
-      {props => (
+      {(props) => (
         <Form>
           <PromptIfDirty />
-          <div className="tt_form-section">
+          <div>
             {isItIEBrowser && (
               <div className="dg_alert status warning">
                 <span className="dg_alert__status">Warning</span>
                 <p>{IEMessageLabel} </p>
               </div>
             )}
+
             <Field
               id="tradeAlias"
               name="tradeAlias"
@@ -112,6 +112,7 @@ const BasicInformationForm = props => {
             )}
             {props.isSubmitting ? <p>Validating address...</p> : null}
           </div>
+
           <div className="tt_form-controls">
             {prevButton}
             {nextButton}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ModalDisplay from "./Modal";
 
-const InformationModal = props => {
+const InformationModal = (props) => {
   const [modalShow, setModalShow] = useState(false);
   const { title, content } = props;
 
@@ -14,7 +14,7 @@ const InformationModal = props => {
 
   return (
     <React.Fragment>
-      <button type="button" className="tt_button--info dg_button" onClick={showModal}>
+      <button type="button" className="tt_button--info" onClick={showModal}>
         Why do I need to do this?
       </button>
       <ModalDisplay
