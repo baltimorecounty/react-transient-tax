@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://baltimorecounty.github.io/react-transient-tax",
   "dependencies": {
+    "@baltimorecounty/dotgov-components": "^1.0.40",
     "@baltimorecounty/javascript-utilities": "^1.0.5",
     "axios": "^0.21.1",
     "bootstrap": "^4.3.1",

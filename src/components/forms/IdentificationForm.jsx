@@ -66,6 +66,7 @@ const IdentificationForm = props => {
                 infoComponent={
                   <InformationModal
                     title="Return Submitted By"
+                    id="dialog-return"
                     content="We collect this information in order to keep record of who will be submitting the payment."
                   />
                 }
@@ -79,6 +80,7 @@ const IdentificationForm = props => {
                 infoComponent={
                   <InformationModal
                     title="Title of Submitter"
+                    id="dialog-submitter"
                     content="We collect this information to determine how the submitter is affiliated with the business."
                   />
                 }
@@ -91,6 +93,7 @@ const IdentificationForm = props => {
                 infoComponent={
                   <InformationModal
                     title="Email"
+                    id="dialog-email"
                     content="We will send a confirmation number to the email address you provide. Please bring this confirmation number with you when you submit your payment in person."
                   />
                 }
