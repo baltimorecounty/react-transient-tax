@@ -17,7 +17,7 @@ const CustomInputComponent = ({
   const [Address, setItems] = useState([]);
   const [wasSelected, setWasSelected] = useState(false);
 
-  const handleAddressChange = changeEvent => {
+  const handleAddressChange = (changeEvent) => {
     onChange(changeEvent);
     /** HACK - Ensure Address is not triggered on first re-render,
      * so we can populate initial values, without setting the from to dirty. */
@@ -31,10 +31,10 @@ const CustomInputComponent = ({
 
     if (shouldTriggerLookup) {
       GetAddresses(value)
-        .then(response => {
+        .then((response) => {
           setItems(response);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     }
@@ -66,13 +66,13 @@ const CustomInputComponent = ({
     value
       .split(separator)
       .map(
-        addressPieces =>
+        (addressPieces) =>
           addressPieces.charAt(0).toUpperCase() + addressPieces.slice(1)
       )
       .join(" ");
 
-  const toggleErrorClasses = classes =>
-    touched[name] && errors[name] ? "tt_form-field tt_has-errors" : classes;
+  const toggleErrorClasses = (classes) =>
+    touched[name] && errors[name] ? "dg_form-field tt_has-errors" : classes;
 
   const items = Address.map(
     ({ label, StreetAddress, City, Zip, ...rest }, index) => ({
@@ -82,17 +82,17 @@ const CustomInputComponent = ({
       street: StreetAddress,
       city: City,
       zip: Zip,
-      ...rest
+      ...rest,
     })
   );
 
   return (
-    <div className="tt_form-field">
-      <div className="tt_form-field__label">
+    <div className="dg_form-field">
+      <div className="dg_label">
         <label
           htmlFor={name}
           id="addressSearch"
-          className={toggleErrorClasses("")}
+          className={toggleErrorClasses("dg_label-text")}
         >
           {label}
         </label>
@@ -100,13 +100,13 @@ const CustomInputComponent = ({
       <Autocomplete
         name={name}
         label={label}
-        getItemValue={item => item.label}
+        getItemValue={(item) => item.label}
         id={name}
         items={items}
-        renderInput={props => (
+        renderInput={(props) => (
           <AddressLookupDebouncedInput
             defaultValue={value}
-            className={toggleErrorClasses("tt_form-field input")}
+            className={toggleErrorClasses("dg_form-field input")}
             wasSelected={wasSelected}
             {...props}
           />
@@ -140,7 +140,7 @@ const CustomInputComponent = ({
   );
 };
 
-const AddressLookupField = props => (
+const AddressLookupField = (props) => (
   <Field component={CustomInputComponent} {...props} />
 );
 
@@ -148,7 +148,7 @@ AddressLookupField.propTypes = {
   /** General label to describe the input(s). */
   label: PropTypes.string.isRequired,
   /** The minimum character length needed before triggering autocomplete suggestions. */
-  minLength: PropTypes.number
+  minLength: PropTypes.number,
 };
 
 export default AddressLookupField;

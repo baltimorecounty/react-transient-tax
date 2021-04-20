@@ -2,6 +2,10 @@ $red: #c51110;
 $default-spacing: 15px;
 $default-border: 1px solid #e0e0e0;
 
+#bc_page{
+  transform: none !important;
+}
+
 .tt_app {
   margin: $default-spacing;
 }
