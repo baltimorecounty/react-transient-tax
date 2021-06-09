@@ -10,12 +10,8 @@ import ReturnSummary from "../components/ReturnSummary";
 import { format } from "date-fns";
 import useHasNetworkError from "../components/hooks/useHasNetworkError";
 
-const {
-  Organization,
-  Department,
-  City,
-  Street
-} = BudgetAndFinanceOfficeAddress;
+const { Organization, Department, City, Street } =
+  BudgetAndFinanceOfficeAddress;
 const ConfirmationForm = ({ match = {} }) => {
   const { hasNetworkError } = useHasNetworkError();
   const [hasConfirmationError, setHasConfirmationError] = useState(false);
@@ -26,7 +22,7 @@ const ConfirmationForm = ({ match = {} }) => {
     returnTypeDescription,
     dateSubmitted: formDateSubmitted,
     dueDate,
-    businessName
+    businessName,
   } = taxReturn;
   const taxReturnValues = GetReturnSummaryValues(taxReturn);
   const { dateSubmitted = formDateSubmitted } = taxReturn;
@@ -40,7 +36,7 @@ const ConfirmationForm = ({ match = {} }) => {
 
   useEffect(() => {
     GetTransientTaxReturn(confirmationNumber)
-      .then(response => {
+      .then((response) => {
         setTaxReturn(response || {});
         setIsLoading(false);
       })
@@ -68,6 +64,17 @@ const ConfirmationForm = ({ match = {} }) => {
             You have successfully completed the Baltimore County Transient
             Occupancy Tax Return. Your confirmation number for this return is{" "}
             <strong>{confirmationNumberToDisplay}</strong>.
+          </p>
+          <p>
+            To make your transient tax payment, please visit the{" "}
+            <a href="https://citizenaccess.baltimorecountymd.gov/CitizenAccess/Cap/CapApplyDisclaimer.aspx?module=OnlinePayments&TabName=OnlinePayment">
+              online payment
+            </a>{" "}
+            portal and be sure to include your Confirmation Number displayed on
+            this page in the Reference Number field. Otherwise, please make your
+            check payable to Baltimore County, Maryland and mail to Office of
+            Budget and Finance, 400 Washington Avenue, Room 150, Towson, MD
+            21204-4665
           </p>
           <p>
             Please present this number to the appropriate Budget and Finance
