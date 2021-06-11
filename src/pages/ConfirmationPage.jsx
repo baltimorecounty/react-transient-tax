@@ -74,7 +74,8 @@ const ConfirmationForm = ({ match = {} }) => {
             this page in the Reference Number field. Otherwise, please make your
             check payable to Baltimore County, Maryland and mail to Office of
             Budget and Finance, 400 Washington Avenue, Room 150, Towson, MD
-            21204-4665
+            21204-4665. All checks must be postmarked by the last day of the
+            month.
           </p>
           <p>
             Please present this number to the appropriate Budget and Finance
